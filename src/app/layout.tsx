@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google';
 import Navbar from '@/components/Navbar';
+import AuthProvider from '@/components/providers/AuthProvider';
 import { siteData } from '@/data/siteData';
 import '@/styles/globals.scss';
 
@@ -37,8 +38,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${inter.variable}`}>
       <body>
-        <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
-        <main>{children}</main>
+        <AuthProvider>
+          <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
+          <main>{children}</main>
+        </AuthProvider>
       </body>
     </html>
   );
