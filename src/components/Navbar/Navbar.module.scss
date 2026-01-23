@@ -1,0 +1,285 @@
+@use '@/styles/variables' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-sticky;
+  padding: $spacing-4 0;
+  transition: all $transition-base;
+
+  &.scrolled {
+    @include glassmorphism-light;
+    padding: $spacing-3 0;
+  }
+}
+
+.container {
+  @include container;
+  @include flex-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: $text-light;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  .scrolled & {
+    color: $text-primary;
+  }
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.logoIcon {
+  width: 36px;
+  height: 36px;
+  background: $primary-600;
+  border-radius: $radius-lg;
+  @include flex-center;
+  color: $text-light;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.nav {
+  display: none;
+
+  @include respond-to(lg) {
+    display: flex;
+    align-items: center;
+    gap: $spacing-8;
+  }
+}
+
+.navLink {
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: color $transition-fast;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width $transition-fast;
+  }
+
+  &:hover,
+  &.active {
+    color: $text-light;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  .scrolled & {
+    color: $text-secondary;
+
+    &:hover,
+    &.active {
+      color: $primary-600;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.searchBtn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: $text-light;
+  cursor: pointer;
+  transition: all $transition-fast;
+  @include flex-center;
+
+  @include respond-to(md) {
+    display: flex;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .scrolled & {
+    background: $neutral-100;
+    border-color: $border-light;
+    color: $text-primary;
+
+    &:hover {
+      background: $neutral-200;
+    }
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.ctaBtn {
+  display: none;
+  padding: $spacing-2 $spacing-5;
+  background: $primary-600;
+  color: $text-light;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  border: none;
+  border-radius: $radius-full;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  @include respond-to(md) {
+    display: block;
+  }
+
+  &:hover {
+    background: $primary-700;
+    transform: translateY(-1px);
+  }
+}
+
+.mobileMenuBtn {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-lg;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: $text-light;
+  cursor: pointer;
+  @include flex-center;
+  transition: all $transition-fast;
+
+  @include respond-to(lg) {
+    display: none;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .scrolled & {
+    background: $neutral-100;
+    border-color: $border-light;
+    color: $text-primary;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// Mobile Menu
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $bg-primary;
+  z-index: $z-modal;
+  padding: $spacing-6;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform $transition-slow;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  @include respond-to(lg) {
+    display: none;
+  }
+}
+
+.mobileMenuHeader {
+  @include flex-between;
+  margin-bottom: $spacing-8;
+}
+
+.mobileMenuClose {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-lg;
+  background: $neutral-100;
+  border: none;
+  color: $text-primary;
+  cursor: pointer;
+  @include flex-center;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  flex: 1;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: $spacing-4;
+  font-size: $font-lg;
+  font-weight: $font-medium;
+  color: $text-primary;
+  text-decoration: none;
+  border-radius: $radius-lg;
+  transition: all $transition-fast;
+
+  &:hover,
+  &.active {
+    background: $bg-accent;
+    color: $primary-600;
+  }
+}
+
+.mobileCta {
+  margin-top: auto;
+  padding: $spacing-4;
+  background: $primary-600;
+  color: $text-light;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  text-align: center;
+  border: none;
+  border-radius: $radius-xl;
+  cursor: pointer;
+
+  &:hover {
+    background: $primary-700;
+  }
+}

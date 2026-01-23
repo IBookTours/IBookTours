@@ -1,0 +1,305 @@
+@use '@/styles/variables' as *;
+
+.section {
+  padding: $section-padding-y-mobile 0;
+  background: linear-gradient(180deg, $bg-secondary 0%, $bg-primary 100%);
+  position: relative;
+  overflow: hidden;
+
+  @include respond-to(lg) {
+    padding: $section-padding-y 0;
+  }
+}
+
+.container {
+  @include container;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-12;
+  align-items: center;
+
+  @include respond-to(lg) {
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-16;
+  }
+}
+
+.content {
+  order: 2;
+
+  @include respond-to(lg) {
+    order: 1;
+  }
+}
+
+.sectionLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  color: $primary-600;
+  text-transform: uppercase;
+  letter-spacing: $tracking-wider;
+  margin-bottom: $spacing-3;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: $primary-600;
+    border-radius: $radius-full;
+  }
+}
+
+.title {
+  @include section-title;
+  margin-bottom: $spacing-6;
+}
+
+.description {
+  @include section-subtitle;
+  margin-bottom: $spacing-8;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-6;
+  margin-bottom: $spacing-8;
+}
+
+.feature {
+  text-align: center;
+  padding: $spacing-4;
+  @include glassmorphism;
+  border-radius: $radius-xl;
+}
+
+.featureIcon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto $spacing-2;
+  border-radius: $radius-lg;
+  background: $bg-accent;
+  @include flex-center;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: $primary-600;
+  }
+}
+
+.featureValue {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  display: block;
+}
+
+.featureLabel {
+  font-size: $font-xs;
+  color: $text-tertiary;
+}
+
+.ctaWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-6;
+  background: $primary-600;
+  color: $text-light;
+  font-weight: $font-semibold;
+  font-size: $font-sm;
+  border-radius: $radius-full;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $primary-700;
+    transform: translateY(-2px);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-6;
+  background: transparent;
+  color: $text-primary;
+  font-weight: $font-medium;
+  font-size: $font-sm;
+  border-radius: $radius-full;
+  border: 1px solid $border-medium;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $neutral-100;
+    border-color: $neutral-400;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.visual {
+  position: relative;
+  order: 1;
+
+  @include respond-to(lg) {
+    order: 2;
+  }
+}
+
+.phoneWrapper {
+  position: relative;
+  width: 280px;
+  margin: 0 auto;
+
+  @include respond-to(md) {
+    width: 320px;
+  }
+}
+
+.phone {
+  position: relative;
+  background: $neutral-900;
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow: $shadow-xl;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 24px;
+    background: $neutral-900;
+    border-radius: 20px;
+    z-index: 2;
+  }
+}
+
+.phoneScreen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9/19;
+  border-radius: 32px;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.floatingCard {
+  position: absolute;
+  @include glassmorphism-light;
+  padding: $spacing-3 $spacing-4;
+  border-radius: $radius-xl;
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  box-shadow: $shadow-lg;
+  animation: float 3s ease-in-out infinite;
+
+  &:nth-child(1) {
+    top: 20%;
+    left: -20px;
+    animation-delay: 0s;
+
+    @include respond-to(md) {
+      left: -40px;
+    }
+  }
+
+  &:nth-child(2) {
+    bottom: 30%;
+    right: -20px;
+    animation-delay: 1.5s;
+
+    @include respond-to(md) {
+      right: -40px;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
+
+.cardIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-lg;
+  background: $bg-accent;
+  @include flex-center;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: $primary-600;
+  }
+}
+
+.cardContent {
+  .value {
+    font-size: $font-sm;
+    font-weight: $font-bold;
+    color: $text-primary;
+    display: block;
+  }
+
+  .label {
+    font-size: $font-xs;
+    color: $text-tertiary;
+  }
+}
+
+// Background decoration
+.bgDecoration {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, $primary-100 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+
+  &:nth-child(1) {
+    top: -100px;
+    right: -100px;
+  }
+
+  &:nth-child(2) {
+    bottom: -100px;
+    left: -100px;
+  }
+}

@@ -1,0 +1,256 @@
+@use '@/styles/variables' as *;
+
+.footer {
+  background: $bg-secondary;
+  padding-top: $section-padding-y-mobile;
+
+  @include respond-to(lg) {
+    padding-top: $section-padding-y;
+  }
+}
+
+.container {
+  @include container;
+}
+
+// FAQ Section
+.faqSection {
+  margin-bottom: $spacing-16;
+}
+
+.faqHeader {
+  text-align: center;
+  margin-bottom: $spacing-10;
+}
+
+.faqTitle {
+  font-size: $font-3xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  margin-bottom: $spacing-2;
+
+  @include respond-to(lg) {
+    font-size: $font-4xl;
+  }
+}
+
+.faqSubtitle {
+  font-size: $font-base;
+  color: $text-tertiary;
+}
+
+.faqs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-4;
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include respond-to(md) {
+    gap: $spacing-6;
+  }
+}
+
+.faqItem {
+  @include glassmorphism-light;
+  border-radius: $radius-xl;
+  overflow: hidden;
+}
+
+.faqQuestion {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-5;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: $text-tertiary;
+    flex-shrink: 0;
+    transition: transform $transition-fast;
+  }
+
+  &.open svg {
+    transform: rotate(180deg);
+  }
+}
+
+.faqAnswer {
+  padding: 0 $spacing-5 $spacing-5;
+  font-size: $font-sm;
+  color: $text-secondary;
+  line-height: $leading-relaxed;
+  display: none;
+
+  &.open {
+    display: block;
+  }
+}
+
+// Main Footer Content
+.main {
+  padding: $spacing-12 0;
+  border-top: 1px solid $border-light;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-10;
+
+  @include respond-to(md) {
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: $spacing-8;
+  }
+}
+
+.brand {
+  max-width: 300px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  text-decoration: none;
+  margin-bottom: $spacing-4;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  background: $primary-600;
+  border-radius: $radius-lg;
+  @include flex-center;
+  color: $text-light;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.tagline {
+  font-size: $font-sm;
+  color: $text-secondary;
+  line-height: $leading-relaxed;
+  margin-bottom: $spacing-6;
+}
+
+.social {
+  display: flex;
+  gap: $spacing-3;
+}
+
+.socialLink {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-lg;
+  background: $bg-primary;
+  border: 1px solid $border-light;
+  @include flex-center;
+  color: $text-secondary;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $primary-600;
+    border-color: $primary-600;
+    color: $text-light;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.linkSection {
+  h4 {
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-4;
+    text-transform: uppercase;
+    letter-spacing: $tracking-wide;
+  }
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.link {
+  font-size: $font-sm;
+  color: $text-secondary;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-600;
+  }
+}
+
+// Bottom Bar
+.bottom {
+  padding: $spacing-6 0;
+  border-top: 1px solid $border-light;
+}
+
+.bottomContent {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  align-items: center;
+  text-align: center;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.copyright {
+  font-size: $font-sm;
+  color: $text-tertiary;
+}
+
+.legalLinks {
+  display: flex;
+  gap: $spacing-6;
+}
+
+.legalLink {
+  font-size: $font-sm;
+  color: $text-tertiary;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-600;
+  }
+}

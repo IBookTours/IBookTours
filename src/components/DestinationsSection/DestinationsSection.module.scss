@@ -1,0 +1,145 @@
+@use '@/styles/variables' as *;
+
+.section {
+  padding: $section-padding-y-mobile 0;
+  background: $bg-primary;
+  position: relative;
+  overflow: hidden;
+
+  @include respond-to(lg) {
+    padding: $section-padding-y 0;
+  }
+}
+
+.container {
+  @include container;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  margin-bottom: $spacing-12;
+
+  @include respond-to(lg) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.titleWrapper {
+  max-width: 500px;
+}
+
+.sectionLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  color: $primary-600;
+  text-transform: uppercase;
+  letter-spacing: $tracking-wider;
+  margin-bottom: $spacing-3;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: $primary-600;
+    border-radius: $radius-full;
+  }
+}
+
+.title {
+  @include section-title;
+  margin-bottom: $spacing-4;
+}
+
+.subtitle {
+  @include section-subtitle;
+}
+
+.nav {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.navBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-full;
+  background: $bg-primary;
+  border: 1px solid $border-light;
+  color: $text-secondary;
+  cursor: pointer;
+  @include flex-center;
+  transition: all $transition-fast;
+
+  &:hover:not(:disabled) {
+    background: $primary-600;
+    border-color: $primary-600;
+    color: $text-light;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(xl) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+.featuredCard {
+  @include respond-to(xl) {
+    grid-row: span 2;
+  }
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.decorativeLine {
+  position: absolute;
+  right: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 400px;
+  pointer-events: none;
+  opacity: 0.3;
+
+  @include respond-to(lg) {
+    right: 0;
+    opacity: 0.5;
+  }
+}
+
+.curvedPath {
+  fill: none;
+  stroke: $primary-200;
+  stroke-width: 2;
+  stroke-dasharray: 8, 8;
+}

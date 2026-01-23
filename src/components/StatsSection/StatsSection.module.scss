@@ -1,0 +1,80 @@
+@use '@/styles/variables' as *;
+
+.section {
+  padding: $spacing-12 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  @include container;
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: $spacing-8;
+  position: relative;
+  z-index: 1;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-12;
+  }
+}
+
+.stat {
+  text-align: center;
+  position: relative;
+}
+
+.value {
+  font-size: $font-5xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  line-height: 1;
+  margin-bottom: $spacing-2;
+
+  @include respond-to(lg) {
+    font-size: $font-6xl;
+  }
+}
+
+.suffix {
+  color: $primary-600;
+}
+
+.label {
+  font-size: $font-sm;
+  color: $text-tertiary;
+  font-weight: $font-medium;
+}
+
+// Decorative curved lines between stats
+.curvedLines {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 100px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  display: none;
+
+  @include respond-to(md) {
+    display: block;
+  }
+}
+
+.curvePath {
+  fill: none;
+  stroke: $primary-200;
+  stroke-width: 1.5;
+  stroke-dasharray: 6, 6;
+  opacity: 0.6;
+}
+
+.curveDot {
+  fill: $primary-400;
+}

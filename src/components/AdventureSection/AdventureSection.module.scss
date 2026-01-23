@@ -1,0 +1,181 @@
+@use '@/styles/variables' as *;
+
+.section {
+  padding: $section-padding-y-mobile 0;
+  background: $bg-primary;
+  position: relative;
+  overflow: hidden;
+
+  @include respond-to(lg) {
+    padding: $section-padding-y 0;
+  }
+}
+
+.container {
+  @include container;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-8;
+
+  @include respond-to(lg) {
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-12;
+    align-items: start;
+  }
+}
+
+.header {
+  position: sticky;
+  top: 100px;
+}
+
+.sectionLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  color: $primary-600;
+  text-transform: uppercase;
+  letter-spacing: $tracking-wider;
+  margin-bottom: $spacing-3;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: $primary-600;
+    border-radius: $radius-full;
+  }
+}
+
+.title {
+  @include section-title;
+  margin-bottom: $spacing-6;
+}
+
+.ratingCard {
+  @include glassmorphism;
+  padding: $spacing-5;
+  border-radius: $radius-2xl;
+  max-width: 320px;
+}
+
+.ratingHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  margin-bottom: $spacing-3;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: #fbbf24;
+    fill: #fbbf24;
+  }
+}
+
+.ratingValue {
+  font-size: $font-2xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+}
+
+.ratingLabel {
+  font-size: $font-sm;
+  color: $text-secondary;
+  line-height: $leading-relaxed;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-4;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-6;
+  }
+}
+
+.category {
+  position: relative;
+  border-radius: $radius-2xl;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  cursor: pointer;
+  transition: transform $transition-base;
+
+  &:hover {
+    transform: scale(1.02);
+
+    img {
+      transform: scale(1.1);
+    }
+
+    .categoryOverlay {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  img {
+    object-fit: cover;
+    transition: transform $transition-slow;
+  }
+}
+
+.categoryOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+  transition: background $transition-base;
+}
+
+.categoryContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $spacing-4;
+  z-index: 1;
+}
+
+.categoryName {
+  font-size: $font-lg;
+  font-weight: $font-bold;
+  color: $text-light;
+  margin-bottom: $spacing-1;
+
+  @include respond-to(md) {
+    font-size: $font-xl;
+  }
+}
+
+.categoryCount {
+  font-size: $font-sm;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.categoryBadge {
+  position: absolute;
+  top: $spacing-3;
+  right: $spacing-3;
+  @include glassmorphism;
+  padding: $spacing-1 $spacing-3;
+  border-radius: $radius-full;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  z-index: 1;
+}
+
+// Featured category (larger)
+.categoryFeatured {
+  @include respond-to(md) {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+}

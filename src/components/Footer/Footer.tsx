@@ -1,0 +1,119 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { Compass, ChevronDown, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { FooterContent } from '@/types';
+import styles from './Footer.module.scss';
+
+interface FooterProps {
+  content: FooterContent;
+  siteName: string;
+}
+
+const socialIcons: Record<string, React.ReactNode> = {
+  facebook: <Facebook />,
+  instagram: <Instagram />,
+  twitter: <Twitter />,
+  youtube: <Youtube />,
+};
+
+export default function Footer({ content, siteName }: FooterProps) {
+  const [openFaq, setOpenFaq] = useState<string | null>(null);
+
+  const toggleFaq = (id: string) => {
+    setOpenFaq(openFaq === id ? null : id);
+  };
+
+  return (
+    <footer className={styles.footer} id="contact">
+      <div className={styles.container}>
+        {/* FAQ Section */}
+        <div className={styles.faqSection}>
+          <div className={styles.faqHeader}>
+            <h3 className={styles.faqTitle}>Explore Our Travel Queries</h3>
+            <p className={styles.faqSubtitle}>
+              Find answers to commonly asked questions about our services
+            </p>
+          </div>
+
+          <div className={styles.faqs}>
+            {content.faqs.map((faq) => (
+              <div key={faq.id} className={styles.faqItem}>
+                <button
+                  className={`${styles.faqQuestion} ${openFaq === faq.id ? styles.open : ''}`}
+                  onClick={() => toggleFaq(faq.id)}
+                  aria-expanded={openFaq === faq.id}
+                >
+                  {faq.question}
+                  <ChevronDown />
+                </button>
+                <div className={`${styles.faqAnswer} ${openFaq === faq.id ? styles.open : ''}`}>
+                  {faq.answer}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Main Footer */}
+        <div className={styles.main}>
+          <div className={styles.grid}>
+            <div className={styles.brand}>
+              <Link href="/" className={styles.logo}>
+                <span className={styles.logoIcon}>
+                  <Compass />
+                </span>
+                {siteName}
+              </Link>
+              <p className={styles.tagline}>{content.tagline}</p>
+
+              <div className={styles.social}>
+                {content.socialLinks.map((link) => (
+                  <a
+                    key={link.platform}
+                    href={link.url}
+                    className={styles.socialLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.platform}
+                  >
+                    {socialIcons[link.icon]}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {content.sections.map((section) => (
+              <div key={section.id} className={styles.linkSection}>
+                <h4>{section.title}</h4>
+                <div className={styles.links}>
+                  {section.links.map((link) => (
+                    <Link key={link.id} href={link.href} className={styles.link}>
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className={styles.bottom}>
+          <div className={styles.bottomContent}>
+            <p className={styles.copyright}>{content.copyright}</p>
+            <div className={styles.legalLinks}>
+              <Link href="/terms" className={styles.legalLink}>
+                Terms of Service
+              </Link>
+              <Link href="/privacy" className={styles.legalLink}>
+                Privacy Policy
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

@@ -1,0 +1,13 @@
+export { default as Navbar } from './Navbar';
+export { default as HeroSection } from './HeroSection';
+export { default as DestinationCard } from './DestinationCard';
+export { default as DestinationsSection } from './DestinationsSection';
+export { default as StatsSection } from './StatsSection';
+export { default as AboutSection } from './AboutSection';
+export { default as BookingSection } from './BookingSection';
+export { default as AdventureSection } from './AdventureSection';
+export { default as EventsSection } from './EventsSection';
+export { default as TestimonialsSection } from './TestimonialsSection';
+export { default as BlogSection } from './BlogSection';
+export { default as CTASection } from './CTASection';
+export { default as Footer } from './Footer';

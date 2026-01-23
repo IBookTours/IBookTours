@@ -1,0 +1,200 @@
+@use '@/styles/variables' as *;
+
+.section {
+  padding: $section-padding-y-mobile 0;
+  background: $bg-secondary;
+  position: relative;
+
+  @include respond-to(lg) {
+    padding: $section-padding-y 0;
+  }
+}
+
+.container {
+  @include container;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  margin-bottom: $spacing-10;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-4;
+}
+
+.year {
+  font-size: $font-6xl;
+  font-weight: $font-extrabold;
+  color: $primary-100;
+  line-height: 1;
+
+  @include respond-to(lg) {
+    font-size: $font-7xl;
+  }
+}
+
+.title {
+  font-size: $font-3xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+
+  @include respond-to(lg) {
+    font-size: $font-4xl;
+  }
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: $primary-600;
+  text-decoration: none;
+  transition: gap $transition-fast;
+
+  &:hover {
+    gap: $spacing-3;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.events {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  margin-bottom: $spacing-12;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.eventCard {
+  position: relative;
+  border-radius: $radius-2xl;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  cursor: pointer;
+  @include card-style;
+
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+
+  img {
+    object-fit: cover;
+    transition: transform $transition-slow;
+  }
+}
+
+.eventOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.eventContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $spacing-5;
+  z-index: 1;
+}
+
+.eventDate {
+  display: inline-block;
+  padding: $spacing-1 $spacing-3;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border-radius: $radius-full;
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  color: $text-light;
+  margin-bottom: $spacing-2;
+}
+
+.eventTitle {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: $text-light;
+  margin-bottom: $spacing-2;
+}
+
+.eventLocation {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-sm;
+  color: rgba(255, 255, 255, 0.8);
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+// Partners Section
+.partners {
+  padding-top: $spacing-8;
+  border-top: 1px solid $border-light;
+}
+
+.partnersTitle {
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: $text-tertiary;
+  text-align: center;
+  margin-bottom: $spacing-6;
+}
+
+.partnersGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-8;
+
+  @include respond-to(md) {
+    gap: $spacing-12;
+  }
+}
+
+.partner {
+  opacity: 0.5;
+  transition: opacity $transition-fast;
+  filter: grayscale(100%);
+
+  &:hover {
+    opacity: 1;
+    filter: grayscale(0);
+  }
+}
+
+.partnerName {
+  font-size: $font-lg;
+  font-weight: $font-semibold;
+  color: $text-secondary;
+}
