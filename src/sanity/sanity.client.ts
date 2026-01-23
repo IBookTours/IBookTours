@@ -8,13 +8,23 @@ import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
+// Check if a valid project ID is configured
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const isConfigured = Boolean(
+  projectId && projectId !== '' && projectId !== 'your_project_id_here'
+);
+
 // Sanity configuration object
+// Uses a placeholder project ID when not configured to prevent client creation errors
 export const sanityConfig = {
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
+  projectId: isConfigured ? projectId! : 'placeholder',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-01-01',
   useCdn: process.env.NODE_ENV === 'production',
 };
+
+// Export whether Sanity is properly configured
+export const isSanityConfigured = isConfigured;
 
 // Create the Sanity client
 export const sanityClient = createClient({

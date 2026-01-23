@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, Search, Compass } from 'lucide-react';
 import { NavItem } from '@/types';
+import { LoginButton } from '@/components/Auth';
 import styles from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -71,7 +72,9 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
             <button className={styles.searchBtn} aria-label="Search">
               <Search />
             </button>
-            <button className={styles.ctaBtn}>Sign In</button>
+            <div className={styles.loginWrapper}>
+              <LoginButton variant="navbar" />
+            </div>
             <button
               className={styles.mobileMenuBtn}
               onClick={toggleMobileMenu}
@@ -114,7 +117,9 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
           ))}
         </nav>
 
-        <button className={styles.mobileCta}>Sign In</button>
+        <div className={styles.mobileActions}>
+          <LoginButton variant="mobile" onAction={closeMobileMenu} />
+        </div>
       </div>
     </>
   );

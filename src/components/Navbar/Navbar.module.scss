@@ -144,25 +144,11 @@
   }
 }
 
-.ctaBtn {
+.loginWrapper {
   display: none;
-  padding: $spacing-2 $spacing-5;
-  background: $primary-600;
-  color: $text-light;
-  font-size: $font-sm;
-  font-weight: $font-semibold;
-  border: none;
-  border-radius: $radius-full;
-  cursor: pointer;
-  transition: all $transition-fast;
 
   @include respond-to(md) {
     display: block;
-  }
-
-  &:hover {
-    background: $primary-700;
-    transform: translateY(-1px);
   }
 }
 
@@ -267,19 +253,7 @@
   }
 }
 
-.mobileCta {
+.mobileActions {
   margin-top: auto;
-  padding: $spacing-4;
-  background: $primary-600;
-  color: $text-light;
-  font-size: $font-base;
-  font-weight: $font-semibold;
-  text-align: center;
-  border: none;
-  border-radius: $radius-xl;
-  cursor: pointer;
-
-  &:hover {
-    background: $primary-700;
-  }
+  padding-top: $spacing-4;
 }
