@@ -1,5 +1,8 @@
 import { siteData } from '@/data/siteData';
 
+// Use environment variable for site URL, fallback to production URL
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://itravel.al';
+
 interface OrganizationSchema {
   '@context': string;
   '@type': string;
@@ -45,13 +48,13 @@ export function OrganizationStructuredData() {
     '@type': 'TravelAgency',
     name: siteData.siteName,
     description: siteData.siteDescription,
-    url: 'https://itravel.com',
-    logo: 'https://itravel.com/logo.png',
+    url: siteUrl,
+    logo: `${siteUrl}/logo.png`,
     sameAs: siteData.footer.socialLinks.map((link) => link.url),
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      availableLanguage: ['English'],
+      availableLanguage: ['English', 'Albanian', 'Italian'],
     },
   };
 
@@ -68,11 +71,11 @@ export function WebsiteStructuredData() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteData.siteName,
-    url: 'https://itravel.com',
+    url: siteUrl,
     description: siteData.siteDescription,
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://itravel.com/tours?search={search_term_string}',
+      target: `${siteUrl}/tours?search={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   };
@@ -100,7 +103,7 @@ export function TravelServiceStructuredData() {
       ? {
           '@type': 'Offer',
           price: dest.price.replace(/[^0-9]/g, ''),
-          priceCurrency: 'USD',
+          priceCurrency: 'EUR',
         }
       : undefined,
     aggregateRating: dest.rating
@@ -130,6 +133,7 @@ export default function StructuredData() {
     <>
       <OrganizationStructuredData />
       <WebsiteStructuredData />
+      <TravelServiceStructuredData />
     </>
   );
 }

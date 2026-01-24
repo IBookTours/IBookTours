@@ -7,7 +7,6 @@ import HeroSection from '@/components/HeroSection';
 import DestinationsSection from '@/components/DestinationsSection';
 import StatsSection from '@/components/StatsSection';
 import AboutSection from '@/components/AboutSection';
-import BookingSection from '@/components/BookingSection';
 import AdventureSection from '@/components/AdventureSection';
 import EventsSection from '@/components/EventsSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
@@ -42,7 +41,6 @@ export default async function Home() {
       <DestinationsSection destinations={destinations} />
       <StatsSection stats={stats} />
       <AboutSection content={siteData.about} />
-      <BookingSection content={siteData.booking} />
       <AdventureSection content={siteData.adventure} />
       <EventsSection content={siteData.events} />
       <TestimonialsSection content={testimonialsContent} />

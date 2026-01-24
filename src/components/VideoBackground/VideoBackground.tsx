@@ -24,6 +24,7 @@ export default function VideoBackground({
   const [isMobile, setIsMobile] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [timedOut, setTimedOut] = useState(false);
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -36,6 +37,19 @@ export default function VideoBackground({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Timeout fallback - if video doesn't load in 5 seconds, show image
+  useEffect(() => {
+    if (isMobile || isLoaded || hasError) return;
+
+    const timeout = setTimeout(() => {
+      if (!isLoaded) {
+        setTimedOut(true);
+      }
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [isMobile, isLoaded, hasError]);
+
   // Pause video when out of view for performance
   useEffect(() => {
     const video = videoRef.current;
@@ -46,7 +60,8 @@ export default function VideoBackground({
       ([entry]) => {
         if (entry.isIntersecting) {
           video.play().catch(() => {
-            // Autoplay might be blocked, fail silently
+            // Autoplay might be blocked, show fallback
+            setHasError(true);
           });
         } else {
           video.pause();
@@ -61,14 +76,15 @@ export default function VideoBackground({
 
   const handleVideoLoaded = () => {
     setIsLoaded(true);
+    setTimedOut(false);
   };
 
   const handleVideoError = () => {
     setHasError(true);
   };
 
-  // Show fallback if mobile, error, or not loaded yet
-  const showFallback = isMobile || hasError || !isLoaded;
+  // Show fallback if mobile, error, timeout, or not loaded yet
+  const showFallback = isMobile || hasError || timedOut || !isLoaded;
 
   return (
     <div ref={containerRef} className={`${styles.videoBackground} ${className}`}>

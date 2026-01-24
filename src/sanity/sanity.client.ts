@@ -10,13 +10,18 @@ import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 // Check if a valid project ID is configured
 // Note: projectId must match /^[a-z0-9-]+$/ or Sanity SDK will crash
+// TEMPORARILY DISABLED: Sanity contains incorrect test data (Nike sneakers)
+// Re-enable when Sanity CMS has correct Albanian destination images
 const rawProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '';
+const isConfigured = false; // Disabled to use mock data with correct images
+/* Original check - re-enable when Sanity data is fixed:
 const isConfigured = Boolean(
   rawProjectId &&
     rawProjectId !== '' &&
     rawProjectId !== 'your_project_id_here' &&
     /^[a-z0-9-]+$/.test(rawProjectId)
 );
+*/
 
 // Sanity configuration object
 // Uses 'not-configured' as placeholder (valid format) when not properly configured

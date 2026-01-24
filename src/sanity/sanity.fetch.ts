@@ -53,8 +53,8 @@ export async function fetchTourPackagesWithFallback(): Promise<Destination[]> {
 
     // Empty result from Sanity - use mock data
     return siteData.destinations;
-  } catch (error) {
-    console.error('[Sanity] Tour packages fetch error:', error);
+  } catch {
+    // Silently fall back to mock data on error
     return siteData.destinations;
   }
 }
@@ -89,8 +89,8 @@ export async function fetchTestimonialsWithFallback(): Promise<Testimonial[]> {
 
     // Empty result from Sanity - use mock data
     return siteData.testimonials.testimonials;
-  } catch (error) {
-    console.error('[Sanity] Testimonials fetch error:', error);
+  } catch {
+    // Silently fall back to mock data on error
     return siteData.testimonials.testimonials;
   }
 }
@@ -127,8 +127,8 @@ export async function fetchStatsWithFallback(): Promise<Stat[]> {
 
     // No data from Sanity - use mock data
     return siteData.stats;
-  } catch (error) {
-    console.error('[Sanity] Stats fetch error:', error);
+  } catch {
+    // Silently fall back to mock data on error
     return siteData.stats;
   }
 }
@@ -268,5 +268,5 @@ export async function revalidateSanityCache() {
   if (!isSanityConfigured) {
     return;
   }
-  console.info('[Sanity] Cache invalidation requested');
+  // Cache invalidation would be handled here when Sanity is re-enabled
 }

@@ -52,7 +52,7 @@ export default function StatsSection({ stats }: StatsSectionProps) {
           className={styles.curvedLines}
           data-animate={isInView}
           viewBox="0 0 1000 100"
-          preserveAspectRatio="none"
+          preserveAspectRatio="xMidYMid meet"
         >
           {/* First curve: from stat 1 (16.67%) to stat 2 (50%) */}
           <path
