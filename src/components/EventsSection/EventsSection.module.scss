@@ -222,3 +222,37 @@
   font-weight: $font-semibold;
   color: $text-secondary;
 }
+
+// ==========================================
+// DARK MODE OVERRIDES
+// ==========================================
+:global([data-theme="dark"]) {
+  .section {
+    background: #2b2d42;
+  }
+
+  .title {
+    color: #edf2f4;
+  }
+
+  .year {
+    color: rgba(239, 35, 60, 0.3);
+  }
+
+  .eventCard {
+    background: #1a1b2e;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .partners {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .partnersTitle {
+    color: #8d99ae;
+  }
+
+  .partnerName {
+    color: #c8cdd0;
+  }
+}

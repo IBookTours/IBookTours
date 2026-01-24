@@ -21,25 +21,13 @@ export default function VideoBackground({
 }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [timedOut, setTimedOut] = useState(false);
 
-  // Check if mobile on mount and resize
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   // Timeout fallback - if video doesn't load in 5 seconds, show image
   useEffect(() => {
-    if (isMobile || isLoaded || hasError) return;
+    if (isLoaded || hasError) return;
 
     const timeout = setTimeout(() => {
       if (!isLoaded) {
@@ -48,13 +36,13 @@ export default function VideoBackground({
     }, 5000);
 
     return () => clearTimeout(timeout);
-  }, [isMobile, isLoaded, hasError]);
+  }, [isLoaded, hasError]);
 
   // Pause video when out of view for performance
   useEffect(() => {
     const video = videoRef.current;
     const container = containerRef.current;
-    if (!video || !container || isMobile) return;
+    if (!video || !container) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -72,7 +60,7 @@ export default function VideoBackground({
 
     observer.observe(container);
     return () => observer.disconnect();
-  }, [isMobile]);
+  }, []);
 
   const handleVideoLoaded = () => {
     setIsLoaded(true);
@@ -83,15 +71,15 @@ export default function VideoBackground({
     setHasError(true);
   };
 
-  // Show fallback if mobile, error, timeout, or not loaded yet
-  const showFallback = isMobile || hasError || timedOut || !isLoaded;
+  // Show fallback if error, timeout, or not loaded yet
+  const showFallback = hasError || timedOut || !isLoaded;
 
   return (
     <div ref={containerRef} className={`${styles.videoBackground} ${className}`}>
       {/* Poster/Fallback Image - always rendered for loading state */}
       <div className={`${styles.fallback} ${!showFallback ? styles.hidden : ''}`}>
         <Image
-          src={isMobile || hasError ? fallbackImage : video.poster}
+          src={hasError ? fallbackImage : video.poster}
           alt="Background"
           fill
           priority
@@ -100,8 +88,8 @@ export default function VideoBackground({
         />
       </div>
 
-      {/* Video - only on desktop and if no error */}
-      {!isMobile && !hasError && (
+      {/* Video - show unless there's an error */}
+      {!hasError && (
         <video
           ref={videoRef}
           className={`${styles.video} ${isLoaded ? styles.visible : ''}`}

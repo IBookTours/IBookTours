@@ -170,3 +170,62 @@
   }
 }
 
+// ==========================================
+// DARK MODE OVERRIDES
+// ==========================================
+:global([data-theme="dark"]) {
+  .panel {
+    background: #2b2d42;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .header {
+    background: #1a1b2e;
+    border-color: rgba(255, 255, 255, 0.1);
+
+    h3 {
+      color: #edf2f4;
+    }
+  }
+
+  .option {
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(239, 35, 60, 0.3);
+    }
+
+    &.active {
+      background: rgba(239, 35, 60, 0.15);
+      border-color: rgba(239, 35, 60, 0.4);
+    }
+  }
+
+  .optionIcon {
+    background: rgba(239, 35, 60, 0.15);
+
+    .active & {
+      background: rgba(239, 35, 60, 0.25);
+    }
+  }
+
+  .optionLabel {
+    color: #edf2f4;
+  }
+
+  .optionValue {
+    color: #8d99ae;
+  }
+
+  .reset {
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #8d99ae;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #c8cdd0;
+    }
+  }
+}
+

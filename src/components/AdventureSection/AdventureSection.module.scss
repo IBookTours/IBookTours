@@ -194,3 +194,43 @@
     aspect-ratio: 16/9;
   }
 }
+
+// ==========================================
+// DARK MODE OVERRIDES
+// ==========================================
+:global([data-theme="dark"]) {
+  .section {
+    background: #1a1b2e;
+  }
+
+  .title {
+    color: #edf2f4;
+  }
+
+  .sectionLabel {
+    color: $primary-500;
+
+    &::before {
+      background: $primary-500;
+    }
+  }
+
+  .ratingCard {
+    background: rgba(43, 45, 66, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .ratingValue {
+    color: #edf2f4;
+  }
+
+  .ratingLabel {
+    color: #c8cdd0;
+  }
+
+  .categoryBadge {
+    background: rgba(43, 45, 66, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #edf2f4;
+  }
+}

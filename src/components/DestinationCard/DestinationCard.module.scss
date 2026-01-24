@@ -244,3 +244,53 @@
     padding-top: $spacing-2;
   }
 }
+
+// ==========================================
+// DARK MODE OVERRIDES
+// ==========================================
+:global([data-theme="dark"]) {
+  .card {
+    background: #2b2d42;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .name {
+    color: #edf2f4;
+  }
+
+  .location {
+    color: #8d99ae;
+  }
+
+  .description {
+    color: #c8cdd0;
+  }
+
+  .footer {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .rating span {
+    color: #edf2f4;
+  }
+
+  .rating .reviews {
+    color: #8d99ae;
+  }
+
+  .price .label {
+    color: #8d99ae;
+  }
+
+  .favorite {
+    background: rgba(255, 255, 255, 0.15);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    svg {
+      color: #c8cdd0;
+    }
+  }
+}

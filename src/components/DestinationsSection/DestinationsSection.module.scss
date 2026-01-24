@@ -212,3 +212,48 @@
     width: 28px;
   }
 }
+
+// ==========================================
+// DARK MODE OVERRIDES
+// ==========================================
+:global([data-theme="dark"]) {
+  .section {
+    background: #1a1b2e;
+  }
+
+  .title {
+    color: #edf2f4;
+  }
+
+  .subtitle {
+    color: #c8cdd0;
+  }
+
+  .navBtn {
+    background: #2b2d42;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #c8cdd0;
+
+    &:hover:not(:disabled) {
+      background: $primary-600;
+      border-color: $primary-600;
+      color: #fff;
+    }
+  }
+
+  .dot {
+    background: rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    &.active {
+      background: $primary-600;
+    }
+  }
+
+  .curvedPath {
+    stroke: $primary-500;
+  }
+}
