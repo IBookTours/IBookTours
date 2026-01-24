@@ -202,7 +202,7 @@
 
   &.active {
     background: var(--primary-600);
-    color: white;
+    color: $text-light;
     border-color: var(--primary-600);
   }
 }
@@ -332,7 +332,7 @@
   padding: $spacing-3 $spacing-6;
   font-size: $font-sm;
   font-weight: $font-semibold;
-  color: white;
+  color: $text-light;
   background: var(--primary-600);
   border-radius: $radius-lg;
   transition: all $transition-fast;
@@ -369,7 +369,7 @@
   padding: $spacing-3 $spacing-8;
   font-size: $font-sm;
   font-weight: $font-semibold;
-  color: white;
+  color: $text-light;
   background: var(--primary-600);
   border-radius: $radius-lg;
   transition: all $transition-fast;

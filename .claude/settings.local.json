@@ -19,7 +19,20 @@
       "Bash(git add:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nPhase 5: Accessibility, Dark Mode & Complete Pages\n\nWCAG 2.1 AA Compliance:\n- Fixed color contrast \\(primary-600 now 4.6:1 ratio\\)\n- Created useFocusTrap hook for modal keyboard navigation\n- Enhanced AccessibilityWidget with text spacing, reduced motion, color blind modes\n- Added ColorBlindFilters component with SVG simulation filters\n\nDark Mode:\n- Created ThemeProvider with light/dark/system support\n- Added ThemeToggle in navbar\n- Full dark theme CSS variables\n\nComplete Pages \\(replaced all Coming Soon\\):\n- /privacy, /terms, /cookies, /safety, /cancellation with LegalPage component\n- /help with HelpCenter FAQ component\n- /careers with job listings\n- /press with press releases & media kit\n\nDynamic Routes:\n- /blog/[slug] with full blog post content\n- /tours/[id] with tour details, itinerary, and booking modal\n\nHero Video:\n- Added video background support to hero section\n\nNew Components:\n- BookingModal, LegalPage, HelpCenter, CareersPage, PressPage\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nPhase 6: New brand colors + 6 Albanian tour packages\n\n- Updated color palette to new brand colors:\n  - Space Indigo \\(#2b2d42\\) for dark mode backgrounds\n  - Lavender Grey \\(#8d99ae\\) for secondary text/borders\n  - Platinum \\(#edf2f4\\) for light backgrounds\n  - Strawberry Red \\(#ef233c\\) for primary CTAs\n  - Flag Red \\(#d90429\\) for hover states\n\n- Added 6 new Albanian tour packages:\n  1. Lake Bilshe & Berat \\(€99/day trip\\)\n  2. Kruja & Shkodra \\(€89/day trip\\)\n  3. Kruja + Dajti Cable Car \\(€79/day trip\\)\n  4. Albanian Alps + Northern Blue Eye \\(€199/2 days\\)\n  5. Blue Eye, Gjirokastër & Saranda \\(€149/1-2 days\\)\n  6. Vlora & Llogara \\(€79/day trip\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(file:*)",
+      "Bash(curl:*)",
+      "Bash(grep:*)",
+      "Bash(git -C c:UsersUserDesktopITravel log --oneline -20)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(git -C \"c:\\\\Users\\\\User\\\\Desktop\\\\ITravel\" log --pretty=format:\"%h %s\" -30)",
+      "Bash(git -C \"c:\\\\Users\\\\User\\\\Desktop\\\\ITravel\" log --format=\"%h %s%n%b\" --all)",
+      "Bash(powershell -Command:*)",
+      "Bash(git push)",
+      "Bash(git config:*)",
+      "Bash(npm audit:*)",
+      "Bash(node:*)"
     ]
   }
 }

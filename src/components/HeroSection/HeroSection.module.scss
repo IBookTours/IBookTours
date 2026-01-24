@@ -44,7 +44,7 @@
   font-size: clamp(4rem, 20vw, 12rem);
   font-weight: $font-extrabold;
   color: transparent;
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.6);
+  -webkit-text-stroke: 2px $rgba-white-60;
   text-transform: uppercase;
   letter-spacing: $tracking-tight;
   white-space: nowrap;
@@ -53,7 +53,7 @@
   z-index: 1;
 
   @include respond-to(md) {
-    -webkit-text-stroke: 3px rgba(255, 255, 255, 0.7);
+    -webkit-text-stroke: 3px $rgba-white-70;
   }
 }
 
@@ -108,7 +108,7 @@
 
 .subtitle {
   font-size: $font-base;
-  color: rgba(255, 255, 255, 0.9);
+  color: $rgba-white-90;
   line-height: $leading-relaxed;
   max-width: 600px;
   margin: 0;
@@ -222,7 +222,7 @@
 
 .tag {
   padding: $spacing-1 $spacing-3;
-  background: rgba(255, 255, 255, 0.2);
+  background: $rgba-white-20;
   backdrop-filter: blur(4px);
   border-radius: $radius-full;
   font-size: $font-xs;
@@ -237,7 +237,7 @@
   }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: $rgba-white-30;
     transform: translateY(-1px);
   }
 

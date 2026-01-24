@@ -37,7 +37,7 @@
 .title {
   font-size: $font-base;
   font-weight: $font-semibold;
-  color: white;
+  color: $text-light;
   margin-bottom: $spacing-1;
 
   @include respond-to(md) {
@@ -87,7 +87,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid $primary-500;
+    outline: 2px solid var(--color-primary-500);
     outline-offset: 2px;
   }
 }
@@ -95,7 +95,7 @@
 .acceptButton {
   background-color: $primary-600;
   border: 1px solid $primary-600;
-  color: white;
+  color: $text-light;
 
   &:hover {
     background-color: $primary-500;
@@ -103,7 +103,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid $primary-400;
+    outline: 2px solid var(--color-primary-400);
     outline-offset: 2px;
   }
 }

@@ -369,7 +369,7 @@ $breakpoint-2xl: 1536px;
   background: $glass-bg-light;
   backdrop-filter: $glass-blur;
   -webkit-backdrop-filter: $glass-blur;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid $rgba-white-50;
   box-shadow: $glass-shadow;
 }
 
