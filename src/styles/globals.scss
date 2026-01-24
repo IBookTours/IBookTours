@@ -65,7 +65,10 @@
   --glass-border: rgba(168, 218, 220, 0.5);  // Frosted Blue tint
   --glass-shadow: 0 8px 32px rgba(29, 53, 87, 0.1);  // Oxford Navy shadow
 
-  // Hero gradient end color (for video overlay)
+  // Hero/video overlay gradient stops (light mode - stronger overlay)
+  --hero-overlay-top: rgba(0, 0, 0, 0.45);
+  --hero-overlay-mid: rgba(0, 0, 0, 0.25);
+  --hero-overlay-lower: rgba(0, 0, 0, 0.35);
   --hero-gradient-end: rgba(29, 53, 87, 0.6);  // Oxford Navy
 
   // CTA Section gradient (Punch Red tones)
@@ -527,8 +530,11 @@ html.colorblind-tritanopia {
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 
-  // Hero gradient end color (for video overlay)
-  --hero-gradient-end: rgba(43, 45, 66, 0.7);  // Space Indigo
+  // Hero/video overlay gradient stops (dark mode - lighter overlay to show video)
+  --hero-overlay-top: rgba(0, 0, 0, 0.25);
+  --hero-overlay-mid: rgba(0, 0, 0, 0.15);
+  --hero-overlay-lower: rgba(0, 0, 0, 0.2);
+  --hero-gradient-end: rgba(43, 45, 66, 0.4);  // Space Indigo (lighter)
 
   // CTA Section gradient (Strawberry Red tones)
   --cta-gradient-start: rgba(173, 22, 32, 0.85);  // Darker Strawberry Red

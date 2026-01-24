@@ -166,12 +166,12 @@ $secondary-alpha-95: rgba(43, 45, 66, 0.95);
 // GRADIENT TOKENS
 // ============================================
 
-// Hero/video overlay gradient - THEME AWARE via CSS variable
+// Hero/video overlay gradient - FULLY THEME AWARE via CSS variables
 $gradient-hero-overlay: linear-gradient(
   180deg,
-  rgba(0, 0, 0, 0.5) 0%,
-  rgba(0, 0, 0, 0.3) 40%,
-  rgba(0, 0, 0, 0.4) 70%,
+  var(--hero-overlay-top) 0%,
+  var(--hero-overlay-mid) 40%,
+  var(--hero-overlay-lower) 70%,
   var(--hero-gradient-end) 100%
 );
 
