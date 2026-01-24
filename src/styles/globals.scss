@@ -473,38 +473,39 @@ html.colorblind-tritanopia {
   color-scheme: light dark;
 }
 
-// Dark mode via data attribute
+// Dark mode via data attribute (Space Indigo based)
 :root[data-theme="dark"] {
-  // Backgrounds
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --bg-accent: rgba(96, 165, 250, 0.1);
+  // Backgrounds (Space Indigo spectrum)
+  --bg-primary: #2b2d42;      // Space Indigo
+  --bg-secondary: #1a1b2e;    // Darker indigo
+  --bg-tertiary: #3d3f54;     // Lighter indigo
+  --bg-accent: rgba(239, 35, 60, 0.1);  // Strawberry Red tint
 
-  // Text
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-tertiary: #94a3b8;
+  // Text (Platinum based)
+  --text-primary: #edf2f4;    // Platinum
+  --text-secondary: #c8cdd0;
+  --text-tertiary: #8d99ae;   // Lavender Grey
   --text-light: #ffffff;
-  --text-muted: #64748b;
+  --text-muted: #8d99ae;      // Lavender Grey
 
   // Borders
-  --border-light: #334155;
-  --border-medium: #475569;
-  --border-primary: rgba(96, 165, 250, 0.3);
+  --border-light: #3d3f54;
+  --border-medium: #5c6378;
+  --border-primary: rgba(239, 35, 60, 0.3);  // Strawberry Red
 
-  // Primary colors adjusted for dark mode
-  --color-primary-50: #1e3a5f;
-  --color-primary-100: #1e40af;
-  --color-primary-200: #1d4ed8;
-  --color-primary-300: #2563eb;
-  --color-primary-400: #3b82f6;
-  --color-primary-500: #60a5fa;
-  --color-primary-600: #93c5fd;
+  // Primary colors (Strawberry Red for dark mode)
+  --color-primary-50: #3d1f24;
+  --color-primary-100: #5c2630;
+  --color-primary-200: #8b2f3c;
+  --color-primary-300: #b33848;
+  --color-primary-400: #dc3a4d;
+  --color-primary-500: #ef233c;   // Strawberry Red
+  --color-primary-600: #ef233c;   // Strawberry Red (stays same)
+  --color-primary-700: #d90429;   // Flag Red
 
   // Glassmorphism for dark mode
-  --glass-bg: rgba(15, 23, 42, 0.8);
-  --glass-bg-light: rgba(30, 41, 59, 0.9);
+  --glass-bg: rgba(43, 45, 66, 0.8);
+  --glass-bg-light: rgba(61, 63, 84, 0.9);
   --glass-border: rgba(255, 255, 255, 0.1);
 
   // Apply to body
@@ -518,14 +519,14 @@ html.colorblind-tritanopia {
 
   // Scrollbar for dark mode
   &::-webkit-scrollbar-track {
-    background: #1e293b;
+    background: #1a1b2e;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #475569;
+    background: #5c6378;
 
     &:hover {
-      background: #64748b;
+      background: #8d99ae;
     }
   }
 }

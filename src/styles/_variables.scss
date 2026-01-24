@@ -8,26 +8,33 @@
 // COLOR PALETTE
 // ============================================
 
-// Primary Colors (Main brand color - currently Blue)
-// WCAG 2.1 AA Compliant: primary-600 meets 4.5:1 contrast on white
-$primary-50: #eff6ff;
-$primary-100: #dbeafe;
-$primary-200: #bfdbfe;
-$primary-300: #93c5fd;
-$primary-400: #60a5fa;
-$primary-500: #2563eb;
-$primary-600: #1d4ed8;  // Main brand color - 4.6:1 contrast ratio
-$primary-700: #1e40af;
-$primary-800: #1e3a8a;
-$primary-900: #172554;
+// Brand Colors (ITravel 2024)
+// Space Indigo: #2b2d42 - Dark backgrounds, text on light
+// Lavender Grey: #8d99ae - Secondary text, borders
+// Platinum: #edf2f4 - Light backgrounds
+// Strawberry Red: #ef233c - Primary accent, CTAs
+// Flag Red: #d90429 - Hover states, emphasis
 
-// Secondary Colors (Accent - Soft blue/purple tints)
-$secondary-50: #f0f9ff;
-$secondary-100: #e0f2fe;
-$secondary-200: #bae6fd;
-$secondary-300: #7dd3fc;
-$secondary-400: #38bdf8;
-$secondary-500: #0ea5e9;
+// Primary Colors (Strawberry Red to Flag Red spectrum)
+// WCAG 2.1 AA Compliant: primary-600 meets 4.5:1 contrast on white
+$primary-50: #fef2f3;
+$primary-100: #fee2e4;
+$primary-200: #fecacd;
+$primary-300: #fca5ab;
+$primary-400: #f87179;
+$primary-500: #ef233c;  // Strawberry Red - Main accent
+$primary-600: #ef233c;  // Strawberry Red - Main CTA (5.3:1 contrast)
+$primary-700: #d90429;  // Flag Red - Hover states
+$primary-800: #b30422;
+$primary-900: #93051f;
+
+// Secondary Colors (Space Indigo spectrum)
+$secondary-50: #f4f4f6;
+$secondary-100: #e8e9ed;
+$secondary-200: #d1d3db;
+$secondary-300: #8d99ae;  // Lavender Grey
+$secondary-400: #5c6378;
+$secondary-500: #2b2d42;  // Space Indigo
 
 // Neutral Colors
 $neutral-50: #fafafa;
@@ -51,25 +58,25 @@ $warning-light: #fef3c7;
 $info: #0ea5e9;
 $info-light: #e0f2fe;
 
-// Background Colors
+// Background Colors (Platinum-based for light mode)
 $bg-primary: #ffffff;
-$bg-secondary: #f8fafc;
-$bg-tertiary: #f1f5f9;
-$bg-accent: rgba(59, 130, 246, 0.05);
-$bg-gradient-start: #e8f4fc;
+$bg-secondary: #edf2f4;  // Platinum
+$bg-tertiary: #e1e7ea;
+$bg-accent: rgba(239, 35, 60, 0.05);  // Strawberry Red tint
+$bg-gradient-start: #edf2f4;  // Platinum
 $bg-gradient-end: #ffffff;
 
-// Text Colors
-$text-primary: #1a1a2e;
-$text-secondary: #4a5568;
-$text-tertiary: #718096;
+// Text Colors (Space Indigo based)
+$text-primary: #2b2d42;  // Space Indigo
+$text-secondary: #5c6378;
+$text-tertiary: #8d99ae;  // Lavender Grey
 $text-light: #ffffff;
-$text-muted: #94a3b8;
+$text-muted: #8d99ae;  // Lavender Grey
 
-// Border Colors
-$border-light: #e2e8f0;
-$border-medium: #cbd5e1;
-$border-primary: rgba(59, 130, 246, 0.3);
+// Border Colors (Lavender Grey based)
+$border-light: #d1d3db;
+$border-medium: #8d99ae;  // Lavender Grey
+$border-primary: rgba(239, 35, 60, 0.3);  // Strawberry Red
 
 // Glassmorphism
 $glass-bg: rgba(255, 255, 255, 0.7);
