@@ -9,55 +9,70 @@
   // LIGHT MODE - Honeydew/Oxford Navy/Punch Red
   // ============================================
 
-  // Primary Colors (Punch Red spectrum for light mode)
-  --color-primary-50: #fef2f2;
-  --color-primary-100: #fee2e2;
-  --color-primary-200: #fecaca;
-  --color-primary-300: #fca5a5;
-  --color-primary-400: #f87171;
-  --color-primary-500: #e63946;     // Punch Red
-  --color-primary-600: #e63946;     // Punch Red
-  --color-primary-700: #c5313d;     // Darker Punch Red
-  --color-primary-800: #991b1b;
-  --color-primary-900: #7f1d1d;
+  // Primary Brand Colors (Punch Red spectrum)
+  --color-primary-50: #fef2f2;     // Lightest red tint
+  --color-primary-100: #fde8e8;    // Very light red
+  --color-primary-200: #fbd5d5;    // Light red
+  --color-primary-300: #f8b4b4;    // Medium-light red
+  --color-primary-400: #f47b7b;    // Medium red
+  --color-primary-500: #e63946;    // Punch Red (main)
+  --color-primary-600: #d32f3b;    // Darker Punch Red
+  --color-primary-700: #c5313d;    // Deep Punch Red
+  --color-primary-800: #9c1c24;    // Very dark red
+  --color-primary-900: #7f1d1d;    // Darkest red
 
-  // Secondary Colors (Cerulean/Frosted Blue spectrum)
-  --color-secondary-50: #f0f9ff;
-  --color-secondary-100: #e0f2fe;
-  --color-secondary-200: #a8dadc;   // Frosted Blue
-  --color-secondary-300: #7dd3fc;
-  --color-secondary-400: #38bdf8;
-  --color-secondary-500: #457b9d;   // Cerulean
+  // Secondary Colors (Frosted Blue/Cerulean spectrum)
+  --color-secondary-50: #f0f9ff;   // Lightest blue
+  --color-secondary-100: #e0f2fe;  // Very light blue
+  --color-secondary-200: #a8dadc;  // Frosted Blue (main)
+  --color-secondary-300: #7dd3fc;  // Medium blue
+  --color-secondary-400: #5ebdd1;  // Deeper frosted blue
+  --color-secondary-500: #457b9d;  // Cerulean (main)
+  --color-secondary-600: #3d6b87;  // Darker cerulean
+  --color-secondary-700: #2d5368;  // Deep cerulean
+  --color-secondary-800: #1e3a47;  // Very dark blue
+  --color-secondary-900: #0f1d24;  // Darkest blue
 
-  // Neutral Colors (keep standard)
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
-  --color-neutral-300: #d4d4d4;
-  --color-neutral-400: #a3a3a3;
-  --color-neutral-500: #737373;
-  --color-neutral-600: #525252;
-  --color-neutral-700: #404040;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #171717;
+  // Neutral Colors (Honeydew-coordinated)
+  --color-neutral-50: #f9fdfb;     // Almost white with green tint
+  --color-neutral-100: #f0f8f1;    // Honeydew variant
+  --color-neutral-200: #e8f4f0;    // Light honeydew
+  --color-neutral-300: #d4e8d8;    // Soft green-grey
+  --color-neutral-400: #b8d4c0;    // Medium green-grey
+  --color-neutral-500: #8da895;    // Mid green-grey
+  --color-neutral-600: #6b8a72;    // Darker green-grey
+  --color-neutral-700: #4a6050;    // Deep green-grey
+  --color-neutral-800: #2d3d33;    // Very dark green-grey
+  --color-neutral-900: #1a2620;    // Almost black with green tint
 
-  // Background Colors (Honeydew-based)
-  --bg-primary: #f1faee;            // Honeydew - main background
-  --bg-secondary: #ffffff;          // Pure white - cards, alternating sections
-  --bg-tertiary: #e8f4f0;           // Lighter honeydew
-  --bg-accent: rgba(230, 57, 70, 0.08);  // Punch Red tint
+  // Background Colors (Honeydew-based system)
+  --bg-primary: #f1faee;           // Main background - Honeydew
+  --bg-secondary: #f9fdfb;         // Cards, elevated - Light honeydew tint
+  --bg-tertiary: #e8f4f0;          // Subtle areas - Deeper honeydew
+  --bg-elevated: #ffffff;          // Modals, dropdowns - Pure white
+  --bg-accent: rgba(230, 57, 70, 0.05);  // Punch Red subtle tint
+  --bg-hover: rgba(168, 218, 220, 0.15); // Frosted Blue hover
 
-  // Text Colors (Oxford Navy based)
-  --text-primary: #1d3557;          // Oxford Navy - headings, main text
-  --text-secondary: #457b9d;        // Cerulean - body text
-  --text-tertiary: #6b8fa3;         // Lighter cerulean - muted text
-  --text-light: #ffffff;            // White - on dark backgrounds
-  --text-muted: #8da4b4;            // Soft blue-grey
+  // Text Colors (Oxford Navy-based)
+  --text-primary: #1d3557;         // Headings, important - Oxford Navy
+  --text-secondary: #457b9d;       // Body text - Cerulean
+  --text-tertiary: #6b8fa3;        // Muted text - Light cerulean
+  --text-muted: #8da4b4;           // Subtle text - Soft blue-grey
+  --text-inverse: #ffffff;         // On dark backgrounds - White
+  --text-on-primary: #ffffff;      // On Punch Red - White
+  --text-light: #ffffff;           // Deprecated - use text-inverse
 
-  // Border Colors (Frosted Blue based)
-  --border-light: #c8e0d8;          // Soft green-grey
-  --border-medium: #a8dadc;         // Frosted Blue
-  --border-primary: rgba(230, 57, 70, 0.3);  // Punch Red tint
+  // Border Colors (Frosted Blue-coordinated)
+  --border-light: #e0ebe8;         // Subtle borders - Light green
+  --border-medium: #a8dadc;        // Visible borders - Frosted Blue
+  --border-strong: #6b8fa3;        // Emphasis borders - Cerulean
+  --border-primary: rgba(230, 57, 70, 0.3);  // Punch Red borders
+
+  // Shadow Colors
+  --shadow-sm: 0 1px 2px rgba(29, 53, 87, 0.05);
+  --shadow-md: 0 4px 6px rgba(29, 53, 87, 0.1);
+  --shadow-lg: 0 10px 15px rgba(29, 53, 87, 0.15);
+  --shadow-xl: 0 20px 25px rgba(29, 53, 87, 0.2);
 
   // Glassmorphism (Light mode)
   --glass-bg: rgba(255, 255, 255, 0.8);
@@ -75,6 +90,23 @@
   --cta-gradient-start: rgba(183, 38, 51, 0.85);  // Darker Punch Red
   --cta-gradient-end: rgba(197, 49, 61, 0.75);    // Punch Red
   --cta-text: #1d3557;  // Oxford Navy for button text
+
+  // Semantic Colors (coordinated with palette)
+  --color-success-light: #d1fae5;
+  --color-success-main: #16a34a;
+  --color-success-dark: #15803d;
+
+  --color-error-light: #fee2e2;
+  --color-error-main: #e63946;    // Uses Punch Red
+  --color-error-dark: #c5313d;
+
+  --color-warning-light: #fef3c7;
+  --color-warning-main: #f59e0b;
+  --color-warning-dark: #d97706;
+
+  --color-info-light: #e0f2fe;
+  --color-info-main: #457b9d;     // Uses Cerulean
+  --color-info-dark: #2d5368;
 }
 
 // ============================================
@@ -496,33 +528,74 @@ html.colorblind-tritanopia {
 
 // Dark mode via data attribute (Space Indigo based)
 :root[data-theme="dark"] {
-  // Backgrounds (Space Indigo spectrum)
-  --bg-primary: #2b2d42;      // Space Indigo
-  --bg-secondary: #1a1b2e;    // Darker indigo
-  --bg-tertiary: #3d3f54;     // Lighter indigo
-  --bg-accent: rgba(239, 35, 60, 0.1);  // Strawberry Red tint
+  // ============================================
+  // DARK MODE - Space Indigo/Platinum/Strawberry Red
+  // ============================================
 
-  // Text (Platinum based)
-  --text-primary: #edf2f4;    // Platinum
-  --text-secondary: #c8cdd0;
-  --text-tertiary: #8d99ae;   // Lavender Grey
-  --text-light: #ffffff;
-  --text-muted: #8d99ae;      // Lavender Grey
+  // Primary Brand Colors (Strawberry Red spectrum)
+  --color-primary-50: #3d1f24;     // Darkest red
+  --color-primary-100: #5c2630;    // Very dark red
+  --color-primary-200: #8b2f3c;    // Dark red
+  --color-primary-300: #b33848;    // Medium-dark red
+  --color-primary-400: #dc3a4d;    // Medium red
+  --color-primary-500: #ef233c;    // Strawberry Red (main)
+  --color-primary-600: #ff4d6d;    // Brighter strawberry
+  --color-primary-700: #ff6b8a;    // Light strawberry
+  --color-primary-800: #ff89a6;    // Very light red
+  --color-primary-900: #ffa7c2;    // Lightest red tint
 
-  // Borders
-  --border-light: #3d3f54;
-  --border-medium: #5c6378;
-  --border-primary: rgba(239, 35, 60, 0.3);  // Strawberry Red
+  // Secondary Colors (Lavender Grey spectrum)
+  --color-secondary-50: #0a0e1a;   // Darkest indigo
+  --color-secondary-100: #1a1b2e;  // Very dark indigo
+  --color-secondary-200: #2b2d42;  // Space Indigo (main)
+  --color-secondary-300: #3d3f54;  // Medium indigo
+  --color-secondary-400: #5c6378;  // Light indigo
+  --color-secondary-500: #8d99ae;  // Lavender Grey (main)
+  --color-secondary-600: #a5b0c2;  // Lighter lavender
+  --color-secondary-700: #bdc6d6;  // Very light lavender
+  --color-secondary-800: #d5dce9;  // Almost white lavender
+  --color-secondary-900: #edf2f4;  // Platinum
 
-  // Primary colors (Strawberry Red for dark mode)
-  --color-primary-50: #3d1f24;
-  --color-primary-100: #5c2630;
-  --color-primary-200: #8b2f3c;
-  --color-primary-300: #b33848;
-  --color-primary-400: #dc3a4d;
-  --color-primary-500: #ef233c;   // Strawberry Red
-  --color-primary-600: #ef233c;   // Strawberry Red (stays same)
-  --color-primary-700: #d90429;   // Flag Red
+  // Neutral Colors (Indigo-coordinated)
+  --color-neutral-50: #0a0e1a;     // Almost black
+  --color-neutral-100: #15192a;    // Very dark
+  --color-neutral-200: #1e2333;    // Dark
+  --color-neutral-300: #2b2d42;    // Medium-dark
+  --color-neutral-400: #3d3f54;    // Medium
+  --color-neutral-500: #5c6378;    // Mid grey
+  --color-neutral-600: #8d99ae;    // Light grey
+  --color-neutral-700: #a5b0c2;    // Lighter grey
+  --color-neutral-800: #c8cdd0;    // Very light grey
+  --color-neutral-900: #edf2f4;    // Platinum
+
+  // Background Colors (Space Indigo-based)
+  --bg-primary: #2b2d42;           // Main background - Space Indigo
+  --bg-secondary: #1a1b2e;         // Cards, lower - Darker indigo
+  --bg-tertiary: #3d3f54;          // Elevated areas - Lighter indigo
+  --bg-elevated: #4a4c61;          // Modals, dropdowns - Light indigo
+  --bg-accent: rgba(239, 35, 60, 0.1);   // Strawberry Red tint
+  --bg-hover: rgba(141, 153, 174, 0.15); // Lavender Grey hover
+
+  // Text Colors (Platinum-based)
+  --text-primary: #edf2f4;         // Headings - Platinum
+  --text-secondary: #c8cdd0;       // Body text - Light grey
+  --text-tertiary: #8d99ae;        // Muted text - Lavender Grey
+  --text-muted: #5c6378;           // Subtle text - Dark grey
+  --text-inverse: #0a0e1a;         // On light backgrounds - Dark
+  --text-on-primary: #ffffff;      // On Strawberry Red - White
+  --text-light: #ffffff;           // Deprecated - use text-on-primary
+
+  // Border Colors (Indigo-coordinated)
+  --border-light: #3d3f54;         // Subtle borders
+  --border-medium: #5c6378;        // Visible borders
+  --border-strong: #8d99ae;        // Emphasis borders
+  --border-primary: rgba(239, 35, 60, 0.4);  // Strawberry Red borders
+
+  // Shadow Colors
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
 
   // Glassmorphism for dark mode
   --glass-bg: rgba(43, 45, 66, 0.8);
@@ -540,6 +613,23 @@ html.colorblind-tritanopia {
   --cta-gradient-start: rgba(173, 22, 32, 0.85);  // Darker Strawberry Red
   --cta-gradient-end: rgba(217, 4, 41, 0.75);     // Flag Red
   --cta-text: #edf2f4;  // Platinum for button text
+
+  // Semantic Colors (dark mode variants)
+  --color-success-light: #065f46;
+  --color-success-main: #10b981;
+  --color-success-dark: #6ee7b7;
+
+  --color-error-light: #7f1d1d;
+  --color-error-main: #ef233c;    // Uses Strawberry Red
+  --color-error-dark: #ff6b8a;
+
+  --color-warning-light: #78350f;
+  --color-warning-main: #f59e0b;
+  --color-warning-dark: #fcd34d;
+
+  --color-info-light: #1e3a47;
+  --color-info-main: #8d99ae;     // Uses Lavender Grey
+  --color-info-dark: #bdc6d6;
 
   // Apply to body
   color: var(--text-primary);
