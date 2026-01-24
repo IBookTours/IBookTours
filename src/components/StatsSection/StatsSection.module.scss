@@ -77,9 +77,8 @@
 .curvedLines {
   position: absolute;
   top: 50%;
-  // Match container padding so curves align with stat centers
-  left: $spacing-4;
-  right: $spacing-4;
+  left: 0;
+  right: 0;
   height: 120px;
   transform: translateY(-50%);
   pointer-events: none;
@@ -88,18 +87,6 @@
 
   @include respond-to(md) {
     display: block;
-    left: $spacing-6;
-    right: $spacing-6;
-  }
-
-  @include respond-to(lg) {
-    left: $spacing-8;
-    right: $spacing-8;
-  }
-
-  @include respond-to(2xl) {
-    left: $spacing-12;
-    right: $spacing-12;
   }
 }
 

@@ -157,34 +157,6 @@
   gap: $spacing-6;
 }
 
-.decorativeLine {
-  position: absolute;
-  right: -20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 400px;
-  height: 400px;
-  pointer-events: none;
-  opacity: 0.5;
-
-  @include respond-to(md) {
-    right: 0;
-    opacity: 0.6;
-  }
-
-  @include respond-to(lg) {
-    right: 20px;
-    opacity: 0.7;
-  }
-}
-
-.curvedPath {
-  fill: none;
-  stroke: $primary-400;  // More visible (#f87179)
-  stroke-width: 3;
-  stroke-dasharray: 10, 8;
-}
-
 // Pagination dots
 .pagination {
   display: flex;

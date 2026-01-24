@@ -114,14 +114,6 @@ export default function DestinationsSection({ destinations }: DestinationsSectio
           </div>
         )}
       </div>
-
-      {/* Decorative curved line */}
-      <svg className={styles.decorativeLine} viewBox="0 0 400 400">
-        <path
-          className={styles.curvedPath}
-          d="M 50 200 Q 150 50 250 200 Q 350 350 450 200"
-        />
-      </svg>
     </section>
   );
 }

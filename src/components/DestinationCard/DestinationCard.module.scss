@@ -46,16 +46,18 @@
   width: 36px;
   height: 36px;
   border-radius: $radius-full;
-  background: $rgba-white-90;
-  border: none;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
   cursor: pointer;
   @include flex-center;
   transition: all $transition-fast;
   z-index: 1;
+  box-shadow: $shadow-sm;
 
   &:hover {
-    background: $text-light;
+    background: var(--bg-tertiary);
     transform: scale(1.1);
+    box-shadow: $shadow-md;
   }
 
   svg {
