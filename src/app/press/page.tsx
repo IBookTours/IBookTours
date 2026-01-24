@@ -1,16 +1,26 @@
 import { Metadata } from 'next';
-import ComingSoon from '@/components/ComingSoon';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import PressPage from '@/components/PressPage';
+import { pressReleases, mediaKit, mediaContact, companyFacts } from '@/data/pressData';
+import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
   title: 'Press & Media | ITravel',
   description: 'Press releases, media kit, and news about ITravel.',
 };
 
-export default function PressPage() {
+export default function Press() {
   return (
-    <ComingSoon
-      title="Press & Media"
-      description="Our press page with media resources and company news is being prepared. Contact us for press inquiries."
-    />
+    <>
+      <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
+      <PressPage
+        pressReleases={pressReleases}
+        mediaKit={mediaKit}
+        contact={mediaContact}
+        facts={companyFacts}
+      />
+      <Footer content={siteData.footer} siteName={siteData.siteName} />
+    </>
   );
 }

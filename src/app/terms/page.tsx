@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
-import ComingSoon from '@/components/ComingSoon';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import LegalPage from '@/components/LegalPage';
+import { termsContent } from '@/data/legalPages';
+import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
   title: 'Terms of Service | ITravel',
@@ -8,9 +12,10 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <ComingSoon
-      title="Terms of Service"
-      description="Our terms of service page is being prepared. Please contact us if you have any questions about our policies."
-    />
+    <>
+      <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
+      <LegalPage content={termsContent} />
+      <Footer content={siteData.footer} siteName={siteData.siteName} />
+    </>
   );
 }

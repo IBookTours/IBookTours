@@ -108,6 +108,34 @@
   gap: $spacing-3;
 }
 
+.themeToggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: $text-light;
+
+  @include respond-to(md) {
+    display: flex;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .scrolled & {
+    background: $neutral-100;
+    border-color: $border-light;
+    color: $text-primary;
+
+    &:hover {
+      background: $neutral-200;
+    }
+  }
+}
+
 .searchBtn {
   display: none;
   width: 40px;

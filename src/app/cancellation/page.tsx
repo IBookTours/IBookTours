@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
-import ComingSoon from '@/components/ComingSoon';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import LegalPage from '@/components/LegalPage';
+import { cancellationContent } from '@/data/legalPages';
+import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
   title: 'Cancellation Policy | ITravel',
@@ -8,9 +12,10 @@ export const metadata: Metadata = {
 
 export default function CancellationPage() {
   return (
-    <ComingSoon
-      title="Cancellation Policy"
-      description="Our cancellation policy page is being prepared. For questions about existing bookings, please contact us directly."
-    />
+    <>
+      <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
+      <LegalPage content={cancellationContent} />
+      <Footer content={siteData.footer} siteName={siteData.siteName} />
+    </>
   );
 }

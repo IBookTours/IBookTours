@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
-import ComingSoon from '@/components/ComingSoon';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import LegalPage from '@/components/LegalPage';
+import { cookiesContent } from '@/data/legalPages';
+import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
   title: 'Cookie Policy | ITravel',
@@ -8,9 +12,10 @@ export const metadata: Metadata = {
 
 export default function CookiesPage() {
   return (
-    <ComingSoon
-      title="Cookie Policy"
-      description="Our cookie policy page is being prepared. We use cookies to enhance your browsing experience."
-    />
+    <>
+      <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
+      <LegalPage content={cookiesContent} />
+      <Footer content={siteData.footer} siteName={siteData.siteName} />
+    </>
   );
 }

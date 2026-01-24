@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
-import ComingSoon from '@/components/ComingSoon';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import LegalPage from '@/components/LegalPage';
+import { privacyContent } from '@/data/legalPages';
+import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | ITravel',
@@ -8,9 +12,10 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <ComingSoon
-      title="Privacy Policy"
-      description="Our privacy policy page is being prepared. We take your privacy seriously and will have detailed information available soon."
-    />
+    <>
+      <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
+      <LegalPage content={privacyContent} />
+      <Footer content={siteData.footer} siteName={siteData.siteName} />
+    </>
   );
 }

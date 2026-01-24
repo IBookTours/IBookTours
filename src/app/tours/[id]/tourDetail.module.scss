@@ -1,0 +1,463 @@
+@use '@/styles/variables' as *;
+
+.tourDetail {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.hero {
+  position: relative;
+  height: 50vh;
+  min-height: 350px;
+  display: flex;
+  align-items: flex-end;
+  padding: $spacing-12 $spacing-6;
+
+  @include respond-to(md) {
+    height: 60vh;
+    padding: $spacing-16 $spacing-8;
+  }
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  color: white;
+
+  h1 {
+    font-size: $font-2xl;
+    font-weight: $font-bold;
+    line-height: $leading-tight;
+    margin-bottom: $spacing-4;
+
+    @include respond-to(md) {
+      font-size: $font-4xl;
+    }
+  }
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  margin-bottom: $spacing-4;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-sm;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: $spacing-2;
+}
+
+.heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+}
+
+.rating,
+.duration,
+.groupSize {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-sm;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.rating {
+  color: $warning;
+}
+
+.container {
+  @include container;
+  display: grid;
+  gap: $spacing-8;
+  padding-top: $spacing-12;
+  padding-bottom: $spacing-12;
+
+  @include respond-to(lg) {
+    grid-template-columns: 1fr 350px;
+  }
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-12;
+}
+
+.sectionTitle {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-6;
+
+  @include respond-to(md) {
+    font-size: $font-2xl;
+  }
+}
+
+.overview {
+  p {
+    font-size: $font-lg;
+    line-height: $leading-relaxed;
+    color: var(--text-secondary);
+    margin-bottom: $spacing-4;
+
+    &:first-of-type {
+      color: var(--text-primary);
+    }
+  }
+}
+
+.gallery {
+  h2 {
+    margin-bottom: $spacing-4;
+  }
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-3;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.galleryItem {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: $radius-lg;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    transition: transform $transition-base;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+.highlightsList {
+  display: grid;
+  gap: $spacing-3;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.highlightItem {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  background: var(--bg-secondary);
+  border-radius: $radius-lg;
+
+  span {
+    color: var(--text-primary);
+  }
+}
+
+.checkIcon {
+  color: $success;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.itineraryList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.itineraryDay {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-xl;
+  overflow: hidden;
+}
+
+.dayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: $spacing-5;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  &.expanded {
+    border-bottom: 1px solid var(--border-light);
+  }
+}
+
+.dayInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.dayNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  padding: $spacing-1 $spacing-3;
+  background: var(--primary-600);
+  color: white;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  border-radius: $radius-full;
+}
+
+.dayTitle {
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+}
+
+.chevron {
+  color: var(--text-tertiary);
+  transition: transform $transition-fast;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.dayContent {
+  padding: $spacing-5;
+
+  p {
+    color: var(--text-secondary);
+    line-height: $leading-relaxed;
+  }
+}
+
+.includedSection {
+  display: grid;
+  gap: $spacing-6;
+
+  @include respond-to(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.includedColumn {
+  h3 {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-4;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-2;
+    padding: $spacing-2 0;
+    color: var(--text-secondary);
+    font-size: $font-sm;
+  }
+}
+
+.includeIcon {
+  color: $success;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.excludeIcon {
+  color: $error;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sidebar {
+  @include respond-to(lg) {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+  }
+}
+
+.bookingCard {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: $radius-2xl;
+  padding: $spacing-6;
+  box-shadow: $shadow-lg;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-2;
+  margin-bottom: $spacing-6;
+}
+
+.price {
+  font-size: $font-3xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+}
+
+.perPerson {
+  font-size: $font-sm;
+  color: var(--text-tertiary);
+}
+
+.tourMeta {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  padding-bottom: $spacing-6;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: $spacing-6;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  color: var(--text-secondary);
+  font-size: $font-sm;
+
+  svg {
+    color: var(--primary-600);
+  }
+}
+
+.bookButton {
+  width: 100%;
+  padding: $spacing-4;
+  background: var(--primary-600);
+  color: white;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  border: none;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: var(--primary-700);
+  }
+}
+
+.actionButtons {
+  display: flex;
+  gap: $spacing-3;
+  margin-top: $spacing-4;
+}
+
+.actionBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  padding: $spacing-3;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  border: 1px solid var(--border-medium);
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--border-strong);
+  }
+
+  &.active {
+    color: $error;
+    border-color: $error-light;
+  }
+}
+
+.notFound {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $spacing-8;
+
+  h1 {
+    font-size: $font-3xl;
+    font-weight: $font-bold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-4;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: $spacing-8;
+  }
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-6;
+  background: var(--primary-600);
+  color: white;
+  border-radius: $radius-lg;
+  font-weight: $font-medium;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: var(--primary-700);
+  }
+}

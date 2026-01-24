@@ -1,0 +1,186 @@
+@use '@/styles/variables' as *;
+
+.page {
+  min-height: 100vh;
+  padding: $spacing-24 0 $spacing-16;
+  background: var(--bg-secondary);
+}
+
+.container {
+  @include container;
+  max-width: 800px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  color: var(--text-secondary);
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  margin-bottom: $spacing-6;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-600;
+  }
+}
+
+.header {
+  margin-bottom: $spacing-8;
+
+  h1 {
+    font-size: $font-4xl;
+    font-weight: $font-bold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-3;
+
+    @include respond-to(md) {
+      font-size: $font-5xl;
+    }
+  }
+}
+
+.description {
+  font-size: $font-lg;
+  color: var(--text-secondary);
+  margin-bottom: $spacing-2;
+}
+
+.updated {
+  font-size: $font-sm;
+  color: var(--text-tertiary);
+}
+
+.controls {
+  display: flex;
+  gap: $spacing-3;
+  margin-bottom: $spacing-6;
+}
+
+.controlBtn {
+  padding: $spacing-2 $spacing-4;
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+}
+
+.toc {
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  margin-bottom: $spacing-8;
+  border: 1px solid var(--border-light);
+
+  h2 {
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-4;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+
+  a {
+    font-size: $font-sm;
+    color: $primary-600;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $primary-700;
+      text-decoration: underline;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.section {
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+.sectionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-5 $spacing-6;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+
+  h2 {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  svg {
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+  }
+}
+
+.sectionContent {
+  padding: 0 $spacing-6 $spacing-6;
+
+  p {
+    font-size: $font-base;
+    color: var(--text-secondary);
+    line-height: $leading-relaxed;
+    margin-bottom: $spacing-4;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.footer {
+  margin-top: $spacing-12;
+  padding-top: $spacing-6;
+  border-top: 1px solid var(--border-light);
+  text-align: center;
+
+  p {
+    font-size: $font-sm;
+    color: var(--text-tertiary);
+  }
+
+  a {
+    color: $primary-600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

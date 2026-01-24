@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
-import ComingSoon from '@/components/ComingSoon';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import HelpCenter from '@/components/HelpCenter';
+import { helpCategories } from '@/data/helpData';
+import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
   title: 'Help Center | ITravel',
@@ -8,9 +12,10 @@ export const metadata: Metadata = {
 
 export default function HelpPage() {
   return (
-    <ComingSoon
-      title="Help Center"
-      description="Our comprehensive help center is being built. For immediate assistance, please contact our support team."
-    />
+    <>
+      <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
+      <HelpCenter categories={helpCategories} />
+      <Footer content={siteData.footer} siteName={siteData.siteName} />
+    </>
   );
 }

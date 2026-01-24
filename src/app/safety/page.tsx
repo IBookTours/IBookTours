@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
-import ComingSoon from '@/components/ComingSoon';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import LegalPage from '@/components/LegalPage';
+import { safetyContent } from '@/data/legalPages';
+import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
   title: 'Safety Information | ITravel',
@@ -8,9 +12,10 @@ export const metadata: Metadata = {
 
 export default function SafetyPage() {
   return (
-    <ComingSoon
-      title="Safety Information"
-      description="Your safety is our priority. Our detailed safety guidelines and travel tips page is being prepared."
-    />
+    <>
+      <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
+      <LegalPage content={safetyContent} />
+      <Footer content={siteData.footer} siteName={siteData.siteName} />
+    </>
   );
 }

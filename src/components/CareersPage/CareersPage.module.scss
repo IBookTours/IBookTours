@@ -1,0 +1,380 @@
+@use '@/styles/variables' as *;
+
+.careers {
+  min-height: 100vh;
+  padding: $spacing-24 0 $spacing-16;
+  background: var(--bg-secondary);
+}
+
+.container {
+  @include container;
+  max-width: 1000px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  color: var(--text-secondary);
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  margin-bottom: $spacing-6;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--primary-600);
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: $spacing-12;
+
+  h1 {
+    font-size: $font-3xl;
+    font-weight: $font-bold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-4;
+
+    @include respond-to(md) {
+      font-size: $font-4xl;
+    }
+  }
+
+  p {
+    font-size: $font-lg;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+// Values Section
+.valuesSection {
+  margin-bottom: $spacing-12;
+
+  h2 {
+    font-size: $font-2xl;
+    font-weight: $font-bold;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: $spacing-8;
+  }
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-4;
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.valueCard {
+  padding: $spacing-6;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-xl;
+  text-align: center;
+  transition: all $transition-fast;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+
+  h3 {
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-2;
+  }
+
+  p {
+    font-size: $font-sm;
+    color: var(--text-secondary);
+    line-height: $leading-relaxed;
+  }
+}
+
+.valueIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto $spacing-4;
+  background: var(--primary-50);
+  color: var(--primary-600);
+  border-radius: $radius-lg;
+}
+
+// Benefits Section
+.benefitsSection {
+  margin-bottom: $spacing-12;
+  padding: $spacing-10;
+  background: var(--bg-primary);
+  border-radius: $radius-2xl;
+  border: 1px solid var(--border-light);
+
+  h2 {
+    font-size: $font-2xl;
+    font-weight: $font-bold;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: $spacing-8;
+  }
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-3;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3;
+  font-size: $font-sm;
+  color: var(--text-primary);
+}
+
+.checkIcon {
+  flex-shrink: 0;
+  color: $success;
+}
+
+// Jobs Section
+.jobsSection {
+  margin-bottom: $spacing-12;
+}
+
+.jobsHeader {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  margin-bottom: $spacing-6;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h2 {
+    font-size: $font-2xl;
+    font-weight: $font-bold;
+    color: var(--text-primary);
+  }
+}
+
+.filters {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.filterBtn {
+  padding: $spacing-2 $spacing-4;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-medium);
+  border-radius: $radius-full;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-primary);
+  }
+
+  &.active {
+    background: var(--primary-600);
+    color: white;
+    border-color: var(--primary-600);
+  }
+}
+
+.noJobs {
+  text-align: center;
+  padding: $spacing-12;
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  color: var(--text-secondary);
+}
+
+.jobsList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.jobCard {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-xl;
+  overflow: hidden;
+}
+
+.jobHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: $spacing-5;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+}
+
+.jobInfo {
+  h3 {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-2;
+  }
+}
+
+.jobMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+  font-size: $font-sm;
+  color: var(--text-secondary);
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+}
+
+.type {
+  padding: $spacing-1 $spacing-2;
+  background: var(--primary-50);
+  color: var(--primary-600);
+  border-radius: $radius-sm;
+  font-size: $font-xs;
+  font-weight: $font-medium;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+  transition: transform $transition-fast;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.jobContent {
+  padding: $spacing-5;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+
+  h4 {
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-2;
+  }
+
+  p {
+    font-size: $font-sm;
+    color: var(--text-secondary);
+    line-height: $leading-relaxed;
+    margin-bottom: $spacing-4;
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: $spacing-5;
+    margin-bottom: $spacing-4;
+
+    li {
+      font-size: $font-sm;
+      color: var(--text-secondary);
+      margin-bottom: $spacing-1;
+    }
+  }
+}
+
+.jobDescription,
+.jobRequirements,
+.jobBenefits {
+  margin-bottom: $spacing-4;
+}
+
+.applyBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-6;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: white;
+  background: var(--primary-600);
+  border-radius: $radius-lg;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--primary-700);
+  }
+}
+
+// CTA Section
+.ctaSection {
+  text-align: center;
+  padding: $spacing-10;
+  background: var(--primary-50);
+  border-radius: $radius-2xl;
+
+  h3 {
+    font-size: $font-xl;
+    font-weight: $font-bold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-2;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: $spacing-6;
+  }
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-8;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: white;
+  background: var(--primary-600);
+  border-radius: $radius-lg;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--primary-700);
+  }
+}

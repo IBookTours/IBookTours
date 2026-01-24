@@ -1,0 +1,361 @@
+@use '@/styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-4;
+  z-index: 1000;
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  background: var(--bg-primary);
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-xl;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: $spacing-4;
+  right: $spacing-4;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: $radius-full;
+  color: var(--text-secondary);
+  cursor: pointer;
+  z-index: 10;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+}
+
+.header {
+  padding: $spacing-6;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.tourPreview {
+  display: flex;
+  gap: $spacing-4;
+}
+
+.tourImage {
+  position: relative;
+  width: 80px;
+  height: 60px;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.tourInfo {
+  h2 {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-1;
+  }
+
+  p {
+    font-size: $font-sm;
+    color: var(--text-secondary);
+  }
+}
+
+.duration {
+  display: inline-block;
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  color: var(--primary-600);
+  background: var(--primary-50);
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-md;
+  margin-top: $spacing-2;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-6;
+}
+
+.section {
+  margin-bottom: $spacing-6;
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-4;
+
+    svg {
+      color: var(--primary-600);
+    }
+  }
+}
+
+.dateInput {
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  font-size: $font-base;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-medium);
+  border-radius: $radius-lg;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
+  }
+}
+
+.travelerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-4 0;
+  border-bottom: 1px solid var(--border-light);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.travelerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+.travelerType {
+  font-weight: $font-medium;
+  color: var(--text-primary);
+}
+
+.travelerPrice {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+
+  button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-medium);
+    border-radius: $radius-lg;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover:not(:disabled) {
+      background: var(--primary-50);
+      border-color: var(--primary-300);
+      color: var(--primary-600);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  span {
+    min-width: 24px;
+    text-align: center;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+  }
+}
+
+.summary {
+  background: var(--bg-secondary);
+  border-radius: $radius-xl;
+  padding: $spacing-4;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-2 0;
+  color: var(--text-secondary);
+  font-size: $font-sm;
+
+  &.total {
+    padding-top: $spacing-3;
+    margin-top: $spacing-2;
+    border-top: 1px solid var(--border-medium);
+    font-size: $font-lg;
+    font-weight: $font-bold;
+    color: var(--text-primary);
+  }
+}
+
+.demoNote {
+  background: $warning-light;
+  color: darken($warning, 20%);
+  padding: $spacing-3 $spacing-4;
+  border-radius: $radius-lg;
+  font-size: $font-sm;
+  margin-bottom: $spacing-4;
+}
+
+.formGroup {
+  margin-bottom: $spacing-4;
+
+  label {
+    display: block;
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    color: var(--text-secondary);
+    margin-bottom: $spacing-2;
+  }
+
+  input {
+    width: 100%;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-base;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-medium);
+    border-radius: $radius-lg;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-500);
+      box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
+    }
+  }
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-4;
+}
+
+.confirmation {
+  text-align: center;
+  padding: $spacing-8 0;
+
+  h3 {
+    font-size: $font-xl;
+    font-weight: $font-bold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-2;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: $spacing-2;
+  }
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $success-light;
+  color: $success;
+  border-radius: $radius-full;
+  margin: 0 auto $spacing-6;
+}
+
+.bookingRef {
+  font-size: $font-lg;
+  margin-top: $spacing-4;
+
+  strong {
+    color: var(--primary-600);
+  }
+}
+
+.emailNote {
+  font-size: $font-sm;
+  color: var(--text-tertiary);
+  margin-top: $spacing-4;
+}
+
+.footer {
+  padding: $spacing-4 $spacing-6;
+  border-top: 1px solid var(--border-light);
+}
+
+.continueBtn {
+  width: 100%;
+  padding: $spacing-4;
+  background: var(--primary-600);
+  color: white;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  border: none;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  &:hover:not(:disabled) {
+    background: var(--primary-700);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

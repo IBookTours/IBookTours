@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Menu, X, Search, Compass } from 'lucide-react';
 import { NavItem } from '@/types';
 import { LoginButton } from '@/components/Auth';
+import { ThemeToggle } from '@/components/ThemeProvider';
 import styles from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -71,6 +72,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
           </nav>
 
           <div className={styles.actions}>
+            <ThemeToggle className={styles.themeToggle} />
             <button
               className={styles.searchBtn}
               aria-label="Search"
