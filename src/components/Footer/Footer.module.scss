@@ -73,7 +73,7 @@
   transition: background $transition-fast;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--bg-secondary);
   }
 
   svg {
@@ -110,16 +110,39 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: $spacing-10;
+  gap: $spacing-6;
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-6;
+  }
 
   @include respond-to(md) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-6;
+  }
+
+  @include respond-to(lg) {
     grid-template-columns: 2fr repeat(3, 1fr);
     gap: $spacing-8;
   }
 }
 
 .brand {
-  max-width: 300px;
+  max-width: 100%;
+
+  @include respond-to(sm) {
+    grid-column: span 2;
+  }
+
+  @include respond-to(md) {
+    grid-column: span 1;
+    max-width: 280px;
+  }
+
+  @include respond-to(lg) {
+    max-width: 300px;
+  }
 }
 
 .logo {

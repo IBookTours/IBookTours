@@ -5,7 +5,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 999;
+  z-index: $z-popover;  // 600
   background-color: $neutral-900;
   border-top: 1px solid $neutral-700;
   padding: $spacing-4;

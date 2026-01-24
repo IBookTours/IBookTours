@@ -45,10 +45,10 @@
 
 .error {
   padding: $spacing-3 $spacing-4;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: $error-light;
+  border: 1px solid rgba($error, 0.3);
   border-radius: $radius-lg;
-  color: #dc2626;
+  color: $error;
   font-size: $font-sm;
   margin-bottom: $spacing-6;
 }
@@ -109,8 +109,12 @@
 
 .row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: $spacing-4;
+
+  @include respond-to(sm) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .submitBtn {
@@ -166,11 +170,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #dcfce7;
+  background: $success-light;
   border-radius: $radius-full;
 
   svg {
-    color: #16a34a;
+    color: $success;
   }
 }
 

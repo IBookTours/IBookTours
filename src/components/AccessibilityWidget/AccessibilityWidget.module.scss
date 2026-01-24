@@ -2,12 +2,12 @@
 
 .widget {
   position: fixed;
-  bottom: $spacing-6;
+  bottom: calc(#{$spacing-6} + 70px);  // Above WhatsApp button
   right: $spacing-6;
-  z-index: 1000;
+  z-index: $z-tooltip;  // 700
 
   @include respond-to(md) {
-    bottom: $spacing-8;
+    bottom: calc(#{$spacing-8} + 70px);
     right: $spacing-8;
   }
 }
