@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Map, Building, Star, Download, Play, CheckCircle, Globe } from 'lucide-react';
 import { BookingContent } from '@/types';
 import styles from './BookingSection.module.scss';
@@ -16,10 +18,24 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export default function BookingSection({ content }: BookingSectionProps) {
+  const [showToast, setShowToast] = useState(false);
+
+  const handleComingSoon = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
   return (
     <section className={styles.section}>
       <div className={styles.bgDecoration} />
       <div className={styles.bgDecoration} />
+
+      {/* Coming Soon Toast */}
+      {showToast && (
+        <div className={styles.toast}>
+          Mobile app coming soon!
+        </div>
+      )}
 
       <div className={styles.container}>
         <div className={styles.grid}>
@@ -41,14 +57,14 @@ export default function BookingSection({ content }: BookingSectionProps) {
             </div>
 
             <div className={styles.ctaWrapper}>
-              <button className={styles.ctaPrimary}>
+              <button className={styles.ctaPrimary} onClick={handleComingSoon}>
                 <Download />
                 {content.ctaText}
               </button>
-              <button className={styles.ctaSecondary}>
+              <Link href="/about" className={styles.ctaSecondary}>
                 <Play />
-                Watch Demo
-              </button>
+                Learn More
+              </Link>
             </div>
           </div>
 

@@ -1,0 +1,366 @@
+@use '@/styles/variables' as *;
+
+// ============================================
+// TOURS PAGE
+// ============================================
+
+.page {
+  min-height: 100vh;
+  background: $bg-secondary;
+}
+
+// ============================================
+// HERO SECTION
+// ============================================
+
+.hero {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  @include respond-to(lg) {
+    height: 500px;
+  }
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: $spacing-4;
+  max-width: 700px;
+
+  h1 {
+    font-size: $font-4xl;
+    font-weight: $font-bold;
+    color: $text-light;
+    margin: 0 0 $spacing-4 0;
+
+    @include respond-to(lg) {
+      font-size: $font-5xl;
+    }
+  }
+
+  p {
+    font-size: $font-lg;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 $spacing-8 0;
+  }
+}
+
+.searchBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: $bg-primary;
+  border-radius: $radius-full;
+  padding: $spacing-2;
+  box-shadow: $shadow-xl;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchIcon {
+  position: absolute;
+  left: $spacing-5;
+  width: 20px;
+  height: 20px;
+  color: $text-muted;
+}
+
+.searchBar input {
+  flex: 1;
+  padding: $spacing-3 $spacing-4 $spacing-3 $spacing-12;
+  border: none;
+  background: transparent;
+  font-size: $font-base;
+  color: $text-primary;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.filterToggle {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-5;
+  background: $primary-600;
+  color: $text-light;
+  border: none;
+  border-radius: $radius-full;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $primary-700;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// ============================================
+// CONTAINER
+// ============================================
+
+.container {
+  @include container;
+  padding-top: $spacing-8;
+  padding-bottom: $spacing-16;
+}
+
+// ============================================
+// FILTER BAR
+// ============================================
+
+.filterBar {
+  display: none;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+  padding: $spacing-6;
+  background: $bg-primary;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-sm;
+  margin-bottom: $spacing-8;
+
+  &.open {
+    display: flex;
+  }
+
+  @include respond-to(lg) {
+    display: flex;
+  }
+}
+
+.filterGroup {
+  flex: 1;
+  min-width: 180px;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-xs;
+    font-weight: $font-medium;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: $tracking-wide;
+    margin-bottom: $spacing-2;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+.selectWrapper {
+  position: relative;
+
+  select {
+    width: 100%;
+    padding: $spacing-3 $spacing-10 $spacing-3 $spacing-4;
+    appearance: none;
+    background: $bg-secondary;
+    border: 1px solid $border-light;
+    border-radius: $radius-lg;
+    font-size: $font-sm;
+    color: $text-primary;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-500;
+    }
+  }
+
+  svg {
+    position: absolute;
+    right: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: $text-muted;
+    pointer-events: none;
+  }
+}
+
+.clearFilters {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  background: transparent;
+  border: 1px solid $border-light;
+  border-radius: $radius-lg;
+  font-size: $font-sm;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: all $transition-fast;
+  align-self: flex-end;
+
+  &:hover {
+    background: $error-light;
+    border-color: $error;
+    color: $error;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+// ============================================
+// RESULTS HEADER
+// ============================================
+
+.resultsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-6;
+}
+
+.resultCount {
+  font-size: $font-sm;
+  color: $text-secondary;
+  margin: 0;
+
+  strong {
+    color: $text-primary;
+    font-weight: $font-semibold;
+  }
+}
+
+.viewToggle {
+  display: flex;
+  gap: $spacing-1;
+  background: $bg-primary;
+  padding: $spacing-1;
+  border-radius: $radius-lg;
+  border: 1px solid $border-light;
+
+  button {
+    width: 36px;
+    height: 36px;
+    @include flex-center;
+    background: transparent;
+    border: none;
+    border-radius: $radius-md;
+    color: $text-muted;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      color: $text-primary;
+    }
+
+    &.active {
+      background: $primary-600;
+      color: $text-light;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// ============================================
+// RESULTS GRID
+// ============================================
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to(xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &.listView {
+    grid-template-columns: 1fr;
+
+    @include respond-to(lg) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// ============================================
+// NO RESULTS
+// ============================================
+
+.noResults {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-16;
+  text-align: center;
+
+  svg {
+    width: 48px;
+    height: 48px;
+    color: $text-muted;
+    margin-bottom: $spacing-4;
+  }
+
+  h3 {
+    font-size: $font-xl;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin: 0 0 $spacing-2 0;
+  }
+
+  p {
+    font-size: $font-base;
+    color: $text-secondary;
+    margin: 0 0 $spacing-6 0;
+  }
+
+  button {
+    @include button-primary;
+  }
+}

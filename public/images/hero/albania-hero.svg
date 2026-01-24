@@ -1,0 +1,29 @@
+<svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f"/>
+      <stop offset="50%" style="stop-color:#2d5a87"/>
+      <stop offset="100%" style="stop-color:#87ceeb"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0077be"/>
+      <stop offset="100%" style="stop-color:#00a5cf"/>
+    </linearGradient>
+    <linearGradient id="mountain" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#2d3436"/>
+      <stop offset="100%" style="stop-color:#636e72"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky -->
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <!-- Mountains -->
+  <polygon points="0,700 300,400 600,550 900,350 1200,500 1500,380 1920,600 1920,1080 0,1080" fill="url(#mountain)"/>
+  <polygon points="0,800 400,550 700,650 1000,500 1400,600 1920,520 1920,1080 0,1080" fill="#4a5568" opacity="0.8"/>
+  <!-- Sea -->
+  <rect y="750" width="1920" height="330" fill="url(#sea)"/>
+  <!-- Sun reflection on water -->
+  <ellipse cx="960" cy="850" rx="200" ry="20" fill="#fff" opacity="0.3"/>
+  <!-- Text -->
+  <text x="960" y="500" text-anchor="middle" font-family="Georgia, serif" font-size="72" fill="#fff" opacity="0.9">ALBANIA</text>
+  <text x="960" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#fff" opacity="0.7">The Hidden Gem of Europe</text>
+</svg>

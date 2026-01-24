@@ -2,7 +2,11 @@
 // SANITY SAFE FETCH WRAPPER
 // ============================================
 // Provides a safe fetch wrapper with caching, revalidation,
-// and graceful fallback to mock data when CMS is unavailable
+// and ZERO-LATENCY fallback to mock data when CMS is unavailable
+//
+// CRITICAL: All functions check isSanityConfigured SYNCHRONOUSLY
+// at the start and return mock data IMMEDIATELY if not configured.
+// This ensures zero network latency when Sanity keys are not set.
 
 import { sanityClient, queries, isSanityConfigured } from './sanity.client';
 import { siteData } from '@/data/siteData';
@@ -15,91 +19,118 @@ const PRODUCTION_REVALIDATE = 3600; // 1 hour for production
 const getRevalidateTime = () =>
   process.env.NODE_ENV === 'production' ? PRODUCTION_REVALIDATE : REVALIDATE_INTERVAL;
 
+// ============================================
+// TYPED FETCH FUNCTIONS WITH ZERO-LATENCY FALLBACKS
+// ============================================
+
 /**
- * Generic safe fetch wrapper for Sanity queries
- * Returns null if fetch fails, allowing caller to use fallback data
+ * Fetch tour packages from Sanity with IMMEDIATE fallback to mock data
+ *
+ * ZERO-LATENCY: If Sanity is not configured, returns mock data synchronously
+ * without any network requests or async operations.
  */
-async function safeFetch<T>(
-  query: string,
-  params?: Record<string, unknown>,
-  tags?: string[]
-): Promise<T | null> {
-  // Skip if Sanity is not configured
+export async function fetchTourPackagesWithFallback(): Promise<Destination[]> {
+  // SYNCHRONOUS CHECK - Return immediately if not configured
   if (!isSanityConfigured) {
-    console.info('[Sanity] Not configured, using mock data');
-    return null;
+    return siteData.destinations;
   }
 
   try {
-    const result = await sanityClient.fetch<T>(query, params ?? {}, {
-      next: {
-        revalidate: getRevalidateTime(),
-        tags: tags || ['sanity'],
-      },
-    });
-    return result;
+    const data = await sanityClient.fetch<SanityTourPackage[]>(
+      queries.tourPackages,
+      {},
+      {
+        next: {
+          revalidate: getRevalidateTime(),
+          tags: ['tourPackages'],
+        },
+      }
+    );
+
+    if (data && data.length > 0) {
+      return data.map(transformTourPackageToDestination);
+    }
+
+    // Empty result from Sanity - use mock data
+    return siteData.destinations;
   } catch (error) {
-    console.error('[Sanity] Fetch error:', error);
-    return null;
+    console.error('[Sanity] Tour packages fetch error:', error);
+    return siteData.destinations;
   }
 }
 
-// ============================================
-// TYPED FETCH FUNCTIONS WITH FALLBACKS
-// ============================================
-
 /**
- * Fetch tour packages from Sanity with fallback to mock data
- */
-export async function fetchTourPackagesWithFallback(): Promise<Destination[]> {
-  const data = await safeFetch<SanityTourPackage[]>(queries.tourPackages, undefined, [
-    'tourPackages',
-  ]);
-
-  if (data && data.length > 0) {
-    // Transform Sanity data to match our Destination interface
-    return data.map(transformTourPackageToDestination);
-  }
-
-  // Fallback to mock data
-  console.info('[Sanity] Using mock destinations data');
-  return siteData.destinations;
-}
-
-/**
- * Fetch testimonials from Sanity with fallback to mock data
+ * Fetch testimonials from Sanity with IMMEDIATE fallback to mock data
+ *
+ * ZERO-LATENCY: If Sanity is not configured, returns mock data synchronously
+ * without any network requests or async operations.
  */
 export async function fetchTestimonialsWithFallback(): Promise<Testimonial[]> {
-  const data = await safeFetch<SanityTestimonial[]>(queries.testimonials, undefined, [
-    'testimonials',
-  ]);
-
-  if (data && data.length > 0) {
-    // Transform Sanity data to match our Testimonial interface
-    return data.map(transformSanityTestimonial);
+  // SYNCHRONOUS CHECK - Return immediately if not configured
+  if (!isSanityConfigured) {
+    return siteData.testimonials.testimonials;
   }
 
-  // Fallback to mock data
-  console.info('[Sanity] Using mock testimonials data');
-  return siteData.testimonials.testimonials;
+  try {
+    const data = await sanityClient.fetch<SanityTestimonial[]>(
+      queries.testimonials,
+      {},
+      {
+        next: {
+          revalidate: getRevalidateTime(),
+          tags: ['testimonials'],
+        },
+      }
+    );
+
+    if (data && data.length > 0) {
+      return data.map(transformSanityTestimonial);
+    }
+
+    // Empty result from Sanity - use mock data
+    return siteData.testimonials.testimonials;
+  } catch (error) {
+    console.error('[Sanity] Testimonials fetch error:', error);
+    return siteData.testimonials.testimonials;
+  }
 }
 
 /**
- * Fetch homepage stats from Sanity with fallback to mock data
+ * Fetch homepage stats from Sanity with IMMEDIATE fallback to mock data
+ *
+ * ZERO-LATENCY: If Sanity is not configured, returns mock data synchronously
+ * without any network requests or async operations.
  */
 export async function fetchStatsWithFallback(): Promise<Stat[]> {
-  const data = await safeFetch<SanityHomepageStats>(queries.homepageStats, undefined, [
-    'homepageStats',
-  ]);
-
-  if (data) {
-    // Transform Sanity stats to match our Stat[] interface
-    return transformSanityStats(data);
+  // SYNCHRONOUS CHECK - Return immediately if not configured
+  if (!isSanityConfigured) {
+    return siteData.stats;
   }
 
-  // Fallback to mock data
-  console.info('[Sanity] Using mock stats data');
-  return siteData.stats;
+  try {
+    const data = await sanityClient.fetch<SanityHomepageStats>(
+      queries.homepageStats,
+      {},
+      {
+        next: {
+          revalidate: getRevalidateTime(),
+          tags: ['homepageStats'],
+        },
+      }
+    );
+
+    if (data) {
+      const transformed = transformSanityStats(data);
+      // If transformation yields empty array, use mock data
+      return transformed.length > 0 ? transformed : siteData.stats;
+    }
+
+    // No data from Sanity - use mock data
+    return siteData.stats;
+  } catch (error) {
+    console.error('[Sanity] Stats fetch error:', error);
+    return siteData.stats;
+  }
 }
 
 // ============================================
@@ -222,11 +253,6 @@ function transformSanityStats(stats: SanityHomepageStats): Stat[] {
     });
   }
 
-  // Return mock data if no stats were found
-  if (result.length === 0) {
-    return siteData.stats;
-  }
-
   return result;
 }
 
@@ -236,10 +262,11 @@ function transformSanityStats(stats: SanityHomepageStats): Stat[] {
 
 /**
  * Invalidate all Sanity caches
- * Call this after content updates in Sanity Studio
+ * Call this from a webhook or API route after content updates
  */
 export async function revalidateSanityCache() {
-  // This would be called from an API route or webhook
-  // For now, it's a placeholder for future implementation
+  if (!isSanityConfigured) {
+    return;
+  }
   console.info('[Sanity] Cache invalidation requested');
 }

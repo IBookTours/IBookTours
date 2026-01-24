@@ -64,37 +64,70 @@
   @include container;
   position: relative;
   z-index: 2;
-  padding-top: 120px;
+  padding-top: 80px;
   flex: 1;
   display: flex;
   flex-direction: column;
+
+  @include respond-to(md) {
+    padding-top: 100px;
+  }
+
+  @include respond-to(lg) {
+    padding-top: 120px;
+  }
 }
 
 .searchWrapper {
-  margin-top: $spacing-8;
-  max-width: 500px;
+  margin-top: $spacing-6;
+  width: 100%;
+  max-width: 100%;
+
+  @include respond-to(sm) {
+    max-width: 500px;
+  }
+
+  @include respond-to(md) {
+    margin-top: $spacing-8;
+    max-width: 560px;
+  }
 
   @include respond-to(lg) {
     margin-top: $spacing-12;
+    max-width: 620px;
+  }
+
+  @include respond-to(xl) {
+    max-width: 700px;
   }
 }
 
 .searchBox {
   display: flex;
   align-items: center;
-  gap: $spacing-3;
-  padding: $spacing-2 $spacing-2 $spacing-2 $spacing-5;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-2 $spacing-2 $spacing-4;
   @include glassmorphism-light;
   border-radius: $radius-full;
   box-shadow: $shadow-lg;
 
+  @include respond-to(md) {
+    gap: $spacing-3;
+    padding: $spacing-2 $spacing-2 $spacing-2 $spacing-5;
+  }
+
   input {
     flex: 1;
+    min-width: 0; // Allows input to shrink properly
     border: none;
     background: transparent;
-    font-size: $font-sm;
+    font-size: $font-base; // 16px prevents iOS zoom
     color: $text-primary;
     outline: none;
+
+    @include respond-to(md) {
+      font-size: $font-sm;
+    }
 
     &::placeholder {
       color: $text-tertiary;
@@ -135,6 +168,10 @@
   span {
     font-size: $font-xs;
     color: rgba(255, 255, 255, 0.8);
+
+    @include respond-to(md) {
+      font-size: $font-sm;
+    }
   }
 }
 
@@ -147,9 +184,20 @@
   color: $text-light;
   cursor: pointer;
   transition: all $transition-fast;
+  border: none;
+
+  @include respond-to(md) {
+    font-size: $font-sm;
+    padding: $spacing-1 $spacing-4;
+  }
 
   &:hover {
     background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 

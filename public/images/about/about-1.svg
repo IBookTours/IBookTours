@@ -1,0 +1,21 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aboutBg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00b4db"/>
+      <stop offset="100%" style="stop-color:#0083b0"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#aboutBg1)"/>
+  <!-- Beach scene -->
+  <ellipse cx="300" cy="380" rx="350" ry="60" fill="#f5deb3"/>
+  <rect y="200" width="600" height="150" fill="#00d4aa" opacity="0.8"/>
+  <!-- Umbrella -->
+  <line x1="200" y1="250" x2="200" y2="350" stroke="#8b4513" stroke-width="4"/>
+  <path d="M130,250 Q200,180 270,250" fill="#e74c3c"/>
+  <!-- Beach chair -->
+  <polygon points="280,320 320,350 380,350 340,320" fill="#3498db"/>
+  <line x1="300" y1="320" x2="280" y2="360" stroke="#8b4513" stroke-width="3"/>
+  <line x1="360" y1="320" x2="380" y2="360" stroke="#8b4513" stroke-width="3"/>
+  <!-- Text -->
+  <text x="300" y="120" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#fff">Albanian Riviera</text>
+</svg>

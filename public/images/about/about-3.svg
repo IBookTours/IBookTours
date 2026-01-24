@@ -1,0 +1,25 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aboutBg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb"/>
+      <stop offset="100%" style="stop-color:#f5576c"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#aboutBg3)"/>
+  <!-- Historic building -->
+  <rect x="150" y="150" width="300" height="200" fill="#f5f5dc"/>
+  <polygon points="150,150 300,80 450,150" fill="#8b4513"/>
+  <!-- Columns -->
+  <rect x="180" y="180" width="20" height="150" fill="#ddd"/>
+  <rect x="240" y="180" width="20" height="150" fill="#ddd"/>
+  <rect x="340" y="180" width="20" height="150" fill="#ddd"/>
+  <rect x="400" y="180" width="20" height="150" fill="#ddd"/>
+  <!-- Door -->
+  <rect x="270" y="250" width="60" height="100" fill="#8b4513"/>
+  <circle cx="320" cy="300" r="5" fill="#f1c40f"/>
+  <!-- Windows -->
+  <rect x="190" y="200" width="30" height="40" fill="#87ceeb"/>
+  <rect x="380" y="200" width="30" height="40" fill="#87ceeb"/>
+  <!-- Text -->
+  <text x="300" y="60" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#fff">UNESCO Heritage</text>
+</svg>

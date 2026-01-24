@@ -1,0 +1,27 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="catBg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#834d9b"/>
+      <stop offset="100%" style="stop-color:#d04ed6"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#catBg2)"/>
+  <!-- Historic castle -->
+  <rect x="200" y="200" width="200" height="150" fill="#8b7355"/>
+  <!-- Towers -->
+  <rect x="180" y="150" width="50" height="200" fill="#8b7355"/>
+  <rect x="370" y="150" width="50" height="200" fill="#8b7355"/>
+  <!-- Tower tops -->
+  <polygon points="180,150 205,100 230,150" fill="#6b5344"/>
+  <polygon points="370,150 395,100 420,150" fill="#6b5344"/>
+  <!-- Gate -->
+  <path d="M270,350 L270,280 Q300,250 330,280 L330,350" fill="#2c3e50"/>
+  <!-- Windows -->
+  <rect x="220" y="230" width="25" height="35" fill="#2c3e50"/>
+  <rect x="355" y="230" width="25" height="35" fill="#2c3e50"/>
+  <rect x="190" y="180" width="20" height="30" fill="#2c3e50"/>
+  <rect x="390" y="180" width="20" height="30" fill="#2c3e50"/>
+  <!-- Text -->
+  <text x="300" y="80" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#fff">UNESCO SITES</text>
+  <text x="300" y="120" text-anchor="middle" font-family="Arial" font-size="18" fill="#fff" opacity="0.9">12 Heritage Sites</text>
+</svg>

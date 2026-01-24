@@ -321,3 +321,101 @@ img {
   background-image: radial-gradient(circle, $neutral-200 1px, transparent 1px);
   background-size: 20px 20px;
 }
+
+// ============================================
+// ACCESSIBILITY
+// ============================================
+
+// Skip to main content link
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: $spacing-3 $spacing-6;
+  background: $primary-600;
+  color: $text-light;
+  font-weight: $font-semibold;
+  border-radius: $radius-lg;
+  z-index: 9999;
+  transition: top 0.2s ease-out;
+
+  &:focus {
+    top: $spacing-4;
+    outline: 3px solid $primary-300;
+    outline-offset: 2px;
+  }
+}
+
+// Focus indicators for keyboard navigation
+*:focus-visible {
+  outline: 3px solid $primary-400;
+  outline-offset: 2px;
+}
+
+// Remove default outline for mouse users
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// Special focus styles for interactive elements
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid $primary-400;
+  outline-offset: 2px;
+  border-radius: $radius-sm;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  *:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// ============================================
+// ACCESSIBILITY WIDGET STYLES
+// ============================================
+
+// Font size modifiers
+html.font-normal {
+  font-size: 16px;
+}
+
+html.font-large {
+  font-size: 18px;
+}
+
+html.font-x-large {
+  font-size: 20px;
+}
+
+// High contrast mode
+html.high-contrast {
+  --text-primary: #000000;
+  --text-secondary: #1a1a1a;
+  --text-tertiary: #333333;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f0f0;
+  --border-light: #666666;
+
+  img {
+    filter: contrast(1.1);
+  }
+}

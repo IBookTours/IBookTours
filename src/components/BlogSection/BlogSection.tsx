@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { BlogContent } from '@/types';
+import { useInView } from '@/hooks';
 import styles from './BlogSection.module.scss';
 
 interface BlogSectionProps {
@@ -10,23 +12,28 @@ interface BlogSectionProps {
 }
 
 export default function BlogSection({ content }: BlogSectionProps) {
+  const [sectionRef, isInView] = useInView<HTMLElement>({
+    threshold: 0.15,
+    triggerOnce: true,
+  });
+
   const featuredPost = content.posts.find((p) => p.featured) || content.posts[0];
   const otherPosts = content.posts.filter((p) => p.id !== featuredPost.id);
 
   return (
-    <section className={styles.section} id="blog">
+    <section ref={sectionRef} className={styles.section} id="blog">
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
           <h2 className={styles.title}>{content.sectionTitle}</h2>
-          <a href="#" className={styles.viewAll}>
+          <Link href="/blog" className={styles.viewAll}>
             View All Posts
             <ArrowRight />
-          </a>
+          </Link>
         </div>
 
         <div className={styles.grid}>
           {/* Featured Post */}
-          <article className={`${styles.blogCard} ${styles.featuredPost}`}>
+          <article className={`${styles.blogCard} ${styles.featuredPost} ${isInView ? styles.visible : ''}`}>
             <div className={styles.imageWrapper}>
               <Image
                 src={featuredPost.image}
@@ -56,16 +63,20 @@ export default function BlogSection({ content }: BlogSectionProps) {
                   </span>
                 )}
               </div>
-              <a href="#" className={styles.readMore}>
+              <Link href="/blog" className={styles.readMore}>
                 Read More
                 <ArrowRight />
-              </a>
+              </Link>
             </div>
           </article>
 
           {/* Other Posts */}
-          {otherPosts.map((post) => (
-            <article key={post.id} className={styles.blogCard}>
+          {otherPosts.map((post, index) => (
+            <article
+              key={post.id}
+              className={`${styles.blogCard} ${isInView ? styles.visible : ''}`}
+              style={{ transitionDelay: `${0.2 + index * 0.15}s` }}
+            >
               <div className={styles.imageWrapper}>
                 <Image
                   src={post.image}

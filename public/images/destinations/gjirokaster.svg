@@ -1,0 +1,34 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyG" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2c3e50"/>
+      <stop offset="100%" style="stop-color:#4ca1af"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#skyG)"/>
+  <!-- Mountain -->
+  <polygon points="0,600 200,300 500,350 800,280 800,600" fill="#5d6d7e"/>
+  <!-- Stone tower houses -->
+  <polygon points="250,450 290,320 330,450" fill="#7f8c8d"/>
+  <rect x="260" y="350" width="50" height="100" fill="#95a5a6"/>
+  <polygon points="380,420 430,280 480,420" fill="#7f8c8d"/>
+  <rect x="395" y="300" width="55" height="120" fill="#95a5a6"/>
+  <polygon points="520,470 570,350 620,470" fill="#7f8c8d"/>
+  <rect x="535" y="370" width="50" height="100" fill="#95a5a6"/>
+  <!-- Stone texture (dots) -->
+  <g fill="#bdc3c7" opacity="0.5">
+    <circle cx="280" cy="380" r="3"/>
+    <circle cx="300" cy="400" r="3"/>
+    <circle cx="420" cy="350" r="3"/>
+    <circle cx="440" cy="380" r="3"/>
+    <circle cx="555" cy="410" r="3"/>
+    <circle cx="575" cy="430" r="3"/>
+  </g>
+  <!-- Windows -->
+  <rect x="275" y="380" width="20" height="25" fill="#2c3e50"/>
+  <rect x="415" y="340" width="22" height="28" fill="#2c3e50"/>
+  <rect x="550" y="400" width="18" height="22" fill="#2c3e50"/>
+  <!-- Text -->
+  <text x="400" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="44" fill="#fff">Gjirokaster</text>
+  <text x="400" y="190" text-anchor="middle" font-family="Arial" font-size="18" fill="#fff" opacity="0.9">The City of Stone</text>
+</svg>

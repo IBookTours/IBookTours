@@ -1,0 +1,25 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blogBg3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#11998e"/>
+      <stop offset="100%" style="stop-color:#38ef7d"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#blogBg3)"/>
+  <!-- Mountains -->
+  <polygon points="0,400 150,150 300,280 450,100 600,200 600,400" fill="#2d3436"/>
+  <polygon points="450,100 480,100 520,130 480,130" fill="#fff"/>
+  <!-- Hiking trail -->
+  <path d="M50,380 Q150,320 200,350 Q300,280 400,300 Q500,250 550,280" stroke="#f5deb3" stroke-width="4" fill="none" stroke-dasharray="10,5"/>
+  <!-- Hiker -->
+  <circle cx="300" cy="290" r="15" fill="#f5deb3"/>
+  <line x1="300" y1="305" x2="300" y2="350" stroke="#2c3e50" stroke-width="3"/>
+  <line x1="300" y1="320" x2="280" y2="340" stroke="#2c3e50" stroke-width="3"/>
+  <line x1="300" y1="320" x2="320" y2="340" stroke="#2c3e50" stroke-width="3"/>
+  <line x1="300" y1="350" x2="285" y2="380" stroke="#2c3e50" stroke-width="3"/>
+  <line x1="300" y1="350" x2="315" y2="380" stroke="#2c3e50" stroke-width="3"/>
+  <!-- Walking stick -->
+  <line x1="280" y1="340" x2="260" y2="380" stroke="#8b4513" stroke-width="2"/>
+  <!-- Text -->
+  <text x="300" y="80" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#fff">Hiking the Albanian Alps</text>
+</svg>

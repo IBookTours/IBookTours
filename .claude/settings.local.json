@@ -3,7 +3,15 @@
     "allow": [
       "Bash(npm install)",
       "Bash(npm run build:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(ls -la \"c:\\\\Users\\\\User\\\\Desktop\\\\ITravel\\\\src\\\\app\"\" | grep -E \"^d \")",
+      "Bash(find:*)",
+      "Bash(ls -la \"c:\\\\Users\\\\User\\\\Desktop\\\\ITravel\\\\src\\\\app\\\\tours\"\" 2>/dev/null || echo \"tours folder not found \")",
+      "Bash(vercel:*)",
+      "Bash(git -C \"c:\\\\Users\\\\User\\\\Desktop\\\\ITravel\" status --short)",
+      "Bash(git -C \"c:\\\\Users\\\\User\\\\Desktop\\\\ITravel\" add -A)",
+      "Bash(git -C \"c:\\\\Users\\\\User\\\\Desktop\\\\ITravel\" commit -m \"$\\(cat <<''EOF''\nPhase 4: Complete booking flow & demo mode fallbacks\n\n- Multi-step checkout flow \\(4 steps: Select → Details → Review → Payment\\)\n- PassengerForm component for collecting traveler details\n- PriceCalculator component with dynamic pricing breakdown\n- Zustand booking store for state management\n- Email service \\(Brevo\\) demo mode fallback\n- Middleware NEXTAUTH_SECRET fallback\n- WhatsApp floating button component\n- Cookie consent banner \\(GDPR\\)\n- All services work without API keys configured\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"c:\\\\Users\\\\User\\\\Desktop\\\\ITravel\" commit -m \"Phase 4: Complete booking flow & demo mode fallbacks\n\n- Multi-step checkout flow \\(4 steps: Select, Details, Review, Payment\\)\n- PassengerForm component for collecting traveler details\n- PriceCalculator component with dynamic pricing breakdown\n- Zustand booking store for state management\n- Email service \\(Brevo\\) demo mode fallback\n- Middleware NEXTAUTH_SECRET fallback\n- WhatsApp floating button component\n- Cookie consent banner \\(GDPR\\)\n- All services work without API keys configured\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\")"
     ]
   }
 }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Compass, ChevronDown, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { Compass, ChevronDown, Facebook, Instagram, Youtube } from 'lucide-react';
 import { FooterContent } from '@/types';
 import styles from './Footer.module.scss';
 
@@ -11,10 +11,26 @@ interface FooterProps {
   siteName: string;
 }
 
+// Custom TikTok icon (not available in lucide-react)
+const TikTokIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    width="24"
+    height="24"
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
 const socialIcons: Record<string, React.ReactNode> = {
   facebook: <Facebook />,
   instagram: <Instagram />,
-  twitter: <Twitter />,
+  tiktok: <TikTokIcon />,
   youtube: <Youtube />,
 };
 

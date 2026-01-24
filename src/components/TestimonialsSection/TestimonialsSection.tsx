@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { TestimonialsContent } from '@/types';
+import { useInView } from '@/hooks';
 import styles from './TestimonialsSection.module.scss';
 
 interface TestimonialsSectionProps {
@@ -12,9 +13,13 @@ interface TestimonialsSectionProps {
 
 export default function TestimonialsSection({ content }: TestimonialsSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [sectionRef, isInView] = useInView<HTMLElement>({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
 
   return (
-    <section className={styles.section}>
+    <section ref={sectionRef} className={styles.section}>
       <div className={styles.background}>
         <Image
           src={content.backgroundImage}
@@ -26,12 +31,12 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
       </div>
 
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
           <span className={styles.sectionLabel}>{content.sectionLabel}</span>
           <h2 className={styles.title}>{content.title}</h2>
         </div>
 
-        <div className={styles.testimonials}>
+        <div className={`${styles.testimonials} ${isInView ? styles.visible : ''}`}>
           {content.testimonials.map((testimonial, index) => (
             <article
               key={testimonial.id}

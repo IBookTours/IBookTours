@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Heart, MapPin, Star, ArrowRight } from 'lucide-react';
 import { Destination } from '@/types';
 import styles from './DestinationCard.module.scss';
@@ -69,10 +70,13 @@ export default function DestinationCard({
           )}
 
           {showCta ? (
-            <button className={styles.cta}>
+            <Link
+              href={`/tours?search=${encodeURIComponent(destination.name)}`}
+              className={styles.cta}
+            >
               Explore
               <ArrowRight />
-            </button>
+            </Link>
           ) : (
             destination.price && (
               <div className={styles.price}>

@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
   // Get the JWT token from the request
   const token = await getToken({
     req: request,
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET || 'itravel-demo-secret-change-in-production',
   });
 
   // Check if the current path requires admin access

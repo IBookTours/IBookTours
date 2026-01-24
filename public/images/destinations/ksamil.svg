@@ -1,0 +1,36 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyK" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#56ccf2"/>
+      <stop offset="100%" style="stop-color:#2f80ed"/>
+    </linearGradient>
+    <linearGradient id="seaK" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d9ff"/>
+      <stop offset="50%" style="stop-color:#00bcd4"/>
+      <stop offset="100%" style="stop-color:#0097a7"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#skyK)"/>
+  <!-- Crystal clear sea -->
+  <rect y="280" width="800" height="320" fill="url(#seaK)"/>
+  <!-- Small islands -->
+  <ellipse cx="200" cy="380" rx="80" ry="30" fill="#f4d03f"/>
+  <ellipse cx="200" cy="365" rx="60" ry="20" fill="#27ae60"/>
+  <ellipse cx="500" cy="350" rx="100" ry="35" fill="#f4d03f"/>
+  <ellipse cx="500" cy="330" rx="75" ry="25" fill="#27ae60"/>
+  <ellipse cx="680" cy="400" rx="70" ry="25" fill="#f4d03f"/>
+  <ellipse cx="680" cy="385" rx="50" ry="18" fill="#27ae60"/>
+  <!-- Palm trees -->
+  <line x1="200" y1="365" x2="200" y2="320" stroke="#8b4513" stroke-width="4"/>
+  <path d="M200,320 Q170,310 160,330" stroke="#27ae60" stroke-width="3" fill="none"/>
+  <path d="M200,320 Q230,310 240,330" stroke="#27ae60" stroke-width="3" fill="none"/>
+  <path d="M200,320 Q200,290 180,305" stroke="#27ae60" stroke-width="3" fill="none"/>
+  <line x1="500" y1="330" x2="500" y2="280" stroke="#8b4513" stroke-width="5"/>
+  <path d="M500,280 Q465,270 455,295" stroke="#27ae60" stroke-width="4" fill="none"/>
+  <path d="M500,280 Q535,270 545,295" stroke="#27ae60" stroke-width="4" fill="none"/>
+  <!-- Water shimmer -->
+  <ellipse cx="350" cy="450" rx="100" ry="10" fill="#fff" opacity="0.3"/>
+  <!-- Text -->
+  <text x="400" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="48" fill="#fff">Ksamil</text>
+  <text x="400" y="190" text-anchor="middle" font-family="Arial" font-size="18" fill="#fff" opacity="0.9">The Albanian Maldives</text>
+</svg>

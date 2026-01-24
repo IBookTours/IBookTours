@@ -9,6 +9,42 @@
   @include respond-to(lg) {
     padding: $section-padding-y 0;
   }
+
+  // Scroll animation
+  .titleWrapper,
+  .nav,
+  .featuredCard,
+  .cardList {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  &.visible {
+    .titleWrapper {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+
+    .nav {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.1s;
+    }
+
+    .featuredCard {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.2s;
+    }
+
+    .cardList {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.3s;
+    }
+  }
 }
 
 .container {
@@ -142,4 +178,32 @@
   stroke: $primary-200;
   stroke-width: 2;
   stroke-dasharray: 8, 8;
+}
+
+// Pagination dots
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-top: $spacing-8;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: $radius-full;
+  background: $neutral-200;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+  padding: 0;
+
+  &:hover {
+    background: $neutral-300;
+  }
+
+  &.active {
+    background: $primary-600;
+    width: 28px;
+  }
 }

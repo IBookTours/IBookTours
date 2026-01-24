@@ -27,6 +27,27 @@
 .stat {
   text-align: center;
   position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  // Staggered animation delays for each stat
+  &:nth-child(1) {
+    transition-delay: 0s;
+  }
+
+  &:nth-child(2) {
+    transition-delay: 0.15s;
+  }
+
+  &:nth-child(3) {
+    transition-delay: 0.3s;
+  }
 }
 
 .value {
@@ -55,26 +76,61 @@
 .curvedLines {
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
-  height: 100px;
+  // Match container padding so curves align with stat centers
+  left: $spacing-4;
+  right: $spacing-4;
+  height: 120px;
   transform: translateY(-50%);
   pointer-events: none;
   display: none;
+  z-index: 0; // Render behind the stats
 
   @include respond-to(md) {
     display: block;
+    left: $spacing-6;
+    right: $spacing-6;
+  }
+
+  @include respond-to(lg) {
+    left: $spacing-8;
+    right: $spacing-8;
+  }
+
+  @include respond-to(2xl) {
+    left: $spacing-12;
+    right: $spacing-12;
   }
 }
 
 .curvePath {
   fill: none;
-  stroke: $primary-200;
-  stroke-width: 1.5;
-  stroke-dasharray: 6, 6;
-  opacity: 0.6;
+  stroke: $primary-400;
+  stroke-width: 2;
+  stroke-linecap: round;
+  // Using pathLength="1" in SVG, so we use 1 for dasharray/offset
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  transition: stroke-dashoffset 1.5s ease-out 0.3s, opacity 0.5s ease-out 0.3s;
+}
+
+// When data-animate="true", animate the paths
+.curvedLines[data-animate="true"] .curvePath {
+  stroke-dashoffset: 0;
+  opacity: 1;
 }
 
 .curveDot {
-  fill: $primary-400;
+  fill: $primary-500;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: center;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  transition-delay: 1.2s;
+}
+
+// When data-animate="true", animate the dots
+.curvedLines[data-animate="true"] .curveDot {
+  opacity: 1;
+  transform: scale(1);
 }

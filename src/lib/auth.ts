@@ -36,84 +36,91 @@ declare module 'next-auth/jwt' {
   }
 }
 
+// Credentials provider (always available)
+const credentialsProvider = CredentialsProvider({
+  name: 'Email',
+  credentials: {
+    email: {
+      label: 'Email',
+      type: 'email',
+      placeholder: 'hello@example.com',
+    },
+    password: {
+      label: 'Password',
+      type: 'password',
+    },
+  },
+  async authorize(credentials) {
+    // ============================================
+    // PLACEHOLDER LOGIC - REPLACE WITH REAL AUTH
+    // ============================================
+    // In production, you should:
+    // 1. Query your database for the user
+    // 2. Verify the password hash
+    // 3. Return the user object or null
+
+    if (!credentials?.email || !credentials?.password) {
+      return null;
+    }
+
+    // Demo user for development
+    // REMOVE THIS IN PRODUCTION
+    if (
+      credentials.email === 'demo@itravel.com' &&
+      credentials.password === 'demo123'
+    ) {
+      return {
+        id: 'demo-user-id',
+        name: 'Demo User',
+        email: 'demo@itravel.com',
+        image: 'https://i.pravatar.cc/150?u=demo',
+        role: 'user' as UserRole,
+      };
+    }
+
+    // Admin demo user
+    if (
+      credentials.email === 'admin@itravel.com' &&
+      credentials.password === 'admin123'
+    ) {
+      return {
+        id: 'admin-user-id',
+        name: 'Admin User',
+        email: 'admin@itravel.com',
+        image: 'https://i.pravatar.cc/150?u=admin',
+        role: 'admin' as UserRole,
+      };
+    }
+
+    // User not found or invalid credentials
+    return null;
+  },
+});
+
+// Build providers array - Google OAuth only if configured
+const hasGoogleOAuth = process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET;
+
 export const authOptions: NextAuthOptions = {
-  // Configure authentication providers
-  providers: [
-    // Google OAuth Provider
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-      authorization: {
-        params: {
-          prompt: 'consent',
-          access_type: 'offline',
-          response_type: 'code',
-        },
-      },
-    }),
+  // Conditionally include Google provider
+  providers: hasGoogleOAuth
+    ? [
+        GoogleProvider({
+          clientId: process.env.GOOGLE_CLIENT_ID!,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+          authorization: {
+            params: {
+              prompt: 'consent',
+              access_type: 'offline',
+              response_type: 'code',
+            },
+          },
+        }),
+        credentialsProvider,
+      ]
+    : [credentialsProvider],
 
-    // Credentials Provider (Email/Password)
-    // This is a placeholder - integrate with your database in production
-    CredentialsProvider({
-      name: 'Email',
-      credentials: {
-        email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'hello@example.com',
-        },
-        password: {
-          label: 'Password',
-          type: 'password',
-        },
-      },
-      async authorize(credentials) {
-        // ============================================
-        // PLACEHOLDER LOGIC - REPLACE WITH REAL AUTH
-        // ============================================
-        // In production, you should:
-        // 1. Query your database for the user
-        // 2. Verify the password hash
-        // 3. Return the user object or null
-
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
-
-        // Demo user for development
-        // REMOVE THIS IN PRODUCTION
-        if (
-          credentials.email === 'demo@itravel.com' &&
-          credentials.password === 'demo123'
-        ) {
-          return {
-            id: 'demo-user-id',
-            name: 'Demo User',
-            email: 'demo@itravel.com',
-            image: 'https://i.pravatar.cc/150?u=demo',
-            role: 'user' as UserRole,
-          };
-        }
-
-        // Admin demo user
-        if (
-          credentials.email === 'admin@itravel.com' &&
-          credentials.password === 'admin123'
-        ) {
-          return {
-            id: 'admin-user-id',
-            name: 'Admin User',
-            email: 'admin@itravel.com',
-            image: 'https://i.pravatar.cc/150?u=admin',
-            role: 'admin' as UserRole,
-          };
-        }
-
-        // User not found or invalid credentials
-        return null;
-      },
-    }),
-  ],
+  // Secret for JWT encryption - use env or fallback for demo
+  secret: process.env.NEXTAUTH_SECRET || 'itravel-demo-secret-change-in-production',
 
   // Configure session handling
   session: {

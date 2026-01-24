@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { EventsContent } from '@/types';
+import { useInView } from '@/hooks';
 import styles from './EventsSection.module.scss';
 
 interface EventsSectionProps {
@@ -10,24 +12,33 @@ interface EventsSectionProps {
 }
 
 export default function EventsSection({ content }: EventsSectionProps) {
+  const [sectionRef, isInView] = useInView<HTMLElement>({
+    threshold: 0.15,
+    triggerOnce: true,
+  });
+
   return (
-    <section className={styles.section}>
+    <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
           <div className={styles.titleWrapper}>
             <span className={styles.year}>{content.year}</span>
             <h2 className={styles.title}>{content.title}</h2>
           </div>
 
-          <a href="#" className={styles.viewAll}>
+          <Link href="/tours" className={styles.viewAll}>
             View All Events
             <ArrowRight />
-          </a>
+          </Link>
         </div>
 
         <div className={styles.events}>
-          {content.events.map((event) => (
-            <article key={event.id} className={styles.eventCard}>
+          {content.events.map((event, index) => (
+            <article
+              key={event.id}
+              className={`${styles.eventCard} ${isInView ? styles.visible : ''}`}
+              style={{ transitionDelay: `${0.1 + index * 0.15}s` }}
+            >
               <Image
                 src={event.image}
                 alt={event.title}
@@ -52,7 +63,7 @@ export default function EventsSection({ content }: EventsSectionProps) {
           ))}
         </div>
 
-        <div className={styles.partners}>
+        <div className={`${styles.partners} ${isInView ? styles.visible : ''}`}>
           <p className={styles.partnersTitle}>Trusted by leading travel brands</p>
           <div className={styles.partnersGrid}>
             {content.partners.map((partner) => (

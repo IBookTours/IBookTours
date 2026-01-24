@@ -1,0 +1,39 @@
+<svg viewBox="0 0 400 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="phoneBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d2ff"/>
+      <stop offset="100%" style="stop-color:#3a7bd5"/>
+    </linearGradient>
+  </defs>
+  <!-- Phone frame -->
+  <rect x="20" y="20" width="360" height="760" rx="40" fill="#1a1a2e"/>
+  <rect x="30" y="30" width="340" height="740" rx="35" fill="url(#phoneBg)"/>
+  <!-- Notch -->
+  <rect x="140" y="40" width="120" height="30" rx="15" fill="#1a1a2e"/>
+  <!-- App content -->
+  <rect x="50" y="100" width="300" height="50" rx="10" fill="rgba(255,255,255,0.2)"/>
+  <text x="70" y="132" font-family="Arial" font-size="16" fill="#fff">Search destinations...</text>
+  <!-- Destination cards -->
+  <rect x="50" y="180" width="140" height="180" rx="15" fill="url(#cardBg)"/>
+  <text x="70" y="330" font-family="Arial" font-size="14" font-weight="bold" fill="#fff">Saranda</text>
+  <text x="70" y="350" font-family="Arial" font-size="12" fill="rgba(255,255,255,0.8)">€449</text>
+  <rect x="210" y="180" width="140" height="180" rx="15" fill="#27ae60"/>
+  <text x="230" y="330" font-family="Arial" font-size="14" font-weight="bold" fill="#fff">Berat</text>
+  <text x="230" y="350" font-family="Arial" font-size="12" fill="rgba(255,255,255,0.8)">€349</text>
+  <!-- More cards -->
+  <rect x="50" y="390" width="140" height="180" rx="15" fill="#e74c3c"/>
+  <text x="70" y="540" font-family="Arial" font-size="14" font-weight="bold" fill="#fff">Tirana</text>
+  <text x="70" y="560" font-family="Arial" font-size="12" fill="rgba(255,255,255,0.8)">€299</text>
+  <rect x="210" y="390" width="140" height="180" rx="15" fill="#f39c12"/>
+  <text x="230" y="540" font-family="Arial" font-size="14" font-weight="bold" fill="#fff">Ksamil</text>
+  <text x="230" y="560" font-family="Arial" font-size="12" fill="rgba(255,255,255,0.8)">€399</text>
+  <!-- Bottom nav -->
+  <rect x="50" y="700" width="300" height="50" rx="25" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="120" cy="725" r="15" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="200" cy="725" r="15" fill="#fff"/>
+  <circle cx="280" cy="725" r="15" fill="rgba(255,255,255,0.3)"/>
+</svg>

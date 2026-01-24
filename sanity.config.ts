@@ -8,8 +8,11 @@ import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './src/sanity/schemas';
 
-// Define project configuration
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
+// Define project configuration with validation
+// Note: projectId must match /^[a-z0-9-]+$/ or Sanity SDK will crash
+const rawProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '';
+const isValidProjectId = /^[a-z0-9-]+$/.test(rawProjectId) && rawProjectId.length > 0;
+const projectId = isValidProjectId ? rawProjectId : 'not-configured';
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
 
 export default defineConfig({

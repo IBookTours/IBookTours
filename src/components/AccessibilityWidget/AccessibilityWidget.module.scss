@@ -1,0 +1,172 @@
+@use '@/styles/variables' as *;
+
+.widget {
+  position: fixed;
+  bottom: $spacing-6;
+  right: $spacing-6;
+  z-index: 1000;
+
+  @include respond-to(md) {
+    bottom: $spacing-8;
+    right: $spacing-8;
+  }
+}
+
+.trigger {
+  width: 56px;
+  height: 56px;
+  border-radius: $radius-full;
+  background: $primary-600;
+  border: none;
+  color: $text-light;
+  cursor: pointer;
+  @include flex-center;
+  box-shadow: $shadow-lg;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $primary-700;
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: 3px solid $primary-300;
+    outline-offset: 2px;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.panel {
+  position: absolute;
+  bottom: calc(100% + $spacing-4);
+  right: 0;
+  width: 280px;
+  background: $bg-primary;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-xl;
+  border: 1px solid $border-light;
+  overflow: hidden;
+  animation: slideUp 0.2s ease-out;
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.header {
+  padding: $spacing-4 $spacing-5;
+  border-bottom: 1px solid $border-light;
+  background: $bg-secondary;
+
+  h3 {
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin: 0;
+  }
+}
+
+.options {
+  padding: $spacing-3;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  background: transparent;
+  border: 1px solid $border-light;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: all $transition-fast;
+  text-align: left;
+
+  &:hover {
+    background: $bg-secondary;
+    border-color: $primary-200;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $primary-400;
+    outline-offset: 2px;
+  }
+
+  &.active {
+    background: $primary-50;
+    border-color: $primary-300;
+  }
+}
+
+.optionIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-lg;
+  background: $bg-accent;
+  @include flex-center;
+  flex-shrink: 0;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: $primary-600;
+  }
+
+  .active & {
+    background: $primary-100;
+  }
+}
+
+.optionLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: $text-primary;
+}
+
+.optionValue {
+  font-size: $font-xs;
+  font-weight: $font-normal;
+  color: $text-tertiary;
+}
+
+.reset {
+  width: 100%;
+  padding: $spacing-3;
+  background: transparent;
+  border: none;
+  border-top: 1px solid $border-light;
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  color: $text-tertiary;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $bg-secondary;
+    color: $text-secondary;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $primary-400;
+    outline-offset: -2px;
+  }
+}
+

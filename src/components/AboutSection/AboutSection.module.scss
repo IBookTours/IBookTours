@@ -32,6 +32,14 @@
   grid-template-columns: repeat(2, 1fr);
   gap: $spacing-4;
   height: 400px;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
   @include respond-to(md) {
     height: 500px;
@@ -92,6 +100,14 @@
 
 .content {
   max-width: 500px;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
+
+  &.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
   @include respond-to(lg) {
     max-width: none;

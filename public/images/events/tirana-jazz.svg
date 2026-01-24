@@ -1,0 +1,22 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="jazzBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2c3e50"/>
+      <stop offset="100%" style="stop-color:#34495e"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#jazzBg)"/>
+  <!-- Spotlight -->
+  <ellipse cx="300" cy="350" rx="150" ry="30" fill="#f1c40f" opacity="0.3"/>
+  <!-- Saxophone -->
+  <path d="M280,150 Q260,180 270,220 Q280,260 320,280 Q360,300 380,280" stroke="#f1c40f" stroke-width="8" fill="none"/>
+  <circle cx="380" cy="280" r="25" fill="#f1c40f"/>
+  <ellipse cx="280" cy="150" rx="15" ry="10" fill="#f1c40f"/>
+  <!-- Music notes -->
+  <text x="150" y="120" font-size="40" fill="#fff" opacity="0.6">&#9835;</text>
+  <text x="420" y="150" font-size="50" fill="#fff" opacity="0.5">&#9833;</text>
+  <text x="480" y="200" font-size="35" fill="#fff" opacity="0.4">&#9834;</text>
+  <text x="100" y="220" font-size="45" fill="#fff" opacity="0.5">&#9834;</text>
+  <!-- Text -->
+  <text x="300" y="360" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#fff">Tirana Jazz Festival</text>
+</svg>

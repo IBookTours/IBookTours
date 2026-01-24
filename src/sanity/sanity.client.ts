@@ -9,15 +9,19 @@ import imageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 // Check if a valid project ID is configured
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+// Note: projectId must match /^[a-z0-9-]+$/ or Sanity SDK will crash
+const rawProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '';
 const isConfigured = Boolean(
-  projectId && projectId !== '' && projectId !== 'your_project_id_here'
+  rawProjectId &&
+    rawProjectId !== '' &&
+    rawProjectId !== 'your_project_id_here' &&
+    /^[a-z0-9-]+$/.test(rawProjectId)
 );
 
 // Sanity configuration object
-// Uses a placeholder project ID when not configured to prevent client creation errors
+// Uses 'not-configured' as placeholder (valid format) when not properly configured
 export const sanityConfig = {
-  projectId: isConfigured ? projectId! : 'placeholder',
+  projectId: isConfigured ? rawProjectId : 'not-configured',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-01-01',
   useCdn: process.env.NODE_ENV === 'production',

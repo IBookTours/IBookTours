@@ -1,45 +1,75 @@
 'use client';
 
 import { Stat } from '@/types';
+import { useInView, useCountUp } from '@/hooks';
 import styles from './StatsSection.module.scss';
 
 interface StatsSectionProps {
   stats: Stat[];
 }
 
-export default function StatsSection({ stats }: StatsSectionProps) {
+// Animated stat component
+function AnimatedStat({ stat, isInView }: { stat: Stat; isInView: boolean }) {
+  // Parse the numeric value from the stat
+  const numericValue = parseInt(stat.value.replace(/[^0-9]/g, ''), 10) || 0;
+  const animatedValue = useCountUp(numericValue, 2000, isInView);
+
+  // Format the value (add commas for thousands)
+  const formattedValue = animatedValue.toLocaleString();
+
   return (
-    <section className={styles.section}>
+    <div className={`${styles.stat} ${isInView ? styles.visible : ''}`}>
+      <div className={styles.value}>
+        {formattedValue}
+        {stat.suffix && <span className={styles.suffix}>{stat.suffix}</span>}
+      </div>
+      <p className={styles.label}>{stat.label}</p>
+    </div>
+  );
+}
+
+export default function StatsSection({ stats }: StatsSectionProps) {
+  const [sectionRef, isInView] = useInView<HTMLElement>({
+    threshold: 0.3,
+    triggerOnce: true,
+  });
+
+  return (
+    <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
         <div className={styles.grid}>
-          {stats.map((stat) => (
-            <div key={stat.id} className={styles.stat}>
-              <div className={styles.value}>
-                {stat.value}
-                {stat.suffix && <span className={styles.suffix}>{stat.suffix}</span>}
-              </div>
-              <p className={styles.label}>{stat.label}</p>
-            </div>
+          {stats.map((stat, index) => (
+            <AnimatedStat
+              key={stat.id}
+              stat={stat}
+              isInView={isInView}
+            />
           ))}
         </div>
 
-        {/* Decorative curved lines */}
-        <svg className={styles.curvedLines} viewBox="0 0 1200 100" preserveAspectRatio="none">
-          {/* First curve (between first and second stat) */}
+        {/* Decorative curved lines connecting stats */}
+        <svg
+          className={styles.curvedLines}
+          data-animate={isInView}
+          viewBox="0 0 1000 100"
+          preserveAspectRatio="none"
+        >
+          {/* First curve: from stat 1 (16.67%) to stat 2 (50%) */}
           <path
             className={styles.curvePath}
-            d="M 200 50 Q 300 10 400 50"
+            pathLength="1"
+            d="M 167 50 Q 333 10, 500 50"
           />
-          <circle className={styles.curveDot} cx="200" cy="50" r="4" />
-          <circle className={styles.curveDot} cx="400" cy="50" r="4" />
+          <circle className={styles.curveDot} cx="167" cy="50" r="6" />
+          <circle className={styles.curveDot} cx="500" cy="50" r="6" />
 
-          {/* Second curve (between second and third stat) */}
+          {/* Second curve: from stat 2 (50%) to stat 3 (83.33%) */}
           <path
             className={styles.curvePath}
-            d="M 800 50 Q 900 90 1000 50"
+            pathLength="1"
+            d="M 500 50 Q 667 90, 833 50"
           />
-          <circle className={styles.curveDot} cx="800" cy="50" r="4" />
-          <circle className={styles.curveDot} cx="1000" cy="50" r="4" />
+          <circle className={styles.curveDot} cx="833" cy="50" r="6" />
         </svg>
       </div>
     </section>

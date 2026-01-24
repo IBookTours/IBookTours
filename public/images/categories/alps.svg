@@ -1,0 +1,25 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="catBg3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3c72"/>
+      <stop offset="100%" style="stop-color:#2a5298"/>
+    </linearGradient>
+    <linearGradient id="mtG" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#34495e"/>
+      <stop offset="80%" style="stop-color:#5d6d7e"/>
+      <stop offset="100%" style="stop-color:#fff"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#catBg3)"/>
+  <!-- Mountains -->
+  <polygon points="0,400 100,200 200,300 300,150 400,250 500,120 600,220 600,400" fill="url(#mtG)"/>
+  <polygon points="0,400 150,280 300,350 450,250 600,320 600,400" fill="#4a5568"/>
+  <!-- Snow caps -->
+  <polygon points="280,150 300,150 320,180 300,180" fill="#fff"/>
+  <polygon points="480,120 500,120 530,160 490,160" fill="#fff"/>
+  <!-- Valley -->
+  <rect y="350" width="600" height="50" fill="#27ae60"/>
+  <!-- Text -->
+  <text x="300" y="80" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#fff">ALBANIAN ALPS</text>
+  <text x="300" y="120" text-anchor="middle" font-family="Arial" font-size="18" fill="#fff" opacity="0.9">28 Mountain Adventures</text>
+</svg>

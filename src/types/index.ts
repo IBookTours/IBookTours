@@ -16,6 +16,11 @@ export interface HeroContent {
   subtitle: string;
   searchPlaceholder: string;
   backgroundImage: string;
+  backgroundVideo?: {
+    mp4: string;
+    webm?: string;
+    poster: string;
+  };
   overlayText: string;
 }
 

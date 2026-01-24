@@ -11,6 +11,34 @@
   }
 }
 
+// Toast notification
+.toast {
+  position: fixed;
+  bottom: $spacing-8;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $text-primary;
+  color: $text-light;
+  padding: $spacing-3 $spacing-6;
+  border-radius: $radius-full;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  z-index: $z-tooltip;
+  animation: slideUp 0.3s ease-out;
+  box-shadow: $shadow-lg;
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+}
+
 .container {
   @include container;
 }

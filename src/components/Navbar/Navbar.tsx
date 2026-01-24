@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Menu, X, Search, Compass } from 'lucide-react';
 import { NavItem } from '@/types';
 import { LoginButton } from '@/components/Auth';
@@ -13,6 +14,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ navigation, siteName }: NavbarProps) {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -69,7 +71,11 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
           </nav>
 
           <div className={styles.actions}>
-            <button className={styles.searchBtn} aria-label="Search">
+            <button
+              className={styles.searchBtn}
+              aria-label="Search"
+              onClick={() => router.push('/tours')}
+            >
               <Search />
             </button>
             <div className={styles.loginWrapper}>

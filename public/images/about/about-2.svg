@@ -1,0 +1,30 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aboutBg2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#aboutBg2)"/>
+  <!-- Mountain silhouettes -->
+  <polygon points="0,400 100,200 200,300 300,150 400,250 500,180 600,280 600,400" fill="#2d3436"/>
+  <!-- Stars -->
+  <circle cx="100" cy="80" r="2" fill="#fff"/>
+  <circle cx="250" cy="50" r="1.5" fill="#fff"/>
+  <circle cx="400" cy="70" r="2" fill="#fff"/>
+  <circle cx="500" cy="100" r="1.5" fill="#fff"/>
+  <circle cx="150" cy="120" r="1" fill="#fff"/>
+  <circle cx="350" cy="90" r="1.5" fill="#fff"/>
+  <!-- Moon -->
+  <circle cx="480" cy="80" r="30" fill="#f1c40f"/>
+  <circle cx="465" cy="75" r="25" fill="url(#aboutBg2)"/>
+  <!-- Tent -->
+  <polygon points="280,350 320,280 360,350" fill="#e67e22"/>
+  <rect x="310" y="320" width="20" height="30" fill="#2c3e50"/>
+  <!-- Campfire -->
+  <ellipse cx="420" cy="365" rx="25" ry="8" fill="#8b4513"/>
+  <polygon points="410,365 420,330 430,365" fill="#e74c3c"/>
+  <polygon points="415,365 420,340 425,365" fill="#f1c40f"/>
+  <!-- Text -->
+  <text x="300" y="140" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#fff">Adventure Awaits</text>
+</svg>

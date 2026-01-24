@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Compass, Headphones, Shield, ArrowRight } from 'lucide-react';
 import { AboutContent } from '@/types';
+import { useInView } from '@/hooks';
 import styles from './AboutSection.module.scss';
 
 interface AboutSectionProps {
@@ -16,11 +18,16 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export default function AboutSection({ content }: AboutSectionProps) {
+  const [sectionRef, isInView] = useInView<HTMLElement>({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
   return (
-    <section className={styles.section} id="about">
+    <section ref={sectionRef} className={styles.section} id="about">
       <div className={styles.container}>
         <div className={styles.grid}>
-          <div className={styles.images}>
+          <div className={`${styles.images} ${isInView ? styles.visible : ''}`}>
             {content.images.map((image, index) => (
               <div key={index} className={styles.imageWrapper}>
                 <Image
@@ -38,7 +45,7 @@ export default function AboutSection({ content }: AboutSectionProps) {
             </div>
           </div>
 
-          <div className={styles.content}>
+          <div className={`${styles.content} ${isInView ? styles.visible : ''}`}>
             <span className={styles.sectionLabel}>{content.badge}</span>
             <h2 className={styles.title}>{content.title}</h2>
             <p className={styles.description}>{content.description}</p>
@@ -57,10 +64,10 @@ export default function AboutSection({ content }: AboutSectionProps) {
               ))}
             </div>
 
-            <button className={styles.cta}>
+            <Link href="/about" className={styles.cta}>
               Learn More
               <ArrowRight />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

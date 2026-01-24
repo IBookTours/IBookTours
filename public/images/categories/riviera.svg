@@ -1,0 +1,22 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="catBg1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d2ff"/>
+      <stop offset="100%" style="stop-color:#3a7bd5"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#catBg1)"/>
+  <!-- Sea -->
+  <rect y="250" width="600" height="150" fill="#00bcd4" opacity="0.9"/>
+  <!-- Beach -->
+  <ellipse cx="300" cy="380" rx="350" ry="40" fill="#f5deb3"/>
+  <!-- Waves -->
+  <path d="M0,280 Q75,260 150,280 T300,280 T450,280 T600,280" fill="none" stroke="#fff" stroke-width="3" opacity="0.5"/>
+  <path d="M0,300 Q75,280 150,300 T300,300 T450,300 T600,300" fill="none" stroke="#fff" stroke-width="2" opacity="0.4"/>
+  <!-- Umbrella -->
+  <line x1="450" y1="300" x2="450" y2="360" stroke="#8b4513" stroke-width="4"/>
+  <path d="M400,300 Q450,250 500,300" fill="#e74c3c"/>
+  <!-- Text -->
+  <text x="300" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#fff">RIVIERA</text>
+  <text x="300" y="190" text-anchor="middle" font-family="Arial" font-size="18" fill="#fff" opacity="0.9">45 Destinations</text>
+</svg>

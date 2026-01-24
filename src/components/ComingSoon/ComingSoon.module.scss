@@ -1,0 +1,128 @@
+@use '@/styles/variables' as *;
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, $bg-secondary 0%, $bg-primary 100%);
+  padding: $spacing-8;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  max-width: 500px;
+  position: relative;
+  z-index: 1;
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto $spacing-6;
+  background: linear-gradient(135deg, $primary-100 0%, $primary-50 100%);
+  border-radius: $radius-2xl;
+  @include flex-center;
+  color: $primary-600;
+
+  svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.title {
+  font-size: $font-3xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  margin-bottom: $spacing-4;
+
+  @include respond-to(md) {
+    font-size: $font-4xl;
+  }
+}
+
+.description {
+  font-size: $font-base;
+  color: $text-secondary;
+  line-height: $leading-relaxed;
+  margin-bottom: $spacing-8;
+
+  @include respond-to(md) {
+    font-size: $font-lg;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+
+  @include respond-to(sm) {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.primaryBtn {
+  @include button-primary;
+  text-decoration: none;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.secondaryBtn {
+  @include button-secondary;
+  text-decoration: none;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// Decorative circles
+.decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.circle1,
+.circle2,
+.circle3 {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.circle1 {
+  width: 400px;
+  height: 400px;
+  background: $primary-400;
+  top: -200px;
+  right: -100px;
+}
+
+.circle2 {
+  width: 300px;
+  height: 300px;
+  background: $secondary-400;
+  bottom: -150px;
+  left: -100px;
+}
+
+.circle3 {
+  width: 200px;
+  height: 200px;
+  background: $primary-300;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

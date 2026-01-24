@@ -1,0 +1,29 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="catBg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b8860b"/>
+      <stop offset="100%" style="stop-color:#8b0000"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#catBg4)"/>
+  <!-- Wine glass -->
+  <ellipse cx="200" cy="180" rx="50" ry="25" fill="#722f37"/>
+  <rect x="185" y="180" width="30" height="80" fill="rgba(255,255,255,0.3)"/>
+  <ellipse cx="200" cy="260" rx="40" ry="10" fill="rgba(255,255,255,0.3)"/>
+  <path d="M150,180 Q200,220 250,180" fill="#722f37"/>
+  <!-- Cheese -->
+  <polygon points="350,200 420,200 450,280 320,280" fill="#f1c40f"/>
+  <circle cx="370" cy="240" r="8" fill="#e67e22"/>
+  <circle cx="400" cy="220" r="6" fill="#e67e22"/>
+  <circle cx="410" cy="260" r="7" fill="#e67e22"/>
+  <!-- Grapes -->
+  <circle cx="480" cy="190" r="12" fill="#6b2c91"/>
+  <circle cx="495" cy="205" r="12" fill="#6b2c91"/>
+  <circle cx="465" cy="205" r="12" fill="#6b2c91"/>
+  <circle cx="480" cy="220" r="12" fill="#6b2c91"/>
+  <line x1="480" y1="175" x2="480" y2="150" stroke="#27ae60" stroke-width="3"/>
+  <ellipse cx="485" cy="150" rx="15" ry="8" fill="#27ae60"/>
+  <!-- Text -->
+  <text x="300" y="80" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#fff">FOOD &amp; WINE</text>
+  <text x="300" y="120" text-anchor="middle" font-family="Arial" font-size="18" fill="#fff" opacity="0.9">18 Culinary Experiences</text>
+</svg>

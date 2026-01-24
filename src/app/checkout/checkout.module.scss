@@ -1,0 +1,758 @@
+@use '@/styles/variables' as *;
+
+.checkout {
+  min-height: 100vh;
+  padding: $spacing-24 0 $spacing-16;
+  background: $bg-secondary;
+}
+
+.container {
+  @include container;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  color: $text-secondary;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  margin-bottom: $spacing-6;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-600;
+  }
+}
+
+// Progress Steps
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-bottom: $spacing-8;
+  padding: $spacing-4 0;
+
+  @include respond-to(md) {
+    gap: $spacing-4;
+  }
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+  opacity: 0.5;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.active {
+    opacity: 1;
+  }
+
+  &.completed {
+    opacity: 1;
+
+    .stepIcon {
+      background: $success;
+      color: white;
+    }
+  }
+
+  @include respond-to(md) {
+    flex-direction: row;
+    padding: $spacing-3 $spacing-6;
+    background: $bg-primary;
+    border-radius: $radius-full;
+    border: 1px solid $border-light;
+
+    &.active {
+      border-color: $primary-500;
+      background: $primary-50;
+    }
+  }
+}
+
+.stepIcon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $neutral-200;
+  color: $text-secondary;
+  border-radius: $radius-full;
+  transition: all $transition-fast;
+
+  .active & {
+    background: $primary-600;
+    color: white;
+  }
+}
+
+.stepLabel {
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  color: $text-secondary;
+
+  .active & {
+    color: $primary-600;
+  }
+
+  @include respond-to(md) {
+    font-size: $font-sm;
+  }
+}
+
+// Main Grid
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-8;
+
+  @include respond-to(lg) {
+    grid-template-columns: 1fr 380px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.title {
+  font-size: $font-2xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  margin-bottom: 0;
+
+  @include respond-to(md) {
+    font-size: $font-3xl;
+  }
+}
+
+// Sidebar
+.sidebar {
+  @include respond-to(lg) {
+    position: sticky;
+    top: $spacing-24;
+    height: fit-content;
+  }
+}
+
+// Tour Card
+.tourCard {
+  background: $bg-primary;
+  border-radius: $radius-2xl;
+  overflow: hidden;
+  border: 1px solid $border-light;
+}
+
+.tourImage {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  @include respond-to(md) {
+    height: 250px;
+  }
+}
+
+.tourInfo {
+  padding: $spacing-6;
+}
+
+.tourLocation {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  color: $primary-600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tourName {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  margin: $spacing-2 0;
+}
+
+.tourDescription {
+  font-size: $font-sm;
+  color: $text-secondary;
+  line-height: $leading-relaxed;
+  margin-bottom: $spacing-4;
+}
+
+.tourMeta {
+  display: flex;
+  gap: $spacing-4;
+  font-size: $font-sm;
+  color: $text-tertiary;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+}
+
+// Form Sections
+.formSection {
+  background: $bg-primary;
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  border: 1px solid $border-light;
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-4;
+
+    svg {
+      color: $primary-600;
+    }
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-4;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.field {
+  &.fullWidth {
+    @include respond-to(md) {
+      grid-column: span 2;
+    }
+  }
+
+  label {
+    display: block;
+    font-size: $font-xs;
+    font-weight: $font-medium;
+    color: $text-secondary;
+    margin-bottom: $spacing-2;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-sm;
+    color: $text-primary;
+    background: $bg-primary;
+    border: 1px solid $border-medium;
+    border-radius: $radius-lg;
+    transition: all $transition-fast;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-500;
+      box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
+    }
+
+    &::placeholder {
+      color: $text-tertiary;
+    }
+  }
+}
+
+.dateInput {
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  font-size: $font-sm;
+  color: $text-primary;
+  background: $bg-primary;
+  border: 1px solid $border-medium;
+  border-radius: $radius-lg;
+  transition: all $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-500;
+    box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
+  }
+}
+
+// Traveler Counter
+.travelerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-4;
+  background: $bg-secondary;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-3;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.travelerInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+
+  svg {
+    color: $primary-600;
+  }
+}
+
+.travelerType {
+  display: block;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: $text-primary;
+}
+
+.travelerPrice {
+  display: block;
+  font-size: $font-xs;
+  color: $text-tertiary;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+
+  button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $bg-primary;
+    border: 1px solid $border-medium;
+    border-radius: $radius-full;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover:not(:disabled) {
+      background: $primary-50;
+      border-color: $primary-500;
+      color: $primary-600;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+
+  span {
+    min-width: 24px;
+    text-align: center;
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: $text-primary;
+  }
+}
+
+// Review Section
+.reviewSection {
+  background: $bg-primary;
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  border: 1px solid $border-light;
+
+  h3 {
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: $spacing-4;
+  }
+}
+
+.reviewCard {
+  display: flex;
+  gap: $spacing-4;
+  align-items: flex-start;
+}
+
+.reviewTourName {
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  margin-bottom: $spacing-2;
+}
+
+.reviewMeta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-sm;
+  color: $text-tertiary;
+  margin-bottom: $spacing-1;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.reviewList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.reviewItem {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-3;
+  background: $bg-secondary;
+  border-radius: $radius-md;
+  font-size: $font-sm;
+  color: $text-primary;
+}
+
+.reviewTag {
+  font-size: $font-xs;
+  color: $text-tertiary;
+  background: $neutral-200;
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-sm;
+}
+
+// Guarantees
+.guarantees {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.guarantee {
+  display: flex;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  background: $primary-50;
+  border-radius: $radius-lg;
+
+  svg {
+    color: $primary-600;
+    flex-shrink: 0;
+  }
+
+  strong {
+    display: block;
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $text-primary;
+  }
+
+  p {
+    font-size: $font-xs;
+    color: $text-secondary;
+    margin-top: $spacing-1;
+  }
+}
+
+// Demo Notice
+.demoNotice {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  background: $secondary-50;
+  border: 1px solid $secondary-200;
+  border-radius: $radius-lg;
+  font-size: $font-xs;
+  color: $primary-700;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.secureNotice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  font-size: $font-xs;
+  color: $text-tertiary;
+}
+
+// Navigation
+.navigation {
+  display: flex;
+  align-items: center;
+  margin-top: $spacing-8;
+  padding-top: $spacing-6;
+  border-top: 1px solid $border-light;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-5;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  background: transparent;
+  border: 1px solid $border-medium;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $neutral-100;
+    border-color: $neutral-400;
+  }
+}
+
+.nextBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-6;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: white;
+  background: $primary-600;
+  border: none;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover:not(:disabled) {
+    background: $primary-700;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.payBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-4 $spacing-8;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: white;
+  background: $success;
+  border: none;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover:not(:disabled) {
+    background: darken($success, 5%);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Success State
+.successContainer {
+  max-width: 500px;
+  margin: $spacing-16 auto;
+  text-align: center;
+  padding: $spacing-12 $spacing-6;
+  background: $bg-primary;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-xl;
+
+  h1 {
+    font-size: $font-2xl;
+    font-weight: $font-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-2;
+  }
+
+  > p {
+    font-size: $font-base;
+    color: $text-secondary;
+  }
+}
+
+.successIcon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto $spacing-6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $success-light;
+  border-radius: $radius-full;
+
+  svg {
+    color: $success;
+  }
+}
+
+.bookingDetails {
+  margin: $spacing-6 0;
+  padding: $spacing-4;
+  background: $bg-secondary;
+  border-radius: $radius-lg;
+  text-align: left;
+
+  p {
+    font-size: $font-sm;
+    color: $text-secondary;
+    margin-bottom: $spacing-2;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      color: $text-primary;
+    }
+  }
+}
+
+.successActions {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  margin-top: $spacing-6;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-6;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: white;
+  background: $primary-600;
+  border-radius: $radius-lg;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $primary-700;
+  }
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-6;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: $text-secondary;
+  background: transparent;
+  border: 1px solid $border-medium;
+  border-radius: $radius-lg;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $neutral-100;
+  }
+}
+
+// Loading
+.loading {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-base;
+  color: $text-secondary;
+}
+
+// Legacy styles (kept for backwards compatibility)
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.priceBreakdown {
+  background: $bg-primary;
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  border: 1px solid $border-light;
+
+  h3 {
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-4;
+  }
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-3 0;
+  font-size: $font-sm;
+  color: $text-secondary;
+  border-bottom: 1px solid $border-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.total {
+    font-weight: $font-bold;
+    font-size: $font-base;
+    color: $text-primary;
+    padding-top: $spacing-4;
+    margin-top: $spacing-2;
+    border-top: 2px solid $border-light;
+  }
+}
+
+.payment {
+  @include respond-to(lg) {
+    position: sticky;
+    top: $spacing-24;
+    height: fit-content;
+  }
+}

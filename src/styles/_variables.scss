@@ -338,4 +338,33 @@ $breakpoint-2xl: 1536px;
   @include respond-to(lg) {
     padding: 0 $spacing-8;
   }
+
+  @include respond-to(xl) {
+    max-width: $container-2xl;
+  }
+
+  @include respond-to(2xl) {
+    max-width: 1600px;
+    padding: 0 $spacing-12;
+  }
+}
+
+// Large container for ultra-wide screens
+@mixin container-fluid {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 $spacing-4;
+
+  @include respond-to(md) {
+    padding: 0 $spacing-6;
+  }
+
+  @include respond-to(lg) {
+    padding: 0 $spacing-8;
+  }
+
+  @include respond-to(2xl) {
+    padding: 0 $spacing-16;
+  }
 }

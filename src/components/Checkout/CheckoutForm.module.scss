@@ -1,0 +1,206 @@
+@use '@/styles/variables' as *;
+
+.form {
+  background: $bg-primary;
+  border-radius: $radius-2xl;
+  padding: $spacing-6;
+  border: 1px solid $border-light;
+  box-shadow: $shadow-lg;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  margin-bottom: $spacing-6;
+
+  svg {
+    color: $primary-600;
+  }
+
+  h2 {
+    font-size: $font-lg;
+    font-weight: $font-bold;
+    color: $text-primary;
+    margin: 0;
+  }
+}
+
+.demoNotice {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  background: $secondary-50;
+  border: 1px solid $secondary-200;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-6;
+  font-size: $font-xs;
+  color: $primary-700;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.error {
+  padding: $spacing-3 $spacing-4;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: $radius-lg;
+  color: #dc2626;
+  font-size: $font-sm;
+  margin-bottom: $spacing-6;
+}
+
+.section {
+  margin-bottom: $spacing-6;
+
+  h3 {
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-4;
+  }
+}
+
+.field {
+  margin-bottom: $spacing-4;
+
+  label {
+    display: block;
+    font-size: $font-xs;
+    font-weight: $font-medium;
+    color: $text-secondary;
+    margin-bottom: $spacing-2;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-sm;
+    color: $text-primary;
+    background: $bg-primary;
+    border: 1px solid $border-medium;
+    border-radius: $radius-lg;
+    transition: all $transition-fast;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-500;
+      box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
+    }
+
+    &::placeholder {
+      color: $text-tertiary;
+    }
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $spacing-3 center;
+    background-size: 16px;
+    padding-right: $spacing-10;
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-4;
+}
+
+.submitBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  padding: $spacing-4;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: $text-light;
+  background: $primary-600;
+  border: none;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover:not(:disabled) {
+    background: $primary-700;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.secureNotice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-top: $spacing-4;
+  font-size: $font-xs;
+  color: $text-tertiary;
+}
+
+// Success State
+.success {
+  text-align: center;
+  padding: $spacing-8 $spacing-6;
+  background: $bg-primary;
+  border-radius: $radius-2xl;
+  border: 1px solid $border-light;
+  box-shadow: $shadow-lg;
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto $spacing-6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dcfce7;
+  border-radius: $radius-full;
+
+  svg {
+    color: #16a34a;
+  }
+}
+
+.success h2 {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  margin-bottom: $spacing-2;
+}
+
+.success p {
+  font-size: $font-sm;
+  color: $text-secondary;
+}
+
+.successDetails {
+  margin-top: $spacing-4;
+}
+
+.bookingId {
+  margin-top: $spacing-4;
+  padding: $spacing-3 $spacing-4;
+  background: $bg-secondary;
+  border-radius: $radius-lg;
+  font-family: monospace;
+  font-size: $font-sm;
+  color: $primary-600;
+}
+
+// Index export
+.index {
+  // placeholder for index.ts export
+}

@@ -1,0 +1,30 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="nightBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0c29"/>
+      <stop offset="50%" style="stop-color:#302b63"/>
+      <stop offset="100%" style="stop-color:#24243e"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#nightBg)"/>
+  <!-- Stars -->
+  <circle cx="50" cy="50" r="2" fill="#fff"/>
+  <circle cx="150" cy="80" r="1.5" fill="#fff"/>
+  <circle cx="450" cy="40" r="2" fill="#fff"/>
+  <circle cx="550" cy="70" r="1.5" fill="#fff"/>
+  <!-- Stage lights -->
+  <polygon points="200,50 150,400 250,400" fill="#ff006e" opacity="0.3"/>
+  <polygon points="300,50 250,400 350,400" fill="#3a86ff" opacity="0.3"/>
+  <polygon points="400,50 350,400 450,400" fill="#8338ec" opacity="0.3"/>
+  <!-- DJ booth -->
+  <rect x="220" y="250" width="160" height="80" fill="#1a1a2e"/>
+  <rect x="240" y="270" width="40" height="40" rx="5" fill="#3a86ff"/>
+  <rect x="320" y="270" width="40" height="40" rx="5" fill="#8338ec"/>
+  <!-- Sound waves -->
+  <path d="M100,200 Q150,180 200,200" stroke="#ff006e" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M400,200 Q450,180 500,200" stroke="#8338ec" stroke-width="3" fill="none" opacity="0.6"/>
+  <!-- Crowd silhouettes -->
+  <ellipse cx="300" cy="380" rx="280" ry="30" fill="#0a0a0a"/>
+  <!-- Text -->
+  <text x="300" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#fff">KALA FESTIVAL</text>
+</svg>

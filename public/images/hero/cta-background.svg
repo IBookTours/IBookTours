@@ -1,0 +1,21 @@
+<svg viewBox="0 0 1920 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ctaBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="50%" style="stop-color:#16213e"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="600" fill="url(#ctaBg)"/>
+  <!-- Mountains silhouette -->
+  <polygon points="0,600 200,350 400,450 600,300 800,400 1000,280 1200,380 1400,320 1600,400 1920,350 1920,600" fill="#1a1a2e" opacity="0.5"/>
+  <!-- Stars -->
+  <circle cx="200" cy="100" r="2" fill="#fff" opacity="0.8"/>
+  <circle cx="500" cy="150" r="1.5" fill="#fff" opacity="0.6"/>
+  <circle cx="800" cy="80" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="1100" cy="120" r="1.5" fill="#fff" opacity="0.5"/>
+  <circle cx="1400" cy="90" r="2" fill="#fff" opacity="0.8"/>
+  <circle cx="1700" cy="140" r="1.5" fill="#fff" opacity="0.6"/>
+  <!-- Decorative lines -->
+  <line x1="0" y1="580" x2="1920" y2="580" stroke="#fff" stroke-width="1" opacity="0.1"/>
+</svg>

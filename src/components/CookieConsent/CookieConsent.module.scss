@@ -1,0 +1,120 @@
+@use '@/styles/variables' as *;
+
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: $neutral-900;
+  border-top: 1px solid $neutral-700;
+  padding: $spacing-4;
+  animation: slideUp 0.3s ease-out;
+
+  @include respond-to(md) {
+    padding: $spacing-5 $spacing-8;
+  }
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.text {
+  flex: 1;
+}
+
+.title {
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: white;
+  margin-bottom: $spacing-1;
+
+  @include respond-to(md) {
+    font-size: $font-lg;
+  }
+}
+
+.description {
+  font-size: $font-sm;
+  color: $neutral-300;
+  line-height: 1.5;
+}
+
+.link {
+  color: $primary-400;
+  text-decoration: underline;
+
+  &:hover {
+    color: $primary-300;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-3;
+  flex-shrink: 0;
+}
+
+.declineButton,
+.acceptButton {
+  padding: $spacing-2 $spacing-5;
+  border-radius: $radius-md;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.declineButton {
+  background-color: transparent;
+  border: 1px solid $neutral-600;
+  color: $neutral-300;
+
+  &:hover {
+    background-color: $neutral-800;
+    border-color: $neutral-500;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $primary-500;
+    outline-offset: 2px;
+  }
+}
+
+.acceptButton {
+  background-color: $primary-600;
+  border: 1px solid $primary-600;
+  color: white;
+
+  &:hover {
+    background-color: $primary-500;
+    border-color: $primary-500;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $primary-400;
+    outline-offset: 2px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

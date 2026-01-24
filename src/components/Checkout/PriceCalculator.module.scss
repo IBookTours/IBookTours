@@ -1,0 +1,200 @@
+@use '@/styles/variables' as *;
+
+.calculator {
+  background: $bg-primary;
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  border: 1px solid $border-light;
+  box-shadow: $shadow-md;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  margin-bottom: $spacing-4;
+
+  svg {
+    color: $primary-600;
+  }
+
+  h3 {
+    font-size: $font-base;
+    font-weight: $font-bold;
+    color: $text-primary;
+    margin: 0;
+  }
+}
+
+.tourInfo {
+  margin-bottom: $spacing-4;
+}
+
+.tourName {
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  margin-bottom: $spacing-1;
+}
+
+.tourDate {
+  font-size: $font-xs;
+  color: $text-tertiary;
+}
+
+.travelersRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-3 0;
+}
+
+.travelers {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: $text-primary;
+
+  svg {
+    color: $primary-600;
+  }
+}
+
+.travelersDetail {
+  display: flex;
+  gap: $spacing-3;
+  font-size: $font-xs;
+  color: $text-tertiary;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+}
+
+.divider {
+  height: 1px;
+  background: $border-light;
+  margin: $spacing-4 0;
+}
+
+.lineItems {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.lineItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: $font-sm;
+  color: $text-secondary;
+}
+
+.lineLabel {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+
+  svg {
+    vertical-align: middle;
+    margin-right: $spacing-1;
+  }
+}
+
+.unitPrice {
+  font-size: $font-xs;
+  color: $text-tertiary;
+}
+
+.discount {
+  color: $success;
+  margin-left: $spacing-1;
+}
+
+.lineValue {
+  font-weight: $font-medium;
+  color: $text-primary;
+}
+
+.subtotalLine {
+  padding-top: $spacing-2;
+  border-top: 1px dashed $border-light;
+  font-weight: $font-medium;
+  color: $text-primary;
+}
+
+.supplementLine {
+  .lineLabel {
+    flex-direction: row;
+    align-items: center;
+    color: $warning;
+  }
+
+  .lineValue {
+    color: $warning;
+  }
+}
+
+.discountLine {
+  .lineLabel {
+    flex-direction: row;
+    align-items: center;
+    color: $success;
+  }
+
+  .lineValue {
+    color: $success;
+  }
+}
+
+.discountHint {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3;
+  background: $success-light;
+  border-radius: $radius-md;
+  font-size: $font-xs;
+  color: $success;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $font-base;
+  font-weight: $font-bold;
+  color: $text-primary;
+}
+
+.totalAmount {
+  font-size: $font-xl;
+  color: $primary-600;
+}
+
+.perPerson {
+  text-align: right;
+  font-size: $font-xs;
+  color: $text-tertiary;
+  margin-top: $spacing-1;
+}
+
+.guarantees {
+  margin-top: $spacing-6;
+  padding-top: $spacing-4;
+  border-top: 1px solid $border-light;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  font-size: $font-xs;
+  color: $success;
+}
