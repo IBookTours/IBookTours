@@ -63,7 +63,7 @@
 
 .subtitle {
   font-size: $font-lg;
-  color: rgba(255, 255, 255, 0.85);
+  color: $rgba-white-90;
   margin-bottom: $spacing-8;
   line-height: $leading-relaxed;
 
@@ -89,7 +89,7 @@
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px $rgba-black-30;
   }
 
   svg {
@@ -107,7 +107,7 @@
 .decoration {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: $rgba-white-10;
   pointer-events: none;
   opacity: 0;
   transform: scale(0);

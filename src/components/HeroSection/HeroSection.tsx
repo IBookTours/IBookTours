@@ -58,6 +58,10 @@ export default function HeroSection({ content }: HeroSectionProps) {
       <span className={styles.overlayText}>{content.overlayText}</span>
 
       <div className={styles.content}>
+        <div className={styles.textContent}>
+          <h1 className={styles.title}>{content.title}</h1>
+          <p className={styles.subtitle}>{content.subtitle}</p>
+        </div>
         <div className={styles.searchWrapper}>
           <form className={styles.searchBox} onSubmit={handleSearch}>
             <input
