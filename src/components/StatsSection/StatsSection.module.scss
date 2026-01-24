@@ -4,7 +4,7 @@
   padding: $spacing-12 0;
   position: relative;
   overflow: hidden;
-  background: $secondary-500;  // Space Indigo
+  background: var(--bg-tertiary);  // Theme-aware background
 }
 
 .container {
@@ -54,7 +54,7 @@
 .value {
   font-size: $font-5xl;
   font-weight: $font-bold;
-  color: $text-light;
+  color: var(--text-primary);
   line-height: 1;
   margin-bottom: $spacing-2;
 
@@ -64,12 +64,12 @@
 }
 
 .suffix {
-  color: $primary-500;
+  color: var(--color-primary-500);
 }
 
 .label {
   font-size: $font-sm;
-  color: $secondary-300;  // Lavender Grey
+  color: var(--text-secondary);
   font-weight: $font-medium;
 }
 
@@ -105,7 +105,7 @@
 
 .curvePath {
   fill: none;
-  stroke: $primary-400;
+  stroke: var(--color-primary-500);
   stroke-width: 2;
   stroke-linecap: round;
   // Using pathLength="1" in SVG, so we use 1 for dasharray/offset
@@ -122,7 +122,7 @@
 }
 
 .curveDot {
-  fill: $primary-500;
+  fill: var(--color-primary-500);
   opacity: 0;
   transform: scale(0);
   transform-origin: center;

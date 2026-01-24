@@ -21,10 +21,11 @@
     inset: 0;
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(255, 255, 255, 0.8) 50%,
-      rgba(255, 255, 255, 0.95) 100%
+      var(--bg-primary) 0%,
+      var(--bg-secondary) 50%,
+      var(--bg-primary) 100%
     );
+    opacity: 0.95;
   }
 
   img {
@@ -57,7 +58,7 @@
   gap: $spacing-2;
   font-size: $font-xs;
   font-weight: $font-semibold;
-  color: $primary-600;
+  color: var(--color-primary-600);
   text-transform: uppercase;
   letter-spacing: $tracking-wider;
   margin-bottom: $spacing-3;
@@ -67,7 +68,7 @@
     content: '';
     width: 20px;
     height: 1px;
-    background: $primary-300;
+    background: var(--border-primary);
   }
 }
 
@@ -98,7 +99,10 @@
 }
 
 .testimonialCard {
-  @include glassmorphism-light;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   padding: $spacing-6;
   border-radius: $radius-2xl;
   transition: transform $transition-base, box-shadow $transition-base;
@@ -140,13 +144,13 @@
 .authorName {
   font-size: $font-base;
   font-weight: $font-semibold;
-  color: $text-primary;
+  color: var(--text-primary);
   margin-bottom: $spacing-1;
 }
 
 .authorTitle {
   font-size: $font-sm;
-  color: $text-tertiary;
+  color: var(--text-tertiary);
 }
 
 .rating {
@@ -156,14 +160,14 @@
   svg {
     width: 16px;
     height: 16px;
-    color: #fbbf24;
-    fill: #fbbf24;
+    color: $color-star;
+    fill: $color-star;
   }
 }
 
 .content {
   font-size: $font-base;
-  color: $text-secondary;
+  color: var(--text-secondary);
   line-height: $leading-relaxed;
   position: relative;
 
@@ -174,7 +178,7 @@
     left: -10px;
     font-size: $font-6xl;
     font-weight: $font-bold;
-    color: $primary-100;
+    color: var(--bg-accent);
     line-height: 1;
     z-index: -1;
   }
@@ -184,7 +188,7 @@
   display: block;
   margin-top: $spacing-4;
   font-size: $font-xs;
-  color: $text-muted;
+  color: var(--text-tertiary);
 }
 
 // Navigation dots
@@ -199,72 +203,18 @@
   width: 8px;
   height: 8px;
   border-radius: $radius-full;
-  background: $neutral-300;
+  background: var(--border-light);
   border: none;
   cursor: pointer;
   transition: all $transition-fast;
 
   &.active {
     width: 24px;
-    background: $primary-600;
+    background: var(--color-primary-600);
   }
 
   &:hover:not(.active) {
-    background: $neutral-400;
+    background: var(--border-medium);
   }
 }
 
-// ==========================================
-// DARK MODE OVERRIDES
-// ==========================================
-:global([data-theme="dark"]) {
-  .background::after {
-    background: linear-gradient(
-      180deg,
-      rgba(26, 27, 46, 0.98) 0%,
-      rgba(26, 27, 46, 0.95) 50%,
-      rgba(26, 27, 46, 0.98) 100%
-    );
-  }
-
-  .title {
-    color: #edf2f4;
-  }
-
-  .testimonialCard {
-    background: rgba(43, 45, 66, 0.9);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .authorName {
-    color: #edf2f4;
-  }
-
-  .authorTitle {
-    color: #8d99ae;
-  }
-
-  .content {
-    color: #c8cdd0;
-
-    &::before {
-      color: rgba(239, 35, 60, 0.3);
-    }
-  }
-
-  .date {
-    color: #8d99ae;
-  }
-
-  .dot {
-    background: rgba(255, 255, 255, 0.2);
-
-    &.active {
-      background: $primary-600;
-    }
-
-    &:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.3);
-    }
-  }
-}

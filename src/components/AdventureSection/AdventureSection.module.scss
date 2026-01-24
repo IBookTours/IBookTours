@@ -2,7 +2,7 @@
 
 .section {
   padding: $section-padding-y-mobile 0;
-  background: $bg-primary;
+  background: var(--bg-primary);
   position: relative;
   overflow: hidden;
 
@@ -46,7 +46,7 @@
   gap: $spacing-2;
   font-size: $font-xs;
   font-weight: $font-semibold;
-  color: $primary-600;
+  color: var(--color-primary-600);
   text-transform: uppercase;
   letter-spacing: $tracking-wider;
   margin-bottom: $spacing-3;
@@ -55,7 +55,7 @@
     content: '';
     width: 8px;
     height: 8px;
-    background: $primary-600;
+    background: var(--color-primary-600);
     border-radius: $radius-full;
   }
 }
@@ -66,7 +66,10 @@
 }
 
 .ratingCard {
-  @include glassmorphism;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   padding: $spacing-5;
   border-radius: $radius-2xl;
   max-width: 320px;
@@ -81,20 +84,20 @@
   svg {
     width: 20px;
     height: 20px;
-    color: #fbbf24;
-    fill: #fbbf24;
+    color: $color-star;
+    fill: $color-star;
   }
 }
 
 .ratingValue {
   font-size: $font-2xl;
   font-weight: $font-bold;
-  color: $text-primary;
+  color: var(--text-primary);
 }
 
 .ratingLabel {
   font-size: $font-sm;
-  color: $text-secondary;
+  color: var(--text-secondary);
   line-height: $leading-relaxed;
 }
 
@@ -132,7 +135,7 @@
     }
 
     .categoryOverlay {
-      background: rgba(0, 0, 0, 0.3);
+      background: $overlay-md;
     }
   }
 
@@ -145,7 +148,7 @@
 .categoryOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+  background: $gradient-category-overlay;
   transition: background $transition-base;
 }
 
@@ -171,19 +174,21 @@
 
 .categoryCount {
   font-size: $font-sm;
-  color: rgba(255, 255, 255, 0.8);
+  color: $rgba-white-80;
 }
 
 .categoryBadge {
   position: absolute;
   top: $spacing-3;
   right: $spacing-3;
-  @include glassmorphism;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
   padding: $spacing-1 $spacing-3;
   border-radius: $radius-full;
   font-size: $font-xs;
   font-weight: $font-semibold;
-  color: $text-primary;
+  color: var(--text-primary);
   z-index: 1;
 }
 
@@ -195,42 +200,3 @@
   }
 }
 
-// ==========================================
-// DARK MODE OVERRIDES
-// ==========================================
-:global([data-theme="dark"]) {
-  .section {
-    background: #1a1b2e;
-  }
-
-  .title {
-    color: #edf2f4;
-  }
-
-  .sectionLabel {
-    color: $primary-500;
-
-    &::before {
-      background: $primary-500;
-    }
-  }
-
-  .ratingCard {
-    background: rgba(43, 45, 66, 0.95);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .ratingValue {
-    color: #edf2f4;
-  }
-
-  .ratingLabel {
-    color: #c8cdd0;
-  }
-
-  .categoryBadge {
-    background: rgba(43, 45, 66, 0.95);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #edf2f4;
-  }
-}

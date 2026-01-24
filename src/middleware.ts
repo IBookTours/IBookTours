@@ -8,6 +8,16 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
+// Get the secret - REQUIRED for JWT verification
+const getSecret = () => {
+  const secret = process.env.NEXTAUTH_SECRET;
+  if (!secret && process.env.NODE_ENV === 'production') {
+    console.error('CRITICAL: NEXTAUTH_SECRET is not set in production!');
+    return undefined; // Will cause token verification to fail safely
+  }
+  return secret || 'dev-only-insecure-secret-do-not-use-in-production';
+};
+
 // Routes that require authentication
 const protectedRoutes = ['/profile'];
 
@@ -20,7 +30,7 @@ export async function middleware(request: NextRequest) {
   // Get the JWT token from the request
   const token = await getToken({
     req: request,
-    secret: process.env.NEXTAUTH_SECRET || 'itravel-demo-secret-change-in-production',
+    secret: getSecret(),
   });
 
   // Check if the current path requires admin access

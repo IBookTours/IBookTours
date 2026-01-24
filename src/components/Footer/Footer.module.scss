@@ -1,7 +1,7 @@
 @use '@/styles/variables' as *;
 
 .footer {
-  background: $secondary-500;  // Space Indigo - dark footer
+  background: var(--bg-secondary);  // Theme-aware background
   padding-top: $section-padding-y-mobile;
 
   @include respond-to(lg) {
@@ -26,7 +26,7 @@
 .faqTitle {
   font-size: $font-3xl;
   font-weight: $font-bold;
-  color: $text-light;
+  color: var(--text-primary);
   margin-bottom: $spacing-2;
 
   @include respond-to(lg) {
@@ -36,7 +36,7 @@
 
 .faqSubtitle {
   font-size: $font-base;
-  color: $secondary-300;  // Lavender Grey
+  color: var(--text-secondary);
 }
 
 .faqs {
@@ -52,8 +52,8 @@
 }
 
 .faqItem {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
   border-radius: $radius-xl;
   overflow: hidden;
 }
@@ -70,17 +70,17 @@
   text-align: left;
   font-size: $font-base;
   font-weight: $font-semibold;
-  color: $text-light;
+  color: var(--text-primary);
   transition: background $transition-fast;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bg-tertiary);
   }
 
   svg {
     width: 20px;
     height: 20px;
-    color: $secondary-300;
+    color: var(--text-secondary);
     flex-shrink: 0;
     transition: transform $transition-fast;
   }
@@ -93,7 +93,7 @@
 .faqAnswer {
   padding: 0 $spacing-5 $spacing-5;
   font-size: $font-sm;
-  color: $secondary-300;
+  color: var(--text-secondary);
   line-height: $leading-relaxed;
   display: none;
 
@@ -105,7 +105,7 @@
 // Main Footer Content
 .main {
   padding: $spacing-12 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border-light);
 }
 
 .grid {
@@ -152,7 +152,7 @@
   gap: $spacing-2;
   font-size: $font-xl;
   font-weight: $font-bold;
-  color: $text-light;
+  color: var(--text-primary);
   text-decoration: none;
   margin-bottom: $spacing-4;
 
@@ -165,7 +165,7 @@
 .logoIcon {
   width: 40px;
   height: 40px;
-  background: $primary-600;
+  background: var(--color-primary-600);
   border-radius: $radius-lg;
   @include flex-center;
   color: $text-light;
@@ -178,7 +178,7 @@
 
 .tagline {
   font-size: $font-sm;
-  color: $secondary-300;
+  color: var(--text-secondary);
   line-height: $leading-relaxed;
   margin-bottom: $spacing-6;
 }
@@ -192,15 +192,15 @@
   width: 40px;
   height: 40px;
   border-radius: $radius-lg;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
   @include flex-center;
-  color: $text-light;
+  color: var(--text-primary);
   transition: all $transition-fast;
 
   &:hover {
-    background: $primary-600;
-    border-color: $primary-600;
+    background: var(--color-primary-600);
+    border-color: var(--color-primary-600);
     color: $text-light;
   }
 
@@ -214,7 +214,7 @@
   h4 {
     font-size: $font-sm;
     font-weight: $font-semibold;
-    color: $text-light;
+    color: var(--text-primary);
     margin-bottom: $spacing-4;
     text-transform: uppercase;
     letter-spacing: $tracking-wide;
@@ -229,19 +229,19 @@
 
 .link {
   font-size: $font-sm;
-  color: $secondary-300;
+  color: var(--text-secondary);
   text-decoration: none;
   transition: color $transition-fast;
 
   &:hover {
-    color: $primary-500;
+    color: var(--color-primary-500);
   }
 }
 
 // Bottom Bar
 .bottom {
   padding: $spacing-6 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border-light);
 }
 
 .bottomContent {
@@ -260,7 +260,7 @@
 
 .copyright {
   font-size: $font-sm;
-  color: $secondary-300;
+  color: var(--text-tertiary);
 }
 
 .legalLinks {
@@ -270,11 +270,11 @@
 
 .legalLink {
   font-size: $font-sm;
-  color: $secondary-300;
+  color: var(--text-tertiary);
   text-decoration: none;
   transition: color $transition-fast;
 
   &:hover {
-    color: $primary-500;
+    color: var(--color-primary-500);
   }
 }

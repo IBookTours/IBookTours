@@ -5,55 +5,73 @@
 // ============================================
 
 :root {
-  // Primary Colors
-  --color-primary-50: #{$primary-50};
-  --color-primary-100: #{$primary-100};
-  --color-primary-200: #{$primary-200};
-  --color-primary-300: #{$primary-300};
-  --color-primary-400: #{$primary-400};
-  --color-primary-500: #{$primary-500};
-  --color-primary-600: #{$primary-600};
-  --color-primary-700: #{$primary-700};
-  --color-primary-800: #{$primary-800};
-  --color-primary-900: #{$primary-900};
+  // ============================================
+  // LIGHT MODE - Honeydew/Oxford Navy/Punch Red
+  // ============================================
 
-  // Secondary Colors
-  --color-secondary-50: #{$secondary-50};
-  --color-secondary-100: #{$secondary-100};
-  --color-secondary-200: #{$secondary-200};
-  --color-secondary-300: #{$secondary-300};
-  --color-secondary-400: #{$secondary-400};
-  --color-secondary-500: #{$secondary-500};
+  // Primary Colors (Punch Red spectrum for light mode)
+  --color-primary-50: #fef2f2;
+  --color-primary-100: #fee2e2;
+  --color-primary-200: #fecaca;
+  --color-primary-300: #fca5a5;
+  --color-primary-400: #f87171;
+  --color-primary-500: #e63946;     // Punch Red
+  --color-primary-600: #e63946;     // Punch Red
+  --color-primary-700: #c5313d;     // Darker Punch Red
+  --color-primary-800: #991b1b;
+  --color-primary-900: #7f1d1d;
 
-  // Neutral Colors
-  --color-neutral-50: #{$neutral-50};
-  --color-neutral-100: #{$neutral-100};
-  --color-neutral-200: #{$neutral-200};
-  --color-neutral-300: #{$neutral-300};
-  --color-neutral-400: #{$neutral-400};
-  --color-neutral-500: #{$neutral-500};
-  --color-neutral-600: #{$neutral-600};
-  --color-neutral-700: #{$neutral-700};
-  --color-neutral-800: #{$neutral-800};
-  --color-neutral-900: #{$neutral-900};
+  // Secondary Colors (Cerulean/Frosted Blue spectrum)
+  --color-secondary-50: #f0f9ff;
+  --color-secondary-100: #e0f2fe;
+  --color-secondary-200: #a8dadc;   // Frosted Blue
+  --color-secondary-300: #7dd3fc;
+  --color-secondary-400: #38bdf8;
+  --color-secondary-500: #457b9d;   // Cerulean
 
-  // Background Colors
-  --bg-primary: #{$bg-primary};
-  --bg-secondary: #{$bg-secondary};
-  --bg-tertiary: #{$bg-tertiary};
-  --bg-accent: #{$bg-accent};
+  // Neutral Colors (keep standard)
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
 
-  // Text Colors
-  --text-primary: #{$text-primary};
-  --text-secondary: #{$text-secondary};
-  --text-tertiary: #{$text-tertiary};
-  --text-light: #{$text-light};
-  --text-muted: #{$text-muted};
+  // Background Colors (Honeydew-based)
+  --bg-primary: #f1faee;            // Honeydew - main background
+  --bg-secondary: #ffffff;          // Pure white - cards, alternating sections
+  --bg-tertiary: #e8f4f0;           // Lighter honeydew
+  --bg-accent: rgba(230, 57, 70, 0.08);  // Punch Red tint
 
-  // Border Colors
-  --border-light: #{$border-light};
-  --border-medium: #{$border-medium};
-  --border-primary: #{$border-primary};
+  // Text Colors (Oxford Navy based)
+  --text-primary: #1d3557;          // Oxford Navy - headings, main text
+  --text-secondary: #457b9d;        // Cerulean - body text
+  --text-tertiary: #6b8fa3;         // Lighter cerulean - muted text
+  --text-light: #ffffff;            // White - on dark backgrounds
+  --text-muted: #8da4b4;            // Soft blue-grey
+
+  // Border Colors (Frosted Blue based)
+  --border-light: #c8e0d8;          // Soft green-grey
+  --border-medium: #a8dadc;         // Frosted Blue
+  --border-primary: rgba(230, 57, 70, 0.3);  // Punch Red tint
+
+  // Glassmorphism (Light mode)
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-bg-light: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(168, 218, 220, 0.5);  // Frosted Blue tint
+  --glass-shadow: 0 8px 32px rgba(29, 53, 87, 0.1);  // Oxford Navy shadow
+
+  // Hero gradient end color (for video overlay)
+  --hero-gradient-end: rgba(29, 53, 87, 0.6);  // Oxford Navy
+
+  // CTA Section gradient (Punch Red tones)
+  --cta-gradient-start: rgba(183, 38, 51, 0.85);  // Darker Punch Red
+  --cta-gradient-end: rgba(197, 49, 61, 0.75);    // Punch Red
+  --cta-text: #1d3557;  // Oxford Navy for button text
 }
 
 // ============================================
@@ -507,6 +525,15 @@ html.colorblind-tritanopia {
   --glass-bg: rgba(43, 45, 66, 0.8);
   --glass-bg-light: rgba(61, 63, 84, 0.9);
   --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  // Hero gradient end color (for video overlay)
+  --hero-gradient-end: rgba(43, 45, 66, 0.7);  // Space Indigo
+
+  // CTA Section gradient (Strawberry Red tones)
+  --cta-gradient-start: rgba(173, 22, 32, 0.85);  // Darker Strawberry Red
+  --cta-gradient-end: rgba(217, 4, 41, 0.75);     // Flag Red
+  --cta-text: #edf2f4;  // Platinum for button text
 
   // Apply to body
   color: var(--text-primary);

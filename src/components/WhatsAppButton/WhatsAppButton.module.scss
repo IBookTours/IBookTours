@@ -12,14 +12,14 @@
   height: 60px;
   background-color: $whatsapp-green;  // WhatsApp brand green
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+  box-shadow: $whatsapp-shadow;
   color: $text-light;
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 
   &:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    box-shadow: $whatsapp-shadow-hover;
     background-color: $whatsapp-green-hover;  // Darker green on hover
 
     .tooltip {
@@ -30,8 +30,8 @@
   }
 
   &:focus-visible {
-    outline: 3px solid rgba(37, 211, 102, 0.5);
-    outline-offset: 2px;
+    outline: $whatsapp-focus-ring;
+    outline-offset: $focus-outline-offset;
   }
 
   // Pulse animation to draw attention

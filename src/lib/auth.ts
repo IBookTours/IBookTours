@@ -8,6 +8,17 @@ import { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+// Check if we're in demo mode (enables demo accounts)
+const DEMO_MODE = process.env.DEMO_MODE === 'true';
+
+// Validate NEXTAUTH_SECRET is set in production
+if (!process.env.NEXTAUTH_SECRET) {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('NEXTAUTH_SECRET environment variable is required in production');
+  }
+  console.warn('⚠️ NEXTAUTH_SECRET is not set. Using insecure default for development only.');
+}
+
 // Define user roles for authorization
 export type UserRole = 'user' | 'admin' | 'moderator';
 
@@ -63,33 +74,35 @@ const credentialsProvider = CredentialsProvider({
       return null;
     }
 
-    // Demo user for development
-    // REMOVE THIS IN PRODUCTION
-    if (
-      credentials.email === 'demo@itravel.com' &&
-      credentials.password === 'demo123'
-    ) {
-      return {
-        id: 'demo-user-id',
-        name: 'Demo User',
-        email: 'demo@itravel.com',
-        image: 'https://i.pravatar.cc/150?u=demo',
-        role: 'user' as UserRole,
-      };
-    }
+    // Demo accounts - only available when DEMO_MODE=true
+    if (DEMO_MODE) {
+      // Demo user
+      if (
+        credentials.email === 'demo@itravel.com' &&
+        credentials.password === 'demo123'
+      ) {
+        return {
+          id: 'demo-user-id',
+          name: 'Demo User',
+          email: 'demo@itravel.com',
+          image: 'https://i.pravatar.cc/150?u=demo',
+          role: 'user' as UserRole,
+        };
+      }
 
-    // Admin demo user
-    if (
-      credentials.email === 'admin@itravel.com' &&
-      credentials.password === 'admin123'
-    ) {
-      return {
-        id: 'admin-user-id',
-        name: 'Admin User',
-        email: 'admin@itravel.com',
-        image: 'https://i.pravatar.cc/150?u=admin',
-        role: 'admin' as UserRole,
-      };
+      // Admin demo user
+      if (
+        credentials.email === 'admin@itravel.com' &&
+        credentials.password === 'admin123'
+      ) {
+        return {
+          id: 'admin-user-id',
+          name: 'Admin User',
+          email: 'admin@itravel.com',
+          image: 'https://i.pravatar.cc/150?u=admin',
+          role: 'admin' as UserRole,
+        };
+      }
     }
 
     // User not found or invalid credentials
@@ -119,8 +132,8 @@ export const authOptions: NextAuthOptions = {
       ]
     : [credentialsProvider],
 
-  // Secret for JWT encryption - use env or fallback for demo
-  secret: process.env.NEXTAUTH_SECRET || 'itravel-demo-secret-change-in-production',
+  // Secret for JWT encryption - REQUIRED in production
+  secret: process.env.NEXTAUTH_SECRET || 'dev-only-insecure-secret-do-not-use-in-production',
 
   // Configure session handling
   session: {

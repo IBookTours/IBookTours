@@ -1,34 +1,46 @@
 // ============================================
 // ITRAVEL - THEMING ENGINE
 // ============================================
-// To change the entire color scheme, modify only the values below.
-// Example: Change from Blue/White to Red/White by updating primary colors.
+// TWO DISTINCT PALETTES:
+// - Light Mode: Honeydew, Oxford Navy, Punch Red, Frosted Blue, Cerulean
+// - Dark Mode: Space Indigo, Platinum, Strawberry Red, Lavender Grey
 
 // ============================================
-// COLOR PALETTE
+// STATIC BRAND COLORS (for reference/special cases)
 // ============================================
 
-// Brand Colors (ITravel 2024)
-// Space Indigo: #2b2d42 - Dark backgrounds, text on light
-// Lavender Grey: #8d99ae - Secondary text, borders
-// Platinum: #edf2f4 - Light backgrounds
-// Strawberry Red: #ef233c - Primary accent, CTAs
-// Flag Red: #d90429 - Hover states, emphasis
+// LIGHT MODE BRAND PALETTE
+$punch-red: #e63946;          // Primary accent (light mode)
+$honeydew: #f1faee;           // Main background (light mode)
+$frosted-blue: #a8dadc;       // Secondary accent
+$cerulean: #457b9d;           // Tertiary / links
+$oxford-navy: #1d3557;        // Text / dark elements
 
-// Primary Colors (Strawberry Red to Flag Red spectrum)
-// WCAG 2.1 AA Compliant: primary-600 meets 4.5:1 contrast on white
-$primary-50: #fef2f3;
-$primary-100: #fee2e4;
-$primary-200: #fecacd;
-$primary-300: #fca5ab;
-$primary-400: #f87179;
-$primary-500: #ef233c;  // Strawberry Red - Main accent
-$primary-600: #ef233c;  // Strawberry Red - Main CTA (5.3:1 contrast)
-$primary-700: #d90429;  // Flag Red - Hover states
-$primary-800: #b30422;
-$primary-900: #93051f;
+// DARK MODE BRAND PALETTE
+$strawberry-red: #ef233c;     // Primary accent (dark mode)
+$platinum: #edf2f4;           // Light text
+$lavender-grey: #8d99ae;      // Secondary text
+$space-indigo: #2b2d42;       // Main background (dark mode)
+$flag-red: #d90429;           // Hover states
 
-// Secondary Colors (Space Indigo spectrum)
+// ============================================
+// THEME-AWARE PRIMARY COLORS (Change per theme!)
+// ============================================
+// These reference CSS variables defined in globals.scss
+$primary-500: var(--color-primary-500);
+$primary-600: var(--color-primary-600);
+$primary-700: var(--color-primary-700);
+
+// Static primary color scales (for non-theme contexts)
+$primary-50: #fef2f2;
+$primary-100: #fee2e2;
+$primary-200: #fecaca;
+$primary-300: #fca5a5;
+$primary-400: #f87171;
+$primary-800: #991b1b;
+$primary-900: #7f1d1d;
+
+// Secondary Colors (Space Indigo spectrum - for dark backgrounds)
 $secondary-50: #f4f4f6;
 $secondary-100: #e8e9ed;
 $secondary-200: #d1d3db;
@@ -62,33 +74,40 @@ $info-light: #e0f2fe;
 $whatsapp-green: #25D366;
 $whatsapp-green-hover: #1DA851;
 
-// Background Colors (Platinum-based for light mode)
-$bg-primary: #ffffff;
-$bg-secondary: #edf2f4;  // Platinum
-$bg-tertiary: #e1e7ea;
-$bg-accent: rgba(239, 35, 60, 0.05);  // Strawberry Red tint
+// ============================================
+// THEME-AWARE VARIABLES (Reference CSS vars)
+// These automatically respond to light/dark mode
+// ============================================
+
+// Background Colors - Theme aware
+$bg-primary: var(--bg-primary);
+$bg-secondary: var(--bg-secondary);
+$bg-tertiary: var(--bg-tertiary);
+$bg-accent: var(--bg-accent);
+
+// Text Colors - Theme aware
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$text-tertiary: var(--text-tertiary);
+$text-muted: var(--text-muted);
+$text-light: #ffffff;  // Always white (used on dark backgrounds)
+
+// Border Colors - Theme aware
+$border-light: var(--border-light);
+$border-medium: var(--border-medium);
+$border-primary: var(--border-primary);
+
+// Glassmorphism - Theme aware
+$glass-bg: var(--glass-bg);
+$glass-bg-light: var(--glass-bg-light);
+$glass-border: var(--glass-border);
+$glass-shadow: var(--glass-shadow);
+$glass-blur: blur(10px);
+$glass-bg-dark: rgba(255, 255, 255, 0.5);  // Static fallback
+
+// Static background helpers (for gradients/non-theme contexts)
 $bg-gradient-start: #edf2f4;  // Platinum
 $bg-gradient-end: #ffffff;
-
-// Text Colors (Space Indigo based)
-$text-primary: #2b2d42;  // Space Indigo
-$text-secondary: #5c6378;
-$text-tertiary: #8d99ae;  // Lavender Grey
-$text-light: #ffffff;
-$text-muted: #8d99ae;  // Lavender Grey
-
-// Border Colors (Lavender Grey based)
-$border-light: #d1d3db;
-$border-medium: #8d99ae;  // Lavender Grey
-$border-primary: rgba(239, 35, 60, 0.3);  // Strawberry Red
-
-// Glassmorphism
-$glass-bg: rgba(255, 255, 255, 0.7);
-$glass-bg-light: rgba(255, 255, 255, 0.85);
-$glass-bg-dark: rgba(255, 255, 255, 0.5);
-$glass-border: rgba(255, 255, 255, 0.3);
-$glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-$glass-blur: blur(10px);
 
 // Opacity Helpers (for consistent rgba usage)
 $rgba-white-10: rgba(255, 255, 255, 0.1);
@@ -111,10 +130,81 @@ $rgba-black-40: rgba(0, 0, 0, 0.4);
 $rgba-black-50: rgba(0, 0, 0, 0.5);
 $rgba-black-60: rgba(0, 0, 0, 0.6);
 
-// Overlay Colors
-$overlay-dark: rgba(0, 0, 0, 0.6);
-$overlay-medium: rgba(0, 0, 0, 0.4);
-$overlay-light: rgba(0, 0, 0, 0.2);
+// Overlay Colors (Complete scale)
+$overlay-xs: rgba(0, 0, 0, 0.1);
+$overlay-sm: rgba(0, 0, 0, 0.2);
+$overlay-md: rgba(0, 0, 0, 0.3);
+$overlay-base: rgba(0, 0, 0, 0.4);
+$overlay-lg: rgba(0, 0, 0, 0.5);
+$overlay-xl: rgba(0, 0, 0, 0.6);
+$overlay-2xl: rgba(0, 0, 0, 0.7);
+
+// Legacy aliases (for backward compatibility)
+$overlay-light: $overlay-sm;
+$overlay-medium: $overlay-base;
+$overlay-dark: $overlay-xl;
+
+// ============================================
+// BRAND COLOR ALPHA TOKENS
+// ============================================
+
+// Primary (Strawberry Red) at different opacities
+$primary-alpha-05: rgba(239, 35, 60, 0.05);
+$primary-alpha-10: rgba(239, 35, 60, 0.1);
+$primary-alpha-15: rgba(239, 35, 60, 0.15);
+$primary-alpha-20: rgba(239, 35, 60, 0.2);
+$primary-alpha-30: rgba(239, 35, 60, 0.3);
+$primary-alpha-40: rgba(239, 35, 60, 0.4);
+
+// Secondary (Space Indigo) at different opacities
+$secondary-alpha-70: rgba(43, 45, 66, 0.7);
+$secondary-alpha-80: rgba(43, 45, 66, 0.8);
+$secondary-alpha-90: rgba(43, 45, 66, 0.9);
+$secondary-alpha-95: rgba(43, 45, 66, 0.95);
+
+// ============================================
+// GRADIENT TOKENS
+// ============================================
+
+// Hero/video overlay gradient - THEME AWARE via CSS variable
+$gradient-hero-overlay: linear-gradient(
+  180deg,
+  rgba(0, 0, 0, 0.5) 0%,
+  rgba(0, 0, 0, 0.3) 40%,
+  rgba(0, 0, 0, 0.4) 70%,
+  var(--hero-gradient-end) 100%
+);
+
+// Card overlay gradient (for event cards, etc.)
+$gradient-card-overlay: linear-gradient(
+  180deg,
+  transparent 40%,
+  $overlay-2xl 100%
+);
+
+// Category overlay gradient
+$gradient-category-overlay: linear-gradient(
+  180deg,
+  transparent 50%,
+  $overlay-lg 100%
+);
+
+// ============================================
+// FOCUS & INTERACTION TOKENS
+// ============================================
+
+$focus-ring-primary: 0 0 0 3px $primary-alpha-10;
+$focus-ring-primary-visible: 0 0 0 3px $primary-alpha-30;
+$focus-outline-width: 3px;
+$focus-outline-offset: 2px;
+
+// ============================================
+// WHATSAPP SEMANTIC TOKENS
+// ============================================
+
+$whatsapp-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+$whatsapp-shadow-hover: 0 6px 20px rgba(37, 211, 102, 0.45);
+$whatsapp-focus-ring: 0 0 0 3px rgba(37, 211, 102, 0.5);
 
 // UI Accent Colors
 $color-star: #fbbf24;

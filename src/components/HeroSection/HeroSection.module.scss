@@ -280,20 +280,3 @@
   }
 }
 
-// ==========================================
-// DARK MODE OVERRIDES
-// ==========================================
-:global([data-theme="dark"]) {
-  .searchBox {
-    background: rgba(43, 45, 66, 0.9);
-    border-color: rgba(255, 255, 255, 0.15);
-
-    input {
-      color: #edf2f4;
-
-      &::placeholder {
-        color: #8d99ae;
-      }
-    }
-  }
-}

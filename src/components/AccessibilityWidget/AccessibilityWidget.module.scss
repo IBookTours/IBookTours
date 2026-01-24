@@ -16,7 +16,7 @@
   width: 56px;
   height: 56px;
   border-radius: $radius-full;
-  background: $primary-600;
+  background: var(--color-primary-600);
   border: none;
   color: $text-light;
   cursor: pointer;
@@ -25,12 +25,12 @@
   transition: all $transition-base;
 
   &:hover {
-    background: $primary-700;
+    background: var(--color-primary-700);
     transform: scale(1.05);
   }
 
   &:focus-visible {
-    outline: 3px solid $primary-300;
+    outline: 3px solid var(--border-primary);
     outline-offset: 2px;
   }
 
@@ -45,10 +45,10 @@
   bottom: calc(100% + $spacing-4);
   left: 0;  // Panel opens from left side
   width: 280px;
-  background: $bg-primary;
+  background: var(--bg-primary);
   border-radius: $radius-2xl;
-  box-shadow: $shadow-xl;
-  border: 1px solid $border-light;
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--border-light);
   overflow: hidden;
   animation: slideUp 0.2s ease-out;
 
@@ -66,13 +66,13 @@
 
 .header {
   padding: $spacing-4 $spacing-5;
-  border-bottom: 1px solid $border-light;
-  background: $bg-secondary;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-secondary);
 
   h3 {
     font-size: $font-sm;
     font-weight: $font-semibold;
-    color: $text-primary;
+    color: var(--text-primary);
     margin: 0;
   }
 }
@@ -91,25 +91,25 @@
   width: 100%;
   padding: $spacing-3 $spacing-4;
   background: transparent;
-  border: 1px solid $border-light;
+  border: 1px solid var(--border-light);
   border-radius: $radius-xl;
   cursor: pointer;
   transition: all $transition-fast;
   text-align: left;
 
   &:hover {
-    background: $bg-secondary;
-    border-color: $primary-200;
+    background: var(--bg-secondary);
+    border-color: var(--border-primary);
   }
 
   &:focus-visible {
-    outline: 3px solid $primary-400;
+    outline: 3px solid var(--color-primary-600);
     outline-offset: 2px;
   }
 
   &.active {
-    background: $primary-50;
-    border-color: $primary-300;
+    background: var(--bg-accent);
+    border-color: var(--border-primary);
   }
 }
 
@@ -117,18 +117,18 @@
   width: 36px;
   height: 36px;
   border-radius: $radius-lg;
-  background: $bg-accent;
+  background: var(--bg-accent);
   @include flex-center;
   flex-shrink: 0;
 
   svg {
     width: 18px;
     height: 18px;
-    color: $primary-600;
+    color: var(--color-primary-600);
   }
 
   .active & {
-    background: $primary-100;
+    background: var(--bg-accent);
   }
 }
 
@@ -138,13 +138,13 @@
   gap: 2px;
   font-size: $font-sm;
   font-weight: $font-medium;
-  color: $text-primary;
+  color: var(--text-primary);
 }
 
 .optionValue {
   font-size: $font-xs;
   font-weight: $font-normal;
-  color: $text-tertiary;
+  color: var(--text-tertiary);
 }
 
 .reset {
@@ -152,80 +152,22 @@
   padding: $spacing-3;
   background: transparent;
   border: none;
-  border-top: 1px solid $border-light;
+  border-top: 1px solid var(--border-light);
   font-size: $font-xs;
   font-weight: $font-medium;
-  color: $text-tertiary;
+  color: var(--text-tertiary);
   cursor: pointer;
   transition: all $transition-fast;
 
   &:hover {
-    background: $bg-secondary;
-    color: $text-secondary;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
   }
 
   &:focus-visible {
-    outline: 3px solid $primary-400;
+    outline: 3px solid var(--color-primary-600);
     outline-offset: -2px;
   }
 }
 
-// ==========================================
-// DARK MODE OVERRIDES
-// ==========================================
-:global([data-theme="dark"]) {
-  .panel {
-    background: #2b2d42;
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .header {
-    background: #1a1b2e;
-    border-color: rgba(255, 255, 255, 0.1);
-
-    h3 {
-      color: #edf2f4;
-    }
-  }
-
-  .option {
-    border-color: rgba(255, 255, 255, 0.1);
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(239, 35, 60, 0.3);
-    }
-
-    &.active {
-      background: rgba(239, 35, 60, 0.15);
-      border-color: rgba(239, 35, 60, 0.4);
-    }
-  }
-
-  .optionIcon {
-    background: rgba(239, 35, 60, 0.15);
-
-    .active & {
-      background: rgba(239, 35, 60, 0.25);
-    }
-  }
-
-  .optionLabel {
-    color: #edf2f4;
-  }
-
-  .optionValue {
-    color: #8d99ae;
-  }
-
-  .reset {
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #8d99ae;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      color: #c8cdd0;
-    }
-  }
-}
 

@@ -21,8 +21,8 @@
     inset: 0;
     background: linear-gradient(
       135deg,
-      rgba($primary-900, 0.85) 0%,
-      rgba($primary-700, 0.75) 100%
+      var(--cta-gradient-start) 0%,
+      var(--cta-gradient-end) 100%
     );
   }
 
@@ -78,7 +78,7 @@
   gap: $spacing-3;
   padding: $spacing-4 $spacing-8;
   background: $text-light;
-  color: $primary-700;
+  color: var(--cta-text);
   font-size: $font-base;
   font-weight: $font-semibold;
   border: none;

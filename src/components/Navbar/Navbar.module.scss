@@ -10,7 +10,12 @@
   transition: all $transition-base;
 
   &.scrolled {
-    @include glassmorphism-light;
+    // Theme-aware glassmorphism using CSS variables
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
     padding: $spacing-3 0;
   }
 }
@@ -31,7 +36,7 @@
   transition: color $transition-fast;
 
   .scrolled & {
-    color: $text-primary;
+    color: var(--text-primary);
   }
 
   svg {
@@ -93,11 +98,11 @@
   }
 
   .scrolled & {
-    color: $text-secondary;
+    color: var(--text-secondary);
 
     &:hover,
     &.active {
-      color: $primary-600;
+      color: var(--color-primary-600);
     }
   }
 }
@@ -125,12 +130,12 @@
   }
 
   .scrolled & {
-    background: $neutral-100;
-    border-color: $border-light;
-    color: $text-primary;
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    color: var(--text-primary);
 
     &:hover {
-      background: $neutral-200;
+      background: var(--bg-tertiary);
     }
   }
 }
@@ -156,12 +161,12 @@
   }
 
   .scrolled & {
-    background: $neutral-100;
-    border-color: $border-light;
-    color: $text-primary;
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    color: var(--text-primary);
 
     &:hover {
-      background: $neutral-200;
+      background: var(--bg-tertiary);
     }
   }
 
@@ -200,9 +205,9 @@
   }
 
   .scrolled & {
-    background: $neutral-100;
-    border-color: $border-light;
-    color: $text-primary;
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    color: var(--text-primary);
   }
 
   svg {
@@ -218,7 +223,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: $bg-primary;
+  background: var(--bg-primary);
   z-index: $z-modal;
   padding: $spacing-6;
   display: flex;
@@ -244,9 +249,9 @@
   width: 40px;
   height: 40px;
   border-radius: $radius-lg;
-  background: $neutral-100;
+  background: var(--bg-tertiary);
   border: none;
-  color: $text-primary;
+  color: var(--text-primary);
   cursor: pointer;
   @include flex-center;
 
@@ -268,15 +273,15 @@
   padding: $spacing-4;
   font-size: $font-lg;
   font-weight: $font-medium;
-  color: $text-primary;
+  color: var(--text-primary);
   text-decoration: none;
   border-radius: $radius-lg;
   transition: all $transition-fast;
 
   &:hover,
   &.active {
-    background: $bg-accent;
-    color: $primary-600;
+    background: var(--bg-accent);
+    color: var(--color-primary-600);
   }
 }
 
@@ -293,7 +298,7 @@
   align-items: center;
   justify-content: space-between;
   padding: $spacing-4;
-  background: $neutral-100;
+  background: var(--bg-tertiary);
   border-radius: $radius-lg;
   border: none;
   cursor: pointer;
@@ -302,93 +307,17 @@
   span {
     font-size: $font-base;
     font-weight: $font-medium;
-    color: $text-primary;
+    color: var(--text-primary);
   }
 
   svg {
     width: 24px;
     height: 24px;
-    color: $text-secondary;
+    color: var(--text-secondary);
   }
 
   &:hover {
-    background: $neutral-200;
+    background: var(--glass-bg);
   }
 }
 
-// ==========================================
-// DARK MODE OVERRIDES
-// ==========================================
-:global([data-theme="dark"]) {
-  .navbar.scrolled {
-    background: rgba(26, 27, 46, 0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .logo {
-    .scrolled & {
-      color: $text-light;
-    }
-  }
-
-  .navLink {
-    .scrolled & {
-      color: $secondary-300;
-
-      &:hover,
-      &.active {
-        color: $primary-500;
-      }
-    }
-  }
-
-  .themeToggle,
-  .searchBtn,
-  .mobileMenuBtn {
-    .scrolled & {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.15);
-      color: $text-light;
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.2);
-      }
-    }
-  }
-
-  .mobileMenu {
-    background: #1a1b2e;
-  }
-
-  .mobileMenuClose {
-    background: rgba(255, 255, 255, 0.1);
-    color: $text-light;
-  }
-
-  .mobileNavLink {
-    color: $text-light;
-
-    &:hover,
-    &.active {
-      background: rgba(239, 35, 60, 0.15);
-      color: $primary-500;
-    }
-  }
-
-  .mobileThemeToggle {
-    background: rgba(255, 255, 255, 0.1);
-
-    span {
-      color: $text-light;
-    }
-
-    svg {
-      color: $secondary-300;
-    }
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-  }
-}
