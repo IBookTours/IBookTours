@@ -109,17 +109,16 @@
 }
 
 .themeToggle {
-  display: none;
+  display: flex;
   width: 40px;
   height: 40px;
   border-radius: $radius-full;
   background: $rgba-white-15;
   border: 1px solid $rgba-white-20;
   color: $text-light;
-
-  @include respond-to(md) {
-    display: flex;
-  }
+  @include flex-center;
+  cursor: pointer;
+  transition: all $transition-fast;
 
   &:hover {
     background: $rgba-white-25;
@@ -284,4 +283,112 @@
 .mobileActions {
   margin-top: auto;
   padding-top: $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.mobileThemeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4;
+  background: $neutral-100;
+  border-radius: $radius-lg;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  span {
+    font-size: $font-base;
+    font-weight: $font-medium;
+    color: $text-primary;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: $text-secondary;
+  }
+
+  &:hover {
+    background: $neutral-200;
+  }
+}
+
+// ==========================================
+// DARK MODE OVERRIDES
+// ==========================================
+:global([data-theme="dark"]) {
+  .navbar.scrolled {
+    background: rgba(26, 27, 46, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .logo {
+    .scrolled & {
+      color: $text-light;
+    }
+  }
+
+  .navLink {
+    .scrolled & {
+      color: $secondary-300;
+
+      &:hover,
+      &.active {
+        color: $primary-500;
+      }
+    }
+  }
+
+  .themeToggle,
+  .searchBtn,
+  .mobileMenuBtn {
+    .scrolled & {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: $text-light;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  .mobileMenu {
+    background: #1a1b2e;
+  }
+
+  .mobileMenuClose {
+    background: rgba(255, 255, 255, 0.1);
+    color: $text-light;
+  }
+
+  .mobileNavLink {
+    color: $text-light;
+
+    &:hover,
+    &.active {
+      background: rgba(239, 35, 60, 0.15);
+      color: $primary-500;
+    }
+  }
+
+  .mobileThemeToggle {
+    background: rgba(255, 255, 255, 0.1);
+
+    span {
+      color: $text-light;
+    }
+
+    svg {
+      color: $secondary-300;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
 }

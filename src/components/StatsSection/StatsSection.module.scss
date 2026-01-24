@@ -4,6 +4,7 @@
   padding: $spacing-12 0;
   position: relative;
   overflow: hidden;
+  background: $secondary-500;  // Space Indigo
 }
 
 .container {
@@ -53,7 +54,7 @@
 .value {
   font-size: $font-5xl;
   font-weight: $font-bold;
-  color: $text-primary;
+  color: $text-light;
   line-height: 1;
   margin-bottom: $spacing-2;
 
@@ -63,12 +64,12 @@
 }
 
 .suffix {
-  color: $primary-600;
+  color: $primary-500;
 }
 
 .label {
   font-size: $font-sm;
-  color: $text-tertiary;
+  color: $secondary-300;  // Lavender Grey
   font-weight: $font-medium;
 }
 

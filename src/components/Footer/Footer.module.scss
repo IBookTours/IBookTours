@@ -1,7 +1,7 @@
 @use '@/styles/variables' as *;
 
 .footer {
-  background: $bg-secondary;
+  background: $secondary-500;  // Space Indigo - dark footer
   padding-top: $section-padding-y-mobile;
 
   @include respond-to(lg) {
@@ -26,7 +26,7 @@
 .faqTitle {
   font-size: $font-3xl;
   font-weight: $font-bold;
-  color: $text-primary;
+  color: $text-light;
   margin-bottom: $spacing-2;
 
   @include respond-to(lg) {
@@ -36,7 +36,7 @@
 
 .faqSubtitle {
   font-size: $font-base;
-  color: $text-tertiary;
+  color: $secondary-300;  // Lavender Grey
 }
 
 .faqs {
@@ -52,7 +52,8 @@
 }
 
 .faqItem {
-  @include glassmorphism-light;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: $radius-xl;
   overflow: hidden;
 }
@@ -69,17 +70,17 @@
   text-align: left;
   font-size: $font-base;
   font-weight: $font-semibold;
-  color: $text-primary;
+  color: $text-light;
   transition: background $transition-fast;
 
   &:hover {
-    background: var(--bg-secondary);
+    background: rgba(255, 255, 255, 0.05);
   }
 
   svg {
     width: 20px;
     height: 20px;
-    color: $text-tertiary;
+    color: $secondary-300;
     flex-shrink: 0;
     transition: transform $transition-fast;
   }
@@ -92,7 +93,7 @@
 .faqAnswer {
   padding: 0 $spacing-5 $spacing-5;
   font-size: $font-sm;
-  color: $text-secondary;
+  color: $secondary-300;
   line-height: $leading-relaxed;
   display: none;
 
@@ -104,7 +105,7 @@
 // Main Footer Content
 .main {
   padding: $spacing-12 0;
-  border-top: 1px solid $border-light;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .grid {
@@ -151,7 +152,7 @@
   gap: $spacing-2;
   font-size: $font-xl;
   font-weight: $font-bold;
-  color: $text-primary;
+  color: $text-light;
   text-decoration: none;
   margin-bottom: $spacing-4;
 
@@ -177,7 +178,7 @@
 
 .tagline {
   font-size: $font-sm;
-  color: $text-secondary;
+  color: $secondary-300;
   line-height: $leading-relaxed;
   margin-bottom: $spacing-6;
 }
@@ -191,10 +192,10 @@
   width: 40px;
   height: 40px;
   border-radius: $radius-lg;
-  background: $bg-primary;
-  border: 1px solid $border-light;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   @include flex-center;
-  color: $text-secondary;
+  color: $text-light;
   transition: all $transition-fast;
 
   &:hover {
@@ -213,7 +214,7 @@
   h4 {
     font-size: $font-sm;
     font-weight: $font-semibold;
-    color: $text-primary;
+    color: $text-light;
     margin-bottom: $spacing-4;
     text-transform: uppercase;
     letter-spacing: $tracking-wide;
@@ -228,19 +229,19 @@
 
 .link {
   font-size: $font-sm;
-  color: $text-secondary;
+  color: $secondary-300;
   text-decoration: none;
   transition: color $transition-fast;
 
   &:hover {
-    color: $primary-600;
+    color: $primary-500;
   }
 }
 
 // Bottom Bar
 .bottom {
   padding: $spacing-6 0;
-  border-top: 1px solid $border-light;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .bottomContent {
@@ -259,7 +260,7 @@
 
 .copyright {
   font-size: $font-sm;
-  color: $text-tertiary;
+  color: $secondary-300;
 }
 
 .legalLinks {
@@ -269,11 +270,11 @@
 
 .legalLink {
   font-size: $font-sm;
-  color: $text-tertiary;
+  color: $secondary-300;
   text-decoration: none;
   transition: color $transition-fast;
 
   &:hover {
-    color: $primary-600;
+    color: $primary-500;
   }
 }

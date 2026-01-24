@@ -2,7 +2,7 @@
 
 .section {
   padding: $section-padding-y-mobile 0;
-  background: $bg-primary;
+  background: $bg-secondary;  // Platinum - alternating background
   position: relative;
 
   @include respond-to(lg) {

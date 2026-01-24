@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Menu, X, Search, Compass } from 'lucide-react';
+import { Menu, X, Search, Compass, Sun, Moon } from 'lucide-react';
 import { NavItem } from '@/types';
 import { LoginButton } from '@/components/Auth';
-import { ThemeToggle } from '@/components/ThemeProvider';
+import { ThemeToggle, useTheme } from '@/components/ThemeProvider';
 import styles from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -16,6 +16,7 @@ interface NavbarProps {
 
 export default function Navbar({ navigation, siteName }: NavbarProps) {
   const router = useRouter();
+  const { resolvedTheme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -126,6 +127,14 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
         </nav>
 
         <div className={styles.mobileActions}>
+          <button
+            className={styles.mobileThemeToggle}
+            onClick={toggleTheme}
+            aria-label={`Switch to ${resolvedTheme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            <span>{resolvedTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+            {resolvedTheme === 'light' ? <Moon /> : <Sun />}
+          </button>
           <LoginButton variant="mobile" onAction={closeMobileMenu} />
         </div>
       </div>

@@ -25,12 +25,11 @@ export const siteData: SiteContent = {
     title: 'Discover the Beauty of Albania!',
     subtitle: 'Your Gateway to the Hidden Gem of Europe',
     searchPlaceholder: 'Search Albanian destinations...',
-    backgroundImage: 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=1920&h=1080&fit=crop&q=85',
+    backgroundImage: '/media/hero-fallback.jpg',
     backgroundVideo: {
-      // Using Pexels free travel video - beautiful ocean/coastal scenery
-      mp4: 'https://videos.pexels.com/video-files/857251/857251-hd_1920_1080_25fps.mp4',
-      webm: 'https://videos.pexels.com/video-files/857251/857251-hd_1920_1080_25fps.mp4',
-      poster: 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=1920&h=1080&fit=crop&q=85',
+      mp4: '/media/hero-video.mp4',
+      webm: '/media/hero-video.mp4',
+      poster: '/media/hero-fallback.jpg',
     },
     overlayText: 'Albania',
   },
