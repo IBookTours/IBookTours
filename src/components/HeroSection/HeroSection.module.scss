@@ -41,7 +41,7 @@
 
 .overlayText {
   position: absolute;
-  top: 50%;
+  top: 60%;  // Lowered from 50% to position below main content
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: clamp(4rem, 20vw, 12rem);

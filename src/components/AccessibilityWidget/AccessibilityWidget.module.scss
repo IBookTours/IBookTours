@@ -2,13 +2,13 @@
 
 .widget {
   position: fixed;
-  bottom: calc(#{$spacing-6} + 70px);  // Above WhatsApp button
-  right: $spacing-6;
+  bottom: $spacing-6;
+  left: $spacing-6;  // Bottom-left corner
   z-index: $z-tooltip;  // 700
 
   @include respond-to(md) {
-    bottom: calc(#{$spacing-8} + 70px);
-    right: $spacing-8;
+    bottom: $spacing-8;
+    left: $spacing-8;
   }
 }
 
@@ -43,7 +43,7 @@
 .panel {
   position: absolute;
   bottom: calc(100% + $spacing-4);
-  right: 0;
+  left: 0;  // Panel opens from left side
   width: 280px;
   background: $bg-primary;
   border-radius: $radius-2xl;

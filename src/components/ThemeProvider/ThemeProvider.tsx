@@ -98,11 +98,8 @@ export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProvid
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [theme, applyTheme]);
 
-  // Prevent flash of wrong theme
-  if (!mounted) {
-    return null;
-  }
-
+  // Always render children - theme is applied via inline script in layout.tsx
+  // The inline script prevents flash of unstyled content (FOUC)
   return (
     <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, toggleTheme }}>
       {children}
