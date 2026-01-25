@@ -10,7 +10,7 @@ import { SiteContent } from '@/types';
 // All images are free to use under Unsplash license
 
 export const siteData: SiteContent = {
-  siteName: 'ITravel',
+  siteName: 'ITravelTours',
   siteDescription: 'Discover Unforgettable Adventures with Us',
 
   navigation: [
@@ -513,7 +513,7 @@ export const siteData: SiteContent = {
         answer: 'Yes! Groups of 6 or more receive 10% off. Contact us for custom group packages.',
       },
     ],
-    copyright: '© 2025 ITravel. All rights reserved.',
+    copyright: '© 2025 ITravelTours. All rights reserved.',
   },
 
   // ============================================

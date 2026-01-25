@@ -1,10 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
-    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#e63946;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#c5313d;stop-opacity:1" />
+    <!-- Primary gradient (Punch Red) -->
+    <linearGradient id="primary-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e63946"/>
+      <stop offset="100%" style="stop-color:#c5313d"/>
+    </linearGradient>
+    <!-- Globe gradient (Oxford Navy to Cerulean) -->
+    <linearGradient id="globe-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1d3557"/>
+      <stop offset="100%" style="stop-color:#457b9d"/>
     </linearGradient>
   </defs>
-  <circle cx="50" cy="50" r="45" fill="url(#gradient)"/>
-  <text x="50" y="65" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white" text-anchor="middle">iT</text>
+
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#primary-gradient)"/>
+
+  <!-- Globe outline -->
+  <circle cx="50" cy="52" r="28" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.9"/>
+
+  <!-- Globe horizontal lines -->
+  <ellipse cx="50" cy="52" rx="28" ry="10" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+  <ellipse cx="50" cy="52" rx="28" ry="20" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Globe vertical line -->
+  <ellipse cx="50" cy="52" rx="12" ry="28" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Airplane -->
+  <g transform="translate(50, 35) rotate(-30)">
+    <path d="M-12,0 L12,0 L8,4 L-8,4 Z" fill="#ffffff"/>
+    <path d="M-4,-2 L4,-2 L4,8 L-4,8 Z" fill="#ffffff"/>
+    <path d="M-8,6 L8,6 L6,10 L-6,10 Z" fill="#ffffff" opacity="0.8"/>
+  </g>
 </svg>

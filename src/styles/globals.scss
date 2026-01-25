@@ -75,11 +75,11 @@
   --shadow-lg: 0 10px 15px rgba(29, 53, 87, 0.15);
   --shadow-xl: 0 20px 25px rgba(29, 53, 87, 0.2);
 
-  // Glassmorphism (Light mode - Frosted Blue tint for visibility)
-  --glass-bg: rgba(168, 218, 220, 0.65);        // Frosted Blue - visible on honeydew!
-  --glass-bg-light: rgba(168, 218, 220, 0.45);  // Lighter frosted blue
-  --glass-border: rgba(69, 123, 157, 0.4);      // Cerulean border
-  --glass-shadow: 0 8px 32px rgba(29, 53, 87, 0.18);  // Oxford Navy shadow (stronger)
+  // Glassmorphism (Light mode - Neutral/adaptive glass effect)
+  --glass-bg: rgba(255, 255, 255, 0.75);        // Neutral white glass
+  --glass-bg-light: rgba(255, 255, 255, 0.65);  // Lighter white glass
+  --glass-border: rgba(29, 53, 87, 0.15);       // Oxford Navy subtle border
+  --glass-shadow: 0 8px 32px rgba(29, 53, 87, 0.12);  // Oxford Navy shadow
   --glass-text: #1d3557;                        // Oxford Navy for glass text
   --glass-text-secondary: #457b9d;              // Cerulean for secondary glass text
 
@@ -494,12 +494,12 @@ html.reduced-motion {
   }
 }
 
-// Focus indicators - enhanced visibility
+// Focus indicators - enhanced visibility (uses theme primary color)
 html.focus-indicators {
   *:focus-visible {
-    outline: 3px solid #005fcc !important;
+    outline: 3px solid var(--color-primary-600) !important;
     outline-offset: 3px !important;
-    box-shadow: 0 0 0 6px rgba(0, 95, 204, 0.3) !important;
+    box-shadow: 0 0 0 6px rgba(230, 57, 70, 0.25) !important;
   }
 
   a:focus-visible,
@@ -507,7 +507,7 @@ html.focus-indicators {
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible {
-    outline: 4px solid #005fcc !important;
+    outline: 4px solid var(--color-primary-600) !important;
     outline-offset: 2px !important;
   }
 }
@@ -672,11 +672,11 @@ html.saturation-high {
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
 
-  // Glassmorphism for dark mode
-  --glass-bg: rgba(43, 45, 66, 0.8);
-  --glass-bg-light: rgba(61, 63, 84, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  // Glassmorphism for dark mode (Neutral/adaptive)
+  --glass-bg: rgba(43, 45, 66, 0.85);           // Space Indigo glass
+  --glass-bg-light: rgba(43, 45, 66, 0.75);     // Lighter indigo glass
+  --glass-border: rgba(255, 255, 255, 0.12);    // Subtle white border
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   --glass-text: #edf2f4;                        // Platinum for dark mode glass text
   --glass-text-secondary: #c8cdd0;              // Light grey for secondary
 

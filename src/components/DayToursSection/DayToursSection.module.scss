@@ -253,23 +253,23 @@
   letter-spacing: 0.05em;
 
   &.cultural {
-    background: #7C3AED;
-    color: #ffffff;
+    background: var(--color-secondary-500);  // Cerulean
+    color: $text-light;
   }
 
   &.adventure {
-    background: #059669;
-    color: #ffffff;
+    background: var(--color-success-main);  // Green
+    color: $text-light;
   }
 
   &.food {
-    background: #DC2626;
-    color: #ffffff;
+    background: var(--color-primary-500);  // Punch Red
+    color: $text-light;
   }
 
   &.nature {
-    background: #0891B2;
-    color: #ffffff;
+    background: var(--color-info-main);  // Blue
+    color: $text-light;
   }
 }
 
