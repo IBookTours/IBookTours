@@ -15,11 +15,14 @@ import {
   ChevronDown,
   Heart,
   Share2,
+  ShoppingCart,
 } from 'lucide-react';
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BookingModal from '@/components/BookingModal';
+import { useCartStore } from '@/store/cartStore';
+import { priceStringToCents } from '@/store/bookingStore';
 import { siteData } from '@/data/siteData';
 import styles from './tourDetail.module.scss';
 
@@ -592,6 +595,23 @@ export default function TourDetailPage() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [expandedDay, setExpandedDay] = useState<number | null>(0);
   const [isFavorite, setIsFavorite] = useState(false);
+  const { addItem } = useCartStore();
+
+  const handleAddToCart = () => {
+    addItem({
+      id: tour.id,
+      type: 'day-tour',
+      name: tour.name,
+      image: tour.image,
+      duration: tour.duration,
+      location: tour.location,
+      basePrice: priceStringToCents(tour.price),
+      quantity: 1,
+      date: '',
+      travelers: { adults: 1, children: 0 },
+      childDiscountPercent: 50,
+    });
+  };
 
   if (!tour) {
     return (
@@ -770,6 +790,14 @@ export default function TourDetailPage() {
                 onClick={() => setIsBookingOpen(true)}
               >
                 Book This Tour
+              </button>
+
+              <button
+                className={styles.addToCartButton}
+                onClick={handleAddToCart}
+              >
+                <ShoppingCart size={18} />
+                Add to Cart
               </button>
 
               <div className={styles.actionButtons}>

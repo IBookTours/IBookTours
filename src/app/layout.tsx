@@ -8,6 +8,7 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import CookieConsent from '@/components/CookieConsent';
 import StructuredData from '@/components/StructuredData';
 import ColorBlindFilters from '@/components/ColorBlindFilters';
+import { CartDrawer } from '@/components/Cart';
 import { siteData } from '@/data/siteData';
 import '@/styles/globals.scss';
 
@@ -127,6 +128,7 @@ export default function RootLayout({
             </a>
             <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
             <main id="main-content">{children}</main>
+            <CartDrawer />
             <WhatsAppButton />
             <AccessibilityWidget />
             <CookieConsent />

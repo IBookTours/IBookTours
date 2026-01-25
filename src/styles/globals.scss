@@ -446,17 +446,19 @@ textarea:focus-visible {
 // ACCESSIBILITY WIDGET STYLES
 // ============================================
 
-// Font size modifiers
-html.font-normal {
+// ---- VISUAL TAB ----
+
+// Font size modifiers (100%, 125%, 150%)
+html.font-100 {
   font-size: 16px;
 }
 
-html.font-large {
-  font-size: 18px;
+html.font-125 {
+  font-size: 20px;
 }
 
-html.font-x-large {
-  font-size: 20px;
+html.font-150 {
+  font-size: 24px;
 }
 
 // High contrast mode
@@ -473,19 +475,6 @@ html.high-contrast {
   }
 }
 
-// Text spacing mode (WCAG 1.4.12)
-html.text-spacing {
-  * {
-    line-height: 1.8 !important;
-    letter-spacing: 0.12em !important;
-    word-spacing: 0.16em !important;
-  }
-
-  p, li, dd, dt, span, label {
-    margin-bottom: 2em !important;
-  }
-}
-
 // Reduced motion mode (user preference via widget)
 html.reduced-motion {
   *,
@@ -497,6 +486,62 @@ html.reduced-motion {
     scroll-behavior: auto !important;
   }
 }
+
+// Focus indicators - enhanced visibility
+html.focus-indicators {
+  *:focus-visible {
+    outline: 3px solid #005fcc !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 6px rgba(0, 95, 204, 0.3) !important;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 4px solid #005fcc !important;
+    outline-offset: 2px !important;
+  }
+}
+
+// ---- READING TAB ----
+
+// Dyslexia-friendly font (OpenDyslexic fallback to system)
+html.dyslexia-font {
+  * {
+    font-family: 'OpenDyslexic', 'Comic Sans MS', 'Trebuchet MS', sans-serif !important;
+  }
+}
+
+// Line height modifiers
+html.line-height-normal {
+  * {
+    line-height: 1.5;
+  }
+}
+
+html.line-height-increased {
+  * {
+    line-height: 1.8 !important;
+  }
+}
+
+html.line-height-large {
+  * {
+    line-height: 2.2 !important;
+  }
+}
+
+// Letter spacing
+html.letter-spacing {
+  * {
+    letter-spacing: 0.12em !important;
+    word-spacing: 0.16em !important;
+  }
+}
+
+// ---- COLOR TAB ----
 
 // Color blind simulation modes
 // Deuteranopia (green-blind, most common ~6% of males)
@@ -512,6 +557,28 @@ html.colorblind-protanopia {
 // Tritanopia (blue-blind, rare ~0.01%)
 html.colorblind-tritanopia {
   filter: url('#tritanopia-filter');
+}
+
+// Invert colors
+html.invert-colors {
+  filter: invert(1) hue-rotate(180deg);
+
+  img, video, picture, svg {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
+// Saturation modifiers
+html.saturation-normal {
+  // Default, no changes
+}
+
+html.saturation-low {
+  filter: saturate(0.5);
+}
+
+html.saturation-high {
+  filter: saturate(1.5);
 }
 
 // SVG filters for color blind simulation (added via JS or hidden SVG)

@@ -4,18 +4,18 @@
 // Fetches data from Sanity CMS with fallback to mock data
 
 import HeroSection from '@/components/HeroSection';
-import DestinationsSection from '@/components/DestinationsSection';
+import { VacationPackagesSection } from '@/components/VacationPackagesSection';
+import { DayToursSection } from '@/components/DayToursSection';
 import StatsSection from '@/components/StatsSection';
 import AboutSection from '@/components/AboutSection';
 import AdventureSection from '@/components/AdventureSection';
-import EventsSection from '@/components/EventsSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
+import { PartnersSection } from '@/components/PartnersSection';
 import BlogSection from '@/components/BlogSection';
 import CTASection from '@/components/CTASection';
+import EventsSection from '@/components/EventsSection';
 import Footer from '@/components/Footer';
 import { siteData } from '@/data/siteData';
 import {
-  fetchTourPackagesWithFallback,
   fetchTestimonialsWithFallback,
   fetchStatsWithFallback,
 } from '@/sanity';
@@ -23,29 +23,50 @@ import {
 export default async function Home() {
   // Fetch data from Sanity with fallback to mock data
   // These fetches run in parallel for better performance
-  const [destinations, testimonials, stats] = await Promise.all([
-    fetchTourPackagesWithFallback(),
+  const [testimonials, stats] = await Promise.all([
     fetchTestimonialsWithFallback(),
     fetchStatsWithFallback(),
   ]);
 
-  // Build testimonials content with fetched data
-  const testimonialsContent = {
-    ...siteData.testimonials,
+  // Build about content with fetched testimonials for reviews display
+  const aboutContent = {
+    ...siteData.about,
     testimonials,
   };
 
   return (
     <>
+      {/* Hero - Main landing visual */}
       <HeroSection content={siteData.hero} />
-      <DestinationsSection destinations={destinations} />
+
+      {/* Vacation Packages - Flight + Hotel packages (Primary focus) */}
+      <VacationPackagesSection packages={siteData.vacationPackages} />
+
+      {/* Day Tours - Guided day trips and excursions */}
+      <DayToursSection tours={siteData.dayTours} maxDisplay={8} />
+
+      {/* Stats - Trust indicators */}
       <StatsSection stats={stats} />
-      <AboutSection content={siteData.about} />
+
+      {/* About - Company story and values */}
+      <AboutSection content={aboutContent} />
+
+      {/* Adventure - Explore categories */}
       <AdventureSection content={siteData.adventure} />
-      <EventsSection content={siteData.events} />
-      <TestimonialsSection content={testimonialsContent} />
+
+      {/* Partners - Technology providers */}
+      <PartnersSection partners={siteData.partners} />
+
+      {/* Blog - Travel content */}
       <BlogSection content={siteData.blog} />
+
+      {/* CTA - Final conversion */}
       <CTASection content={siteData.cta} />
+
+      {/* Events - Upcoming events (lower priority) */}
+      <EventsSection content={siteData.events} />
+
+      {/* Footer */}
       <Footer content={siteData.footer} siteName={siteData.siteName} />
     </>
   );

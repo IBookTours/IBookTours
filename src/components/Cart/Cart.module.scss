@@ -1,0 +1,450 @@
+@use '@/styles/variables' as *;
+
+// ============================================
+// CART ICON
+// ============================================
+
+.cartIcon {
+  position: relative;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: $rgba-white-15;
+  border: 1px solid $rgba-white-20;
+  color: $text-light;
+  cursor: pointer;
+  transition: all $transition-fast;
+  @include flex-center;
+
+  &:hover {
+    background: $rgba-white-25;
+  }
+
+  &.scrolled {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    color: var(--text-primary);
+
+    &:hover {
+      background: var(--bg-tertiary);
+    }
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 $spacing-1;
+  background: $primary-600;
+  color: $text-light;
+  font-size: 11px;
+  font-weight: $font-bold;
+  border-radius: $radius-full;
+  @include flex-center;
+  border: 2px solid var(--bg-primary);
+}
+
+// ============================================
+// OVERLAY
+// ============================================
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: $overlay-dark;
+  z-index: calc($z-modal - 1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all $transition-base;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// ============================================
+// DRAWER
+// ============================================
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-primary);
+  z-index: $z-modal;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform $transition-slow;
+  box-shadow: $shadow-xl;
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-5 $spacing-6;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.drawerTitle {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  margin: 0;
+
+  svg {
+    color: var(--color-primary-600);
+  }
+}
+
+.itemCount {
+  font-size: $font-sm;
+  font-weight: $font-normal;
+  color: var(--text-tertiary);
+}
+
+.closeBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-lg;
+  background: var(--bg-tertiary);
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  @include flex-center;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-accent);
+    color: var(--text-primary);
+  }
+}
+
+// ============================================
+// DRAWER CONTENT
+// ============================================
+
+.drawerContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-4;
+}
+
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $spacing-12 $spacing-6;
+  height: 100%;
+
+  svg {
+    color: var(--text-muted);
+    margin-bottom: $spacing-4;
+  }
+
+  h3 {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin: 0 0 $spacing-2;
+  }
+
+  p {
+    font-size: $font-sm;
+    color: var(--text-secondary);
+    margin: 0 0 $spacing-6;
+  }
+}
+
+.browseBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-6;
+  background: var(--color-primary-600);
+  color: $text-light;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  border-radius: $radius-lg;
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-700);
+  }
+}
+
+.cartItems {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+// ============================================
+// CART ITEM
+// ============================================
+
+.cartItem {
+  display: flex;
+  gap: $spacing-4;
+  padding: $spacing-4;
+  background: var(--bg-secondary);
+  border-radius: $radius-xl;
+  border: 1px solid var(--border-light);
+}
+
+.itemImage {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.itemType {
+  position: absolute;
+  bottom: $spacing-1;
+  left: $spacing-1;
+  padding: 2px $spacing-2;
+  background: var(--color-primary-600);
+  color: $text-light;
+  font-size: 10px;
+  font-weight: $font-semibold;
+  border-radius: $radius-sm;
+  text-transform: uppercase;
+}
+
+.itemDetails {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.itemName {
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-xs;
+  color: var(--text-tertiary);
+
+  svg {
+    color: var(--color-primary-500);
+  }
+}
+
+.travelerControls {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  margin-top: $spacing-1;
+}
+
+.travelerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.travelerLabel {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-xs;
+  color: var(--text-secondary);
+
+  svg {
+    color: var(--color-primary-500);
+  }
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+
+  button {
+    width: 24px;
+    height: 24px;
+    border-radius: $radius-md;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-medium);
+    color: var(--text-secondary);
+    cursor: pointer;
+    @include flex-center;
+    transition: all $transition-fast;
+
+    &:hover:not(:disabled) {
+      background: var(--color-primary-50);
+      border-color: var(--color-primary-500);
+      color: var(--color-primary-600);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+
+  span {
+    min-width: 20px;
+    text-align: center;
+    font-size: $font-sm;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+  }
+}
+
+.itemFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: $spacing-2;
+}
+
+.itemPrice {
+  font-size: $font-base;
+  font-weight: $font-bold;
+  color: var(--color-primary-600);
+}
+
+.removeBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: $radius-md;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  @include flex-center;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: rgba($error, 0.1);
+    border-color: rgba($error, 0.2);
+    color: $error;
+  }
+}
+
+// ============================================
+// DRAWER FOOTER
+// ============================================
+
+.drawerFooter {
+  padding: $spacing-5 $spacing-6;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+}
+
+.footerTop {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: $spacing-4;
+}
+
+.clearBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-3;
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: $font-xs;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: $error;
+  }
+}
+
+.totalRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4 0;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: $spacing-4;
+
+  span {
+    font-size: $font-base;
+    color: var(--text-secondary);
+  }
+}
+
+.totalPrice {
+  font-size: $font-2xl !important;
+  font-weight: $font-bold;
+  color: var(--text-primary) !important;
+}
+
+.checkoutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  width: 100%;
+  padding: $spacing-4;
+  background: var(--color-primary-600);
+  color: $text-light;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  border-radius: $radius-xl;
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-700);
+  }
+}
+
+.secureNote {
+  text-align: center;
+  font-size: $font-xs;
+  color: var(--text-muted);
+  margin: $spacing-3 0 0;
+}

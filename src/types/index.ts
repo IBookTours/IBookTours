@@ -61,6 +61,7 @@ export interface AboutContent {
     value: string;
     label: string;
   };
+  testimonials?: Testimonial[];
 }
 
 export interface BookingFeature {
@@ -117,6 +118,7 @@ export interface Partner {
   id: string;
   name: string;
   logo: string;
+  description: string;
 }
 
 export interface Testimonial {
@@ -130,6 +132,8 @@ export interface Testimonial {
   content: string;
   rating: number;
   date?: string;
+  source?: 'Facebook' | 'Google' | 'TripAdvisor';
+  travelPhoto?: string;
 }
 
 export interface TestimonialsContent {
@@ -202,6 +206,41 @@ export interface FooterContent {
   copyright: string;
 }
 
+export type TourCategory = 'all' | 'cultural' | 'adventure' | 'food' | 'nature';
+
+export interface VacationPackage {
+  id: string;
+  destination: string;
+  location: string;
+  departureCities: string[];
+  hotelName: string;
+  hotelRating: number;
+  duration: string;
+  nights: number;
+  pricePerPerson: string;
+  image: string;
+  highlights: string[];
+  includesFlights: boolean;
+  includesHotel: boolean;
+  rating: number;
+  reviewCount: number;
+}
+
+export interface DayTour {
+  id: string;
+  name: string;
+  duration: string;
+  location: string;
+  departsFrom: string;
+  groupSize: { min: number; max: number };
+  pricePerPerson: string;
+  category: TourCategory;
+  image: string;
+  rating: number;
+  reviewCount: number;
+  highlights: string[];
+}
+
 export interface SiteContent {
   siteName: string;
   siteDescription: string;
@@ -217,4 +256,7 @@ export interface SiteContent {
   blog: BlogContent;
   cta: CTAContent;
   footer: FooterContent;
+  partners: Partner[];
+  vacationPackages: VacationPackage[];
+  dayTours: DayTour[];
 }

@@ -7,6 +7,7 @@ import { Menu, X, Search, Compass, Sun, Moon } from 'lucide-react';
 import { NavItem } from '@/types';
 import { LoginButton } from '@/components/Auth';
 import { ThemeToggle, useTheme } from '@/components/ThemeProvider';
+import { CartIcon } from '@/components/Cart';
 import styles from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -81,6 +82,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
             >
               <Search />
             </button>
+            <CartIcon scrolled={isScrolled} />
             <div className={styles.loginWrapper}>
               <LoginButton variant="navbar" />
             </div>

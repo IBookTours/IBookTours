@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="60" viewBox="0 0 160 60">
+  <rect width="160" height="60" fill="none"/>
+  <text x="80" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#005eb8" text-anchor="middle">amadeus</text>
+  <circle cx="20" cy="30" r="8" fill="#005eb8"/>
+</svg>

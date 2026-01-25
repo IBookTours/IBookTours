@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="60" viewBox="0 0 160 60">
+  <rect width="160" height="60" fill="none"/>
+  <text x="80" y="35" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#00a651" text-anchor="middle">GoGlobal</text>
+  <circle cx="12" cy="30" r="10" fill="none" stroke="#00a651" stroke-width="3"/>
+  <path d="M7 30 L17 30 M12 25 L12 35" stroke="#00a651" stroke-width="2"/>
+</svg>

@@ -4,43 +4,62 @@ import { useState, useEffect, useCallback } from 'react';
 import {
   Accessibility,
   X,
-  Type,
   Contrast,
-  ZoomIn,
-  ZoomOut,
-  AlignJustify,
   Pause,
   RotateCcw,
+  Focus,
+  BookOpen,
+  Palette,
   Eye,
+  Type,
+  AlignLeft,
+  Space,
 } from 'lucide-react';
 import { useFocusTrap, useAriaLive } from '@/hooks';
 import styles from './AccessibilityWidget.module.scss';
 
+type TabType = 'visual' | 'reading' | 'color';
+type FontSizeType = '100' | '125' | '150';
+
 interface AccessibilitySettings {
-  fontSize: 'normal' | 'large' | 'x-large';
+  // Visual
   highContrast: boolean;
-  textSpacing: boolean;
+  fontSize: FontSizeType;
   reducedMotion: boolean;
+  focusIndicators: boolean;
+  // Reading
+  dyslexiaFont: boolean;
+  lineHeight: 'normal' | 'increased' | 'large';
+  letterSpacing: boolean;
+  // Color
   colorBlindMode: 'none' | 'deuteranopia' | 'protanopia' | 'tritanopia';
+  invertColors: boolean;
+  saturation: 'normal' | 'low' | 'high';
 }
 
 const defaultSettings: AccessibilitySettings = {
-  fontSize: 'normal',
   highContrast: false,
-  textSpacing: false,
+  fontSize: '100',
   reducedMotion: false,
+  focusIndicators: false,
+  dyslexiaFont: false,
+  lineHeight: 'normal',
+  letterSpacing: false,
   colorBlindMode: 'none',
+  invertColors: false,
+  saturation: 'normal',
 };
 
 const colorBlindLabels: Record<AccessibilitySettings['colorBlindMode'], string> = {
   none: 'Off',
-  deuteranopia: 'Deuteranopia (Green)',
-  protanopia: 'Protanopia (Red)',
-  tritanopia: 'Tritanopia (Blue)',
+  deuteranopia: 'Deuteranopia',
+  protanopia: 'Protanopia',
+  tritanopia: 'Tritanopia',
 };
 
 export default function AccessibilityWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabType>('visual');
   const [settings, setSettings] = useState<AccessibilitySettings>(defaultSettings);
   const { announce } = useAriaLive();
 
@@ -57,7 +76,6 @@ export default function AccessibilityWidget() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        // Merge with defaults to handle new properties
         const merged = { ...defaultSettings, ...parsed };
         setSettings(merged);
         applySettings(merged);
@@ -80,23 +98,40 @@ export default function AccessibilityWidget() {
     const html = document.documentElement;
 
     // Font size
-    html.classList.remove('font-normal', 'font-large', 'font-x-large');
+    html.classList.remove('font-100', 'font-125', 'font-150');
     html.classList.add(`font-${newSettings.fontSize}`);
 
     // High contrast
     html.classList.toggle('high-contrast', newSettings.highContrast);
 
-    // Text spacing (WCAG 1.4.12)
-    html.classList.toggle('text-spacing', newSettings.textSpacing);
-
     // Reduced motion
     html.classList.toggle('reduced-motion', newSettings.reducedMotion);
+
+    // Focus indicators
+    html.classList.toggle('focus-indicators', newSettings.focusIndicators);
+
+    // Dyslexia font
+    html.classList.toggle('dyslexia-font', newSettings.dyslexiaFont);
+
+    // Line height
+    html.classList.remove('line-height-normal', 'line-height-increased', 'line-height-large');
+    html.classList.add(`line-height-${newSettings.lineHeight}`);
+
+    // Letter spacing
+    html.classList.toggle('letter-spacing', newSettings.letterSpacing);
 
     // Color blind modes
     html.classList.remove('colorblind-deuteranopia', 'colorblind-protanopia', 'colorblind-tritanopia');
     if (newSettings.colorBlindMode !== 'none') {
       html.classList.add(`colorblind-${newSettings.colorBlindMode}`);
     }
+
+    // Invert colors
+    html.classList.toggle('invert-colors', newSettings.invertColors);
+
+    // Saturation
+    html.classList.remove('saturation-normal', 'saturation-low', 'saturation-high');
+    html.classList.add(`saturation-${newSettings.saturation}`);
   }, []);
 
   // Save and apply settings with announcement
@@ -110,18 +145,7 @@ export default function AccessibilityWidget() {
     }
   }, [applySettings, announce]);
 
-  const cycleFontSize = () => {
-    const sizes: AccessibilitySettings['fontSize'][] = ['normal', 'large', 'x-large'];
-    const currentIndex = sizes.indexOf(settings.fontSize);
-    const nextIndex = (currentIndex + 1) % sizes.length;
-    const newSize = sizes[nextIndex];
-    const sizeLabels = { normal: 'Normal', large: 'Large', 'x-large': 'Extra Large' };
-    updateSettings(
-      { ...settings, fontSize: newSize },
-      `Text size changed to ${sizeLabels[newSize]}`
-    );
-  };
-
+  // Visual Tab Functions
   const toggleHighContrast = () => {
     const newValue = !settings.highContrast;
     updateSettings(
@@ -130,11 +154,11 @@ export default function AccessibilityWidget() {
     );
   };
 
-  const toggleTextSpacing = () => {
-    const newValue = !settings.textSpacing;
+  const setFontSize = (size: FontSizeType) => {
+    const labels = { '100': '100%', '125': '125%', '150': '150%' };
     updateSettings(
-      { ...settings, textSpacing: newValue },
-      `Text spacing ${newValue ? 'enabled' : 'disabled'}`
+      { ...settings, fontSize: size },
+      `Text size changed to ${labels[size]}`
     );
   };
 
@@ -146,6 +170,44 @@ export default function AccessibilityWidget() {
     );
   };
 
+  const toggleFocusIndicators = () => {
+    const newValue = !settings.focusIndicators;
+    updateSettings(
+      { ...settings, focusIndicators: newValue },
+      `Focus indicators ${newValue ? 'enabled' : 'disabled'}`
+    );
+  };
+
+  // Reading Tab Functions
+  const toggleDyslexiaFont = () => {
+    const newValue = !settings.dyslexiaFont;
+    updateSettings(
+      { ...settings, dyslexiaFont: newValue },
+      `Dyslexia-friendly font ${newValue ? 'enabled' : 'disabled'}`
+    );
+  };
+
+  const cycleLineHeight = () => {
+    const heights: AccessibilitySettings['lineHeight'][] = ['normal', 'increased', 'large'];
+    const currentIndex = heights.indexOf(settings.lineHeight);
+    const nextIndex = (currentIndex + 1) % heights.length;
+    const newHeight = heights[nextIndex];
+    const labels = { normal: 'Normal', increased: 'Increased', large: 'Large' };
+    updateSettings(
+      { ...settings, lineHeight: newHeight },
+      `Line height changed to ${labels[newHeight]}`
+    );
+  };
+
+  const toggleLetterSpacing = () => {
+    const newValue = !settings.letterSpacing;
+    updateSettings(
+      { ...settings, letterSpacing: newValue },
+      `Letter spacing ${newValue ? 'increased' : 'normal'}`
+    );
+  };
+
+  // Color Tab Functions
   const cycleColorBlindMode = () => {
     const modes: AccessibilitySettings['colorBlindMode'][] = [
       'none',
@@ -158,7 +220,27 @@ export default function AccessibilityWidget() {
     const newMode = modes[nextIndex];
     updateSettings(
       { ...settings, colorBlindMode: newMode },
-      `Color blind simulation: ${colorBlindLabels[newMode]}`
+      `Color blind mode: ${colorBlindLabels[newMode]}`
+    );
+  };
+
+  const toggleInvertColors = () => {
+    const newValue = !settings.invertColors;
+    updateSettings(
+      { ...settings, invertColors: newValue },
+      `Invert colors ${newValue ? 'enabled' : 'disabled'}`
+    );
+  };
+
+  const cycleSaturation = () => {
+    const saturations: AccessibilitySettings['saturation'][] = ['normal', 'low', 'high'];
+    const currentIndex = saturations.indexOf(settings.saturation);
+    const nextIndex = (currentIndex + 1) % saturations.length;
+    const newSaturation = saturations[nextIndex];
+    const labels = { normal: 'Normal', low: 'Low', high: 'High' };
+    updateSettings(
+      { ...settings, saturation: newSaturation },
+      `Saturation changed to ${labels[newSaturation]}`
     );
   };
 
@@ -172,6 +254,12 @@ export default function AccessibilityWidget() {
       announce('Accessibility menu opened');
     }
   };
+
+  const tabs: { id: TabType; label: string; icon: React.ReactNode }[] = [
+    { id: 'visual', label: 'Visual', icon: <Eye size={16} /> },
+    { id: 'reading', label: 'Reading', icon: <BookOpen size={16} /> },
+    { id: 'color', label: 'Color', icon: <Palette size={16} /> },
+  ];
 
   return (
     <div className={styles.widget}>
@@ -199,98 +287,232 @@ export default function AccessibilityWidget() {
             <p className={styles.subtitle}>WCAG 2.1 AA Compliant</p>
           </div>
 
-          <div className={styles.options} role="group" aria-labelledby="a11y-title">
-            {/* Font Size */}
-            <button
-              className={styles.option}
-              onClick={cycleFontSize}
-              aria-label={`Change text size. Current: ${settings.fontSize}`}
-            >
-              <span className={styles.optionIcon}>
-                {settings.fontSize === 'normal' && <Type size={20} />}
-                {settings.fontSize === 'large' && <ZoomIn size={20} />}
-                {settings.fontSize === 'x-large' && <ZoomOut size={20} />}
-              </span>
-              <span className={styles.optionLabel}>
-                Text Size
-                <span className={styles.optionValue}>
-                  {settings.fontSize === 'normal' && 'Normal'}
-                  {settings.fontSize === 'large' && 'Large'}
-                  {settings.fontSize === 'x-large' && 'Extra Large'}
-                </span>
-              </span>
-            </button>
+          {/* Tab Navigation */}
+          <div className={styles.tabNav} role="tablist" aria-label="Accessibility settings tabs">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                role="tab"
+                aria-selected={activeTab === tab.id}
+                aria-controls={`tabpanel-${tab.id}`}
+                className={`${styles.tab} ${activeTab === tab.id ? styles.tabActive : ''}`}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.icon}
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </div>
 
-            {/* High Contrast */}
-            <button
-              className={`${styles.option} ${settings.highContrast ? styles.active : ''}`}
-              onClick={toggleHighContrast}
-              aria-label={`Toggle high contrast mode`}
-              aria-pressed={settings.highContrast}
-            >
-              <span className={styles.optionIcon}>
-                <Contrast size={20} />
-              </span>
-              <span className={styles.optionLabel}>
-                High Contrast
-                <span className={styles.optionValue}>
-                  {settings.highContrast ? 'On' : 'Off'}
-                </span>
-              </span>
-            </button>
+          {/* Tab Panels */}
+          <div className={styles.tabContent}>
+            {/* Visual Tab */}
+            {activeTab === 'visual' && (
+              <div
+                id="tabpanel-visual"
+                role="tabpanel"
+                aria-labelledby="tab-visual"
+                className={styles.tabPanel}
+              >
+                {/* High Contrast */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <Contrast size={18} />
+                    <span>High Contrast</span>
+                  </div>
+                  <button
+                    className={`${styles.toggle} ${settings.highContrast ? styles.toggleOn : ''}`}
+                    onClick={toggleHighContrast}
+                    aria-pressed={settings.highContrast}
+                    aria-label="Toggle high contrast mode"
+                  >
+                    <span className={styles.toggleTrack}>
+                      <span className={styles.toggleThumb} />
+                    </span>
+                  </button>
+                </div>
 
-            {/* Text Spacing (WCAG 1.4.12) */}
-            <button
-              className={`${styles.option} ${settings.textSpacing ? styles.active : ''}`}
-              onClick={toggleTextSpacing}
-              aria-label={`Toggle increased text spacing`}
-              aria-pressed={settings.textSpacing}
-            >
-              <span className={styles.optionIcon}>
-                <AlignJustify size={20} />
-              </span>
-              <span className={styles.optionLabel}>
-                Text Spacing
-                <span className={styles.optionValue}>
-                  {settings.textSpacing ? 'On' : 'Off'}
-                </span>
-              </span>
-            </button>
+                {/* Text Size */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <Type size={18} />
+                    <span>Text Size</span>
+                  </div>
+                  <div className={styles.sizeButtons}>
+                    {(['100', '125', '150'] as FontSizeType[]).map((size) => (
+                      <button
+                        key={size}
+                        className={`${styles.sizeBtn} ${settings.fontSize === size ? styles.sizeBtnActive : ''}`}
+                        onClick={() => setFontSize(size)}
+                        aria-pressed={settings.fontSize === size}
+                        aria-label={`Set text size to ${size}%`}
+                      >
+                        {size}%
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-            {/* Reduced Motion */}
-            <button
-              className={`${styles.option} ${settings.reducedMotion ? styles.active : ''}`}
-              onClick={toggleReducedMotion}
-              aria-label={`Toggle reduced motion`}
-              aria-pressed={settings.reducedMotion}
-            >
-              <span className={styles.optionIcon}>
-                <Pause size={20} />
-              </span>
-              <span className={styles.optionLabel}>
-                Reduce Motion
-                <span className={styles.optionValue}>
-                  {settings.reducedMotion ? 'On' : 'Off'}
-                </span>
-              </span>
-            </button>
+                {/* Reduce Motion */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <Pause size={18} />
+                    <span>Reduce Motion</span>
+                  </div>
+                  <button
+                    className={`${styles.toggle} ${settings.reducedMotion ? styles.toggleOn : ''}`}
+                    onClick={toggleReducedMotion}
+                    aria-pressed={settings.reducedMotion}
+                    aria-label="Toggle reduced motion"
+                  >
+                    <span className={styles.toggleTrack}>
+                      <span className={styles.toggleThumb} />
+                    </span>
+                  </button>
+                </div>
 
-            {/* Color Blind Simulation */}
-            <button
-              className={`${styles.option} ${settings.colorBlindMode !== 'none' ? styles.active : ''}`}
-              onClick={cycleColorBlindMode}
-              aria-label={`Color blind simulation. Current: ${colorBlindLabels[settings.colorBlindMode]}`}
-            >
-              <span className={styles.optionIcon}>
-                <Eye size={20} />
-              </span>
-              <span className={styles.optionLabel}>
-                Color Blind Mode
-                <span className={styles.optionValue}>
-                  {colorBlindLabels[settings.colorBlindMode]}
-                </span>
-              </span>
-            </button>
+                {/* Focus Indicators */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <Focus size={18} />
+                    <span>Focus Indicators</span>
+                  </div>
+                  <button
+                    className={`${styles.toggle} ${settings.focusIndicators ? styles.toggleOn : ''}`}
+                    onClick={toggleFocusIndicators}
+                    aria-pressed={settings.focusIndicators}
+                    aria-label="Toggle focus indicators"
+                  >
+                    <span className={styles.toggleTrack}>
+                      <span className={styles.toggleThumb} />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Reading Tab */}
+            {activeTab === 'reading' && (
+              <div
+                id="tabpanel-reading"
+                role="tabpanel"
+                aria-labelledby="tab-reading"
+                className={styles.tabPanel}
+              >
+                {/* Dyslexia Font */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <Type size={18} />
+                    <span>Dyslexia Font</span>
+                  </div>
+                  <button
+                    className={`${styles.toggle} ${settings.dyslexiaFont ? styles.toggleOn : ''}`}
+                    onClick={toggleDyslexiaFont}
+                    aria-pressed={settings.dyslexiaFont}
+                    aria-label="Toggle dyslexia-friendly font"
+                  >
+                    <span className={styles.toggleTrack}>
+                      <span className={styles.toggleThumb} />
+                    </span>
+                  </button>
+                </div>
+
+                {/* Line Height */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <AlignLeft size={18} />
+                    <span>Line Height</span>
+                  </div>
+                  <button
+                    className={styles.cycleBtn}
+                    onClick={cycleLineHeight}
+                    aria-label={`Line height: ${settings.lineHeight}. Click to change.`}
+                  >
+                    {settings.lineHeight === 'normal' && 'Normal'}
+                    {settings.lineHeight === 'increased' && 'Increased'}
+                    {settings.lineHeight === 'large' && 'Large'}
+                  </button>
+                </div>
+
+                {/* Letter Spacing */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <Space size={18} />
+                    <span>Letter Spacing</span>
+                  </div>
+                  <button
+                    className={`${styles.toggle} ${settings.letterSpacing ? styles.toggleOn : ''}`}
+                    onClick={toggleLetterSpacing}
+                    aria-pressed={settings.letterSpacing}
+                    aria-label="Toggle increased letter spacing"
+                  >
+                    <span className={styles.toggleTrack}>
+                      <span className={styles.toggleThumb} />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Color Tab */}
+            {activeTab === 'color' && (
+              <div
+                id="tabpanel-color"
+                role="tabpanel"
+                aria-labelledby="tab-color"
+                className={styles.tabPanel}
+              >
+                {/* Color Blind Mode */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <Eye size={18} />
+                    <span>Color Blind Mode</span>
+                  </div>
+                  <button
+                    className={styles.cycleBtn}
+                    onClick={cycleColorBlindMode}
+                    aria-label={`Color blind mode: ${colorBlindLabels[settings.colorBlindMode]}. Click to change.`}
+                  >
+                    {colorBlindLabels[settings.colorBlindMode]}
+                  </button>
+                </div>
+
+                {/* Invert Colors */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <Contrast size={18} />
+                    <span>Invert Colors</span>
+                  </div>
+                  <button
+                    className={`${styles.toggle} ${settings.invertColors ? styles.toggleOn : ''}`}
+                    onClick={toggleInvertColors}
+                    aria-pressed={settings.invertColors}
+                    aria-label="Toggle invert colors"
+                  >
+                    <span className={styles.toggleTrack}>
+                      <span className={styles.toggleThumb} />
+                    </span>
+                  </button>
+                </div>
+
+                {/* Saturation */}
+                <div className={styles.optionRow}>
+                  <div className={styles.optionInfo}>
+                    <Palette size={18} />
+                    <span>Saturation</span>
+                  </div>
+                  <button
+                    className={styles.cycleBtn}
+                    onClick={cycleSaturation}
+                    aria-label={`Saturation: ${settings.saturation}. Click to change.`}
+                  >
+                    {settings.saturation === 'normal' && 'Normal'}
+                    {settings.saturation === 'low' && 'Low'}
+                    {settings.saturation === 'high' && 'High'}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           <button
@@ -299,7 +521,7 @@ export default function AccessibilityWidget() {
             aria-label="Reset all accessibility settings to default"
           >
             <RotateCcw size={16} />
-            Reset to Default
+            Reset to Defaults
           </button>
         </div>
       )}
