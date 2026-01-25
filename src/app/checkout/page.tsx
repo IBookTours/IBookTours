@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import PassengerForm from '@/components/Checkout/PassengerForm';
 import AddToCalendar from '@/components/AddToCalendar';
+import Upsells from '@/components/Upsells';
 import { createEventFromBooking } from '@/lib/calendar';
 import { useCartStore, formatCartPrice, CartItem } from '@/store/cartStore';
 import { useBookingStore, priceStringToCents, centsToDisplayPrice, PassengerDetail } from '@/store/bookingStore';
@@ -104,6 +105,7 @@ function CheckoutContent() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [bookingIds, setBookingIds] = useState<string[]>([]);
   const [savedEmail, setSavedEmail] = useState('');
+  const [isInitialized, setIsInitialized] = useState(false); // Prevents hydration mismatch
 
   // Card form state
   const [cardData, setCardData] = useState({
@@ -115,7 +117,7 @@ function CheckoutContent() {
   // Form validation errors
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
-  // Initialize checkout mode and data
+  // Initialize checkout mode and data - runs only on client to prevent hydration mismatch
   useEffect(() => {
     if (tourId) {
       // Single tour mode from URL
@@ -129,6 +131,7 @@ function CheckoutContent() {
         const priceInCents = priceStringToCents(tour.price || '€299');
         setTour(tour.id, tour.name, tour.image, tour.duration || '3 Days', priceInCents);
       }
+      setIsInitialized(true);
     } else if (cartItems.length > 0) {
       // Cart mode
       setCheckoutMode('cart');
@@ -143,6 +146,7 @@ function CheckoutContent() {
           })),
       }));
       setCartPassengers(initialPassengers);
+      setIsInitialized(true);
     } else {
       // No items, redirect to tours
       router.push('/tours');
@@ -491,6 +495,20 @@ function CheckoutContent() {
             <Link href="/tours" className={styles.primaryBtn}>
               Browse Tours
             </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Wait for client-side initialization to prevent hydration mismatch
+  if (!isInitialized) {
+    return (
+      <div className={styles.checkout}>
+        <div className={styles.container}>
+          <div className={styles.loading}>
+            <div className={styles.loadingSpinner} />
+            <p>Loading checkout...</p>
           </div>
         </div>
       </div>
@@ -1021,6 +1039,20 @@ function CheckoutContent() {
                     </div>
                   </div>
                 </div>
+
+                {/* Upsells - suggest additional tours */}
+                {checkoutMode === 'cart' && cartItems.length > 0 && (
+                  <Upsells
+                    currentTourId={cartItems[0].id}
+                    maxItems={2}
+                  />
+                )}
+                {checkoutMode === 'single' && selectedTour && (
+                  <Upsells
+                    currentTourId={selectedTour.id}
+                    maxItems={2}
+                  />
+                )}
               </div>
             )}
 

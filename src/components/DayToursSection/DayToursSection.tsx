@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
-import { useIsMobile, useSwipe } from '@/hooks';
+import { useIsMobile, useSwipe, useInView } from '@/hooks';
 import styles from './DayToursSection.module.scss';
 
 export type TourCategory = 'all' | 'cultural' | 'adventure' | 'food' | 'nature';
@@ -70,6 +70,10 @@ export default function DayToursSection({
   const [mobileIndex, setMobileIndex] = useState(0);
   const { addItem } = useCartStore();
   const isMobile = useIsMobile();
+  const [sectionRef, isInView] = useInView<HTMLElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   const filteredTours = tours.filter(
     (tour) => activeCategory === 'all' || tour.category === activeCategory
@@ -131,8 +135,12 @@ export default function DayToursSection({
   const categories: TourCategory[] = ['all', 'cultural', 'adventure', 'food', 'nature'];
 
   // Render a tour card (reusable)
-  const renderTourCard = (tour: DayTour) => (
-    <article key={tour.id} className={styles.card}>
+  const renderTourCard = (tour: DayTour, index: number = 0) => (
+    <article
+      key={tour.id}
+      className={`${styles.card} ${isInView ? styles.visible : ''}`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
+    >
       <div className={styles.imageWrapper}>
         <Image
           src={tour.image}
@@ -192,9 +200,9 @@ export default function DayToursSection({
   );
 
   return (
-    <section className={styles.section}>
+    <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
           <div className={styles.headerLeft}>
             <span className={styles.badge}>
               <Clock size={16} />
@@ -286,7 +294,7 @@ export default function DayToursSection({
                     : undefined
                 }
               >
-                {visibleTours.map((tour) => renderTourCard(tour))}
+                {visibleTours.map((tour, index) => renderTourCard(tour, index))}
               </div>
 
               {canShowSlider && (

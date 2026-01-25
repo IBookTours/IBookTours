@@ -320,16 +320,38 @@
   width: 100%;
   padding: $spacing-3 $spacing-4;
   font-size: $font-sm;
-  color: $text-primary;
-  background: $bg-primary;
-  border: 1px solid $border-medium;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-medium);
   border-radius: $radius-lg;
   transition: all $transition-fast;
+  cursor: pointer;
 
   &:focus {
     outline: none;
-    border-color: $primary-500;
-    box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
+    border-color: var(--color-primary-500);
+    box-shadow: 0 0 0 3px var(--bg-accent);
+  }
+
+  // Style the native calendar picker icon
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    padding: $spacing-1;
+    border-radius: $radius-sm;
+    opacity: 0.7;
+    transition: opacity $transition-fast, background $transition-fast;
+
+    &:hover {
+      opacity: 1;
+      background: var(--bg-hover);
+    }
+  }
+
+  // Dark mode: invert the calendar icon
+  :root[data-theme="dark"] & {
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(0.9);
+    }
   }
 }
 
@@ -727,10 +749,27 @@
 .loading {
   min-height: 50vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: $spacing-4;
   font-size: $font-base;
   color: $text-secondary;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-light);
+  border-top-color: var(--color-primary-500);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 // Legacy styles (kept for backwards compatibility)

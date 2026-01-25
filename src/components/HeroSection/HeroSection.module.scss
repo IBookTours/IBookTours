@@ -58,15 +58,15 @@
   }
 
   @include respond-to(lg) {
-    top: 62%;  // Desktop - lower to center better
+    top: 68%;  // Desktop - lowered for better positioning
   }
 
   @include respond-to(xl) {
-    top: 65%;  // Wide screens - even lower
+    top: 72%;  // Wide screens - even lower
   }
 
   @include respond-to(2xl) {
-    top: 68%;  // Very wide screens - lowest position
+    top: 75%;  // Very wide screens - lowest position
   }
 }
 

@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
-import { useIsMobile, useSwipe } from '@/hooks';
+import { useIsMobile, useSwipe, useInView } from '@/hooks';
 import styles from './VacationPackagesSection.module.scss';
 
 export interface VacationPackage {
@@ -54,6 +54,10 @@ export default function VacationPackagesSection({
   const [mobileIndex, setMobileIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+  const [sectionRef, isInView] = useInView<HTMLElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   // Calculate visible items and navigation
   const totalItems = packages.length;
@@ -68,14 +72,16 @@ export default function VacationPackagesSection({
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   }, [maxIndex]);
 
-  // Mobile navigation handlers
+  // Mobile navigation handlers - navigate by slides (2 cards per slide)
+  const totalSlides = Math.ceil(packages.length / 2);
+
   const handleMobilePrev = useCallback(() => {
-    setMobileIndex((prev) => (prev === 0 ? packages.length - 1 : prev - 1));
-  }, [packages.length]);
+    setMobileIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
+  }, [totalSlides]);
 
   const handleMobileNext = useCallback(() => {
-    setMobileIndex((prev) => (prev === packages.length - 1 ? 0 : prev + 1));
-  }, [packages.length]);
+    setMobileIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
+  }, [totalSlides]);
 
   // Swipe handlers for mobile
   const swipeHandlers = useSwipe(handleMobileNext, handleMobilePrev);
@@ -106,8 +112,12 @@ export default function VacationPackagesSection({
     : packages.slice(0, maxDisplay);
 
   // Render a package card (reusable)
-  const renderPackageCard = (pkg: VacationPackage) => (
-    <article key={pkg.id} className={styles.card}>
+  const renderPackageCard = (pkg: VacationPackage, index: number = 0) => (
+    <article
+      key={pkg.id}
+      className={`${styles.card} ${isInView ? styles.visible : ''}`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
+    >
       <div className={styles.imageWrapper}>
         <Image
           src={pkg.image}
@@ -197,9 +207,9 @@ export default function VacationPackagesSection({
   );
 
   return (
-    <section className={styles.section}>
+    <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
           <span className={styles.badge}>
             <Plane size={16} />
             Flight + Hotel Packages
@@ -210,43 +220,59 @@ export default function VacationPackagesSection({
           </p>
         </div>
 
-        {/* Mobile: Single card carousel with swipe */}
+        {/* Mobile: 2-column horizontal scroll with arrows */}
         {isMobile && packages.length > 0 && (
-          <>
-            <div className={styles.mobileCarousel} {...swipeHandlers}>
-              <button
-                className={`${styles.mobileArrow} ${styles.mobilePrev}`}
-                onClick={handleMobilePrev}
-                aria-label="Previous package"
-              >
-                <ChevronLeft size={20} />
-              </button>
+          <div className={styles.mobileCarouselWrapper}>
+            <button
+              className={`${styles.mobileArrow} ${styles.mobilePrev}`}
+              onClick={handleMobilePrev}
+              aria-label="Previous packages"
+            >
+              <ChevronLeft size={20} />
+            </button>
 
-              <div className={styles.mobileCard}>
-                {renderPackageCard(packages[mobileIndex])}
+            <div
+              className={styles.mobileCarousel}
+              ref={sliderRef}
+              {...swipeHandlers}
+            >
+              <div
+                className={styles.mobileTrack}
+                style={{ transform: `translateX(-${mobileIndex * 100}%)` }}
+              >
+                {/* Group packages in pairs */}
+                {Array.from({ length: Math.ceil(packages.length / 2) }).map((_, slideIndex) => (
+                  <div key={slideIndex} className={styles.mobileSlide}>
+                    {packages.slice(slideIndex * 2, slideIndex * 2 + 2).map((pkg) => (
+                      <div key={pkg.id} className={styles.mobileCardWrapper}>
+                        {renderPackageCard(pkg)}
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
-
-              <button
-                className={`${styles.mobileArrow} ${styles.mobileNext}`}
-                onClick={handleMobileNext}
-                aria-label="Next package"
-              >
-                <ChevronRight size={20} />
-              </button>
             </div>
 
-            {/* Mobile dots */}
+            <button
+              className={`${styles.mobileArrow} ${styles.mobileNext}`}
+              onClick={handleMobileNext}
+              aria-label="Next packages"
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            {/* Mobile dots - one per slide (2 cards per slide) */}
             <div className={styles.mobileDots}>
-              {packages.map((_, i) => (
+              {Array.from({ length: Math.ceil(packages.length / 2) }).map((_, i) => (
                 <button
                   key={i}
                   className={`${styles.mobileDot} ${i === mobileIndex ? styles.activeDot : ''}`}
                   onClick={() => setMobileIndex(i)}
-                  aria-label={`Go to package ${i + 1}`}
+                  aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
             </div>
-          </>
+          </div>
         )}
 
         {/* Desktop/Tablet: Grid with slider */}
@@ -275,7 +301,7 @@ export default function VacationPackagesSection({
                     : undefined
                 }
               >
-                {visiblePackages.map((pkg) => renderPackageCard(pkg))}
+                {visiblePackages.map((pkg, index) => renderPackageCard(pkg, index))}
               </div>
 
               {canShowSlider && (

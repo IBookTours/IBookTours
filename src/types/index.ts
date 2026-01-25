@@ -92,10 +92,18 @@ export interface AdventureCategory {
 export interface AdventureContent {
   sectionLabel: string;
   title: string;
+  description?: string;
   rating: {
     value: string;
     label: string;
   };
+  stats?: {
+    icon?: string;
+    value: string;
+    label: string;
+  }[];
+  ctaText?: string;
+  ctaLink?: string;
   categories: AdventureCategory[];
 }
 

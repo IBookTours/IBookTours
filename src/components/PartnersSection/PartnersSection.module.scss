@@ -12,6 +12,14 @@
 .header {
   text-align: center;
   margin-bottom: $spacing-12;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .badge {
@@ -68,9 +76,16 @@
   background: var(--bg-secondary);
   border-radius: $radius-xl;
   border: 1px solid var(--border-light);
-  transition: all $transition-fast;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out, border-color $transition-fast, box-shadow $transition-fast;
 
-  &:hover {
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.visible:hover {
     border-color: var(--color-primary-200);
     box-shadow: $shadow-md;
 
@@ -116,6 +131,14 @@
   padding: $spacing-8;
   background: var(--bg-accent);
   border-radius: $radius-2xl;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out 0.4s, transform 0.6s ease-out 0.4s;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   @include respond-to(md) {
     grid-template-columns: repeat(4, 1fr);

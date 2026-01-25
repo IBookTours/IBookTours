@@ -266,10 +266,19 @@ export const siteData: SiteContent = {
   adventure: {
     sectionLabel: 'Explore Albania',
     title: 'Choose Your Albanian Adventure',
+    description:
+      'From pristine beaches to majestic mountains, ancient UNESCO sites to authentic culinary experiences — Albania offers adventures for every traveler. Let us guide you through this hidden gem of the Balkans.',
     rating: {
       value: '2.8K',
       label: 'Reviews from travelers who discovered the magic of Albania with us',
     },
+    stats: [
+      { value: '125+', label: 'Unique Tours' },
+      { value: '50+', label: 'Destinations' },
+      { value: '98%', label: 'Happy Travelers' },
+    ],
+    ctaText: 'Browse All Tours',
+    ctaLink: '/tours',
     categories: [
       {
         id: 'riviera',
@@ -525,6 +534,24 @@ export const siteData: SiteContent = {
         date: 'January 5, 2026',
         readTime: '10 min read',
       },
+      {
+        id: 'post4',
+        title: 'Best Time to Visit Albania: A Seasonal Guide',
+        excerpt: 'From summer beach days to winter mountain adventures, discover when to plan your perfect Albanian getaway for every type of experience.',
+        image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop&q=80',
+        category: 'Travel Tips',
+        date: 'January 20, 2026',
+        readTime: '5 min read',
+      },
+      {
+        id: 'post5',
+        title: 'Hidden Gems: Off-the-Beaten-Path Albanian Villages',
+        excerpt: 'Escape the crowds and discover authentic Albania in these charming mountain villages where time seems to stand still.',
+        image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&h=500&fit=crop&q=80',
+        category: 'Hidden Gems',
+        date: 'January 18, 2026',
+        readTime: '7 min read',
+      },
     ],
   },
 
@@ -589,6 +616,11 @@ export const siteData: SiteContent = {
         id: 'faq3',
         question: 'Do you offer group discounts?',
         answer: 'Yes! Groups of 6 or more receive 10% off. Contact us for custom group packages.',
+      },
+      {
+        id: 'faq4',
+        question: 'What is the best way to get around Albania?',
+        answer: 'We provide private transfers and guided tours with all packages. For independent travel, car rental is recommended for flexibility. Local furgons (minibuses) connect major towns affordably.',
       },
     ],
     copyright: '© 2025 ITravelTours. All rights reserved.',

@@ -66,7 +66,108 @@
 
 .title {
   @include section-title;
+  margin-bottom: $spacing-4;
+}
+
+.description {
+  font-size: $font-base;
+  color: var(--text-secondary);
+  line-height: $leading-relaxed;
   margin-bottom: $spacing-6;
+
+  @include respond-to(lg) {
+    font-size: $font-lg;
+  }
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+  margin-bottom: $spacing-6;
+
+  @include respond-to(md) {
+    gap: $spacing-4;
+  }
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: $spacing-3 $spacing-4;
+  background: var(--bg-secondary);
+  border-radius: $radius-xl;
+  border: 1px solid var(--border-light);
+  flex: 1;
+  min-width: 80px;
+
+  @include respond-to(md) {
+    min-width: 90px;
+    padding: $spacing-4;
+  }
+}
+
+.statIcon {
+  color: var(--color-primary-600);
+  margin-bottom: $spacing-2;
+}
+
+.statValue {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  line-height: 1;
+
+  @include respond-to(md) {
+    font-size: $font-2xl;
+  }
+}
+
+.statLabel {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  margin-top: $spacing-1;
+
+  @include respond-to(md) {
+    font-size: $font-xs;
+  }
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-5;
+  background: var(--color-primary-600);
+  color: $text-light;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  border-radius: $radius-xl;
+  text-decoration: none;
+  transition: all $transition-fast;
+  margin-top: $spacing-4;
+
+  @include respond-to(md) {
+    padding: $spacing-4 $spacing-6;
+    font-size: $font-base;
+  }
+
+  &:hover {
+    background: var(--color-primary-700);
+    color: $text-light;
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+
+  svg {
+    transition: transform $transition-fast;
+  }
+
+  &:hover svg {
+    transform: translateX(4px);
+  }
 }
 
 .ratingCard {

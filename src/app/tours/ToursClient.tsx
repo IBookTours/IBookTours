@@ -99,35 +99,83 @@ export default function ToursClient({
     return () => clearTimeout(timeoutId);
   }, [activeTab, searchQuery, router]);
 
-  // Filter packages based on search
+  // Helper to extract price number from string like "€299" or "From €1,299"
+  const extractPrice = (priceStr: string): number => {
+    const match = priceStr.replace(/,/g, '').match(/\d+/);
+    return match ? parseInt(match[0], 10) : 0;
+  };
+
+  // Helper to extract duration days from string like "5 Days" or nights number
+  const extractDays = (duration: string, nights?: number): number => {
+    if (nights) return nights + 1;
+    const match = duration.match(/(\d+)/);
+    return match ? parseInt(match[0], 10) : 1;
+  };
+
+  // Filter packages based on search, price, and duration
   const filteredPackages = useMemo(() => {
     return vacationPackages.filter((pkg) => {
+      // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
-        return (
+        const matchesSearch =
           pkg.destination.toLowerCase().includes(query) ||
           pkg.location.toLowerCase().includes(query) ||
-          pkg.hotelName.toLowerCase().includes(query)
-        );
+          pkg.hotelName.toLowerCase().includes(query);
+        if (!matchesSearch) return false;
       }
+
+      // Price filter
+      if (selectedPrice !== 'all') {
+        const price = extractPrice(pkg.pricePerPerson);
+        const range = priceRanges.find((r) => r.id === selectedPrice);
+        if (range && (price < range.min || price >= range.max)) return false;
+      }
+
+      // Duration filter
+      if (selectedDuration !== 'all') {
+        const days = extractDays(pkg.duration, pkg.nights);
+        if (selectedDuration === 'short' && days > 4) return false;
+        if (selectedDuration === 'medium' && (days < 5 || days > 7)) return false;
+        if (selectedDuration === 'long' && days < 8) return false;
+      }
+
       return true;
     });
-  }, [vacationPackages, searchQuery]);
+  }, [vacationPackages, searchQuery, selectedPrice, selectedDuration]);
 
-  // Filter day tours based on search
+  // Filter day tours based on search, price, and duration
   const filteredDayTours = useMemo(() => {
     return dayTours.filter((tour) => {
+      // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
-        return (
+        const matchesSearch =
           tour.name.toLowerCase().includes(query) ||
           tour.location.toLowerCase().includes(query) ||
-          tour.departsFrom.toLowerCase().includes(query)
-        );
+          tour.departsFrom.toLowerCase().includes(query);
+        if (!matchesSearch) return false;
       }
+
+      // Price filter
+      if (selectedPrice !== 'all') {
+        const price = extractPrice(tour.pricePerPerson);
+        const range = priceRanges.find((r) => r.id === selectedPrice);
+        if (range && (price < range.min || price >= range.max)) return false;
+      }
+
+      // Duration filter (day tours are typically 1 day)
+      if (selectedDuration !== 'all') {
+        const hours = parseInt(tour.duration.match(/(\d+)/)?.[0] || '8', 10);
+        const days = hours > 12 ? 2 : 1; // Assume 1 day unless very long
+        if (selectedDuration === 'short' && days > 4) return false;
+        if (selectedDuration === 'medium' && (days < 5 || days > 7)) return false;
+        if (selectedDuration === 'long' && days < 8) return false;
+      }
+
       return true;
     });
-  }, [dayTours, searchQuery]);
+  }, [dayTours, searchQuery, selectedPrice, selectedDuration]);
 
   // Get counts for tabs
   const counts = {
@@ -212,11 +260,13 @@ export default function ToursClient({
               aria-label="Search tours and destinations"
             />
             <button
-              className={styles.filterToggle}
+              className={`${styles.filterToggle} ${showFilters || hasActiveFilters ? styles.active : ''}`}
               onClick={() => setShowFilters(!showFilters)}
+              aria-expanded={showFilters}
+              aria-controls="filter-bar"
             >
               <SlidersHorizontal />
-              Filters
+              {hasActiveFilters ? 'Filters On' : 'Filters'}
             </button>
           </div>
         </div>
@@ -243,9 +293,14 @@ export default function ToursClient({
         </div>
 
         {/* Filter Bar */}
-        <div className={`${styles.filterBar} ${showFilters ? styles.open : ''}`} role="group" aria-label="Tour filters">
+        <div
+          id="filter-bar"
+          className={`${styles.filterBar} ${showFilters ? styles.open : ''}`}
+          role="group"
+          aria-label="Tour filters"
+        >
           <div className={styles.filterGroup}>
-            <label htmlFor="price-filter">Price Range</label>
+            <label htmlFor="price-filter">Price</label>
             <div className={styles.selectWrapper}>
               <select
                 id="price-filter"
@@ -285,10 +340,40 @@ export default function ToursClient({
           {hasActiveFilters && (
             <button className={styles.clearFilters} onClick={clearFilters} aria-label="Clear all filters">
               <X aria-hidden="true" />
-              Clear All
+              Clear
             </button>
           )}
         </div>
+
+        {/* Active Filter Chips */}
+        {hasActiveFilters && (
+          <div className={styles.activeFilters}>
+            {searchQuery && (
+              <span className={styles.filterChip}>
+                Search: "{searchQuery}"
+                <button onClick={() => setSearchQuery('')} aria-label="Remove search filter">
+                  <X />
+                </button>
+              </span>
+            )}
+            {selectedPrice !== 'all' && (
+              <span className={styles.filterChip}>
+                {priceRanges.find(r => r.id === selectedPrice)?.label}
+                <button onClick={() => setSelectedPrice('all')} aria-label="Remove price filter">
+                  <X />
+                </button>
+              </span>
+            )}
+            {selectedDuration !== 'all' && (
+              <span className={styles.filterChip}>
+                {durations.find(d => d.id === selectedDuration)?.label}
+                <button onClick={() => setSelectedDuration('all')} aria-label="Remove duration filter">
+                  <X />
+                </button>
+              </span>
+            )}
+          </div>
+        )}
 
         {/* Results Header */}
         <div className={styles.resultsHeader}>

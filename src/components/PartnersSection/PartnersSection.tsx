@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { Shield } from 'lucide-react';
+import { useInView } from '@/hooks';
 import styles from './PartnersSection.module.scss';
 
 export interface Partner {
@@ -16,10 +17,15 @@ interface PartnersSectionProps {
 }
 
 export default function PartnersSection({ partners }: PartnersSectionProps) {
+  const [sectionRef, isInView] = useInView<HTMLElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
   return (
-    <section className={styles.section}>
+    <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
           <span className={styles.badge}>
             <Shield size={16} />
             Our Partners
@@ -31,8 +37,12 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
         </div>
 
         <div className={styles.grid}>
-          {partners.map((partner) => (
-            <div key={partner.id} className={styles.partnerCard}>
+          {partners.map((partner, index) => (
+            <div
+              key={partner.id}
+              className={`${styles.partnerCard} ${isInView ? styles.visible : ''}`}
+              style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
+            >
               <div className={styles.logoWrapper}>
                 <Image
                   src={partner.logo}
@@ -48,7 +58,7 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
           ))}
         </div>
 
-        <div className={styles.trust}>
+        <div className={`${styles.trust} ${isInView ? styles.visible : ''}`}>
           <div className={styles.trustItem}>
             <span className={styles.trustNumber}>1M+</span>
             <span className={styles.trustLabel}>Bookings Processed</span>

@@ -190,7 +190,8 @@ p {
   line-height: $leading-relaxed;
 }
 
-a {
+// Use :where() for lower specificity - allows component styles to override
+:where(a) {
   color: $primary-600;
   text-decoration: none;
   transition: color $transition-fast;

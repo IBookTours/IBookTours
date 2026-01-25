@@ -21,11 +21,12 @@
     transform: scale(1.1);
     box-shadow: $whatsapp-shadow-hover;
     background-color: $whatsapp-green-hover;  // Darker green on hover
+    color: $text-light;  // Keep icon white - prevents global a:hover override
 
     .tooltip {
       opacity: 1;
       visibility: visible;
-      transform: translateX(-100%) translateY(-50%);
+      transform: translateY(-50%);  // Only vertical centering needed
     }
   }
 
@@ -66,9 +67,9 @@
 
 .tooltip {
   position: absolute;
-  right: 100%;
+  right: calc(100% + $spacing-3);  // Position to left of button with gap
   top: 50%;
-  transform: translateX(-90%) translateY(-50%);
+  transform: translateY(-50%) translateX(8px);  // Start slightly right, animate left
   background-color: var(--bg-elevated);
   color: var(--text-primary);
   padding: $spacing-2 $spacing-3;
@@ -78,7 +79,6 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-  margin-right: $spacing-3;
   border: 1px solid var(--border-light);
   box-shadow: var(--glass-shadow);
 

@@ -107,10 +107,10 @@
   display: flex;
   align-items: center;
   gap: $spacing-2;
-  padding: $spacing-3 $spacing-5;
-  background: $primary-600;
-  color: $text-light;
-  border: none;
+  padding: $spacing-2 $spacing-4;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
   border-radius: $radius-full;
   font-size: $font-sm;
   font-weight: $font-medium;
@@ -118,12 +118,24 @@
   transition: all $transition-fast;
 
   &:hover {
-    background: $primary-700;
+    background: var(--bg-tertiary);
+    border-color: var(--color-primary-400);
+  }
+
+  &.active {
+    background: var(--color-primary-600);
+    color: $text-light;
+    border-color: var(--color-primary-600);
   }
 
   svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
+  }
+
+  // Hide on larger screens where filters are always visible
+  @include respond-to(md) {
+    display: none;
   }
 }
 
@@ -138,46 +150,62 @@
 }
 
 // ============================================
-// FILTER BAR
+// FILTER BAR - Compact Inline Design
 // ============================================
 
 .filterBar {
   display: none;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  border: 1px solid var(--border-light);
+  margin-bottom: $spacing-6;
   flex-wrap: wrap;
-  gap: $spacing-4;
-  padding: $spacing-6;
-  background: $bg-primary;
-  border-radius: $radius-2xl;
-  box-shadow: $shadow-sm;
-  margin-bottom: $spacing-8;
+  align-items: center;
 
   &.open {
     display: flex;
   }
 
-  @include respond-to(lg) {
+  @include respond-to(md) {
     display: flex;
+    flex-wrap: nowrap;
+    padding: $spacing-3 $spacing-4;
+    gap: $spacing-4;
   }
 }
 
 .filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
   flex: 1;
-  min-width: 180px;
+  min-width: 140px;
 
-  label {
-    display: flex;
+  @include respond-to(md) {
+    flex-direction: row;
     align-items: center;
     gap: $spacing-2;
-    font-size: $font-xs;
-    font-weight: $font-medium;
-    color: $text-secondary;
-    text-transform: uppercase;
-    letter-spacing: $tracking-wide;
-    margin-bottom: $spacing-2;
+    min-width: auto;
+  }
 
-    svg {
-      width: 14px;
-      height: 14px;
+  label {
+    display: none; // Hide labels on mobile for compact view
+
+    @include respond-to(md) {
+      display: flex;
+      align-items: center;
+      gap: $spacing-1;
+      font-size: $font-xs;
+      font-weight: $font-medium;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
     }
   }
 }
@@ -187,30 +215,42 @@
 
   select {
     width: 100%;
-    padding: $spacing-3 $spacing-10 $spacing-3 $spacing-4;
+    padding: $spacing-2 $spacing-8 $spacing-2 $spacing-3;
     appearance: none;
-    background: $bg-secondary;
-    border: 1px solid $border-light;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
     border-radius: $radius-lg;
     font-size: $font-sm;
-    color: $text-primary;
+    color: var(--text-primary);
     cursor: pointer;
     transition: all $transition-fast;
 
+    @include respond-to(md) {
+      padding: $spacing-2 $spacing-8 $spacing-2 $spacing-3;
+      min-width: 130px;
+    }
+
     &:focus {
       outline: none;
-      border-color: $primary-500;
+      border-color: var(--color-primary-500);
+      box-shadow: 0 0 0 2px var(--color-primary-100);
+    }
+
+    // Active filter highlight
+    &:not([value="all"]) {
+      border-color: var(--color-primary-400);
+      background: var(--color-primary-50);
     }
   }
 
   svg {
     position: absolute;
-    right: $spacing-3;
+    right: $spacing-2;
     top: 50%;
     transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
-    color: $text-muted;
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
     pointer-events: none;
   }
 }
@@ -218,26 +258,76 @@
 .clearFilters {
   display: flex;
   align-items: center;
-  gap: $spacing-2;
-  padding: $spacing-3 $spacing-4;
+  justify-content: center;
+  gap: $spacing-1;
+  padding: $spacing-2 $spacing-3;
   background: transparent;
-  border: 1px solid $border-light;
+  border: 1px solid var(--border-light);
   border-radius: $radius-lg;
-  font-size: $font-sm;
-  color: $text-secondary;
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all $transition-fast;
-  align-self: flex-end;
+  white-space: nowrap;
+
+  @include respond-to(md) {
+    margin-left: auto;
+  }
 
   &:hover {
-    background: $error-light;
-    border-color: $error;
-    color: $error;
+    background: var(--color-error-light);
+    border-color: var(--color-error);
+    color: var(--color-error);
   }
 
   svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+// Active filters indicator chips
+.activeFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  margin-bottom: $spacing-4;
+}
+
+.filterChip {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-1 $spacing-2 $spacing-1 $spacing-3;
+  background: var(--color-primary-50);
+  border: 1px solid var(--color-primary-200);
+  border-radius: $radius-full;
+  font-size: $font-xs;
+  color: var(--color-primary-700);
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 16px;
     height: 16px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--color-primary-500);
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: var(--color-primary-200);
+      color: var(--color-primary-700);
+    }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
   }
 }
 

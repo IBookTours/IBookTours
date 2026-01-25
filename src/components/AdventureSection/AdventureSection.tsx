@@ -2,10 +2,17 @@
 
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { Star, ChevronLeft, ChevronRight, ArrowRight, MapPin, Route, Smile } from 'lucide-react';
 import { AdventureContent } from '@/types';
 import { useInView, useIsMobile, useSwipe } from '@/hooks';
 import styles from './AdventureSection.module.scss';
+
+const statIcons: Record<string, React.ReactNode> = {
+  'Unique Tours': <Route size={20} />,
+  'Destinations': <MapPin size={20} />,
+  'Happy Travelers': <Smile size={20} />,
+};
 
 interface AdventureSectionProps {
   content: AdventureContent;
@@ -71,6 +78,24 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
             <span className={styles.sectionLabel}>{content.sectionLabel}</span>
             <h2 className={styles.title}>{content.title}</h2>
 
+            {content.description && (
+              <p className={styles.description}>{content.description}</p>
+            )}
+
+            {content.stats && content.stats.length > 0 && (
+              <div className={styles.stats}>
+                {content.stats.map((stat, index) => (
+                  <div key={index} className={styles.statItem}>
+                    <span className={styles.statIcon}>
+                      {statIcons[stat.label] || <MapPin size={20} />}
+                    </span>
+                    <span className={styles.statValue}>{stat.value}</span>
+                    <span className={styles.statLabel}>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className={styles.ratingCard}>
               <div className={styles.ratingHeader}>
                 <Star />
@@ -78,6 +103,13 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
               </div>
               <p className={styles.ratingLabel}>{content.rating.label}</p>
             </div>
+
+            {content.ctaText && content.ctaLink && (
+              <Link href={content.ctaLink} className={styles.ctaButton}>
+                {content.ctaText}
+                <ArrowRight size={18} />
+              </Link>
+            )}
           </div>
 
           {/* Mobile: Single card carousel with swipe */}
