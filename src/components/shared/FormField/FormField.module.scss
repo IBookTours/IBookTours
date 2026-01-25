@@ -106,6 +106,7 @@
   }
 
   &:hover:not(:disabled) {
+    background-color: var(--bg-hover);
     border-color: var(--border-dark);
   }
 
@@ -125,14 +126,34 @@
 // Select-specific
 .select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right $spacing-3 center;
   padding-right: $spacing-10;
   cursor: pointer;
+}
 
-  &:focus {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232563EB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+// Select wrapper for CSS-based arrow (theme-aware)
+.selectWrapper {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: $spacing-4;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border: solid var(--text-tertiary);
+    border-width: 0 2px 2px 0;
+    transform: translateY(-75%) rotate(45deg);
+    pointer-events: none;
+    transition: border-color $transition-fast;
+  }
+
+  &:focus-within::after {
+    border-color: var(--color-primary-500);
+  }
+
+  .select {
+    width: 100%;
   }
 }
 

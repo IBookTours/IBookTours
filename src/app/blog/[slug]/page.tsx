@@ -47,9 +47,9 @@ const blogPosts: Record<string, {
     date: 'January 15, 2026',
     readTime: '8 min read',
     author: {
-      name: 'Maria Veliu',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
-      role: 'Travel Writer',
+      name: 'Qaram Kassem',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+      role: 'Founder & Travel Expert',
     },
   },
   post2: {
@@ -71,9 +71,9 @@ const blogPosts: Record<string, {
     date: 'January 10, 2026',
     readTime: '6 min read',
     author: {
-      name: 'Arben Hoxha',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
-      role: 'Tech Editor',
+      name: 'Qaram Kassem',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+      role: 'Founder & Travel Expert',
     },
   },
   post3: {
@@ -94,9 +94,9 @@ const blogPosts: Record<string, {
     date: 'January 5, 2026',
     readTime: '5 min read',
     author: {
-      name: 'Elena Koci',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
-      role: 'Destination Expert',
+      name: 'Qaram Kassem',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+      role: 'Founder & Travel Expert',
     },
   },
   post4: {
@@ -116,9 +116,9 @@ const blogPosts: Record<string, {
     date: 'December 28, 2025',
     readTime: '10 min read',
     author: {
-      name: 'Maria Veliu',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
-      role: 'Travel Writer',
+      name: 'Qaram Kassem',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+      role: 'Founder & Travel Expert',
     },
   },
   post5: {
@@ -140,9 +140,9 @@ const blogPosts: Record<string, {
     date: 'December 20, 2025',
     readTime: '7 min read',
     author: {
-      name: 'Arben Hoxha',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
-      role: 'Tech Editor',
+      name: 'Qaram Kassem',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+      role: 'Founder & Travel Expert',
     },
   },
   post6: {
@@ -164,9 +164,9 @@ const blogPosts: Record<string, {
     date: 'December 15, 2025',
     readTime: '9 min read',
     author: {
-      name: 'Elena Koci',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
-      role: 'Destination Expert',
+      name: 'Qaram Kassem',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+      role: 'Founder & Travel Expert',
     },
   },
 };

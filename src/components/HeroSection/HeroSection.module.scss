@@ -38,7 +38,7 @@
 
 .overlayText {
   position: absolute;
-  top: 60%;  // Lowered from 50% to position below main content
+  top: 55%;  // Mobile default - looks good on phone
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: clamp(4rem, 20vw, 12rem);
@@ -53,7 +53,20 @@
   z-index: 1;
 
   @include respond-to(md) {
+    top: 58%;  // Tablet - slightly higher
     -webkit-text-stroke: 3px $rgba-white-70;
+  }
+
+  @include respond-to(lg) {
+    top: 62%;  // Desktop - lower to center better
+  }
+
+  @include respond-to(xl) {
+    top: 65%;  // Wide screens - even lower
+  }
+
+  @include respond-to(2xl) {
+    top: 68%;  // Very wide screens - lowest position
   }
 }
 

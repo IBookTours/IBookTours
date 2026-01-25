@@ -62,32 +62,18 @@ const features = [
 
 const team = [
   {
-    id: 'ceo',
-    name: 'Sarah Mitchell',
+    id: 'founder',
+    name: 'Qaram Kassem',
     role: 'Founder & CEO',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&q=80',
-    bio: 'With 20+ years in travel, Sarah founded ITravel to share her passion for exploration.',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&q=80',
+    bio: 'Qaram founded ITravel with a vision to share Albania\'s incredible beauty with the world.',
   },
   {
-    id: 'coo',
-    name: 'David Chen',
-    role: 'Chief Operations Officer',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&q=80',
-    bio: 'David ensures every trip runs smoothly with his meticulous attention to detail.',
-  },
-  {
-    id: 'head-exp',
-    name: 'Maria Garcia',
-    role: 'Head of Experiences',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&q=80',
-    bio: 'Maria curates unique adventures that create lasting memories.',
-  },
-  {
-    id: 'head-dest',
-    name: 'James Wilson',
-    role: 'Destinations Director',
-    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&q=80',
-    bio: 'James scouts and develops our global network of extraordinary destinations.',
+    id: 'operations',
+    name: 'Local Operations Team',
+    role: 'Tour Coordinators',
+    avatar: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=300&h=300&fit=crop&q=80',
+    bio: 'Our dedicated local team ensures every tour runs smoothly with authentic Albanian hospitality.',
   },
 ];
 

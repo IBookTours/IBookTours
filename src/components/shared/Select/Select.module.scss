@@ -93,6 +93,7 @@
   padding-right: $spacing-10; // Space for chevron
 
   &:hover:not(:disabled) {
+    background-color: var(--bg-hover);
     border-color: var(--border-dark);
   }
 

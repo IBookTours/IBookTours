@@ -66,6 +66,7 @@
   --border-light: #e0ebe8;         // Subtle borders - Light green
   --border-medium: #a8dadc;        // Visible borders - Frosted Blue
   --border-strong: #6b8fa3;        // Emphasis borders - Cerulean
+  --border-dark: rgba(29, 53, 87, 0.3);      // Dark borders - Oxford Navy
   --border-primary: rgba(230, 57, 70, 0.3);  // Punch Red borders
 
   // Shadow Colors
@@ -101,6 +102,7 @@
   --color-error-light: #fee2e2;
   --color-error-main: #e63946;    // Uses Punch Red
   --color-error-dark: #c5313d;
+  --color-error: var(--color-error-main);  // Alias for consistency
 
   --color-warning-light: #fef3c7;
   --color-warning-main: #f59e0b;
@@ -661,6 +663,7 @@ html.saturation-high {
   --border-light: #3d3f54;         // Subtle borders
   --border-medium: #5c6378;        // Visible borders
   --border-strong: #8d99ae;        // Emphasis borders
+  --border-dark: rgba(237, 242, 244, 0.3);   // Dark borders - Platinum
   --border-primary: rgba(239, 35, 60, 0.4);  // Strawberry Red borders
 
   // Shadow Colors
@@ -696,6 +699,7 @@ html.saturation-high {
   --color-error-light: #7f1d1d;
   --color-error-main: #ef233c;    // Uses Strawberry Red
   --color-error-dark: #ff6b8a;
+  --color-error: var(--color-error-main);  // Alias for consistency
 
   --color-warning-light: #78350f;
   --color-warning-main: #f59e0b;

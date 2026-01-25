@@ -98,7 +98,7 @@ const credentialsProvider = CredentialsProvider({
       ) {
         return {
           id: 'admin-user-id',
-          name: 'Admin User',
+          name: 'Qaram Kassem',
           email: 'admin@itravel.com',
           image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&q=80',
           role: 'admin' as UserRole,
