@@ -1,0 +1,153 @@
+// ============================================
+// TOURS PAGE LOADING SKELETON STYLES
+// ============================================
+
+@use '@/styles/variables' as *;
+
+// Shimmer animation
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+%shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--border-light) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+}
+
+.loadingPage {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+// ============================================
+// HERO SKELETON
+// ============================================
+
+.heroSkeleton {
+  position: relative;
+  height: 400px;
+  @extend %shimmer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    height: 300px;
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.skeletonBadge {
+  width: 100px;
+  height: 28px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.skeletonTitle {
+  width: 300px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+
+  @media (max-width: 480px) {
+    width: 200px;
+    height: 36px;
+  }
+}
+
+.skeletonSubtitle {
+  width: 200px;
+  height: 24px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+// ============================================
+// CONTENT AREA
+// ============================================
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+// ============================================
+// TABS SKELETON
+// ============================================
+
+.tabsSkeleton {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.skeletonTab {
+  width: 120px;
+  height: 44px;
+  border-radius: 22px;
+  @extend %shimmer;
+
+  &:first-child {
+    width: 80px;
+  }
+}
+
+// ============================================
+// FILTERS SKELETON
+// ============================================
+
+.filtersSkeleton {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.skeletonFilter {
+  width: 160px;
+  height: 44px;
+  border-radius: 8px;
+  @extend %shimmer;
+
+  @media (max-width: 640px) {
+    width: calc(50% - 8px);
+  }
+}
+
+// ============================================
+// CARDS GRID
+// ============================================
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}

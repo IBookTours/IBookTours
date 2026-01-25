@@ -1,0 +1,105 @@
+// ============================================
+// PROFILE PAGE LOADING SKELETON STYLES
+// ============================================
+
+@use '@/styles/variables' as *;
+
+.loadingPage {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding-top: 100px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+// ============================================
+// BACK LINK
+// ============================================
+
+.backLink {
+  margin-bottom: 32px;
+}
+
+// ============================================
+// HEADER SKELETON
+// ============================================
+
+.headerSkeleton {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  padding: 32px;
+  background: var(--bg-secondary);
+  border-radius: 24px;
+  border: 1px solid var(--border-light);
+  margin-bottom: 32px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 24px;
+  }
+}
+
+.avatarSection {
+  flex-shrink: 0;
+}
+
+.userInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    align-items: center;
+  }
+}
+
+.headerActions {
+  @media (max-width: 768px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+// ============================================
+// SECTION SKELETON
+// ============================================
+
+.sectionSkeleton {
+  margin-top: 40px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
+
+// ============================================
+// BOOKINGS GRID
+// ============================================
+
+.bookingsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}

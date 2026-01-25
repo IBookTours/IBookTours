@@ -1,0 +1,187 @@
+// ============================================
+// EMPTY STATE COMPONENT STYLES
+// ============================================
+// Consistent empty state UI for various scenarios
+
+@use '@/styles/variables' as *;
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+
+  // Size variants
+  &.sm {
+    padding: 32px 16px;
+
+    .iconWrapper {
+      width: 48px;
+      height: 48px;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .title {
+      font-size: $font-lg;
+      margin-top: 12px;
+    }
+
+    .description {
+      font-size: $font-sm;
+      margin-top: 6px;
+    }
+
+    .actionButton {
+      margin-top: 16px;
+      padding: 8px 20px;
+      font-size: $font-sm;
+    }
+  }
+
+  &.md {
+    padding: 48px 24px;
+
+    .iconWrapper {
+      width: 64px;
+      height: 64px;
+    }
+
+    .icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .title {
+      font-size: $font-xl;
+      margin-top: 16px;
+    }
+
+    .description {
+      font-size: $font-base;
+      margin-top: 8px;
+    }
+
+    .actionButton {
+      margin-top: 20px;
+      padding: 10px 24px;
+      font-size: $font-base;
+    }
+  }
+
+  &.lg {
+    padding: 64px 32px;
+
+    .iconWrapper {
+      width: 80px;
+      height: 80px;
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .title {
+      font-size: $font-2xl;
+      margin-top: 20px;
+    }
+
+    .description {
+      font-size: $font-lg;
+      margin-top: 12px;
+      max-width: 500px;
+    }
+
+    .actionButton {
+      margin-top: 24px;
+      padding: 12px 32px;
+      font-size: $font-base;
+    }
+  }
+}
+
+// ============================================
+// ICON WRAPPER
+// ============================================
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.icon {
+  color: var(--text-tertiary);
+  transition: color 0.3s ease;
+}
+
+// ============================================
+// TEXT CONTENT
+// ============================================
+
+.title {
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.description {
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+// ============================================
+// ACTION BUTTON
+// ============================================
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-500);
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+
+  &:hover {
+    background: var(--color-primary-600);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+// ============================================
+// HOVER STATE (optional enhancement)
+// ============================================
+
+.emptyState:hover {
+  .iconWrapper {
+    background: var(--color-primary-100);
+  }
+
+  .icon {
+    color: var(--color-primary-500);
+  }
+}

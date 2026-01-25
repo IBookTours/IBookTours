@@ -199,7 +199,7 @@ function transformTourPackageToDestination(pkg: SanityTourPackage): Destination 
     description: pkg.description || '',
     image: pkg.mainImage
       ? urlFor(pkg.mainImage).width(800).height(600).format('webp').url()
-      : 'https://picsum.photos/seed/fallback/800/600',
+      : 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&h=600&fit=crop&q=80',
     rating: pkg.rating,
     price: pkg.price,
     duration: pkg.duration,
@@ -215,7 +215,7 @@ function transformSanityTestimonial(testimonial: SanityTestimonial): Testimonial
       title: testimonial.authorTitle || 'Traveler',
       avatar: testimonial.authorAvatar
         ? urlFor(testimonial.authorAvatar).width(150).height(150).url()
-        : `https://i.pravatar.cc/150?u=${testimonial._id}`,
+        : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&q=80',
       location: testimonial.authorLocation,
     },
     content: testimonial.content,

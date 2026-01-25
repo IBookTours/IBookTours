@@ -268,7 +268,7 @@ function BookingCard({ booking }: BookingCardProps) {
     <div className={styles.bookingCard}>
       <div className={styles.bookingImage}>
         <Image
-          src={primaryItem?.image || 'https://picsum.photos/seed/travel/400/300'}
+          src={primaryItem?.image || 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=400&h=300&fit=crop&q=80'}
           alt={primaryItem?.name || 'Booking'}
           width={400}
           height={200}

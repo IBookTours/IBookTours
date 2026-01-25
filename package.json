@@ -6,10 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "remotion:preview": "remotion preview src/remotion/Root.tsx",
+    "remotion:render-readme": "remotion render src/remotion/Root.tsx ReadmeDemo out/readme-demo.mp4",
+    "remotion:render-promo": "remotion render src/remotion/Root.tsx PromoVideo out/promo-video.mp4"
   },
   "dependencies": {
+    "@remotion/cli": "^4.0.409",
+    "@remotion/player": "^4.0.409",
     "@sanity/image-url": "^1.0.2",
+    "@sanity/schema": "^5.6.0",
+    "@sanity/types": "^5.6.0",
     "@sanity/vision": "^3.57.0",
     "lucide-react": "^0.447.0",
     "next": "^14.2.35",
@@ -17,12 +24,15 @@
     "next-sanity": "^9.4.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-is": "^19.2.3",
+    "remotion": "^4.0.409",
     "sanity": "^3.57.0",
     "sass": "^1.79.3",
     "styled-components": "^6.3.8",
     "zustand": "^5.0.10"
   },
   "devDependencies": {
+    "@remotion/bundler": "^4.0.409",
     "@types/node": "^20.16.10",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",

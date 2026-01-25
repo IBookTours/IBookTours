@@ -86,8 +86,8 @@ export default function ContactPage() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <Image
-          src="https://picsum.photos/seed/contact-hero/1920/600"
-          alt="Contact us"
+          src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1920&h=600&fit=crop&q=90"
+          alt="Albanian landscape - Contact us"
           fill
           priority
           quality={90}
@@ -228,8 +228,8 @@ export default function ContactPage() {
             <div className={styles.mapCard}>
               <div className={styles.mapPlaceholder}>
                 <Image
-                  src="https://picsum.photos/seed/map-haifa/600/300"
-                  alt="Office location map"
+                  src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=600&h=300&fit=crop&q=80"
+                  alt="Albania map and location"
                   fill
                   sizes="(max-width: 768px) 100vw, 400px"
                 />

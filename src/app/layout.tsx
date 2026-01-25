@@ -35,6 +35,14 @@ export const metadata: Metadata = {
     template: `%s | ${siteData.siteName}`,
   },
   description: siteData.siteDescription,
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/manifest.json',
   keywords: [
     'travel',
     'adventure',

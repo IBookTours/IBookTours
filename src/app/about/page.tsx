@@ -65,28 +65,28 @@ const team = [
     id: 'ceo',
     name: 'Sarah Mitchell',
     role: 'Founder & CEO',
-    avatar: 'https://i.pravatar.cc/300?u=sarah-mitchell',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&q=80',
     bio: 'With 20+ years in travel, Sarah founded ITravel to share her passion for exploration.',
   },
   {
     id: 'coo',
     name: 'David Chen',
     role: 'Chief Operations Officer',
-    avatar: 'https://i.pravatar.cc/300?u=david-chen',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&q=80',
     bio: 'David ensures every trip runs smoothly with his meticulous attention to detail.',
   },
   {
     id: 'head-exp',
     name: 'Maria Garcia',
     role: 'Head of Experiences',
-    avatar: 'https://i.pravatar.cc/300?u=maria-garcia',
+    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&q=80',
     bio: 'Maria curates unique adventures that create lasting memories.',
   },
   {
     id: 'head-dest',
     name: 'James Wilson',
     role: 'Destinations Director',
-    avatar: 'https://i.pravatar.cc/300?u=james-wilson-team',
+    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&q=80',
     bio: 'James scouts and develops our global network of extraordinary destinations.',
   },
 ];
@@ -100,8 +100,8 @@ export default async function AboutPage() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <Image
-          src="https://picsum.photos/seed/about-hero/1920/800"
-          alt="Our team exploring"
+          src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=1920&h=800&fit=crop&q=90"
+          alt="Albanian Riviera coastline"
           fill
           priority
           quality={90}
@@ -141,24 +141,24 @@ export default async function AboutPage() {
               <div className={styles.imageGroup}>
                 <div className={styles.imageLarge}>
                   <Image
-                    src="https://picsum.photos/seed/travel-group/600/800"
-                    alt="Travel group"
+                    src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600&h=800&fit=crop&q=80"
+                    alt="Travel group exploring"
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
                 <div className={styles.imageSmall}>
                   <Image
-                    src="https://picsum.photos/seed/adventure-hiking/600/400"
-                    alt="Adventure hiking"
+                    src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=400&fit=crop&q=80"
+                    alt="Hiking in Albanian Alps"
                     fill
                     sizes="(max-width: 768px) 100vw, 25vw"
                   />
                 </div>
                 <div className={styles.imageSmall}>
                   <Image
-                    src="https://picsum.photos/seed/beach-sunset/600/400"
-                    alt="Beach sunset"
+                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop&q=80"
+                    alt="Albanian Riviera beach sunset"
                     fill
                     sizes="(max-width: 768px) 100vw, 25vw"
                   />

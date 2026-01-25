@@ -86,7 +86,7 @@ const credentialsProvider = CredentialsProvider({
           id: 'demo-user-id',
           name: 'Demo User',
           email: 'demo@itravel.com',
-          image: 'https://i.pravatar.cc/150?u=demo',
+          image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&q=80',
           role: 'user' as UserRole,
         };
       }
@@ -100,7 +100,7 @@ const credentialsProvider = CredentialsProvider({
           id: 'admin-user-id',
           name: 'Admin User',
           email: 'admin@itravel.com',
-          image: 'https://i.pravatar.cc/150?u=admin',
+          image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&q=80',
           role: 'admin' as UserRole,
         };
       }

@@ -1,0 +1,266 @@
+// ============================================
+// SKELETON LOADING COMPONENT STYLES
+// ============================================
+// Shimmer animation for loading states
+
+@use '@/styles/variables' as *;
+
+// ============================================
+// SHIMMER ANIMATION
+// ============================================
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+// ============================================
+// BASE SKELETON
+// ============================================
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--border-light) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+
+  &.text {
+    height: 1em;
+    border-radius: 4px;
+  }
+
+  &.circular {
+    border-radius: 50%;
+  }
+
+  &.rectangular {
+    border-radius: 8px;
+  }
+}
+
+// ============================================
+// CARD SKELETON
+// ============================================
+
+.cardSkeleton {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+.cardImage {
+  position: relative;
+  height: 200px;
+  background: var(--bg-tertiary);
+}
+
+.cardBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.cardContent {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+// ============================================
+// LIST SKELETON
+// ============================================
+
+.listSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.listItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+}
+
+.listContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+// ============================================
+// FORM SKELETON
+// ============================================
+
+.formSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+// ============================================
+// STATS SKELETON
+// ============================================
+
+.statsSkeleton {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+}
+
+// ============================================
+// HERO SKELETON
+// ============================================
+
+.heroSkeleton {
+  position: relative;
+  height: 600px;
+  background: var(--bg-tertiary);
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    height: 500px;
+  }
+}
+
+.heroContent {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  padding: 0 24px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+// ============================================
+// BOOKING CARD SKELETON
+// ============================================
+
+.bookingCardSkeleton {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+.bookingImage {
+  position: relative;
+  height: 160px;
+  background: var(--bg-tertiary);
+}
+
+.bookingBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.bookingContent {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bookingMeta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.bookingFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+// ============================================
+// GRID LAYOUTS FOR SKELETON CARDS
+// ============================================
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bookingGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}

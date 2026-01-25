@@ -1,0 +1,33 @@
+{
+  "name": "I-Travel Tourism",
+  "short_name": "I-Travel",
+  "description": "Discover Unforgettable Adventures in Albania - Book vacation packages, day tours, and guided experiences",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f1faee",
+  "theme_color": "#e63946",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["travel", "tourism", "booking"],
+  "screenshots": [
+    {
+      "src": "/og-image.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "label": "I-Travel Homepage"
+    }
+  ]
+}

@@ -189,8 +189,8 @@ export default function ToursClient({
       {/* Hero Section */}
       <section className={styles.hero}>
         <Image
-          src="https://picsum.photos/seed/tours-hero/1920/600"
-          alt="Explore our tours"
+          src="https://images.unsplash.com/photo-1580746738099-78d6833b3a85?w=1920&h=600&fit=crop&q=90"
+          alt="Albanian landscape - Explore our tours"
           fill
           priority
           quality={90}

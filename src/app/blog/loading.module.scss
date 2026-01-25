@@ -1,0 +1,129 @@
+// ============================================
+// BLOG PAGE LOADING SKELETON STYLES
+// ============================================
+
+@use '@/styles/variables' as *;
+
+// Shimmer animation
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+%shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--border-light) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+}
+
+.loadingPage {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+// ============================================
+// HERO SKELETON
+// ============================================
+
+.heroSkeleton {
+  position: relative;
+  height: 350px;
+  @extend %shimmer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    height: 280px;
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.skeletonTitle {
+  width: 280px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+
+  @media (max-width: 480px) {
+    width: 180px;
+    height: 36px;
+  }
+}
+
+.skeletonSubtitle {
+  width: 360px;
+  height: 24px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.15);
+
+  @media (max-width: 480px) {
+    width: 240px;
+  }
+}
+
+// ============================================
+// CONTENT AREA
+// ============================================
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+// ============================================
+// CATEGORIES SKELETON
+// ============================================
+
+.categoriesSkeleton {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.skeletonCategory {
+  width: 100px;
+  height: 36px;
+  border-radius: 18px;
+  @extend %shimmer;
+
+  &:first-child {
+    width: 60px;
+  }
+}
+
+// ============================================
+// POSTS GRID
+// ============================================
+
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}

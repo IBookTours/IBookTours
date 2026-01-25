@@ -8,6 +8,7 @@ import { VacationPackagesSection } from '@/components/VacationPackagesSection';
 import { DayToursSection } from '@/components/DayToursSection';
 import StatsSection from '@/components/StatsSection';
 import AboutSection from '@/components/AboutSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import AdventureSection from '@/components/AdventureSection';
 import { PartnersSection } from '@/components/PartnersSection';
 import BlogSection from '@/components/BlogSection';
@@ -15,24 +16,11 @@ import CTASection from '@/components/CTASection';
 import EventsSection from '@/components/EventsSection';
 import Footer from '@/components/Footer';
 import { siteData } from '@/data/siteData';
-import {
-  fetchTestimonialsWithFallback,
-  fetchStatsWithFallback,
-} from '@/sanity';
+import { fetchStatsWithFallback } from '@/sanity';
 
 export default async function Home() {
-  // Fetch data from Sanity with fallback to mock data
-  // These fetches run in parallel for better performance
-  const [testimonials, stats] = await Promise.all([
-    fetchTestimonialsWithFallback(),
-    fetchStatsWithFallback(),
-  ]);
-
-  // Build about content with fetched testimonials for reviews display
-  const aboutContent = {
-    ...siteData.about,
-    testimonials,
-  };
+  // Fetch stats from Sanity with fallback to mock data
+  const stats = await fetchStatsWithFallback();
 
   return (
     <>
@@ -49,7 +37,10 @@ export default async function Home() {
       <StatsSection stats={stats} />
 
       {/* About - Company story and values */}
-      <AboutSection content={aboutContent} />
+      <AboutSection content={siteData.about} />
+
+      {/* Testimonials - Customer reviews carousel */}
+      <TestimonialsSection content={siteData.testimonials} />
 
       {/* Adventure - Explore categories */}
       <AdventureSection content={siteData.adventure} />

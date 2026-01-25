@@ -66,8 +66,8 @@ export default function SignInContent() {
       {/* Left Side - Image with Quote */}
       <div className={styles.imageSection}>
         <Image
-          src="https://picsum.photos/seed/travel-signin/1200/1800"
-          alt="Travel destination"
+          src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=1200&h=1800&fit=crop&q=90"
+          alt="Albanian Riviera coastline"
           fill
           priority
           quality={90}
