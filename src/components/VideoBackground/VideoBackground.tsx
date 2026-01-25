@@ -26,6 +26,7 @@ export default function VideoBackground({
   const [hasError, setHasError] = useState(false);
   const [timedOut, setTimedOut] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [isInView, setIsInView] = useState(true);
 
   // Timeout fallback - if video doesn't load in 5 seconds, show image
   useEffect(() => {
@@ -61,6 +62,7 @@ export default function VideoBackground({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        setIsInView(entry.isIntersecting);
         if (entry.isIntersecting && !isPaused) {
           video.play().catch(() => {
             // Autoplay might be blocked, show fallback
@@ -166,8 +168,8 @@ export default function VideoBackground({
       {/* Gradient overlay */}
       <div className={styles.overlay} />
 
-      {/* Pause/Play button */}
-      {!hasError && isLoaded && (
+      {/* Pause/Play button - only show when video is in view */}
+      {!hasError && isLoaded && isInView && (
         <button
           className={styles.pauseButton}
           onClick={togglePause}

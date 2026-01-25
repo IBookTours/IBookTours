@@ -110,7 +110,7 @@ export const mediaContact: MediaContact = {
 };
 
 export const companyFacts = {
-  founded: '2024',
+  founded: '2020',
   headquarters: 'Tirana, Albania',
   employees: '25+',
   toursOffered: '15+',

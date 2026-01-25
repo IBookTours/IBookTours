@@ -8,6 +8,9 @@
   bottom: 0;
   z-index: 0;
   overflow: hidden;
+
+  // Isolate stacking context for children
+  isolation: isolate;
 }
 
 .fallback {
@@ -59,7 +62,7 @@
 
 // Pause/Play button
 .pauseButton {
-  position: absolute;
+  position: fixed; // Use fixed positioning to escape stacking context
   bottom: $spacing-4;
   right: $spacing-4;
   width: 36px;
@@ -74,7 +77,7 @@
   justify-content: center;
   opacity: 0;
   transition: opacity $transition-base, background $transition-fast;
-  z-index: 10;
+  z-index: 50; // High z-index since we're using fixed positioning
 
   &:hover {
     background: rgba(0, 0, 0, 0.7);
@@ -86,17 +89,18 @@
     opacity: 1;
   }
 
-  // Show on container hover
+  // Show on container hover - this won't work with fixed, so we use JS
   .videoBackground:hover & {
     opacity: 0.8;
   }
 
-  // Always visible on mobile
+  // Always visible on mobile - positioned at top-right to avoid content overlap
   @media (max-width: 768px) {
-    opacity: 0.7;
-    bottom: $spacing-3;
+    opacity: 0.8;
+    bottom: auto;
+    top: calc(var(--navbar-height, 80px) + $spacing-3);
     right: $spacing-3;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
   }
 }

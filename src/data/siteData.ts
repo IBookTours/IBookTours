@@ -533,7 +533,7 @@ export const siteData: SiteContent = {
 
   footer: {
     logo: '/logo.svg',
-    tagline: 'Making travel dreams come true since 2010.',
+    tagline: 'Making travel dreams come true since 2020.',
     sections: [
       {
         id: 'company',

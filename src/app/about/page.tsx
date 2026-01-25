@@ -96,7 +96,7 @@ export default async function AboutPage() {
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <span className={styles.badge}>Our Story</span>
-          <h1>Crafting Unforgettable Journeys Since 2010</h1>
+          <h1>Crafting Unforgettable Journeys Since 2020</h1>
           <p>
             We&apos;re more than a travel agency - we&apos;re dreamweavers, adventure architects,
             and your partners in discovery.
@@ -151,7 +151,7 @@ export default async function AboutPage() {
                 </div>
               </div>
               <div className={styles.experienceBadge}>
-                <span className={styles.badgeValue}>15+</span>
+                <span className={styles.badgeValue}>5+</span>
                 <span className={styles.badgeLabel}>Years of Excellence</span>
               </div>
             </div>
@@ -160,7 +160,7 @@ export default async function AboutPage() {
               <span className={styles.sectionLabel}>Who We Are</span>
               <h2>Passionate About Creating Unforgettable Experiences</h2>
               <p>
-                Founded in 2010, ITravel began with a simple vision: to make extraordinary
+                Founded in 2020, ITravel began with a simple vision: to make extraordinary
                 travel accessible to everyone. What started as a small team of travel
                 enthusiasts has grown into a global community of adventurers, dreamers,
                 and explorers.
