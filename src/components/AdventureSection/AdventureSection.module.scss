@@ -111,7 +111,10 @@
   gap: $spacing-4;
 
   @include respond-to(md) {
-    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-5;
+  }
+
+  @include respond-to(lg) {
     gap: $spacing-6;
   }
 }
@@ -198,8 +201,12 @@
 
 // Featured category (larger) - only on desktop grid
 .categoryFeatured {
-  grid-column: span 2;
-  aspect-ratio: 16/9;
+  grid-column: 1 / -1;
+  aspect-ratio: 21/9;
+
+  @include respond-to(lg) {
+    aspect-ratio: 2.5/1;
+  }
 }
 
 // Mobile carousel styles

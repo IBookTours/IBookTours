@@ -51,7 +51,7 @@ export default function BlogSection({ content }: BlogSectionProps) {
   const renderBlogCard = (post: BlogPost, isFeatured: boolean, index?: number, showAnimation = true) => (
     <article
       key={post.id}
-      className={`${styles.blogCard} ${isFeatured ? styles.featuredPost : ''} ${showAnimation && isInView ? styles.visible : ''}`}
+      className={`${styles.blogCard} ${isFeatured ? styles.featuredPost : ''} ${!showAnimation || isInView ? styles.visible : ''}`}
       style={showAnimation && index !== undefined ? { transitionDelay: `${0.2 + index * 0.15}s` } : undefined}
     >
       <div className={styles.imageWrapper}>

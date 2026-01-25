@@ -1,0 +1,78 @@
+@use '@/styles/variables' as *;
+
+// ============================================
+// SHARED CAROUSEL ARROWS COMPONENT
+// ============================================
+// Reusable arrow buttons for carousels
+
+.arrow {
+  flex-shrink: 0;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all $transition-base;
+  border: none;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+// Sizes
+.sm {
+  width: 36px;
+  height: 36px;
+}
+
+.md {
+  width: 40px;
+  height: 40px;
+}
+
+.lg {
+  width: 48px;
+  height: 48px;
+}
+
+// Variants
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--color-primary-600);
+    color: $text-light;
+    border-color: var(--color-primary-600);
+  }
+}
+
+.solid {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  box-shadow: $shadow-md;
+
+  &:hover:not(:disabled) {
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-200);
+    color: var(--color-primary-600);
+  }
+}
+
+// Positioning classes (optional, for absolute positioning)
+.prev {
+  // Can be positioned by parent
+}
+
+.next {
+  // Can be positioned by parent
+}

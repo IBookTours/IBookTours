@@ -95,7 +95,7 @@
 
 .sliderGrid {
   grid-template-columns: repeat(var(--visible-items, 3), 1fr);
-  transition: all $transition-normal;
+  transition: all $transition-base;
 
   @include respond-to(max-lg) {
     grid-template-columns: repeat(calc(var(--visible-items, 3) - 1), 1fr);
