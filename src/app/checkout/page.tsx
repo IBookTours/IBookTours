@@ -26,6 +26,12 @@ import {
 import PassengerForm from '@/components/Checkout/PassengerForm';
 import { useCartStore, formatCartPrice, CartItem } from '@/store/cartStore';
 import { useBookingStore, priceStringToCents, centsToDisplayPrice, PassengerDetail } from '@/store/bookingStore';
+import {
+  useBookingsStore,
+  cartItemsToBookingItems,
+  BookingItem,
+  PassengerInfo,
+} from '@/store/bookingsStore';
 import { siteData } from '@/data/siteData';
 import styles from './checkout.module.scss';
 
@@ -77,6 +83,9 @@ function CheckoutContent() {
     getPriceBreakdown,
     reset: resetBooking,
   } = useBookingStore();
+
+  // Bookings store for saving completed bookings
+  const { addBooking } = useBookingsStore();
 
   // Determine checkout mode
   const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>('cart');
@@ -241,11 +250,62 @@ function CheckoutContent() {
       // Simulate payment processing
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      // Generate booking IDs for each item
-      const newBookingIds = itemsToBook.map(() =>
-        `ITR-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 5).toUpperCase()}`
-      );
-      setBookingIds(newBookingIds);
+      // Build booking items with passenger info
+      let bookingItems: BookingItem[];
+
+      if (checkoutMode === 'cart') {
+        // Build passengers map from cartPassengers
+        const passengersByItem: Record<string, PassengerInfo[]> = {};
+        cartPassengers.forEach((cp) => {
+          passengersByItem[cp.cartItemId] = cp.passengers.map((p) => ({
+            firstName: p.fullName.split(' ')[0] || '',
+            lastName: p.fullName.split(' ').slice(1).join(' ') || '',
+            email: bookerEmail,
+            phone: bookerPhone,
+          }));
+        });
+
+        bookingItems = cartItemsToBookingItems(cartItems, passengersByItem);
+      } else {
+        // Single tour booking
+        bookingItems = [{
+          id: `item-${Date.now()}`,
+          type: 'day-tour',
+          name: tourName || selectedTour?.name || '',
+          image: selectedTour?.image || '',
+          duration: selectedTour?.duration || '',
+          location: selectedTour?.location || '',
+          travelDate: selectedDate,
+          travelers,
+          passengers: passengerDetails.map((p) => ({
+            firstName: p.fullName.split(' ')[0] || '',
+            lastName: p.fullName.split(' ').slice(1).join(' ') || '',
+            email: bookerEmail,
+            phone: bookerPhone,
+          })),
+          pricePerPerson: priceBreakdown.adultPrice,
+          totalPrice: priceBreakdown.total,
+        }];
+      }
+
+      // Save booking to bookings store
+      const savedBooking = addBooking({
+        userEmail: bookerEmail,
+        items: bookingItems,
+        status: 'confirmed',
+        paymentStatus: 'paid',
+        totalAmount: displayTotal,
+        currency: 'EUR',
+        contactInfo: {
+          firstName: bookerName.split(' ')[0] || '',
+          lastName: bookerName.split(' ').slice(1).join(' ') || '',
+          email: bookerEmail,
+          phone: bookerPhone,
+        },
+      });
+
+      // Use the confirmation number from the saved booking
+      setBookingIds([savedBooking.confirmationNumber]);
       setIsSuccess(true);
 
       // Clear cart and booking store

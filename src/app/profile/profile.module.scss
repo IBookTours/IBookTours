@@ -324,6 +324,9 @@
   font-size: $font-xs;
   font-weight: $font-semibold;
   text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
 
   &.upcoming {
     background: $success-light;
@@ -364,6 +367,49 @@
 .dateIcon {
   width: 14px;
   height: 14px;
+}
+
+.bookingMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-2;
+}
+
+.confirmationNumber {
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  color: $primary-600;
+  font-family: monospace;
+}
+
+.itemCount {
+  font-size: $font-xs;
+  color: $text-tertiary;
+  background: $bg-secondary;
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-md;
+}
+
+.bookingFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $spacing-3;
+  padding-top: $spacing-3;
+  border-top: 1px solid $border-light;
+}
+
+.bookingPrice {
+  font-size: $font-lg;
+  font-weight: $font-bold;
+  color: $text-primary;
+}
+
+.paymentStatus {
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  text-transform: capitalize;
 }
 
 // Empty State
