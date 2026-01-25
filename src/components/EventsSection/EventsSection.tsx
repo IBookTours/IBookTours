@@ -38,10 +38,11 @@ export default function EventsSection({ content }: EventsSectionProps) {
   const swipeHandlers = useSwipe(goToNext, goToPrevious);
 
   // Render event card (reusable for both layouts)
+  // When showAnimation is false (mobile carousel), card should always be visible
   const renderEventCard = (event: typeof events[0], index: number, showAnimation = true) => (
     <article
       key={event.id}
-      className={`${styles.eventCard} ${showAnimation && isInView ? styles.visible : ''}`}
+      className={`${styles.eventCard} ${!showAnimation || isInView ? styles.visible : ''}`}
       style={showAnimation ? { transitionDelay: `${0.1 + index * 0.15}s` } : undefined}
     >
       <Image

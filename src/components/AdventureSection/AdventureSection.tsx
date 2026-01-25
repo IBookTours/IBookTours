@@ -56,6 +56,9 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
 
       <div className={styles.categoryContent}>
         <h3 className={styles.categoryName}>{category.name}</h3>
+        {category.description && (
+          <p className={styles.categoryDescription}>{category.description}</p>
+        )}
       </div>
     </div>
   );

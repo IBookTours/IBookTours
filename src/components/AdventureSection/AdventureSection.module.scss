@@ -179,6 +179,22 @@
   }
 }
 
+.categoryDescription {
+  font-size: $font-xs;
+  color: $rgba-white-80;
+  line-height: $leading-relaxed;
+  margin-top: $spacing-1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  @include respond-to(md) {
+    font-size: $font-sm;
+    -webkit-line-clamp: 3;
+  }
+}
+
 .categoryCount {
   font-size: $font-sm;
   color: $rgba-white-80;

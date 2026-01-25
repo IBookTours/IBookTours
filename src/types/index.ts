@@ -86,6 +86,7 @@ export interface AdventureCategory {
   slug: string;
   image: string;
   count?: number;
+  description?: string;
 }
 
 export interface AdventureContent {

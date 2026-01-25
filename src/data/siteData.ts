@@ -277,6 +277,7 @@ export const siteData: SiteContent = {
         slug: 'riviera',
         image: 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&h=400&fit=crop&q=80',
         count: 45,
+        description: 'Crystal-clear waters and pristine beaches along the stunning Albanian coastline',
       },
       {
         id: 'unesco',
@@ -284,6 +285,7 @@ export const siteData: SiteContent = {
         slug: 'unesco',
         image: 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=600&h=400&fit=crop&q=80',
         count: 12,
+        description: 'Explore Berat, Gjirokastër, and Butrint - Albania\'s protected heritage treasures',
       },
       {
         id: 'alps',
@@ -291,6 +293,7 @@ export const siteData: SiteContent = {
         slug: 'alps',
         image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=400&fit=crop&q=80',
         count: 28,
+        description: 'Dramatic mountain peaks, hiking trails, and traditional alpine villages',
       },
       {
         id: 'food-wine',
@@ -298,6 +301,7 @@ export const siteData: SiteContent = {
         slug: 'food-wine',
         image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop&q=80',
         count: 18,
+        description: 'Taste authentic Albanian cuisine and discover local vineyards',
       },
       {
         id: 'culture-history',
@@ -305,6 +309,7 @@ export const siteData: SiteContent = {
         slug: 'culture-history',
         image: 'https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=600&h=400&fit=crop&q=80',
         count: 22,
+        description: 'Ancient castles, Ottoman architecture, and rich Mediterranean heritage',
       },
     ],
   },
