@@ -103,18 +103,21 @@ ITravel/
 │   ├── app/                    # Next.js App Router
 │   │   ├── api/               # API routes
 │   │   ├── studio/            # Sanity Studio (embedded)
-│   │   ├── (pages)/           # Page routes
 │   │   └── layout.tsx         # Root layout
 │   ├── components/            # React components
 │   ├── data/                  # Mock data (CMS fallback)
+│   ├── hooks/                 # Custom React hooks
 │   ├── lib/                   # Utilities & services
 │   │   ├── auth.ts           # NextAuth config
 │   │   └── services/         # Payment, Email, CMS
 │   ├── sanity/               # Sanity schemas
+│   ├── store/                # Zustand stores
+│   ├── types/                # TypeScript types
 │   └── styles/               # SCSS variables & globals
+├── docs/                      # Documentation
 ├── public/                    # Static assets
-├── .env.example              # Environment template
-└── SETUP.md                  # No-code setup guide
+├── scripts/                   # Build & utility scripts
+└── .env.example              # Environment template
 ```
 
 ## Theming
@@ -178,7 +181,9 @@ This project is designed to run at **$0/month**:
 
 ## Documentation
 
-- **[SETUP.md](./SETUP.md)** - Step-by-step setup guide (no coding required)
+- **[Setup Guide](./docs/SETUP.md)** - Step-by-step setup (no coding required)
+- **[Architecture](./docs/ARCHITECTURE.md)** - Project architecture details
+- **[Troubleshooting](./docs/TROUBLESHOOTING.md)** - Common issues & solutions
 - **[.env.example](./.env.example)** - Environment variable template
 
 ## License
