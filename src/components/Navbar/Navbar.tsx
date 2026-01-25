@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Menu, X, Search, Compass, Sun, Moon } from 'lucide-react';
+import { Menu, X, Search, Sun, Moon } from 'lucide-react';
 import { NavItem } from '@/types';
 import { LoginButton } from '@/components/Auth';
 import { ThemeToggle, useTheme } from '@/components/ThemeProvider';
@@ -56,7 +57,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
         <div className={styles.container}>
           <Link href="/" className={styles.logo}>
             <span className={styles.logoIcon}>
-              <Compass />
+              <Image src="/logo.svg" alt="ITravelTours" width={32} height={32} />
             </span>
             {siteName}
           </Link>
@@ -102,7 +103,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
         <div className={styles.mobileMenuHeader}>
           <Link href="/" className={styles.logo} onClick={closeMobileMenu}>
             <span className={styles.logoIcon}>
-              <Compass />
+              <Image src="/logo.svg" alt="ITravelTours" width={32} height={32} />
             </span>
             {siteName}
           </Link>

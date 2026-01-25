@@ -15,6 +15,15 @@ import {
   SendEmailParams,
   SendEmailResult,
 } from './EmailService';
+import {
+  renderEmailTemplate,
+  EmailLanguage,
+  BookingConfirmationData,
+  BookingReminderData,
+  BookingCancelledData,
+  ContactReplyData,
+  PasswordResetData,
+} from './templates';
 
 const BREVO_API_URL = 'https://api.brevo.com/v3';
 
@@ -109,73 +118,222 @@ export class BrevoProvider implements IEmailService {
     }
   }
 
-  async sendContactForm(data: {
-    name: string;
-    email: string;
-    subject: string;
-    message: string;
-  }): Promise<SendEmailResult> {
+  async sendContactForm(
+    data: {
+      name: string;
+      email: string;
+      subject: string;
+      message: string;
+    },
+    language: EmailLanguage = 'en'
+  ): Promise<SendEmailResult> {
     const { name, email, subject, message } = data;
 
-    const htmlContent = `
-      <h2>New Contact Form Submission</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Subject:</strong> ${subject}</p>
-      <hr>
-      <h3>Message:</h3>
-      <p>${message.replace(/\n/g, '<br>')}</p>
-    `;
+    const rendered = renderEmailTemplate(
+      'contact-received',
+      { name, email, subject, message },
+      language
+    );
 
     return this.sendEmail({
       to: { email: this.contactEmail, name: 'ITravel Team' },
-      subject: `Contact Form: ${subject}`,
-      htmlContent,
+      subject: rendered.subject,
+      htmlContent: rendered.html,
+      textContent: rendered.text,
       replyTo: { email, name },
     });
   }
 
-  async sendBookingConfirmation(data: {
-    customerEmail: string;
-    customerName: string;
-    bookingId: string;
-    tourName: string;
-    tourDate: string;
-    totalAmount: string;
-  }): Promise<SendEmailResult> {
-    const { customerEmail, customerName, bookingId, tourName, tourDate, totalAmount } = data;
-
-    const htmlContent = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h1 style="color: #2563eb;">Booking Confirmed!</h1>
-        <p>Dear ${customerName},</p>
-        <p>Thank you for booking with ITravel. Your adventure awaits!</p>
-
-        <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h2 style="margin-top: 0;">Booking Details</h2>
-          <p><strong>Booking ID:</strong> ${bookingId}</p>
-          <p><strong>Tour:</strong> ${tourName}</p>
-          <p><strong>Date:</strong> ${tourDate}</p>
-          <p><strong>Total:</strong> ${totalAmount}</p>
-        </div>
-
-        <p>If you have any questions, please don't hesitate to contact us.</p>
-
-        <p>Best regards,<br>The ITravel Team</p>
-      </div>
-    `;
+  async sendContactReply(
+    data: {
+      customerEmail: string;
+      customerName: string;
+      originalSubject: string;
+      replyMessage: string;
+    },
+    language: EmailLanguage = 'en'
+  ): Promise<SendEmailResult> {
+    const rendered = renderEmailTemplate(
+      'contact-reply',
+      {
+        customerName: data.customerName,
+        originalSubject: data.originalSubject,
+        replyMessage: data.replyMessage,
+      } as ContactReplyData,
+      language
+    );
 
     return this.sendEmail({
-      to: { email: customerEmail, name: customerName },
-      subject: `Booking Confirmation - ${tourName}`,
-      htmlContent,
+      to: { email: data.customerEmail, name: data.customerName },
+      subject: rendered.subject,
+      htmlContent: rendered.html,
+      textContent: rendered.text,
     });
   }
 
-  async addToNewsletter(email: string, name?: string): Promise<SendEmailResult> {
+  async sendBookingConfirmation(
+    data: {
+      customerEmail: string;
+      customerName: string;
+      bookingId: string;
+      tourName: string;
+      tourDate: string;
+      travelers?: number;
+      totalAmount: string;
+      meetingPoint?: string;
+      contactPhone?: string;
+    },
+    language: EmailLanguage = 'en'
+  ): Promise<SendEmailResult> {
+    const rendered = renderEmailTemplate(
+      'booking-confirmation',
+      {
+        customerName: data.customerName,
+        bookingId: data.bookingId,
+        tourName: data.tourName,
+        tourDate: data.tourDate,
+        travelers: data.travelers || 1,
+        totalAmount: data.totalAmount,
+        meetingPoint: data.meetingPoint,
+        contactPhone: data.contactPhone,
+      } as BookingConfirmationData,
+      language
+    );
+
+    return this.sendEmail({
+      to: { email: data.customerEmail, name: data.customerName },
+      subject: rendered.subject,
+      htmlContent: rendered.html,
+      textContent: rendered.text,
+    });
+  }
+
+  async sendBookingReminder(
+    data: {
+      customerEmail: string;
+      customerName: string;
+      tourName: string;
+      tourDate: string;
+      daysUntil: number;
+      meetingPoint?: string;
+      contactPhone?: string;
+    },
+    language: EmailLanguage = 'en'
+  ): Promise<SendEmailResult> {
+    const rendered = renderEmailTemplate(
+      'booking-reminder',
+      {
+        customerName: data.customerName,
+        tourName: data.tourName,
+        tourDate: data.tourDate,
+        daysUntil: data.daysUntil,
+        meetingPoint: data.meetingPoint,
+        contactPhone: data.contactPhone,
+      } as BookingReminderData,
+      language
+    );
+
+    return this.sendEmail({
+      to: { email: data.customerEmail, name: data.customerName },
+      subject: rendered.subject,
+      htmlContent: rendered.html,
+      textContent: rendered.text,
+    });
+  }
+
+  async sendBookingCancelled(
+    data: {
+      customerEmail: string;
+      customerName: string;
+      bookingId: string;
+      tourName: string;
+      refundAmount?: string;
+    },
+    language: EmailLanguage = 'en'
+  ): Promise<SendEmailResult> {
+    const rendered = renderEmailTemplate(
+      'booking-cancelled',
+      {
+        customerName: data.customerName,
+        bookingId: data.bookingId,
+        tourName: data.tourName,
+        refundAmount: data.refundAmount,
+      } as BookingCancelledData,
+      language
+    );
+
+    return this.sendEmail({
+      to: { email: data.customerEmail, name: data.customerName },
+      subject: rendered.subject,
+      htmlContent: rendered.html,
+      textContent: rendered.text,
+    });
+  }
+
+  async sendWelcome(
+    data: {
+      customerEmail: string;
+      customerName: string;
+    },
+    language: EmailLanguage = 'en'
+  ): Promise<SendEmailResult> {
+    const rendered = renderEmailTemplate(
+      'welcome',
+      { customerName: data.customerName },
+      language
+    );
+
+    return this.sendEmail({
+      to: { email: data.customerEmail, name: data.customerName },
+      subject: rendered.subject,
+      htmlContent: rendered.html,
+      textContent: rendered.text,
+    });
+  }
+
+  async sendPasswordReset(
+    data: {
+      customerEmail: string;
+      customerName: string;
+      resetLink: string;
+      expiresIn?: string;
+    },
+    language: EmailLanguage = 'en'
+  ): Promise<SendEmailResult> {
+    const rendered = renderEmailTemplate(
+      'password-reset',
+      {
+        customerName: data.customerName,
+        resetLink: data.resetLink,
+        expiresIn: data.expiresIn || '24 hours',
+      } as PasswordResetData,
+      language
+    );
+
+    return this.sendEmail({
+      to: { email: data.customerEmail, name: data.customerName },
+      subject: rendered.subject,
+      htmlContent: rendered.html,
+      textContent: rendered.text,
+    });
+  }
+
+  async addToNewsletter(
+    email: string,
+    name?: string,
+    language: EmailLanguage = 'en',
+    sendWelcomeEmail = true
+  ): Promise<SendEmailResult> {
     // Demo mode - simulate successful subscription
     if (this.isDemoMode) {
       console.info('[Email Demo] Would add to newsletter:', { email, name });
+      if (sendWelcomeEmail) {
+        const rendered = renderEmailTemplate('newsletter-welcome', { email }, language);
+        console.info('[Email Demo] Would send newsletter welcome:', {
+          to: email,
+          subject: rendered.subject,
+        });
+      }
       return this.getDemoResult();
     }
 
@@ -208,6 +366,17 @@ export class BrevoProvider implements IEmailService {
         }
         console.error('Brevo add to newsletter error:', error);
         return { success: false, error: 'Failed to subscribe to newsletter' };
+      }
+
+      // Send welcome email for new subscribers
+      if (sendWelcomeEmail) {
+        const rendered = renderEmailTemplate('newsletter-welcome', { email }, language);
+        await this.sendEmail({
+          to: { email, name },
+          subject: rendered.subject,
+          htmlContent: rendered.html,
+          textContent: rendered.text,
+        });
       }
 
       return { success: true };

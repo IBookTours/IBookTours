@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { EventsContent } from '@/types';
-import { useInView, useIsDesktop } from '@/hooks';
+import { useInView, useIsDesktop, useSwipe } from '@/hooks';
 import styles from './EventsSection.module.scss';
 
 interface EventsSectionProps {
@@ -33,6 +33,9 @@ export default function EventsSection({ content }: EventsSectionProps) {
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
+
+  // Swipe handlers for mobile
+  const swipeHandlers = useSwipe(goToNext, goToPrevious);
 
   // Render event card (reusable for both layouts)
   const renderEventCard = (event: typeof events[0], index: number, showAnimation = true) => (
@@ -89,7 +92,7 @@ export default function EventsSection({ content }: EventsSectionProps) {
         {/* Mobile/Tablet: Carousel layout */}
         {!isDesktop && (
           <div className={`${styles.carouselContainer} ${isInView ? styles.visible : ''}`}>
-            <div className={styles.carouselTrack}>
+            <div className={styles.carouselTrack} {...swipeHandlers}>
               {renderEventCard(events[currentIndex], currentIndex, false)}
             </div>
 

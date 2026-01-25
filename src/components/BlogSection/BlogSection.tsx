@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Calendar, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { BlogContent, BlogPost } from '@/types';
-import { useInView, useIsPhone } from '@/hooks';
+import { useInView, useIsMobile, useSwipe } from '@/hooks';
 import styles from './BlogSection.module.scss';
 
 interface BlogSectionProps {
@@ -18,7 +18,7 @@ export default function BlogSection({ content }: BlogSectionProps) {
     triggerOnce: true,
   });
 
-  const isPhone = useIsPhone();
+  const isMobile = useIsMobile();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const featuredPost = content.posts.find((p) => p.featured) || content.posts[0];
@@ -36,6 +36,9 @@ export default function BlogSection({ content }: BlogSectionProps) {
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
+
+  // Swipe handlers for mobile
+  const swipeHandlers = useSwipe(goToNext, goToPrevious);
 
   // Render a blog card (reusable)
   const renderBlogCard = (post: BlogPost, isFeatured: boolean, index?: number, showAnimation = true) => (
@@ -95,10 +98,10 @@ export default function BlogSection({ content }: BlogSectionProps) {
           </Link>
         </div>
 
-        {/* Phone: Carousel layout */}
-        {isPhone && (
+        {/* Mobile: Carousel layout */}
+        {isMobile && (
           <div className={`${styles.carouselContainer} ${isInView ? styles.visible : ''}`}>
-            <div className={styles.carouselTrack}>
+            <div className={styles.carouselTrack} {...swipeHandlers}>
               {renderBlogCard(allPosts[currentIndex], currentIndex === 0, undefined, false)}
             </div>
 
@@ -134,7 +137,7 @@ export default function BlogSection({ content }: BlogSectionProps) {
         )}
 
         {/* Tablet/Desktop: Grid layout */}
-        {!isPhone && (
+        {!isMobile && (
           <div className={styles.grid}>
             {/* Featured Post */}
             {renderBlogCard(featuredPost, true)}
