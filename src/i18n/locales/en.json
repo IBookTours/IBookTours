@@ -20,11 +20,14 @@
     "title": "Discover the Beauty of Albania!",
     "subtitle": "Your Gateway to the Hidden Gem of Europe",
     "searchPlaceholder": "Search Albanian destinations...",
-    "overlayText": "Albania"
+    "overlayText": "Albania",
+    "popular": "Popular:",
+    "scrollDown": "Scroll Down"
   },
   "destinations": {
-    "sectionLabel": "Top Destinations",
-    "title": "Explore Albania's Hidden Gems",
+    "sectionLabel": "We make your trip",
+    "title": "Discover Unforgettable Adventures with Us!",
+    "subtitle": "Explore breathtaking destinations handpicked by our travel experts. From serene beaches to majestic mountains, your perfect adventure awaits.",
     "viewAll": "View All Tours",
     "from": "From",
     "perPerson": "per person",
@@ -50,7 +53,8 @@
     "title": "Top Albanian Events",
     "year": "2026",
     "learnMore": "Learn More",
-    "getTickets": "Get Tickets"
+    "getTickets": "Get Tickets",
+    "viewAll": "View All Events"
   },
   "partners": {
     "sectionLabel": "Our Partners",
@@ -208,6 +212,11 @@
       "cookies": "Cookies"
     },
     "faq": "FAQ",
+    "faqTitle": "Explore Our Travel Queries",
+    "faqSubtitle": "Find answers to commonly asked questions about our services",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "developedBy": "Developed by",
     "contactUs": "Contact Us",
     "copyright": "All rights reserved",
     "newsletter": {

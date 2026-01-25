@@ -4,14 +4,15 @@ import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Star, ChevronLeft, ChevronRight, ArrowRight, MapPin, Route, Smile } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { AdventureContent } from '@/types';
 import { useInView, useIsMobile, useSwipe } from '@/hooks';
 import styles from './AdventureSection.module.scss';
 
 const statIcons: Record<string, React.ReactNode> = {
-  'Unique Tours': <Route size={20} />,
-  'Destinations': <MapPin size={20} />,
-  'Happy Travelers': <Smile size={20} />,
+  'tours': <Route size={20} />,
+  'destinations': <MapPin size={20} />,
+  'satisfaction': <Smile size={20} />,
 };
 
 interface AdventureSectionProps {
@@ -19,6 +20,7 @@ interface AdventureSectionProps {
 }
 
 export default function AdventureSection({ content }: AdventureSectionProps) {
+  const t = useTranslations('adventure');
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.2,
     triggerOnce: true,
@@ -57,7 +59,7 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
 
       {category.count && (
         <span className={styles.categoryBadge}>
-          {category.count} tours
+          {category.count} {t('tours')}
         </span>
       )}
 
@@ -75,24 +77,25 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
       <div className={styles.container}>
         <div className={styles.grid}>
           <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-            <span className={styles.sectionLabel}>{content.sectionLabel}</span>
-            <h2 className={styles.title}>{content.title}</h2>
+            <span className={styles.sectionLabel}>{t('sectionLabel')}</span>
+            <h2 className={styles.title}>{t('title')}</h2>
 
-            {content.description && (
-              <p className={styles.description}>{content.description}</p>
-            )}
+            <p className={styles.description}>{t('description')}</p>
 
             {content.stats && content.stats.length > 0 && (
               <div className={styles.stats}>
-                {content.stats.map((stat, index) => (
-                  <div key={index} className={styles.statItem}>
-                    <span className={styles.statIcon}>
-                      {statIcons[stat.label] || <MapPin size={20} />}
-                    </span>
-                    <span className={styles.statValue}>{stat.value}</span>
-                    <span className={styles.statLabel}>{stat.label}</span>
-                  </div>
-                ))}
+                {content.stats.map((stat, index) => {
+                  const statKey = stat.key || stat.label.toLowerCase().replace(/\s+/g, '');
+                  return (
+                    <div key={index} className={styles.statItem}>
+                      <span className={styles.statIcon}>
+                        {statIcons[statKey] || <MapPin size={20} />}
+                      </span>
+                      <span className={styles.statValue}>{stat.value}</span>
+                      <span className={styles.statLabel}>{t(`stats.${statKey}`)}</span>
+                    </div>
+                  );
+                })}
               </div>
             )}
 
@@ -101,12 +104,12 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
                 <Star />
                 <span className={styles.ratingValue}>{content.rating.value}</span>
               </div>
-              <p className={styles.ratingLabel}>{content.rating.label}</p>
+              <p className={styles.ratingLabel}>{t('ratingLabel')}</p>
             </div>
 
-            {content.ctaText && content.ctaLink && (
+            {content.ctaLink && (
               <Link href={content.ctaLink} className={styles.ctaButton}>
-                {content.ctaText}
+                {t('cta')}
                 <ArrowRight size={18} />
               </Link>
             )}

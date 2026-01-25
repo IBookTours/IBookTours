@@ -15,6 +15,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
 import { useIsMobile, useSwipe, useInView } from '@/hooks';
@@ -49,6 +50,7 @@ export default function VacationPackagesSection({
   maxDisplay = 3,
   showSlider = true,
 }: VacationPackagesSectionProps) {
+  const t = useTranslations('vacationPackages');
   const { addItem } = useCartStore();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobileIndex, setMobileIndex] = useState(0);
@@ -129,13 +131,13 @@ export default function VacationPackagesSection({
           {pkg.includesFlights && (
             <span className={styles.includeBadge}>
               <Plane size={14} />
-              Flights Included
+              {t('flightsIncluded')}
             </span>
           )}
           {pkg.includesHotel && (
             <span className={styles.includeBadge}>
               <Hotel size={14} />
-              Hotel Included
+              {t('hotelIncluded')}
             </span>
           )}
         </div>
@@ -162,11 +164,11 @@ export default function VacationPackagesSection({
         <div className={styles.meta}>
           <span className={styles.metaItem}>
             <Calendar size={14} />
-            {pkg.nights} nights
+            {pkg.nights} {t('nights')}
           </span>
           <span className={styles.metaItem}>
             <Users size={14} />
-            From {pkg.departureCities[0]}
+            {pkg.departureCities[0]}
           </span>
         </div>
 
@@ -191,7 +193,7 @@ export default function VacationPackagesSection({
 
         <div className={styles.actions}>
           <Link href={`/tours/${pkg.id}`} className={styles.viewBtn}>
-            View Details
+            {t('viewDetails')}
             <ArrowRight size={16} />
           </Link>
           <button
@@ -212,11 +214,11 @@ export default function VacationPackagesSection({
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
           <span className={styles.badge}>
             <Plane size={16} />
-            Flight + Hotel Packages
+            {t('sectionLabel')}
           </span>
-          <h2 className={styles.title}>Vacation Packages</h2>
+          <h2 className={styles.title}>{t('title')}</h2>
           <p className={styles.subtitle}>
-            Complete holiday packages with flights and handpicked hotels. Everything you need for the perfect getaway.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -334,7 +336,7 @@ export default function VacationPackagesSection({
 
         <div className={styles.cta}>
           <Link href="/tours?type=package" className={styles.ctaButton}>
-            View All Packages
+            {t('viewAll')}
             <ArrowRight size={18} />
           </Link>
         </div>

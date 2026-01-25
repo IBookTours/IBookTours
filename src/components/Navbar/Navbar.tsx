@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Menu, X, Search, Sun, Moon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { NavItem } from '@/types';
 import { LoginButton } from '@/components/Auth';
 import { ThemeToggle, useTheme } from '@/components/ThemeProvider';
@@ -20,6 +21,7 @@ interface NavbarProps {
 export default function Navbar({ navigation, siteName }: NavbarProps) {
   const router = useRouter();
   const { resolvedTheme, toggleTheme } = useTheme();
+  const t = useTranslations('nav');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -70,7 +72,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
                 href={item.href}
                 className={`${styles.navLink} ${item.isActive ? styles.active : ''}`}
               >
-                {item.label}
+                {t(item.id)}
               </Link>
             ))}
           </nav>
@@ -128,7 +130,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
               className={`${styles.mobileNavLink} ${item.isActive ? styles.active : ''}`}
               onClick={closeMobileMenu}
             >
-              {item.label}
+              {t(item.id)}
             </Link>
           ))}
         </nav>
@@ -139,7 +141,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
             onClick={toggleTheme}
             aria-label={`Switch to ${resolvedTheme === 'light' ? 'dark' : 'light'} mode`}
           >
-            <span>{resolvedTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+            <span>{resolvedTheme === 'light' ? t('darkMode') : t('lightMode')}</span>
             {resolvedTheme === 'light' ? <Moon /> : <Sun />}
           </button>
           <LanguageSwitcher variant="mobile" onAction={closeMobileMenu} />

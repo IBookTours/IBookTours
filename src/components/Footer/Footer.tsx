@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronDown, Facebook, Instagram, Youtube } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { FooterContent } from '@/types';
 import styles from './Footer.module.scss';
 
@@ -36,6 +37,7 @@ const socialIcons: Record<string, React.ReactNode> = {
 };
 
 export default function Footer({ content, siteName }: FooterProps) {
+  const t = useTranslations('footer');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
 
   const toggleFaq = (id: string) => {
@@ -48,9 +50,9 @@ export default function Footer({ content, siteName }: FooterProps) {
         {/* FAQ Section */}
         <div className={styles.faqSection}>
           <div className={styles.faqHeader}>
-            <h3 className={styles.faqTitle}>Explore Our Travel Queries</h3>
+            <h3 className={styles.faqTitle}>{t('faqTitle')}</h3>
             <p className={styles.faqSubtitle}>
-              Find answers to commonly asked questions about our services
+              {t('faqSubtitle')}
             </p>
           </div>
 
@@ -125,15 +127,15 @@ export default function Footer({ content, siteName }: FooterProps) {
             <p className={styles.copyright}>{content.copyright}</p>
             <div className={styles.legalLinks}>
               <Link href="/terms" className={styles.legalLink}>
-                Terms of Service
+                {t('termsOfService')}
               </Link>
               <Link href="/privacy" className={styles.legalLink}>
-                Privacy Policy
+                {t('privacyPolicy')}
               </Link>
             </div>
           </div>
           <p className={styles.developer}>
-            Developed by Mahdy Gribkov
+            {t('developedBy')} Mahdy Gribkov
           </p>
         </div>
       </div>

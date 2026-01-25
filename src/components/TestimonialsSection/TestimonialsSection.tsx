@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { TestimonialsContent } from '@/types';
 import { useInView, useSwipe } from '@/hooks';
 import { CarouselArrows } from '@/components/shared';
@@ -13,6 +14,7 @@ interface TestimonialsSectionProps {
 }
 
 export default function TestimonialsSection({ content }: TestimonialsSectionProps) {
+  const t = useTranslations('testimonials');
   const [activeIndex, setActiveIndex] = useState(0);
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.2,
@@ -46,8 +48,8 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
 
       <div className={styles.container}>
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-          <span className={styles.sectionLabel}>{content.sectionLabel}</span>
-          <h2 className={styles.title}>{content.title}</h2>
+          <span className={styles.sectionLabel}>{t('sectionLabel')}</span>
+          <h2 className={styles.title}>{t('title')}</h2>
         </div>
 
         <div className={styles.carouselWrapper}>

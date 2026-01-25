@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Stat } from '@/types';
 import { useInView, useCountUp } from '@/hooks';
 import styles from './StatsSection.module.scss';
@@ -9,7 +10,7 @@ interface StatsSectionProps {
 }
 
 // Animated stat component
-function AnimatedStat({ stat, isInView }: { stat: Stat; isInView: boolean }) {
+function AnimatedStat({ stat, isInView, translatedLabel }: { stat: Stat; isInView: boolean; translatedLabel: string }) {
   // Parse the numeric value from the stat
   const numericValue = parseInt(stat.value.replace(/[^0-9]/g, ''), 10) || 0;
   const animatedValue = useCountUp(numericValue, 2000, isInView);
@@ -23,28 +24,41 @@ function AnimatedStat({ stat, isInView }: { stat: Stat; isInView: boolean }) {
         {formattedValue}
         {stat.suffix && <span className={styles.suffix}>{stat.suffix}</span>}
       </div>
-      <p className={styles.label}>{stat.label}</p>
+      <p className={styles.label}>{translatedLabel}</p>
     </div>
   );
 }
 
 export default function StatsSection({ stats }: StatsSectionProps) {
+  const t = useTranslations('stats');
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.3,
     triggerOnce: true,
   });
 
+  // Map stat IDs to translation keys
+  const statTranslationKeys: Record<string, string> = {
+    'travelers': 'travelers',
+    'destinations': 'destinations',
+    'rating': 'rating',
+    'satisfaction': 'satisfaction',
+  };
+
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
         <div className={styles.grid}>
-          {stats.map((stat, index) => (
-            <AnimatedStat
-              key={stat.id}
-              stat={stat}
-              isInView={isInView}
-            />
-          ))}
+          {stats.map((stat) => {
+            const translationKey = statTranslationKeys[stat.id] || stat.id;
+            return (
+              <AnimatedStat
+                key={stat.id}
+                stat={stat}
+                isInView={isInView}
+                translatedLabel={t(translationKey)}
+              />
+            );
+          })}
         </div>
 
         {/* Decorative curved lines connecting stats */}

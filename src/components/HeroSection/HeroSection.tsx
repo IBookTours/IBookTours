@@ -4,6 +4,7 @@ import { useState, useRef, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Search, ChevronDown } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { HeroContent } from '@/types';
 import VideoBackground from '@/components/VideoBackground';
 import styles from './HeroSection.module.scss';
@@ -17,6 +18,7 @@ const popularTags = ['Saranda', 'Tirana', 'Berat', 'Ksamil', 'Theth'];
 
 export default function HeroSection({ content }: HeroSectionProps) {
   const router = useRouter();
+  const t = useTranslations('hero');
   const [searchQuery, setSearchQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -55,19 +57,19 @@ export default function HeroSection({ content }: HeroSectionProps) {
         </div>
       )}
 
-      <span className={styles.overlayText}>{content.overlayText}</span>
+      <span className={styles.overlayText}>{t('overlayText')}</span>
 
       <div className={styles.content}>
         <div className={styles.textContent}>
-          <h1 className={styles.title}>{content.title}</h1>
-          <p className={styles.subtitle}>{content.subtitle}</p>
+          <h1 className={styles.title}>{t('title')}</h1>
+          <p className={styles.subtitle}>{t('subtitle')}</p>
         </div>
         <div className={styles.searchWrapper}>
           <form className={styles.searchBox} onSubmit={handleSearch}>
             <input
               ref={inputRef}
               type="text"
-              placeholder={content.searchPlaceholder}
+              placeholder={t('searchPlaceholder')}
               aria-label="Search destinations"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -77,7 +79,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
             </button>
           </form>
           <div className={styles.popularTags}>
-            <span>Popular:</span>
+            <span>{t('popular')}</span>
             {popularTags.map((tag) => (
               <button
                 key={tag}
@@ -93,7 +95,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
       </div>
 
       <div className={styles.scrollIndicator}>
-        <span>Scroll Down</span>
+        <span>{t('scrollDown')}</span>
         <ChevronDown />
       </div>
     </section>

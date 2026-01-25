@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { EventsContent } from '@/types';
 import { useInView, useIsDesktop, useSwipe } from '@/hooks';
 import styles from './EventsSection.module.scss';
@@ -13,6 +14,7 @@ interface EventsSectionProps {
 }
 
 export default function EventsSection({ content }: EventsSectionProps) {
+  const t = useTranslations('events');
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.15,
     triggerOnce: true,
@@ -73,12 +75,12 @@ export default function EventsSection({ content }: EventsSectionProps) {
       <div className={styles.container}>
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
           <div className={styles.titleWrapper}>
-            <span className={styles.year}>{content.year}</span>
-            <h2 className={styles.title}>{content.title}</h2>
+            <span className={styles.year}>{t('year')}</span>
+            <h2 className={styles.title}>{t('title')}</h2>
           </div>
 
           <Link href="/tours" className={styles.viewAll}>
-            View All Events
+            {t('viewAll')}
             <ArrowRight />
           </Link>
         </div>

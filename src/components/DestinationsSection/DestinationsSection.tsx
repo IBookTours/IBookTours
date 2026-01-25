@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Destination } from '@/types';
 import DestinationCard from '@/components/DestinationCard';
 import { useInView } from '@/hooks';
@@ -12,6 +13,7 @@ interface DestinationsSectionProps {
 }
 
 export default function DestinationsSection({ destinations }: DestinationsSectionProps) {
+  const t = useTranslations('destinations');
   const [currentPage, setCurrentPage] = useState(0);
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.2,
@@ -53,13 +55,12 @@ export default function DestinationsSection({ destinations }: DestinationsSectio
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.titleWrapper}>
-            <span className={styles.sectionLabel}>We make your trip</span>
+            <span className={styles.sectionLabel}>{t('sectionLabel')}</span>
             <h2 className={styles.title}>
-              Discover Unforgettable Adventures with Us!
+              {t('title')}
             </h2>
             <p className={styles.subtitle}>
-              Explore breathtaking destinations handpicked by our travel experts.
-              From serene beaches to majestic mountains, your perfect adventure awaits.
+              {t('subtitle')}
             </p>
           </div>
 

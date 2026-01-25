@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Calendar, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { BlogContent, BlogPost } from '@/types';
 import { useInView, useIsMobile, useSwipe } from '@/hooks';
 import styles from './BlogSection.module.scss';
@@ -15,6 +16,7 @@ interface BlogSectionProps {
 }
 
 export default function BlogSection({ content }: BlogSectionProps) {
+  const t = useTranslations('blog');
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.15,
     triggerOnce: true,
@@ -87,7 +89,7 @@ export default function BlogSection({ content }: BlogSectionProps) {
         </div>
         {isFeatured && (
           <Link href="/blog" className={styles.readMore}>
-            Read More
+            {t('readMore')}
             <ArrowRight />
           </Link>
         )}
@@ -99,9 +101,9 @@ export default function BlogSection({ content }: BlogSectionProps) {
     <section ref={sectionRef} className={styles.section} id="blog">
       <div className={styles.container}>
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-          <h2 className={styles.title}>{content.sectionTitle}</h2>
+          <h2 className={styles.title}>{t('title')}</h2>
           <Link href="/blog" className={styles.viewAll}>
-            View All Posts
+            {t('viewAll')}
             <ArrowRight />
           </Link>
         </div>

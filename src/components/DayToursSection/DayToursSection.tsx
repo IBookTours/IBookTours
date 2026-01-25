@@ -14,6 +14,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
 import { useIsMobile, useSwipe, useInView } from '@/hooks';
@@ -43,14 +44,6 @@ interface DayToursSectionProps {
   showSlider?: boolean;
 }
 
-const categoryLabels: Record<TourCategory, string> = {
-  all: 'All Tours',
-  cultural: 'Cultural',
-  adventure: 'Adventure',
-  food: 'Food & Wine',
-  nature: 'Nature',
-};
-
 const categoryColors: Record<TourCategory, string> = {
   all: '',
   cultural: styles.cultural,
@@ -65,6 +58,8 @@ export default function DayToursSection({
   maxDisplay = 3,
   showSlider = true,
 }: DayToursSectionProps) {
+  const t = useTranslations('dayTours');
+  const tTours = useTranslations('tours');
   const [activeCategory, setActiveCategory] = useState<TourCategory>('all');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobileIndex, setMobileIndex] = useState(0);
@@ -149,7 +144,7 @@ export default function DayToursSection({
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
         />
         <span className={`${styles.categoryBadge} ${categoryColors[tour.category]}`}>
-          {categoryLabels[tour.category]}
+          {tTours(`filters.${tour.category}`)}
         </span>
         <span className={styles.durationBadge}>
           <Clock size={12} />
@@ -168,7 +163,7 @@ export default function DayToursSection({
         <div className={styles.meta}>
           <span className={styles.metaItem}>
             <Users size={14} />
-            {tour.groupSize.min}-{tour.groupSize.max} people
+            {tour.groupSize.min}-{tour.groupSize.max} {t('people')}
           </span>
           <span className={styles.rating}>
             <Star size={14} fill="currentColor" />
@@ -206,11 +201,11 @@ export default function DayToursSection({
           <div className={styles.headerLeft}>
             <span className={styles.badge}>
               <Clock size={16} />
-              Day Tours & Excursions
+              {t('sectionLabel')}
             </span>
-            <h2 className={styles.title}>Explore Albania in a Day</h2>
+            <h2 className={styles.title}>{t('title')}</h2>
             <p className={styles.subtitle}>
-              Join our guided day trips and group tours. Perfect for travelers who want to see more in less time.
+              {t('subtitle')}
             </p>
           </div>
 
@@ -223,7 +218,7 @@ export default function DayToursSection({
                   className={`${styles.filterBtn} ${activeCategory === category ? styles.active : ''}`}
                   onClick={() => handleCategoryChange(category)}
                 >
-                  {categoryLabels[category]}
+                  {tTours(`filters.${category}`)}
                 </button>
               ))}
             </div>
@@ -327,7 +322,7 @@ export default function DayToursSection({
 
         <div className={styles.cta}>
           <Link href="/tours" className={styles.ctaButton}>
-            View All Day Tours
+            {t('viewAll')}
             <ArrowRight size={18} />
           </Link>
         </div>

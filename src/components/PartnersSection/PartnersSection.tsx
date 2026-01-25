@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { Shield } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useInView } from '@/hooks';
 import styles from './PartnersSection.module.scss';
 
@@ -17,6 +18,7 @@ interface PartnersSectionProps {
 }
 
 export default function PartnersSection({ partners }: PartnersSectionProps) {
+  const t = useTranslations('partners');
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.1,
     triggerOnce: true,
@@ -28,11 +30,11 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
           <span className={styles.badge}>
             <Shield size={16} />
-            Our Partners
+            {t('sectionLabel')}
           </span>
-          <h2 className={styles.title}>Trusted by Leading Travel Technology Providers</h2>
+          <h2 className={styles.title}>{t('title')}</h2>
           <p className={styles.subtitle}>
-            We partner with the world&apos;s best travel technology companies to bring you seamless booking experiences and the best prices.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -61,19 +63,19 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
         <div className={`${styles.trust} ${isInView ? styles.visible : ''}`}>
           <div className={styles.trustItem}>
             <span className={styles.trustNumber}>1M+</span>
-            <span className={styles.trustLabel}>Bookings Processed</span>
+            <span className={styles.trustLabel}>{t('stats.bookings')}</span>
           </div>
           <div className={styles.trustItem}>
             <span className={styles.trustNumber}>500+</span>
-            <span className={styles.trustLabel}>Hotels Worldwide</span>
+            <span className={styles.trustLabel}>{t('stats.hotels')}</span>
           </div>
           <div className={styles.trustItem}>
             <span className={styles.trustNumber}>100+</span>
-            <span className={styles.trustLabel}>Airlines Connected</span>
+            <span className={styles.trustLabel}>{t('stats.airlines')}</span>
           </div>
           <div className={styles.trustItem}>
             <span className={styles.trustNumber}>24/7</span>
-            <span className={styles.trustLabel}>Customer Support</span>
+            <span className={styles.trustLabel}>{t('stats.support')}</span>
           </div>
         </div>
       </div>
