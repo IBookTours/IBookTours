@@ -11,18 +11,19 @@ import {
   MessageSquare,
   CheckCircle,
 } from 'lucide-react';
+import { validateEmail, validateName, getFieldError } from '@/utils/validation';
 import styles from './contact.module.scss';
 
 const contactInfo = [
   {
     icon: MapPin,
     title: 'Our Office',
-    details: ['ITravel Headquarters', 'Haifa, Israel', '3100001'],
+    details: ['ITravel Headquarters', 'Tirana, Albania', '1001'],
   },
   {
     icon: Phone,
     title: 'Phone',
-    details: ['+972 4 123 4567', '+972 50 123 4567'],
+    details: ['+355 4 234 5678', '+355 69 234 5678'],
   },
   {
     icon: Mail,
@@ -58,6 +59,7 @@ export default function ContactPage() {
     subject: '',
     message: '',
   });
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -72,6 +74,23 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate form fields
+    const errors: Record<string, string> = {};
+
+    if (!validateName(formData.name)) {
+      errors.name = getFieldError('name', formData.name) || 'Please enter a valid name';
+    }
+    if (!validateEmail(formData.email)) {
+      errors.email = getFieldError('email', formData.email) || 'Please enter a valid email address';
+    }
+
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      return; // Don't submit if validation fails
+    }
+
     setIsSubmitting(true);
 
     // Simulate API call
@@ -137,7 +156,15 @@ export default function ContactPage() {
                           required
                           autoComplete="name"
                           aria-required="true"
+                          aria-invalid={!!formErrors.name}
+                          aria-describedby={formErrors.name ? 'name-error' : undefined}
+                          className={formErrors.name ? styles.inputError : ''}
                         />
+                        {formErrors.name && (
+                          <span id="name-error" className={styles.fieldError} role="alert">
+                            {formErrors.name}
+                          </span>
+                        )}
                       </div>
                       <div className={styles.inputGroup}>
                         <label htmlFor="email">Email Address</label>
@@ -151,7 +178,15 @@ export default function ContactPage() {
                           required
                           autoComplete="email"
                           aria-required="true"
+                          aria-invalid={!!formErrors.email}
+                          aria-describedby={formErrors.email ? 'email-error' : undefined}
+                          className={formErrors.email ? styles.inputError : ''}
                         />
+                        {formErrors.email && (
+                          <span id="email-error" className={styles.fieldError} role="alert">
+                            {formErrors.email}
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -224,20 +259,18 @@ export default function ContactPage() {
               ))}
             </div>
 
-            {/* Map Placeholder */}
+            {/* Google Maps Embed */}
             <div className={styles.mapCard}>
-              <div className={styles.mapPlaceholder}>
-                <Image
-                  src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=600&h=300&fit=crop&q=80"
-                  alt="Albania map and location"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 400px"
-                />
-                <div className={styles.mapOverlay}>
-                  <MapPin />
-                  <span>Haifa, Israel</span>
-                </div>
-              </div>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47895.05332029656!2d19.7866848!3d41.3275459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1350310470fac5db%3A0x40092af10653720!2sTirana%2C%20Albania!5e0!3m2!1sen!2s!4v1706000000000!5m2!1sen!2s"
+                width="100%"
+                height="250"
+                style={{ border: 0, borderRadius: '12px' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="ITravel Office Location - Tirana, Albania"
+              />
             </div>
           </div>
         </div>

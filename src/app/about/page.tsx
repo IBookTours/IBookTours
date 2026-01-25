@@ -112,7 +112,7 @@ export default async function AboutPage() {
           <span className={styles.badge}>Our Story</span>
           <h1>Crafting Unforgettable Journeys Since 2010</h1>
           <p>
-            We&apos;re more than a travel agency — we&apos;re dreamweavers, adventure architects,
+            We&apos;re more than a travel agency - we&apos;re dreamweavers, adventure architects,
             and your partners in discovery.
           </p>
         </div>
@@ -180,7 +180,7 @@ export default async function AboutPage() {
                 and explorers.
               </p>
               <p>
-                We believe that travel is more than visiting new places — it&apos;s about
+                We believe that travel is more than visiting new places - it&apos;s about
                 immersing yourself in different cultures, creating meaningful connections,
                 and returning home with stories that last a lifetime.
               </p>

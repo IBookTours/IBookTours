@@ -316,7 +316,7 @@ export const PromoVideo: React.FC = () => {
                     fontWeight: 600,
                   }}
                 >
-                  — {t.name}
+                  - {t.name}
                 </p>
               </div>
             ))}

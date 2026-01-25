@@ -333,18 +333,21 @@ $z-tooltip: 700;
 // BREAKPOINTS
 // ============================================
 
-$breakpoint-sm: 640px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 1024px;
-$breakpoint-xl: 1280px;
-$breakpoint-2xl: 1536px;
+$breakpoint-xs: 375px;   // Small phones (iPhone SE)
+$breakpoint-sm: 640px;   // Large phones
+$breakpoint-md: 768px;   // Tablets
+$breakpoint-lg: 1024px;  // Laptops
+$breakpoint-xl: 1280px;  // Desktops
+$breakpoint-2xl: 1536px; // Large desktops
 
 // ============================================
 // MIXINS
 // ============================================
 
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == sm {
+  @if $breakpoint == xs {
+    @media (max-width: $breakpoint-xs) { @content; }
+  } @else if $breakpoint == sm {
     @media (min-width: $breakpoint-sm) { @content; }
   } @else if $breakpoint == md {
     @media (min-width: $breakpoint-md) { @content; }

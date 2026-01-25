@@ -47,7 +47,7 @@ The company has also enhanced its booking platform with improved accessibility f
 
 The initiative includes partnerships with local reforestation projects, investment in electric transportation, and support for community-based tourism that directly benefits local residents.
 
-"Sustainable tourism isn't just good for the planet—it's essential for preserving the destinations we love," said the ITravel team. "We're committed to leading by example in the Albanian tourism industry."
+"Sustainable tourism isn't just good for the planet - it's essential for preserving the destinations we love," said the ITravel team. "We're committed to leading by example in the Albanian tourism industry."
 
 The company will also introduce an optional carbon offset contribution for customers at checkout.`,
   },
@@ -61,7 +61,7 @@ The company will also introduce an optional carbon offset contribution for custo
 
 The award highlights ITravel's innovative approach to tour design, strong customer reviews, and contribution to sustainable tourism in the region.
 
-"This recognition belongs to our entire team—from our guides on the ground to our customer service representatives," said ITravel representatives. "We're proud to showcase Albania to the world."
+"This recognition belongs to our entire team - from our guides on the ground to our customer service representatives," said ITravel representatives. "We're proud to showcase Albania to the world."
 
 The company has grown significantly over the past year, welcoming thousands of visitors from over 50 countries.`,
   },

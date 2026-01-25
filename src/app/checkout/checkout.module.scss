@@ -289,6 +289,33 @@
   }
 }
 
+// Form Validation Errors
+.inputError {
+  border-color: $error !important;
+
+  &:focus {
+    border-color: $error !important;
+    box-shadow: 0 0 0 3px rgba($error, 0.1) !important;
+  }
+}
+
+.fieldError {
+  display: block;
+  font-size: $font-xs;
+  color: $error;
+  margin-top: $spacing-1;
+}
+
+.paymentError {
+  padding: $spacing-3 $spacing-4;
+  background: rgba($error, 0.1);
+  border: 1px solid $error;
+  border-radius: $radius-lg;
+  color: $error;
+  font-size: $font-sm;
+  margin-top: $spacing-4;
+}
+
 .dateInput {
   width: 100%;
   padding: $spacing-3 $spacing-4;

@@ -4,11 +4,15 @@
   position: fixed;
   bottom: $spacing-6;
   left: $spacing-6;
-  z-index: $z-tooltip;
+  z-index: 599;  // Below WhatsApp (600) when closed
 
   @include respond-to(md) {
     bottom: $spacing-8;
     left: $spacing-8;
+  }
+
+  &.isOpen {
+    z-index: 800;  // Above everything when open
   }
 }
 

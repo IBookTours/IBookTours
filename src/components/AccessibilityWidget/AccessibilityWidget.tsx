@@ -262,7 +262,7 @@ export default function AccessibilityWidget() {
   ];
 
   return (
-    <div className={styles.widget}>
+    <div className={`${styles.widget} ${isOpen ? styles.isOpen : ''}`}>
       <button
         className={styles.trigger}
         onClick={handleToggle}

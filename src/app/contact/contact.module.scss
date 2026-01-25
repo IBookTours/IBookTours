@@ -204,6 +204,23 @@
   }
 }
 
+// Form Validation Errors
+.inputError {
+  border-color: $error !important;
+
+  &:focus {
+    border-color: $error !important;
+    box-shadow: 0 0 0 3px rgba($error, 0.1) !important;
+  }
+}
+
+.fieldError {
+  display: block;
+  font-size: $font-xs;
+  color: $error;
+  margin-top: $spacing-1;
+}
+
 .submitButton {
   @include button-primary;
   width: 100%;

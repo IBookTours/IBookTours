@@ -127,6 +127,8 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -136,6 +138,7 @@ body {
   color: $text-primary;
   background: $bg-primary;
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 // ============================================

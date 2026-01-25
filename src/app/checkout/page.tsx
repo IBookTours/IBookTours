@@ -35,6 +35,7 @@ import {
   PassengerInfo,
 } from '@/store/bookingsStore';
 import { siteData } from '@/data/siteData';
+import { validateEmail, validatePhone, validateName, getFieldError } from '@/utils/validation';
 import styles from './checkout.module.scss';
 
 type Step = 1 | 2 | 3 | 4;
@@ -111,6 +112,9 @@ function CheckoutContent() {
     cvc: '',
   });
 
+  // Form validation errors
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
   // Initialize checkout mode and data
   useEffect(() => {
     if (tourId) {
@@ -152,15 +156,34 @@ function CheckoutContent() {
 
   // Validate all passenger forms for cart mode
   const validateAllPassengers = useCallback(() => {
+    const errors: Record<string, string> = {};
+
+    // Validate booker info with actual regex validation
+    if (!validateName(bookerName)) {
+      errors.name = getFieldError('name', bookerName) || 'Please enter a valid name';
+    }
+    if (!validateEmail(bookerEmail)) {
+      errors.email = getFieldError('email', bookerEmail) || 'Please enter a valid email address';
+    }
+    if (!validatePhone(bookerPhone)) {
+      errors.phone = getFieldError('phone', bookerPhone) || 'Please enter a valid phone number (10+ digits)';
+    }
+
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      return false;
+    }
+
     if (checkoutMode === 'single') {
-      return isPassengerFormValid && bookerEmail.length > 0 && bookerPhone.length > 0;
+      return isPassengerFormValid;
     }
 
     // Cart mode: check all items have valid passenger names
     const allValid = cartPassengers.every((item) =>
-      item.passengers.every((p) => p.fullName.trim().length >= 2)
+      item.passengers.every((p) => validateName(p.fullName))
     );
-    return allValid && bookerEmail.length > 0 && bookerPhone.length > 0 && bookerName.length > 0;
+    return allValid;
   }, [checkoutMode, isPassengerFormValid, bookerEmail, bookerPhone, bookerName, cartPassengers]);
 
   // Step navigation
@@ -316,7 +339,7 @@ function CheckoutContent() {
       }
       resetBooking();
     } catch {
-      alert('Payment failed. Please try again.');
+      setFormErrors({ payment: 'Payment failed. Please check your card details and try again.' });
     } finally {
       setIsLoading(false);
     }
@@ -749,12 +772,23 @@ function CheckoutContent() {
                         type="text"
                         id="bookerName"
                         value={bookerName}
-                        onChange={(e) => setBookerInfo(e.target.value, bookerEmail, bookerPhone)}
+                        onChange={(e) => {
+                          setBookerInfo(e.target.value, bookerEmail, bookerPhone);
+                          if (formErrors.name) setFormErrors((prev) => ({ ...prev, name: '' }));
+                        }}
                         placeholder="John Doe"
                         required
                         autoComplete="name"
                         aria-required="true"
+                        aria-invalid={!!formErrors.name}
+                        aria-describedby={formErrors.name ? 'name-error' : undefined}
+                        className={formErrors.name ? styles.inputError : ''}
                       />
+                      {formErrors.name && (
+                        <span id="name-error" className={styles.fieldError} role="alert">
+                          {formErrors.name}
+                        </span>
+                      )}
                     </div>
                     <div className={styles.field}>
                       <label htmlFor="bookerEmail">Email *</label>
@@ -762,12 +796,23 @@ function CheckoutContent() {
                         type="email"
                         id="bookerEmail"
                         value={bookerEmail}
-                        onChange={(e) => setBookerInfo(bookerName, e.target.value, bookerPhone)}
+                        onChange={(e) => {
+                          setBookerInfo(bookerName, e.target.value, bookerPhone);
+                          if (formErrors.email) setFormErrors((prev) => ({ ...prev, email: '' }));
+                        }}
                         placeholder="john@example.com"
                         required
                         autoComplete="email"
                         aria-required="true"
+                        aria-invalid={!!formErrors.email}
+                        aria-describedby={formErrors.email ? 'email-error' : undefined}
+                        className={formErrors.email ? styles.inputError : ''}
                       />
+                      {formErrors.email && (
+                        <span id="email-error" className={styles.fieldError} role="alert">
+                          {formErrors.email}
+                        </span>
+                      )}
                     </div>
                     <div className={styles.field}>
                       <label htmlFor="bookerPhone">Phone *</label>
@@ -775,12 +820,23 @@ function CheckoutContent() {
                         type="tel"
                         id="bookerPhone"
                         value={bookerPhone}
-                        onChange={(e) => setBookerInfo(bookerName, bookerEmail, e.target.value)}
+                        onChange={(e) => {
+                          setBookerInfo(bookerName, bookerEmail, e.target.value);
+                          if (formErrors.phone) setFormErrors((prev) => ({ ...prev, phone: '' }));
+                        }}
                         placeholder="+1 234 567 8900"
                         required
                         autoComplete="tel"
                         aria-required="true"
+                        aria-invalid={!!formErrors.phone}
+                        aria-describedby={formErrors.phone ? 'phone-error' : undefined}
+                        className={formErrors.phone ? styles.inputError : ''}
                       />
+                      {formErrors.phone && (
+                        <span id="phone-error" className={styles.fieldError} role="alert">
+                          {formErrors.phone}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1027,6 +1083,12 @@ function CheckoutContent() {
                   <Lock size={14} />
                   Your payment is secured with SSL encryption
                 </p>
+
+                {formErrors.payment && (
+                  <div className={styles.paymentError} role="alert">
+                    {formErrors.payment}
+                  </div>
+                )}
               </div>
             )}
 
