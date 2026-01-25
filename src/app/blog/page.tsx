@@ -1,14 +1,13 @@
-import { Metadata } from 'next';
+'use client';
+
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowRight, Tag } from 'lucide-react';
 import { siteData } from '@/data/siteData';
 import styles from './blog.module.scss';
 
-export const metadata: Metadata = {
-  title: 'Blog | ITravel',
-  description: 'Travel tips, destination guides, and inspiration for your next adventure.',
-};
+const FALLBACK_IMAGE = '/media/hero-fallback.jpg';
 
 const categories = [
   { id: 'all', label: 'All Posts' },
@@ -51,6 +50,12 @@ const allPosts = [
 ];
 
 export default function BlogPage() {
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+
+  const handleImageError = useCallback((postId: string) => {
+    setFailedImages((prev) => new Set(prev).add(postId));
+  }, []);
+
   const featuredPost = siteData.blog.posts.find((p) => p.featured) || siteData.blog.posts[0];
   const regularPosts = allPosts.filter((p) => p.id !== featuredPost.id);
 
@@ -84,11 +89,12 @@ export default function BlogPage() {
         <article className={styles.featuredPost}>
           <div className={styles.featuredImage}>
             <Image
-              src={featuredPost.image}
+              src={failedImages.has(featuredPost.id) ? FALLBACK_IMAGE : featuredPost.image}
               alt={featuredPost.title}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 60vw"
+              onError={() => handleImageError(featuredPost.id)}
             />
             <span className={styles.featuredBadge}>Featured</span>
           </div>
@@ -130,10 +136,11 @@ export default function BlogPage() {
             <article key={post.id} className={styles.postCard}>
               <div className={styles.postImage}>
                 <Image
-                  src={post.image}
+                  src={failedImages.has(post.id) ? FALLBACK_IMAGE : post.image}
                   alt={post.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  onError={() => handleImageError(post.id)}
                 />
               </div>
               <div className={styles.postContent}>

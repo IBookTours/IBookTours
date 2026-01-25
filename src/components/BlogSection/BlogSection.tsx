@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Calendar, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { BlogContent, BlogPost } from '@/types';
 import { useInView, useIsMobile, useSwipe } from '@/hooks';
 import styles from './BlogSection.module.scss';
+
+const FALLBACK_IMAGE = '/media/hero-fallback.jpg';
 
 interface BlogSectionProps {
   content: BlogContent;
@@ -20,6 +22,11 @@ export default function BlogSection({ content }: BlogSectionProps) {
 
   const isMobile = useIsMobile();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+
+  const handleImageError = useCallback((postId: string) => {
+    setFailedImages((prev) => new Set(prev).add(postId));
+  }, []);
 
   const featuredPost = content.posts.find((p) => p.featured) || content.posts[0];
   const otherPosts = content.posts.filter((p) => p.id !== featuredPost.id);
@@ -49,10 +56,11 @@ export default function BlogSection({ content }: BlogSectionProps) {
     >
       <div className={styles.imageWrapper}>
         <Image
-          src={post.image}
+          src={failedImages.has(post.id) ? FALLBACK_IMAGE : post.image}
           alt={post.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          onError={() => handleImageError(post.id)}
         />
         {isFeatured && post.stats && (
           <div className={styles.statsBadge}>

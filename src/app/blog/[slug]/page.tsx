@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,6 +9,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { siteData } from '@/data/siteData';
 import styles from './blogPost.module.scss';
+
+const FALLBACK_IMAGE = '/media/hero-fallback.jpg';
+const FALLBACK_AVATAR = '/icon.svg';
 
 // Extended blog posts data
 const blogPosts: Record<string, {
@@ -175,6 +179,11 @@ export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;
   const post = blogPosts[slug];
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+
+  const handleImageError = useCallback((imageId: string) => {
+    setFailedImages((prev) => new Set(prev).add(imageId));
+  }, []);
 
   if (!post) {
     return (
@@ -201,12 +210,13 @@ export default function BlogPostPage() {
       <article className={styles.article}>
         <div className={styles.hero}>
           <Image
-            src={post.image}
+            src={failedImages.has(`hero-${post.id}`) ? FALLBACK_IMAGE : post.image}
             alt={post.title}
             fill
             priority
             sizes="100vw"
             className={styles.heroImage}
+            onError={() => handleImageError(`hero-${post.id}`)}
           />
           <div className={styles.heroOverlay} />
           <div className={styles.heroContent}>
@@ -237,11 +247,12 @@ export default function BlogPostPage() {
           <aside className={styles.sidebar}>
             <div className={styles.authorCard}>
               <Image
-                src={post.author.avatar}
+                src={failedImages.has(`avatar-${post.id}`) ? FALLBACK_AVATAR : post.author.avatar}
                 alt={post.author.name}
                 width={64}
                 height={64}
                 className={styles.authorAvatar}
+                onError={() => handleImageError(`avatar-${post.id}`)}
               />
               <div className={styles.authorInfo}>
                 <span className={styles.authorName}>{post.author.name}</span>
@@ -305,10 +316,11 @@ export default function BlogPostPage() {
                   >
                     <div className={styles.relatedImage}>
                       <Image
-                        src={relatedPost.image}
+                        src={failedImages.has(`related-${relatedPost.id}`) ? FALLBACK_IMAGE : relatedPost.image}
                         alt={relatedPost.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
+                        onError={() => handleImageError(`related-${relatedPost.id}`)}
                       />
                     </div>
                     <div className={styles.relatedContent}>
