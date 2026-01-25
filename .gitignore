@@ -64,6 +64,7 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 Desktop.ini
+nul
 
 # ============================================
 # TYPESCRIPT
