@@ -2,11 +2,11 @@
 
 .section {
   position: relative;
-  padding: $spacing-20 0;
+  padding: $section-padding-y-mobile 0;
   overflow: hidden;
 
   @include respond-to(lg) {
-    padding: $spacing-24 0;
+    padding: $section-padding-y 0;
   }
 }
 

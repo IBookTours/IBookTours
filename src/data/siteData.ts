@@ -375,7 +375,7 @@ export const siteData: SiteContent = {
         },
         content: 'מדריך נפלא, מקצועי עם ידע רב על המקום. כארם היה סבלני, אדיב ומסביר מעולה. הפך את הטיול לחוויה בלתי נשכחת. ממליצה בחום!',
         rating: 5,
-        date: '2025',
+        date: 'November 2025',
         source: 'Facebook',
       },
       {
@@ -388,7 +388,7 @@ export const siteData: SiteContent = {
         },
         content: 'ממליץ מכל הלב! שירות VIP, מדריך מקצועי ואמין. כארם דאג לכל פרט קטן והפך את הטיול שלנו למושלם. תודה רבה!',
         rating: 5,
-        date: '2025',
+        date: 'November 2025',
         source: 'Facebook',
       },
       {
@@ -401,7 +401,7 @@ export const siteData: SiteContent = {
         },
         content: 'ההורים שלי וחברים נסעו לאלבניה וקיבלו שירות מעולה מכארם. הוא היה קשוב לכל בקשה, מקצועי ואדיב. הם חזרו עם חוויות מדהימות!',
         rating: 5,
-        date: '2025',
+        date: 'October 2025',
         source: 'Facebook',
       },
       {
@@ -414,7 +414,7 @@ export const siteData: SiteContent = {
         },
         content: 'חברים יקרים! לטסים לאלבניה? תפנו לכארם. מדריך מעולה עם ידע עצום, שירות אישי ומקצועיות ברמה הגבוהה ביותר. לא תתחרטו!',
         rating: 5,
-        date: '2025',
+        date: 'December 2025',
         source: 'Facebook',
       },
       {
@@ -427,7 +427,7 @@ export const siteData: SiteContent = {
         },
         content: 'אני רוצה להמליץ בחום על כארם כמדריך טיולים באלבניה. הוא מקצועי, אמין ובעל ידע רחב. הטיול איתו היה חוויה מיוחדת במינה!',
         rating: 5,
-        date: '2025',
+        date: 'January 2026',
         source: 'Facebook',
       },
       {
@@ -440,7 +440,7 @@ export const siteData: SiteContent = {
         },
         content: 'היה לנו טיול מושלם בזכות כארם! מדריך מדהים שמכיר כל פינה באלבניה. השירות היה מעל ומעבר לציפיות. ממליצה בחום לכל מי שמתכנן טיול!',
         rating: 5,
-        date: '2025',
+        date: 'January 2026',
         source: 'Facebook',
       },
       {
@@ -453,7 +453,7 @@ export const siteData: SiteContent = {
         },
         content: 'תודה רבה לכארם על טיול מדהים באלבניה! הוא היה מדריך נפלא, סבלני ומלא ידע. כל רגע היה מושלם. בהחלט נחזור!',
         rating: 5,
-        date: '2025',
+        date: 'December 2025',
         source: 'Facebook',
       },
       {
@@ -466,7 +466,7 @@ export const siteData: SiteContent = {
         },
         content: 'כארם היקר, באמת שאין לי מילים לתאר כמה הטיול איתך היה מיוחד! מקצועיות, חום ואכפתיות. ממליצה לכולם בעיניים עצומות!',
         rating: 5,
-        date: '2025',
+        date: 'November 2025',
         source: 'Facebook',
       },
       {
@@ -479,7 +479,7 @@ export const siteData: SiteContent = {
         },
         content: 'טיילנו שלושה ימים עם כארם באלבניה - חוויה בלתי נשכחת! מדריך מעולה, רכב נוח ושירות מעל הציפיות. תודה על הכל!',
         rating: 5,
-        date: '2025',
+        date: 'January 2026',
         source: 'Facebook',
       },
     ],

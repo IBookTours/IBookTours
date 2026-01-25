@@ -731,3 +731,84 @@ html.saturation-high {
     }
   }
 }
+
+// ============================================
+// RTL (Right-to-Left) SUPPORT
+// ============================================
+
+[dir="rtl"] {
+  // Text alignment adjustments
+  text-align: right;
+
+  // Flip horizontal margins and paddings where needed
+  .ml-auto {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .mr-auto {
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  // Flip transform directions for animations
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  // Skip link adjustment
+  .skip-link {
+    left: auto;
+    right: 50%;
+    transform: translateX(50%);
+
+    &:focus {
+      transform: translateX(50%);
+    }
+  }
+}
+
+// RTL-aware flexbox utilities
+.flex-row-rtl {
+  display: flex;
+  flex-direction: row;
+
+  [dir="rtl"] & {
+    flex-direction: row-reverse;
+  }
+}
+
+// RTL text alignment utilities
+.text-start {
+  text-align: left;
+
+  [dir="rtl"] & {
+    text-align: right;
+  }
+}
+
+.text-end {
+  text-align: right;
+
+  [dir="rtl"] & {
+    text-align: left;
+  }
+}

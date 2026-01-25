@@ -1,10 +1,14 @@
 @use '@/styles/variables' as *;
 
 .section {
-  padding: $spacing-12 0;
+  padding: $section-padding-y-mobile 0;
   position: relative;
   overflow: hidden;
-  background: var(--bg-tertiary);  // Theme-aware background
+  background: var(--bg-tertiary);
+
+  @include respond-to(lg) {
+    padding: $section-padding-y 0;
+  }
 }
 
 .container {

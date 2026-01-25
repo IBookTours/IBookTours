@@ -9,6 +9,7 @@ import { NavItem } from '@/types';
 import { LoginButton } from '@/components/Auth';
 import { ThemeToggle, useTheme } from '@/components/ThemeProvider';
 import { CartIcon } from '@/components/Cart';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import styles from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -76,6 +77,9 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
 
           <div className={styles.actions}>
             <ThemeToggle className={styles.themeToggle} />
+            <div className={styles.langSwitcherDesktop}>
+              <LanguageSwitcher variant="desktop" />
+            </div>
             <button
               className={styles.searchBtn}
               aria-label="Search"
@@ -138,6 +142,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
             <span>{resolvedTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
             {resolvedTheme === 'light' ? <Moon /> : <Sun />}
           </button>
+          <LanguageSwitcher variant="mobile" onAction={closeMobileMenu} />
           <LoginButton variant="mobile" onAction={closeMobileMenu} />
         </div>
       </div>

@@ -144,6 +144,14 @@
   }
 }
 
+.langSwitcherDesktop {
+  display: none;
+
+  @include respond-to(md) {
+    display: block;
+  }
+}
+
 .searchBtn {
   display: none;
   width: 40px;

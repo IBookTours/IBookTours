@@ -1,0 +1,144 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "tours": "Tours",
+    "blog": "Blog",
+    "contact": "Contact",
+    "search": "Search",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "hero": {
+    "title": "Discover the Beauty of Albania!",
+    "subtitle": "Your Gateway to the Hidden Gem of Europe",
+    "searchPlaceholder": "Search Albanian destinations..."
+  },
+  "destinations": {
+    "sectionLabel": "Top Destinations",
+    "title": "Explore Albania's Hidden Gems",
+    "viewAll": "View All Tours",
+    "from": "From",
+    "perPerson": "per person",
+    "days": "Days",
+    "reviews": "reviews"
+  },
+  "adventure": {
+    "sectionLabel": "Adventure Awaits",
+    "title": "Choose Your Albanian Adventure",
+    "tours": "tours",
+    "ratingLabel": "Based on verified reviews from thousands of happy travelers"
+  },
+  "events": {
+    "sectionLabel": "Upcoming Events",
+    "title": "Top Albanian Events",
+    "learnMore": "Learn More"
+  },
+  "stats": {
+    "travelers": "Happy Travelers",
+    "destinations": "Destinations",
+    "rating": "Average Rating"
+  },
+  "cta": {
+    "title": "Ready for Your Albanian Adventure?",
+    "subtitle": "Book your dream vacation today and discover the beauty of Albania",
+    "button": "Start Planning"
+  },
+  "testimonials": {
+    "sectionLabel": "Testimonials",
+    "title": "What They Say About Us",
+    "readMore": "Read More",
+    "readLess": "Read Less"
+  },
+  "about": {
+    "heroTitle": "About ITravelTours",
+    "heroSubtitle": "Your trusted partner for unforgettable Albanian adventures since 2018",
+    "missionTitle": "Our Mission",
+    "valuesTitle": "Our Values",
+    "teamTitle": "Meet the Dreamweavers",
+    "teamSubtitle": "The passionate team behind your unforgettable Albanian adventures"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Have questions? We'd love to hear from you",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "subject": "Subject",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "sending": "Sending..."
+    },
+    "info": {
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "hours": "Working Hours"
+    }
+  },
+  "tours": {
+    "title": "Explore Our Tours",
+    "filters": {
+      "all": "All Tours",
+      "featured": "Featured",
+      "popular": "Popular",
+      "new": "New"
+    },
+    "duration": "Duration",
+    "price": "Price",
+    "bookNow": "Book Now",
+    "viewDetails": "View Details",
+    "perPerson": "per person"
+  },
+  "blog": {
+    "sectionLabel": "Travel Stories",
+    "title": "Latest from Our Blog",
+    "readMore": "Read More",
+    "readTime": "min read",
+    "viewAll": "View All Posts"
+  },
+  "footer": {
+    "description": "Your trusted partner for unforgettable Albanian adventures. Discover the beauty of the Balkans with our expert-guided tours.",
+    "quickLinks": "Quick Links",
+    "support": "Support",
+    "faq": "FAQ",
+    "contactUs": "Contact Us",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "copyright": "All rights reserved",
+    "newsletter": {
+      "title": "Subscribe to Our Newsletter",
+      "placeholder": "Enter your email",
+      "button": "Subscribe"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "tryAgain": "Try Again",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "viewMore": "View More",
+    "backToTop": "Back to Top",
+    "language": "Language",
+    "english": "English",
+    "hebrew": "עברית"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign Up",
+    "myAccount": "My Account",
+    "profile": "Profile"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "checkout": "Checkout",
+    "continueShopping": "Continue Shopping",
+    "remove": "Remove"
+  }
+}

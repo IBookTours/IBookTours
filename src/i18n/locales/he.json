@@ -1,0 +1,144 @@
+{
+  "nav": {
+    "home": "בית",
+    "about": "אודות",
+    "tours": "טיולים",
+    "blog": "בלוג",
+    "contact": "צור קשר",
+    "search": "חיפוש",
+    "darkMode": "מצב כהה",
+    "lightMode": "מצב בהיר"
+  },
+  "hero": {
+    "title": "גלו את היופי של אלבניה!",
+    "subtitle": "השער שלכם לפנינה הנסתרת של אירופה",
+    "searchPlaceholder": "חפשו יעדים באלבניה..."
+  },
+  "destinations": {
+    "sectionLabel": "יעדים מובילים",
+    "title": "גלו את האוצרות הנסתרים של אלבניה",
+    "viewAll": "צפו בכל הטיולים",
+    "from": "החל מ",
+    "perPerson": "לאדם",
+    "days": "ימים",
+    "reviews": "ביקורות"
+  },
+  "adventure": {
+    "sectionLabel": "הרפתקה מחכה",
+    "title": "בחרו את ההרפתקה האלבנית שלכם",
+    "tours": "טיולים",
+    "ratingLabel": "מבוסס על ביקורות מאומתות מאלפי מטיילים מרוצים"
+  },
+  "events": {
+    "sectionLabel": "אירועים קרובים",
+    "title": "אירועים מובילים באלבניה",
+    "learnMore": "למידע נוסף"
+  },
+  "stats": {
+    "travelers": "מטיילים מרוצים",
+    "destinations": "יעדים",
+    "rating": "דירוג ממוצע"
+  },
+  "cta": {
+    "title": "מוכנים להרפתקה האלבנית שלכם?",
+    "subtitle": "הזמינו את חופשת החלומות שלכם היום וגלו את היופי של אלבניה",
+    "button": "התחילו לתכנן"
+  },
+  "testimonials": {
+    "sectionLabel": "המלצות",
+    "title": "מה אומרים עלינו",
+    "readMore": "קראו עוד",
+    "readLess": "הסתר"
+  },
+  "about": {
+    "heroTitle": "אודות ITravelTours",
+    "heroSubtitle": "השותף האמין שלכם להרפתקאות בלתי נשכחות באלבניה מאז 2018",
+    "missionTitle": "המשימה שלנו",
+    "valuesTitle": "הערכים שלנו",
+    "teamTitle": "הכירו את הצוות",
+    "teamSubtitle": "הצוות הנלהב מאחורי ההרפתקאות האלבניות הבלתי נשכחות שלכם"
+  },
+  "contact": {
+    "title": "צרו קשר",
+    "subtitle": "יש לכם שאלות? נשמח לשמוע מכם",
+    "form": {
+      "name": "שם מלא",
+      "email": "כתובת אימייל",
+      "phone": "מספר טלפון",
+      "subject": "נושא",
+      "message": "ההודעה שלכם",
+      "submit": "שלחו הודעה",
+      "sending": "שולח..."
+    },
+    "info": {
+      "address": "כתובת",
+      "phone": "טלפון",
+      "email": "אימייל",
+      "hours": "שעות פעילות"
+    }
+  },
+  "tours": {
+    "title": "גלו את הטיולים שלנו",
+    "filters": {
+      "all": "כל הטיולים",
+      "featured": "מומלצים",
+      "popular": "פופולריים",
+      "new": "חדשים"
+    },
+    "duration": "משך",
+    "price": "מחיר",
+    "bookNow": "הזמינו עכשיו",
+    "viewDetails": "פרטים נוספים",
+    "perPerson": "לאדם"
+  },
+  "blog": {
+    "sectionLabel": "סיפורי מסע",
+    "title": "החדש בבלוג שלנו",
+    "readMore": "קראו עוד",
+    "readTime": "דקות קריאה",
+    "viewAll": "צפו בכל הפוסטים"
+  },
+  "footer": {
+    "description": "השותף האמין שלכם להרפתקאות בלתי נשכחות באלבניה. גלו את היופי של הבלקן עם הטיולים המודרכים שלנו.",
+    "quickLinks": "קישורים מהירים",
+    "support": "תמיכה",
+    "faq": "שאלות נפוצות",
+    "contactUs": "צרו קשר",
+    "privacyPolicy": "מדיניות פרטיות",
+    "termsOfService": "תנאי שימוש",
+    "copyright": "כל הזכויות שמורות",
+    "newsletter": {
+      "title": "הירשמו לניוזלטר שלנו",
+      "placeholder": "הכניסו את האימייל שלכם",
+      "button": "הירשמו"
+    }
+  },
+  "common": {
+    "loading": "טוען...",
+    "error": "משהו השתבש",
+    "tryAgain": "נסו שוב",
+    "close": "סגור",
+    "next": "הבא",
+    "previous": "הקודם",
+    "viewMore": "צפו בעוד",
+    "backToTop": "חזרה למעלה",
+    "language": "שפה",
+    "english": "English",
+    "hebrew": "עברית"
+  },
+  "auth": {
+    "login": "התחברות",
+    "logout": "התנתקות",
+    "signup": "הרשמה",
+    "myAccount": "החשבון שלי",
+    "profile": "פרופיל"
+  },
+  "cart": {
+    "title": "העגלה שלכם",
+    "empty": "העגלה ריקה",
+    "total": "סה״כ",
+    "checkout": "לתשלום",
+    "continueShopping": "המשיכו לקנות",
+    "remove": "הסרה"
+  }
+}

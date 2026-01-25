@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import AuthProvider from '@/components/providers/AuthProvider';
+import I18nProvider from '@/components/providers/I18nProvider';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import AccessibilityWidget from '@/components/AccessibilityWidget';
 import WhatsAppButton from '@/components/WhatsAppButton';
@@ -129,18 +130,20 @@ export default function RootLayout({
       </head>
       <body>
         <AuthProvider>
-          <ThemeProvider defaultTheme="system">
-            <ColorBlindFilters />
-            <a href="#main-content" className="skip-link">
-              Skip to main content
-            </a>
-            <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
-            <main id="main-content">{children}</main>
-            <CartDrawer />
-            <WhatsAppButton />
-            <AccessibilityWidget />
-            <CookieConsent />
-          </ThemeProvider>
+          <I18nProvider>
+            <ThemeProvider defaultTheme="system">
+              <ColorBlindFilters />
+              <a href="#main-content" className="skip-link">
+                Skip to main content
+              </a>
+              <Navbar navigation={siteData.navigation} siteName={siteData.siteName} />
+              <main id="main-content">{children}</main>
+              <CartDrawer />
+              <WhatsAppButton />
+              <AccessibilityWidget />
+              <CookieConsent />
+            </ThemeProvider>
+          </I18nProvider>
         </AuthProvider>
       </body>
     </html>

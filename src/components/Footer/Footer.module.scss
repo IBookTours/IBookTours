@@ -63,15 +63,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $spacing-5;
+  padding: $spacing-3 $spacing-4;
   background: transparent;
   border: none;
   cursor: pointer;
   text-align: left;
-  font-size: $font-base;
+  font-size: $font-sm;
   font-weight: $font-semibold;
   color: var(--text-primary);
   transition: background $transition-fast;
+
+  @include respond-to(md) {
+    padding: $spacing-5;
+    font-size: $font-base;
+  }
 
   &:hover {
     background: var(--bg-tertiary);
@@ -132,12 +137,7 @@
 .brand {
   max-width: 100%;
 
-  @include respond-to(sm) {
-    grid-column: span 2;
-  }
-
   @include respond-to(md) {
-    grid-column: span 1;
     max-width: 280px;
   }
 
@@ -185,12 +185,23 @@
 
 .social {
   display: flex;
-  gap: $spacing-3;
+  gap: $spacing-2;
+  justify-content: center;
+
+  @include respond-to(sm) {
+    justify-content: flex-start;
+    gap: $spacing-3;
+  }
 }
 
 .socialLink {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
+
+  @include respond-to(md) {
+    width: 40px;
+    height: 40px;
+  }
   border-radius: $radius-lg;
   background: var(--bg-tertiary);
   border: 1px solid var(--border-light);
@@ -247,7 +258,7 @@
 .bottomContent {
   display: flex;
   flex-direction: column;
-  gap: $spacing-4;
+  gap: $spacing-3;
   align-items: center;
   text-align: center;
 
@@ -259,13 +270,24 @@
 }
 
 .copyright {
-  font-size: $font-sm;
+  font-size: $font-xs;
   color: var(--text-tertiary);
+
+  @include respond-to(md) {
+    font-size: $font-sm;
+  }
 }
 
 .legalLinks {
   display: flex;
-  gap: $spacing-6;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-3 $spacing-6;
+
+  @include respond-to(md) {
+    flex-wrap: nowrap;
+    gap: $spacing-6;
+  }
 }
 
 .legalLink {
