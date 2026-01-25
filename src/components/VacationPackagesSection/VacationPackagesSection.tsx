@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -11,6 +12,8 @@ import {
   ArrowRight,
   ShoppingCart,
   Users,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
@@ -36,10 +39,31 @@ export interface VacationPackage {
 
 interface VacationPackagesSectionProps {
   packages: VacationPackage[];
+  maxDisplay?: number;
+  showSlider?: boolean;
 }
 
-export default function VacationPackagesSection({ packages }: VacationPackagesSectionProps) {
+export default function VacationPackagesSection({
+  packages,
+  maxDisplay = 3,
+  showSlider = true,
+}: VacationPackagesSectionProps) {
   const { addItem } = useCartStore();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  // Calculate visible items and navigation
+  const totalItems = packages.length;
+  const canShowSlider = showSlider && totalItems > maxDisplay;
+  const maxIndex = Math.max(0, totalItems - maxDisplay);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  }, []);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  }, [maxIndex]);
 
   const handleAddToCart = (pkg: VacationPackage) => {
     addItem({
@@ -61,6 +85,11 @@ export default function VacationPackagesSection({ packages }: VacationPackagesSe
     });
   };
 
+  // Get visible packages
+  const visiblePackages = canShowSlider
+    ? packages.slice(currentIndex, currentIndex + maxDisplay)
+    : packages.slice(0, maxDisplay);
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -75,97 +104,145 @@ export default function VacationPackagesSection({ packages }: VacationPackagesSe
           </p>
         </div>
 
-        <div className={styles.grid}>
-          {packages.map((pkg) => (
-            <article key={pkg.id} className={styles.card}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={pkg.image}
-                  alt={pkg.destination}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-                <div className={styles.badges}>
-                  {pkg.includesFlights && (
-                    <span className={styles.includeBadge}>
-                      <Plane size={14} />
-                      Flights Included
-                    </span>
-                  )}
-                  {pkg.includesHotel && (
-                    <span className={styles.includeBadge}>
-                      <Hotel size={14} />
-                      Hotel Included
-                    </span>
-                  )}
+        <div className={styles.sliderWrapper}>
+          {canShowSlider && (
+            <button
+              className={`${styles.navButton} ${styles.prevButton}`}
+              onClick={handlePrev}
+              disabled={currentIndex === 0}
+              aria-label="Previous packages"
+            >
+              <ChevronLeft size={24} />
+            </button>
+          )}
+
+          <div
+            className={`${styles.grid} ${canShowSlider ? styles.sliderGrid : ''}`}
+            ref={sliderRef}
+            style={
+              canShowSlider
+                ? {
+                    '--visible-items': maxDisplay,
+                  } as React.CSSProperties
+                : undefined
+            }
+          >
+            {visiblePackages.map((pkg) => (
+              <article key={pkg.id} className={styles.card}>
+                <div className={styles.imageWrapper}>
+                  <Image
+                    src={pkg.image}
+                    alt={pkg.destination}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className={styles.badges}>
+                    {pkg.includesFlights && (
+                      <span className={styles.includeBadge}>
+                        <Plane size={14} />
+                        Flights Included
+                      </span>
+                    )}
+                    {pkg.includesHotel && (
+                      <span className={styles.includeBadge}>
+                        <Hotel size={14} />
+                        Hotel Included
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              <div className={styles.content}>
-                <div className={styles.location}>
-                  <MapPin size={14} />
-                  {pkg.location}
-                </div>
+                <div className={styles.content}>
+                  <div className={styles.location}>
+                    <MapPin size={14} />
+                    {pkg.location}
+                  </div>
 
-                <h3 className={styles.destination}>{pkg.destination}</h3>
+                  <h3 className={styles.destination}>{pkg.destination}</h3>
 
-                <div className={styles.hotelInfo}>
-                  <Hotel size={16} />
-                  <span>{pkg.hotelName}</span>
-                  <div className={styles.stars}>
-                    {Array.from({ length: pkg.hotelRating }).map((_, i) => (
-                      <Star key={i} size={12} fill="currentColor" />
+                  <div className={styles.hotelInfo}>
+                    <Hotel size={16} />
+                    <span>{pkg.hotelName}</span>
+                    <div className={styles.stars}>
+                      {Array.from({ length: pkg.hotelRating }).map((_, i) => (
+                        <Star key={i} size={12} fill="currentColor" />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={styles.meta}>
+                    <span className={styles.metaItem}>
+                      <Calendar size={14} />
+                      {pkg.nights} nights
+                    </span>
+                    <span className={styles.metaItem}>
+                      <Users size={14} />
+                      From {pkg.departureCities[0]}
+                    </span>
+                  </div>
+
+                  <ul className={styles.highlights}>
+                    {pkg.highlights.slice(0, 3).map((highlight, index) => (
+                      <li key={index}>{highlight}</li>
                     ))}
-                  </div>
-                </div>
+                  </ul>
 
-                <div className={styles.meta}>
-                  <span className={styles.metaItem}>
-                    <Calendar size={14} />
-                    {pkg.nights} nights
-                  </span>
-                  <span className={styles.metaItem}>
-                    <Users size={14} />
-                    From {pkg.departureCities[0]}
-                  </span>
-                </div>
+                  <div className={styles.footer}>
+                    <div className={styles.pricing}>
+                      <span className={styles.price}>{pkg.pricePerPerson}</span>
+                      <span className={styles.perPerson}>per person</span>
+                    </div>
 
-                <ul className={styles.highlights}>
-                  {pkg.highlights.slice(0, 3).map((highlight, index) => (
-                    <li key={index}>{highlight}</li>
-                  ))}
-                </ul>
-
-                <div className={styles.footer}>
-                  <div className={styles.pricing}>
-                    <span className={styles.price}>{pkg.pricePerPerson}</span>
-                    <span className={styles.perPerson}>per person</span>
+                    <div className={styles.rating}>
+                      <Star size={14} fill="currentColor" />
+                      <span>{pkg.rating}</span>
+                      <span className={styles.reviews}>({pkg.reviewCount})</span>
+                    </div>
                   </div>
 
-                  <div className={styles.rating}>
-                    <Star size={14} fill="currentColor" />
-                    <span>{pkg.rating}</span>
-                    <span className={styles.reviews}>({pkg.reviewCount})</span>
+                  <div className={styles.actions}>
+                    <Link href={`/tours/${pkg.id}`} className={styles.viewBtn}>
+                      View Details
+                      <ArrowRight size={16} />
+                    </Link>
+                    <button
+                      className={styles.cartBtn}
+                      onClick={() => handleAddToCart(pkg)}
+                      aria-label="Add to cart"
+                    >
+                      <ShoppingCart size={18} />
+                    </button>
                   </div>
                 </div>
+              </article>
+            ))}
+          </div>
 
-                <div className={styles.actions}>
-                  <Link href={`/tours/${pkg.id}`} className={styles.viewBtn}>
-                    View Details
-                    <ArrowRight size={16} />
-                  </Link>
-                  <button
-                    className={styles.cartBtn}
-                    onClick={() => handleAddToCart(pkg)}
-                    aria-label="Add to cart"
-                  >
-                    <ShoppingCart size={18} />
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))}
+          {canShowSlider && (
+            <button
+              className={`${styles.navButton} ${styles.nextButton}`}
+              onClick={handleNext}
+              disabled={currentIndex >= maxIndex}
+              aria-label="Next packages"
+            >
+              <ChevronRight size={24} />
+            </button>
+          )}
         </div>
+
+        {/* Slider indicators */}
+        {canShowSlider && (
+          <div className={styles.indicators}>
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button
+                key={i}
+                className={`${styles.indicator} ${i === currentIndex ? styles.activeIndicator : ''}`}
+                onClick={() => setCurrentIndex(i)}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
 
         <div className={styles.cta}>
           <Link href="/tours?type=package" className={styles.ctaButton}>

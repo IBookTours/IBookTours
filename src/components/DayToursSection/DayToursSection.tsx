@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -11,6 +11,8 @@ import {
   ArrowRight,
   ShoppingCart,
   Filter,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
@@ -37,6 +39,7 @@ interface DayToursSectionProps {
   tours: DayTour[];
   showFilters?: boolean;
   maxDisplay?: number;
+  showSlider?: boolean;
 }
 
 const categoryLabels: Record<TourCategory, string> = {
@@ -58,16 +61,40 @@ const categoryColors: Record<TourCategory, string> = {
 export default function DayToursSection({
   tours,
   showFilters = true,
-  maxDisplay,
+  maxDisplay = 3,
+  showSlider = true,
 }: DayToursSectionProps) {
   const [activeCategory, setActiveCategory] = useState<TourCategory>('all');
+  const [currentIndex, setCurrentIndex] = useState(0);
   const { addItem } = useCartStore();
 
   const filteredTours = tours.filter(
     (tour) => activeCategory === 'all' || tour.category === activeCategory
   );
 
-  const displayTours = maxDisplay ? filteredTours.slice(0, maxDisplay) : filteredTours;
+  // Calculate visible items and navigation
+  const totalItems = filteredTours.length;
+  const canShowSlider = showSlider && totalItems > maxDisplay;
+  const maxIndex = Math.max(0, totalItems - maxDisplay);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  }, []);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  }, [maxIndex]);
+
+  // Reset index when category changes
+  const handleCategoryChange = (category: TourCategory) => {
+    setActiveCategory(category);
+    setCurrentIndex(0);
+  };
+
+  // Get visible tours
+  const visibleTours = canShowSlider
+    ? filteredTours.slice(currentIndex, currentIndex + maxDisplay)
+    : filteredTours.slice(0, maxDisplay);
 
   const handleAddToCart = (tour: DayTour) => {
     addItem({
@@ -109,7 +136,7 @@ export default function DayToursSection({
                 <button
                   key={category}
                   className={`${styles.filterBtn} ${activeCategory === category ? styles.active : ''}`}
-                  onClick={() => setActiveCategory(category)}
+                  onClick={() => handleCategoryChange(category)}
                 >
                   {categoryLabels[category]}
                 </button>
@@ -118,67 +145,114 @@ export default function DayToursSection({
           )}
         </div>
 
-        <div className={styles.grid}>
-          {displayTours.map((tour) => (
-            <article key={tour.id} className={styles.card}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={tour.image}
-                  alt={tour.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                />
-                <span className={`${styles.categoryBadge} ${categoryColors[tour.category]}`}>
-                  {categoryLabels[tour.category]}
-                </span>
-                <span className={styles.durationBadge}>
-                  <Clock size={12} />
-                  {tour.duration}
-                </span>
-              </div>
+        <div className={styles.sliderWrapper}>
+          {canShowSlider && (
+            <button
+              className={`${styles.navButton} ${styles.prevButton}`}
+              onClick={handlePrev}
+              disabled={currentIndex === 0}
+              aria-label="Previous tours"
+            >
+              <ChevronLeft size={24} />
+            </button>
+          )}
 
-              <div className={styles.content}>
-                <div className={styles.location}>
-                  <MapPin size={12} />
-                  {tour.departsFrom}
+          <div
+            className={`${styles.grid} ${canShowSlider ? styles.sliderGrid : ''}`}
+            style={
+              canShowSlider
+                ? {
+                    '--visible-items': maxDisplay,
+                  } as React.CSSProperties
+                : undefined
+            }
+          >
+            {visibleTours.map((tour) => (
+              <article key={tour.id} className={styles.card}>
+                <div className={styles.imageWrapper}>
+                  <Image
+                    src={tour.image}
+                    alt={tour.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                  />
+                  <span className={`${styles.categoryBadge} ${categoryColors[tour.category]}`}>
+                    {categoryLabels[tour.category]}
+                  </span>
+                  <span className={styles.durationBadge}>
+                    <Clock size={12} />
+                    {tour.duration}
+                  </span>
                 </div>
 
-                <h3 className={styles.name}>{tour.name}</h3>
-
-                <div className={styles.meta}>
-                  <span className={styles.metaItem}>
-                    <Users size={14} />
-                    {tour.groupSize.min}-{tour.groupSize.max} people
-                  </span>
-                  <span className={styles.rating}>
-                    <Star size={14} fill="currentColor" />
-                    {tour.rating}
-                  </span>
-                </div>
-
-                <div className={styles.footer}>
-                  <div className={styles.pricing}>
-                    <span className={styles.price}>{tour.pricePerPerson}</span>
-                    <span className={styles.perPerson}>/ person</span>
+                <div className={styles.content}>
+                  <div className={styles.location}>
+                    <MapPin size={12} />
+                    {tour.departsFrom}
                   </div>
 
-                  <div className={styles.actions}>
-                    <Link href={`/tours/${tour.id}`} className={styles.viewBtn}>
-                      View
-                    </Link>
-                    <button
-                      className={styles.cartBtn}
-                      onClick={() => handleAddToCart(tour)}
-                      aria-label="Add to cart"
-                    >
-                      <ShoppingCart size={16} />
-                    </button>
+                  <h3 className={styles.name}>{tour.name}</h3>
+
+                  <div className={styles.meta}>
+                    <span className={styles.metaItem}>
+                      <Users size={14} />
+                      {tour.groupSize.min}-{tour.groupSize.max} people
+                    </span>
+                    <span className={styles.rating}>
+                      <Star size={14} fill="currentColor" />
+                      {tour.rating}
+                    </span>
+                  </div>
+
+                  <div className={styles.footer}>
+                    <div className={styles.pricing}>
+                      <span className={styles.price}>{tour.pricePerPerson}</span>
+                      <span className={styles.perPerson}>/ person</span>
+                    </div>
+
+                    <div className={styles.actions}>
+                      <Link href={`/tours/${tour.id}`} className={styles.viewBtn}>
+                        View
+                      </Link>
+                      <button
+                        className={styles.cartBtn}
+                        onClick={() => handleAddToCart(tour)}
+                        aria-label="Add to cart"
+                      >
+                        <ShoppingCart size={16} />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
+
+          {canShowSlider && (
+            <button
+              className={`${styles.navButton} ${styles.nextButton}`}
+              onClick={handleNext}
+              disabled={currentIndex >= maxIndex}
+              aria-label="Next tours"
+            >
+              <ChevronRight size={24} />
+            </button>
+          )}
         </div>
+
+        {/* Slider indicators */}
+        {canShowSlider && (
+          <div className={styles.indicators}>
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button
+                key={i}
+                className={`${styles.indicator} ${i === currentIndex ? styles.activeIndicator : ''}`}
+                onClick={() => setCurrentIndex(i)}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
 
         <div className={styles.cta}>
           <Link href="/tours" className={styles.ctaButton}>

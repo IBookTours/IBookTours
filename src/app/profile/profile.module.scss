@@ -406,6 +406,12 @@
   color: $text-primary;
 }
 
+.bookingActions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
 .paymentStatus {
   font-size: $font-xs;
   font-weight: $font-semibold;

@@ -24,6 +24,8 @@ import {
   Package,
 } from 'lucide-react';
 import PassengerForm from '@/components/Checkout/PassengerForm';
+import AddToCalendar from '@/components/AddToCalendar';
+import { createEventFromBooking } from '@/lib/calendar';
 import { useCartStore, formatCartPrice, CartItem } from '@/store/cartStore';
 import { useBookingStore, priceStringToCents, centsToDisplayPrice, PassengerDetail } from '@/store/bookingStore';
 import {
@@ -385,7 +387,21 @@ function CheckoutContent() {
 
   // Success screen
   if (isSuccess) {
-    const bookedItems = checkoutMode === 'cart' ? cartItems : [{ name: selectedTour?.name, date: selectedDate }];
+    const bookedItems = checkoutMode === 'cart'
+      ? cartItems.map((item) => ({
+          name: item.name,
+          date: item.date,
+          location: item.location,
+          duration: item.duration,
+          type: item.type,
+        }))
+      : [{
+          name: selectedTour?.name || '',
+          date: selectedDate,
+          location: selectedTour?.location || '',
+          duration: selectedTour?.duration || '',
+          type: 'day-tour',
+        }];
 
     return (
       <div className={styles.checkout}>
@@ -401,7 +417,24 @@ function CheckoutContent() {
               {bookingIds.map((id, i) => (
                 <div key={id} className={styles.bookingItem}>
                   <p><strong>Booking ID:</strong> {id}</p>
-                  {bookedItems[i] && <p><strong>Tour:</strong> {bookedItems[i].name}</p>}
+                  {bookedItems[i] && (
+                    <>
+                      <p><strong>Tour:</strong> {bookedItems[i].name}</p>
+                      {bookedItems[i].date && (
+                        <AddToCalendar
+                          event={createEventFromBooking({
+                            name: bookedItems[i].name,
+                            location: bookedItems[i].location,
+                            date: bookedItems[i].date,
+                            duration: bookedItems[i].duration,
+                            type: bookedItems[i].type,
+                          })}
+                          variant="button"
+                          size="md"
+                        />
+                      )}
+                    </>
+                  )}
                 </div>
               ))}
               <p className={styles.emailNote}>

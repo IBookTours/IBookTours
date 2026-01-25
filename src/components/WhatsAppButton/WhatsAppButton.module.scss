@@ -69,8 +69,8 @@
   right: 100%;
   top: 50%;
   transform: translateX(-90%) translateY(-50%);
-  background-color: $neutral-900;
-  color: $text-light;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
   padding: $spacing-2 $spacing-3;
   border-radius: $radius-md;
   font-size: $font-sm;
@@ -79,6 +79,8 @@
   visibility: hidden;
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
   margin-right: $spacing-3;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--glass-shadow);
 
   // Arrow pointing to button
   &::after {
@@ -89,7 +91,7 @@
     transform: translateY(-50%);
     border-width: 6px;
     border-style: solid;
-    border-color: transparent transparent transparent $neutral-900;
+    border-color: transparent transparent transparent var(--bg-elevated);
   }
 }
 

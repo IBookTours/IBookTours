@@ -74,11 +74,13 @@
   --shadow-lg: 0 10px 15px rgba(29, 53, 87, 0.15);
   --shadow-xl: 0 20px 25px rgba(29, 53, 87, 0.2);
 
-  // Glassmorphism (Light mode)
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-bg-light: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(168, 218, 220, 0.5);  // Frosted Blue tint
-  --glass-shadow: 0 8px 32px rgba(29, 53, 87, 0.1);  // Oxford Navy shadow
+  // Glassmorphism (Light mode - Frosted Blue tint for visibility)
+  --glass-bg: rgba(168, 218, 220, 0.65);        // Frosted Blue - visible on honeydew!
+  --glass-bg-light: rgba(168, 218, 220, 0.45);  // Lighter frosted blue
+  --glass-border: rgba(69, 123, 157, 0.4);      // Cerulean border
+  --glass-shadow: 0 8px 32px rgba(29, 53, 87, 0.18);  // Oxford Navy shadow (stronger)
+  --glass-text: #1d3557;                        // Oxford Navy for glass text
+  --glass-text-secondary: #457b9d;              // Cerulean for secondary glass text
 
   // Hero/video overlay gradient stops (light mode - stronger overlay)
   --hero-overlay-top: rgba(0, 0, 0, 0.45);
@@ -669,6 +671,8 @@ html.saturation-high {
   --glass-bg-light: rgba(61, 63, 84, 0.9);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-text: #edf2f4;                        // Platinum for dark mode glass text
+  --glass-text-secondary: #c8cdd0;              // Light grey for secondary
 
   // Hero/video overlay gradient stops (dark mode - lighter overlay to show video)
   --hero-overlay-top: rgba(0, 0, 0, 0.25);

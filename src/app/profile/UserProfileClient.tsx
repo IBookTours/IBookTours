@@ -27,6 +27,8 @@ import {
   getBookingStatusColor,
   Booking,
 } from '@/store/bookingsStore';
+import AddToCalendar from '@/components/AddToCalendar';
+import { createEventFromBooking } from '@/lib/calendar';
 import styles from './profile.module.scss';
 
 interface UserProfileClientProps {
@@ -251,6 +253,9 @@ function BookingCard({ booking }: BookingCardProps) {
   const totalItems = booking.items.length;
   const statusColor = getBookingStatusColor(booking.status);
 
+  // Check if this is an upcoming booking
+  const isUpcoming = primaryItem && new Date(primaryItem.travelDate) >= new Date() && booking.status !== 'cancelled';
+
   // Format price
   const formatPrice = (cents: number) => {
     return `€${(cents / 100).toLocaleString('en-US', {
@@ -297,19 +302,34 @@ function BookingCard({ booking }: BookingCardProps) {
           <span className={styles.bookingPrice}>
             {formatPrice(booking.totalAmount)}
           </span>
-          <span
-            className={styles.paymentStatus}
-            style={{
-              color:
-                booking.paymentStatus === 'paid'
-                  ? '#10b981'
-                  : booking.paymentStatus === 'pending'
-                  ? '#f59e0b'
-                  : '#6b7280',
-            }}
-          >
-            {booking.paymentStatus === 'paid' ? 'Paid' : booking.paymentStatus}
-          </span>
+          <div className={styles.bookingActions}>
+            {isUpcoming && primaryItem && (
+              <AddToCalendar
+                event={createEventFromBooking({
+                  name: primaryItem.name,
+                  location: primaryItem.location,
+                  date: primaryItem.travelDate,
+                  duration: primaryItem.duration,
+                  type: primaryItem.type,
+                })}
+                variant="icon"
+                size="sm"
+              />
+            )}
+            <span
+              className={styles.paymentStatus}
+              style={{
+                color:
+                  booking.paymentStatus === 'paid'
+                    ? '#10b981'
+                    : booking.paymentStatus === 'pending'
+                    ? '#f59e0b'
+                    : '#6b7280',
+              }}
+            >
+              {booking.paymentStatus === 'paid' ? 'Paid' : booking.paymentStatus}
+            </span>
+          </div>
         </div>
       </div>
     </div>

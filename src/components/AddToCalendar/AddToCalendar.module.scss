@@ -1,0 +1,196 @@
+@use '@/styles/variables' as *;
+
+// ============================================
+// ADD TO CALENDAR COMPONENT
+// ============================================
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+// Size variants
+.sm {
+  .trigger.button {
+    padding: $spacing-1 $spacing-3;
+    font-size: $font-xs;
+    gap: $spacing-1;
+  }
+
+  .trigger.icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .dropdown {
+    min-width: 180px;
+  }
+}
+
+.md {
+  .trigger.button {
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-sm;
+    gap: $spacing-2;
+  }
+
+  .trigger.icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dropdown {
+    min-width: 200px;
+  }
+}
+
+.lg {
+  .trigger.button {
+    padding: $spacing-3 $spacing-5;
+    font-size: $font-base;
+    gap: $spacing-2;
+  }
+
+  .trigger.icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .dropdown {
+    min-width: 220px;
+  }
+}
+
+// Trigger button
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &.button {
+    background: var(--color-primary-600);
+    color: $text-light;
+    border-radius: $radius-lg;
+    font-weight: $font-medium;
+
+    &:hover {
+      background: var(--color-primary-700);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-400);
+      outline-offset: 2px;
+    }
+  }
+
+  &.icon {
+    background: var(--bg-tertiary);
+    color: var(--color-primary-600);
+    border-radius: $radius-lg;
+    border: 1px solid var(--border-light);
+
+    &:hover {
+      background: var(--color-primary-50);
+      border-color: var(--color-primary-200);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-400);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.chevron {
+  transition: transform $transition-fast;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+// Dropdown menu
+.dropdown {
+  position: absolute;
+  top: calc(100% + $spacing-2);
+  right: 0;
+  z-index: 50;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-xl;
+  box-shadow: $shadow-xl;
+  padding: $spacing-2;
+  animation: dropdownFadeIn 0.15s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-3 $spacing-3;
+  background: transparent;
+  border: none;
+  border-radius: $radius-lg;
+  font-size: $font-sm;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all $transition-fast;
+  text-align: left;
+
+  &:hover {
+    background: var(--bg-tertiary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-400);
+    outline-offset: -2px;
+  }
+
+  span {
+    flex: 1;
+  }
+}
+
+// Icons
+.googleIcon,
+.appleIcon,
+.outlookIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.appleIcon {
+  color: var(--text-primary);
+}
+
+.externalIcon,
+.downloadIcon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.checkIcon {
+  color: var(--color-success);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: $spacing-2 0;
+}

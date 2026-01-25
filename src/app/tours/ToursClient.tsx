@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Search,
   SlidersHorizontal,
@@ -11,29 +12,38 @@ import {
   ChevronDown,
   Grid,
   List,
+  Plane,
+  Clock,
+  Package,
+  Calendar,
+  Users,
+  Star,
+  ArrowRight,
+  ShoppingCart,
+  Hotel,
 } from 'lucide-react';
 import DestinationCard from '@/components/DestinationCard';
 import { Destination } from '@/types';
+import { VacationPackage } from '@/components/VacationPackagesSection/VacationPackagesSection';
+import { DayTour } from '@/components/DayToursSection/DayToursSection';
+import { useCartStore } from '@/store/cartStore';
+import { priceStringToCents } from '@/store/bookingStore';
 import styles from './tours.module.scss';
+
+type TabType = 'all' | 'packages' | 'day-tours';
 
 interface ToursClientProps {
   destinations: Destination[];
+  vacationPackages: VacationPackage[];
+  dayTours: DayTour[];
 }
 
 const priceRanges = [
   { id: 'all', label: 'All Prices', min: 0, max: Infinity },
-  { id: 'budget', label: 'Under $1,000', min: 0, max: 1000 },
-  { id: 'mid', label: '$1,000 - $1,500', min: 1000, max: 1500 },
-  { id: 'premium', label: '$1,500 - $2,000', min: 1500, max: 2000 },
-  { id: 'luxury', label: 'Over $2,000', min: 2000, max: Infinity },
-];
-
-const regions = [
-  { id: 'all', label: 'All Destinations' },
-  { id: 'asia', label: 'Asia' },
-  { id: 'europe', label: 'Europe' },
-  { id: 'oceania', label: 'Oceania' },
-  { id: 'americas', label: 'Americas' },
+  { id: 'budget', label: 'Under €500', min: 0, max: 500 },
+  { id: 'mid', label: '€500 - €1,000', min: 500, max: 1000 },
+  { id: 'premium', label: '€1,000 - €2,000', min: 1000, max: 2000 },
+  { id: 'luxury', label: 'Over €2,000', min: 2000, max: Infinity },
 ];
 
 const durations = [
@@ -43,78 +53,136 @@ const durations = [
   { id: 'long', label: '8+ Days' },
 ];
 
-export default function ToursClient({ destinations }: ToursClientProps) {
+const tabs: { id: TabType; label: string; icon: React.ReactNode }[] = [
+  { id: 'all', label: 'All', icon: <Package size={18} /> },
+  { id: 'packages', label: 'Vacation Packages', icon: <Plane size={18} /> },
+  { id: 'day-tours', label: 'Day Tours', icon: <Clock size={18} /> },
+];
+
+export default function ToursClient({
+  destinations,
+  vacationPackages,
+  dayTours,
+}: ToursClientProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { addItem } = useCartStore();
+
+  // Get type from URL or default to 'all'
+  const initialType = (searchParams.get('type') as TabType) || 'all';
   const initialSearch = searchParams.get('search') || '';
+
+  const [activeTab, setActiveTab] = useState<TabType>(initialType);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
-
-  // Sync search query with URL params
-  useEffect(() => {
-    const urlSearch = searchParams.get('search') || '';
-    if (urlSearch !== searchQuery) {
-      setSearchQuery(urlSearch);
-    }
-  }, [searchParams]);
-
-  // Update URL when search changes (debounced)
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      const params = new URLSearchParams(searchParams.toString());
-      if (searchQuery) {
-        params.set('search', searchQuery);
-      } else {
-        params.delete('search');
-      }
-      const newUrl = params.toString() ? `?${params.toString()}` : '/tours';
-      router.replace(newUrl, { scroll: false });
-    }, 300);
-
-    return () => clearTimeout(timeoutId);
-  }, [searchQuery]);
   const [selectedPrice, setSelectedPrice] = useState('all');
-  const [selectedRegion, setSelectedRegion] = useState('all');
   const [selectedDuration, setSelectedDuration] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  // Filter destinations based on search and filters
-  const filteredDestinations = destinations.filter((dest) => {
-    // Search filter
-    if (
-      searchQuery &&
-      !dest.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      !dest.location.toLowerCase().includes(searchQuery.toLowerCase())
-    ) {
-      return false;
-    }
+  // Sync with URL params
+  useEffect(() => {
+    const urlType = (searchParams.get('type') as TabType) || 'all';
+    const urlSearch = searchParams.get('search') || '';
+    if (urlType !== activeTab) setActiveTab(urlType);
+    if (urlSearch !== searchQuery) setSearchQuery(urlSearch);
+  }, [searchParams]);
 
-    // Price filter
-    if (selectedPrice !== 'all') {
-      const range = priceRanges.find((r) => r.id === selectedPrice);
-      if (range) {
-        const price = parseInt(dest.price?.replace(/[^0-9]/g, '') || '0');
-        if (price < range.min || price > range.max) {
-          return false;
-        }
+  // Update URL when filters change
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (activeTab !== 'all') params.set('type', activeTab);
+      if (searchQuery) params.set('search', searchQuery);
+      const newUrl = params.toString() ? `/tours?${params.toString()}` : '/tours';
+      router.replace(newUrl, { scroll: false });
+    }, 300);
+    return () => clearTimeout(timeoutId);
+  }, [activeTab, searchQuery, router]);
+
+  // Filter packages based on search
+  const filteredPackages = useMemo(() => {
+    return vacationPackages.filter((pkg) => {
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        return (
+          pkg.destination.toLowerCase().includes(query) ||
+          pkg.location.toLowerCase().includes(query) ||
+          pkg.hotelName.toLowerCase().includes(query)
+        );
       }
-    }
+      return true;
+    });
+  }, [vacationPackages, searchQuery]);
 
-    return true;
-  });
+  // Filter day tours based on search
+  const filteredDayTours = useMemo(() => {
+    return dayTours.filter((tour) => {
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        return (
+          tour.name.toLowerCase().includes(query) ||
+          tour.location.toLowerCase().includes(query) ||
+          tour.departsFrom.toLowerCase().includes(query)
+        );
+      }
+      return true;
+    });
+  }, [dayTours, searchQuery]);
+
+  // Get counts for tabs
+  const counts = {
+    all: filteredPackages.length + filteredDayTours.length,
+    packages: filteredPackages.length,
+    'day-tours': filteredDayTours.length,
+  };
+
+  const handleTabChange = (tab: TabType) => {
+    setActiveTab(tab);
+  };
 
   const clearFilters = () => {
     setSearchQuery('');
     setSelectedPrice('all');
-    setSelectedRegion('all');
     setSelectedDuration('all');
   };
 
-  const hasActiveFilters =
-    searchQuery ||
-    selectedPrice !== 'all' ||
-    selectedRegion !== 'all' ||
-    selectedDuration !== 'all';
+  const hasActiveFilters = searchQuery || selectedPrice !== 'all' || selectedDuration !== 'all';
+
+  const handleAddPackageToCart = (pkg: VacationPackage) => {
+    addItem({
+      id: pkg.id,
+      type: 'vacation-package',
+      name: `${pkg.destination} - ${pkg.hotelName}`,
+      image: pkg.image,
+      duration: pkg.duration,
+      location: pkg.location,
+      basePrice: priceStringToCents(pkg.pricePerPerson),
+      quantity: 1,
+      date: '',
+      travelers: { adults: 1, children: 0 },
+      childDiscountPercent: 30,
+      options: {
+        hotelName: pkg.hotelName,
+        includesFlights: pkg.includesFlights,
+      },
+    });
+  };
+
+  const handleAddTourToCart = (tour: DayTour) => {
+    addItem({
+      id: tour.id,
+      type: 'day-tour',
+      name: tour.name,
+      image: tour.image,
+      duration: tour.duration,
+      location: tour.location,
+      basePrice: priceStringToCents(tour.pricePerPerson),
+      quantity: 1,
+      date: '',
+      travelers: { adults: 1, children: 0 },
+      childDiscountPercent: 50,
+    });
+  };
 
   return (
     <div className={styles.page}>
@@ -154,28 +222,23 @@ export default function ToursClient({ destinations }: ToursClientProps) {
       </section>
 
       <div className={styles.container}>
+        {/* Tabs */}
+        <div className={styles.tabs}>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`${styles.tab} ${activeTab === tab.id ? styles.activeTab : ''}`}
+              onClick={() => handleTabChange(tab.id)}
+            >
+              {tab.icon}
+              <span>{tab.label}</span>
+              <span className={styles.tabCount}>{counts[tab.id]}</span>
+            </button>
+          ))}
+        </div>
+
         {/* Filter Bar */}
         <div className={`${styles.filterBar} ${showFilters ? styles.open : ''}`}>
-          <div className={styles.filterGroup}>
-            <label>
-              <MapPin />
-              Destination
-            </label>
-            <div className={styles.selectWrapper}>
-              <select
-                value={selectedRegion}
-                onChange={(e) => setSelectedRegion(e.target.value)}
-              >
-                {regions.map((region) => (
-                  <option key={region.id} value={region.id}>
-                    {region.label}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown />
-            </div>
-          </div>
-
           <div className={styles.filterGroup}>
             <label>Price Range</label>
             <div className={styles.selectWrapper}>
@@ -221,7 +284,8 @@ export default function ToursClient({ destinations }: ToursClientProps) {
         {/* Results Header */}
         <div className={styles.resultsHeader}>
           <p className={styles.resultCount}>
-            <strong>{filteredDestinations.length}</strong> tours found
+            <strong>{counts[activeTab]}</strong>{' '}
+            {activeTab === 'packages' ? 'packages' : activeTab === 'day-tours' ? 'day tours' : 'items'} found
           </p>
           <div className={styles.viewToggle}>
             <button
@@ -242,25 +306,143 @@ export default function ToursClient({ destinations }: ToursClientProps) {
         </div>
 
         {/* Results Grid */}
-        {filteredDestinations.length > 0 ? (
-          <div
-            className={`${styles.grid} ${
-              viewMode === 'list' ? styles.listView : ''
-            }`}
-          >
-            {filteredDestinations.map((destination) => (
-              <DestinationCard
-                key={destination.id}
-                destination={destination}
-                variant={viewMode === 'list' ? 'horizontal' : 'default'}
-                showCta
-              />
-            ))}
+        {counts[activeTab] > 0 ? (
+          <div className={`${styles.grid} ${viewMode === 'list' ? styles.listView : ''}`}>
+            {/* Vacation Packages */}
+            {(activeTab === 'all' || activeTab === 'packages') &&
+              filteredPackages.map((pkg) => (
+                <article key={pkg.id} className={styles.packageCard}>
+                  <div className={styles.cardImage}>
+                    <Image
+                      src={pkg.image}
+                      alt={pkg.destination}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className={styles.cardBadges}>
+                      {pkg.includesFlights && (
+                        <span className={styles.badge}>
+                          <Plane size={12} />
+                          Flights
+                        </span>
+                      )}
+                      {pkg.includesHotel && (
+                        <span className={styles.badge}>
+                          <Hotel size={12} />
+                          Hotel
+                        </span>
+                      )}
+                    </div>
+                    <span className={styles.typeBadge}>Package</span>
+                  </div>
+                  <div className={styles.cardContent}>
+                    <div className={styles.cardLocation}>
+                      <MapPin size={12} />
+                      {pkg.location}
+                    </div>
+                    <h3 className={styles.cardTitle}>{pkg.destination}</h3>
+                    <p className={styles.cardHotel}>
+                      <Hotel size={14} />
+                      {pkg.hotelName}
+                      <span className={styles.stars}>
+                        {Array.from({ length: pkg.hotelRating }).map((_, i) => (
+                          <Star key={i} size={10} fill="currentColor" />
+                        ))}
+                      </span>
+                    </p>
+                    <div className={styles.cardMeta}>
+                      <span>
+                        <Calendar size={14} />
+                        {pkg.nights} nights
+                      </span>
+                      <span className={styles.rating}>
+                        <Star size={14} fill="currentColor" />
+                        {pkg.rating}
+                      </span>
+                    </div>
+                    <div className={styles.cardFooter}>
+                      <div className={styles.price}>
+                        <span className={styles.amount}>{pkg.pricePerPerson}</span>
+                        <span className={styles.perPerson}>per person</span>
+                      </div>
+                      <div className={styles.actions}>
+                        <Link href={`/tours/${pkg.id}`} className={styles.viewBtn}>
+                          View
+                          <ArrowRight size={14} />
+                        </Link>
+                        <button
+                          className={styles.cartBtn}
+                          onClick={() => handleAddPackageToCart(pkg)}
+                          aria-label="Add to cart"
+                        >
+                          <ShoppingCart size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+
+            {/* Day Tours */}
+            {(activeTab === 'all' || activeTab === 'day-tours') &&
+              filteredDayTours.map((tour) => (
+                <article key={tour.id} className={styles.tourCard}>
+                  <div className={styles.cardImage}>
+                    <Image
+                      src={tour.image}
+                      alt={tour.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <span className={styles.durationBadge}>
+                      <Clock size={12} />
+                      {tour.duration}
+                    </span>
+                    <span className={`${styles.typeBadge} ${styles.tourType}`}>Day Tour</span>
+                  </div>
+                  <div className={styles.cardContent}>
+                    <div className={styles.cardLocation}>
+                      <MapPin size={12} />
+                      {tour.departsFrom}
+                    </div>
+                    <h3 className={styles.cardTitle}>{tour.name}</h3>
+                    <div className={styles.cardMeta}>
+                      <span>
+                        <Users size={14} />
+                        {tour.groupSize.min}-{tour.groupSize.max} people
+                      </span>
+                      <span className={styles.rating}>
+                        <Star size={14} fill="currentColor" />
+                        {tour.rating}
+                      </span>
+                    </div>
+                    <div className={styles.cardFooter}>
+                      <div className={styles.price}>
+                        <span className={styles.amount}>{tour.pricePerPerson}</span>
+                        <span className={styles.perPerson}>per person</span>
+                      </div>
+                      <div className={styles.actions}>
+                        <Link href={`/tours/${tour.id}`} className={styles.viewBtn}>
+                          View
+                          <ArrowRight size={14} />
+                        </Link>
+                        <button
+                          className={styles.cartBtn}
+                          onClick={() => handleAddTourToCart(tour)}
+                          aria-label="Add to cart"
+                        >
+                          <ShoppingCart size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
           </div>
         ) : (
           <div className={styles.noResults}>
             <MapPin />
-            <h3>No tours found</h3>
+            <h3>No {activeTab === 'packages' ? 'packages' : activeTab === 'day-tours' ? 'day tours' : 'tours'} found</h3>
             <p>Try adjusting your filters or search terms</p>
             <button onClick={clearFilters}>Clear Filters</button>
           </div>

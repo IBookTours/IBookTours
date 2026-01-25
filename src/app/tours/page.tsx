@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { Metadata } from 'next';
 import ToursClient from './ToursClient';
 import { fetchTourPackagesWithFallback } from '@/sanity';
+import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
   title: 'Tours & Packages | ITravel',
@@ -38,7 +39,11 @@ export default async function ToursPage() {
 
   return (
     <Suspense fallback={<ToursLoading />}>
-      <ToursClient destinations={destinations} />
+      <ToursClient
+        destinations={destinations}
+        vacationPackages={siteData.vacationPackages}
+        dayTours={siteData.dayTours}
+      />
     </Suspense>
   );
 }

@@ -6,10 +6,11 @@
   left: 0;
   right: 0;
   z-index: $z-popover;  // 600
-  background-color: $neutral-900;
-  border-top: 1px solid $neutral-700;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
   padding: $spacing-4;
   animation: slideUp 0.3s ease-out;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
 
   @include respond-to(md) {
     padding: $spacing-5 $spacing-8;
@@ -37,7 +38,7 @@
 .title {
   font-size: $font-base;
   font-weight: $font-semibold;
-  color: $text-light;
+  color: var(--text-primary);
   margin-bottom: $spacing-1;
 
   @include respond-to(md) {
@@ -47,7 +48,7 @@
 
 .description {
   font-size: $font-sm;
-  color: $neutral-300;
+  color: var(--text-secondary);
   line-height: 1.5;
 }
 
@@ -78,12 +79,12 @@
 
 .declineButton {
   background-color: transparent;
-  border: 1px solid $neutral-600;
-  color: $neutral-300;
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
 
   &:hover {
-    background-color: $neutral-800;
-    border-color: $neutral-500;
+    background-color: var(--bg-tertiary);
+    border-color: var(--border-strong);
   }
 
   &:focus-visible {

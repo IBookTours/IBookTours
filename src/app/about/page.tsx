@@ -10,6 +10,8 @@ import {
   Heart,
   Target,
 } from 'lucide-react';
+import { fetchTestimonialsWithFallback } from '@/sanity';
+import ExpandableReviews from './ExpandableReviews';
 import styles from './about.module.scss';
 
 export const metadata: Metadata = {
@@ -89,7 +91,10 @@ const team = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // Fetch testimonials from Sanity with fallback to mock data
+  const testimonials = await fetchTestimonialsWithFallback();
+
   return (
     <div className={styles.page}>
       {/* Hero Section */}
@@ -223,6 +228,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Reviews Section */}
+      <ExpandableReviews testimonials={testimonials} />
 
       {/* Team Section */}
       <section className={styles.teamSection}>
