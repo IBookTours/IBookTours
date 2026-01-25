@@ -85,7 +85,13 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
             {content.stats && content.stats.length > 0 && (
               <div className={styles.stats}>
                 {content.stats.map((stat, index) => {
-                  const statKey = stat.key || stat.label.toLowerCase().replace(/\s+/g, '');
+                  // Map stat labels to translation keys
+                  const labelToKey: Record<string, string> = {
+                    'Unique Tours': 'tours',
+                    'Destinations': 'destinations',
+                    'Happy Travelers': 'satisfaction',
+                  };
+                  const statKey = labelToKey[stat.label] || 'tours';
                   return (
                     <div key={index} className={styles.statItem}>
                       <span className={styles.statIcon}>
