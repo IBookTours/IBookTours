@@ -752,6 +752,8 @@ function CheckoutContent() {
                         onChange={(e) => setBookerInfo(e.target.value, bookerEmail, bookerPhone)}
                         placeholder="John Doe"
                         required
+                        autoComplete="name"
+                        aria-required="true"
                       />
                     </div>
                     <div className={styles.field}>
@@ -763,6 +765,8 @@ function CheckoutContent() {
                         onChange={(e) => setBookerInfo(bookerName, e.target.value, bookerPhone)}
                         placeholder="john@example.com"
                         required
+                        autoComplete="email"
+                        aria-required="true"
                       />
                     </div>
                     <div className={styles.field}>
@@ -774,6 +778,8 @@ function CheckoutContent() {
                         onChange={(e) => setBookerInfo(bookerName, bookerEmail, e.target.value)}
                         placeholder="+1 234 567 8900"
                         required
+                        autoComplete="tel"
+                        aria-required="true"
                       />
                     </div>
                   </div>
@@ -984,6 +990,8 @@ function CheckoutContent() {
                         onChange={(e) => setCardData({ ...cardData, number: formatCardNumber(e.target.value) })}
                         placeholder="4242 4242 4242 4242"
                         maxLength={19}
+                        autoComplete="cc-number"
+                        aria-required="true"
                       />
                     </div>
                     <div className={styles.field}>
@@ -995,6 +1003,8 @@ function CheckoutContent() {
                         onChange={(e) => setCardData({ ...cardData, expiry: formatExpiry(e.target.value) })}
                         placeholder="MM/YY"
                         maxLength={5}
+                        autoComplete="cc-exp"
+                        aria-required="true"
                       />
                     </div>
                     <div className={styles.field}>
@@ -1006,6 +1016,8 @@ function CheckoutContent() {
                         onChange={(e) => setCardData({ ...cardData, cvc: e.target.value.replace(/\D/g, '').slice(0, 4) })}
                         placeholder="123"
                         maxLength={4}
+                        autoComplete="cc-csc"
+                        aria-required="true"
                       />
                     </div>
                   </div>

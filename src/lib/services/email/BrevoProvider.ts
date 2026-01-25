@@ -102,8 +102,9 @@ export class BrevoProvider implements IEmailService {
 
       const data = await response.json();
       return { success: true, messageId: data.messageId };
-    } catch (error) {
-      console.error('Brevo send email exception:', error);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error('Brevo send email exception:', message);
       return { success: false, error: 'Failed to send email' };
     }
   }
@@ -210,8 +211,9 @@ export class BrevoProvider implements IEmailService {
       }
 
       return { success: true };
-    } catch (error) {
-      console.error('Brevo add to newsletter exception:', error);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error('Brevo add to newsletter exception:', message);
       return { success: false, error: 'Failed to subscribe to newsletter' };
     }
   }

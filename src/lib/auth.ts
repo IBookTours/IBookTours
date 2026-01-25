@@ -4,7 +4,8 @@
 // Authentication configuration for ITravel
 // Supports Google OAuth and Credentials (email/password)
 
-import { NextAuthOptions } from 'next-auth';
+import { NextAuthOptions, User, Account, Profile, Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -61,7 +62,7 @@ const credentialsProvider = CredentialsProvider({
       type: 'password',
     },
   },
-  async authorize(credentials) {
+  async authorize(credentials: Partial<Record<string, unknown>> | undefined) {
     // ============================================
     // PLACEHOLDER LOGIC - REPLACE WITH REAL AUTH
     // ============================================
@@ -158,7 +159,7 @@ export const authOptions: NextAuthOptions = {
   // Callbacks for customizing behavior
   callbacks: {
     // Called when JWT is created or updated
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account }: { token: JWT; user?: User; account?: Account | null }): Promise<JWT> {
       // Initial sign in
       if (user) {
         token.id = user.id;
@@ -174,7 +175,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     // Called when session is accessed
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }): Promise<Session> {
       if (session.user) {
         session.user.id = token.id;
         session.user.role = token.role;
@@ -183,7 +184,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     // Called on sign in - can be used to restrict access
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account, profile }: { user: User; account: Account | null; profile?: Profile }): Promise<boolean> {
       // Allow all sign ins by default
       // You can add custom logic here, e.g., check if email is verified
       // or if the user is on a whitelist
@@ -197,7 +198,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     // Called when redirect is needed
-    async redirect({ url, baseUrl }) {
+    async redirect({ url, baseUrl }: { url: string; baseUrl: string }): Promise<string> {
       // Allows relative callback URLs
       if (url.startsWith('/')) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin
@@ -208,10 +209,10 @@ export const authOptions: NextAuthOptions = {
 
   // Events for logging and analytics
   events: {
-    async signIn({ user, isNewUser }) {
+    async signIn({ user, isNewUser }: { user: User; isNewUser?: boolean }) {
       console.log(`User signed in: ${user.email}, isNewUser: ${isNewUser}`);
     },
-    async signOut({ token }) {
+    async signOut({ token }: { token: JWT }) {
       console.log(`User signed out: ${token.email}`);
     },
   },

@@ -209,6 +209,7 @@ export default function ToursClient({
               placeholder="Search destinations, tours..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Search tours and destinations"
             />
             <button
               className={styles.filterToggle}
@@ -223,12 +224,16 @@ export default function ToursClient({
 
       <div className={styles.container}>
         {/* Tabs */}
-        <div className={styles.tabs}>
+        <div className={styles.tabs} role="tablist" aria-label="Tour categories">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               className={`${styles.tab} ${activeTab === tab.id ? styles.activeTab : ''}`}
               onClick={() => handleTabChange(tab.id)}
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              aria-controls={`tabpanel-${tab.id}`}
+              id={`tab-${tab.id}`}
             >
               {tab.icon}
               <span>{tab.label}</span>
@@ -238,13 +243,15 @@ export default function ToursClient({
         </div>
 
         {/* Filter Bar */}
-        <div className={`${styles.filterBar} ${showFilters ? styles.open : ''}`}>
+        <div className={`${styles.filterBar} ${showFilters ? styles.open : ''}`} role="group" aria-label="Tour filters">
           <div className={styles.filterGroup}>
-            <label>Price Range</label>
+            <label htmlFor="price-filter">Price Range</label>
             <div className={styles.selectWrapper}>
               <select
+                id="price-filter"
                 value={selectedPrice}
                 onChange={(e) => setSelectedPrice(e.target.value)}
+                aria-label="Filter by price range"
               >
                 {priceRanges.map((range) => (
                   <option key={range.id} value={range.id}>
@@ -252,16 +259,18 @@ export default function ToursClient({
                   </option>
                 ))}
               </select>
-              <ChevronDown />
+              <ChevronDown aria-hidden="true" />
             </div>
           </div>
 
           <div className={styles.filterGroup}>
-            <label>Duration</label>
+            <label htmlFor="duration-filter">Duration</label>
             <div className={styles.selectWrapper}>
               <select
+                id="duration-filter"
                 value={selectedDuration}
                 onChange={(e) => setSelectedDuration(e.target.value)}
+                aria-label="Filter by duration"
               >
                 {durations.map((dur) => (
                   <option key={dur.id} value={dur.id}>
@@ -269,13 +278,13 @@ export default function ToursClient({
                   </option>
                 ))}
               </select>
-              <ChevronDown />
+              <ChevronDown aria-hidden="true" />
             </div>
           </div>
 
           {hasActiveFilters && (
-            <button className={styles.clearFilters} onClick={clearFilters}>
-              <X />
+            <button className={styles.clearFilters} onClick={clearFilters} aria-label="Clear all filters">
+              <X aria-hidden="true" />
               Clear All
             </button>
           )}
@@ -307,7 +316,12 @@ export default function ToursClient({
 
         {/* Results Grid */}
         {counts[activeTab] > 0 ? (
-          <div className={`${styles.grid} ${viewMode === 'list' ? styles.listView : ''}`}>
+          <div
+            className={`${styles.grid} ${viewMode === 'list' ? styles.listView : ''}`}
+            role="tabpanel"
+            id={`tabpanel-${activeTab}`}
+            aria-labelledby={`tab-${activeTab}`}
+          >
             {/* Vacation Packages */}
             {(activeTab === 'all' || activeTab === 'packages') &&
               filteredPackages.map((pkg) => (

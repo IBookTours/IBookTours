@@ -135,6 +135,8 @@ export default function ContactPage() {
                           value={formData.name}
                           onChange={handleChange}
                           required
+                          autoComplete="name"
+                          aria-required="true"
                         />
                       </div>
                       <div className={styles.inputGroup}>
@@ -147,6 +149,8 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={handleChange}
                           required
+                          autoComplete="email"
+                          aria-required="true"
                         />
                       </div>
                     </div>

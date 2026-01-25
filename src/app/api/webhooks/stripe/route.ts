@@ -95,8 +95,9 @@ export async function POST(request: NextRequest) {
               totalAmount: `€${(paymentIntent.amount / 100).toFixed(2)}`,
             });
             console.log('[Webhook] Confirmation email sent to:', metadata.bookerEmail);
-          } catch (emailError) {
-            console.error('[Webhook] Failed to send email:', emailError);
+          } catch (emailError: unknown) {
+            const emailMessage = emailError instanceof Error ? emailError.message : String(emailError);
+            console.error('[Webhook] Failed to send email:', emailMessage);
             // Don't fail the webhook if email fails
           }
         }
@@ -128,8 +129,9 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ received: true });
-  } catch (error) {
-    console.error('[Webhook] Error processing webhook:', error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('[Webhook] Error processing webhook:', message);
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 }

@@ -120,7 +120,8 @@ export default function PassengerForm({
                     onChange={(e) => updatePassenger(index, 'fullName', e.target.value)}
                     placeholder={isAdult ? 'John Doe' : 'Jane Doe'}
                     required
-                    autoComplete={index === 0 ? 'name' : 'off'}
+                    autoComplete={index === 0 ? 'name' : 'given-name'}
+                    aria-required="true"
                   />
                 </div>
 
