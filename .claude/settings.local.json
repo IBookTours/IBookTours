@@ -34,7 +34,8 @@
       "Bash(npm audit:*)",
       "Bash(node:*)",
       "Bash(ls:*)",
-      "Bash(npm run lint:*)"
+      "Bash(npm run lint:*)",
+      "Bash(timeout /t 5 /nobreak)"
     ]
   }
 }

@@ -18,7 +18,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
-import { useIsMobile, useSwipe, useInView } from '@/hooks';
+import { useIsMobile, useIsTablet, useSwipe, useInView } from '@/hooks';
 import styles from './VacationPackagesSection.module.scss';
 
 export interface VacationPackage {
@@ -54,8 +54,10 @@ export default function VacationPackagesSection({
   const { addItem } = useCartStore();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobileIndex, setMobileIndex] = useState(0);
+  const [tabletIndex, setTabletIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.1,
     triggerOnce: true,
@@ -85,8 +87,20 @@ export default function VacationPackagesSection({
     setMobileIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
   }, [totalSlides]);
 
+  // Tablet navigation handlers - single card per slide
+  const handleTabletPrev = useCallback(() => {
+    setTabletIndex((prev) => (prev === 0 ? packages.length - 1 : prev - 1));
+  }, [packages.length]);
+
+  const handleTabletNext = useCallback(() => {
+    setTabletIndex((prev) => (prev === packages.length - 1 ? 0 : prev + 1));
+  }, [packages.length]);
+
   // Swipe handlers for mobile
   const swipeHandlers = useSwipe(handleMobileNext, handleMobilePrev);
+
+  // Swipe handlers for tablet
+  const tabletSwipeHandlers = useSwipe(handleTabletNext, handleTabletPrev);
 
   const handleAddToCart = (pkg: VacationPackage) => {
     addItem({
@@ -277,8 +291,54 @@ export default function VacationPackagesSection({
           </div>
         )}
 
-        {/* Desktop/Tablet: Grid with slider */}
-        {!isMobile && (
+        {/* Tablet: Single card carousel */}
+        {!isMobile && isTablet && packages.length > 0 && (
+          <div className={styles.tabletCarouselWrapper}>
+            <button
+              className={`${styles.tabletArrow} ${styles.tabletPrev}`}
+              onClick={handleTabletPrev}
+              aria-label="Previous package"
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            <div className={styles.tabletCarousel} {...tabletSwipeHandlers}>
+              <div
+                className={styles.tabletTrack}
+                style={{ transform: `translateX(-${tabletIndex * 100}%)` }}
+              >
+                {packages.map((pkg) => (
+                  <div key={pkg.id} className={styles.tabletSlide}>
+                    {renderPackageCard(pkg)}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              className={`${styles.tabletArrow} ${styles.tabletNext}`}
+              onClick={handleTabletNext}
+              aria-label="Next package"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Tablet dots */}
+            <div className={styles.tabletDots}>
+              {packages.map((_, i) => (
+                <button
+                  key={i}
+                  className={`${styles.tabletDot} ${i === tabletIndex ? styles.activeDot : ''}`}
+                  onClick={() => setTabletIndex(i)}
+                  aria-label={`Go to package ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Desktop: Grid with slider */}
+        {!isMobile && !isTablet && (
           <>
             <div className={styles.sliderWrapper}>
               {canShowSlider && (

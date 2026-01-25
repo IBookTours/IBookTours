@@ -321,7 +321,7 @@ export default function DayToursSection({
         )}
 
         <div className={styles.cta}>
-          <Link href="/tours" className={styles.ctaButton}>
+          <Link href="/tours?type=day-tours" className={styles.ctaButton}>
             {t('viewAll')}
             <ArrowRight size={18} />
           </Link>

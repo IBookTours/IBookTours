@@ -38,7 +38,7 @@ export class BrevoProvider implements IEmailService {
   constructor() {
     this.apiKey = process.env.BREVO_API_KEY || '';
     this.senderEmail = process.env.BREVO_SENDER_EMAIL || 'noreply@itravel.com';
-    this.senderName = process.env.BREVO_SENDER_NAME || 'ITravel';
+    this.senderName = process.env.BREVO_SENDER_NAME || 'ITravel Tours';
     this.newsletterListId = parseInt(process.env.BREVO_NEWSLETTER_LIST_ID || '1', 10);
     this.contactEmail = process.env.CONTACT_EMAIL || 'contact@itravel.com';
     this.isDemoMode = !this.apiKey;
