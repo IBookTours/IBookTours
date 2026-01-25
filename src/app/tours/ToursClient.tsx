@@ -350,7 +350,7 @@ export default function ToursClient({
           <div className={styles.activeFilters}>
             {searchQuery && (
               <span className={styles.filterChip}>
-                Search: "{searchQuery}"
+                Search: &quot;{searchQuery}&quot;
                 <button onClick={() => setSearchQuery('')} aria-label="Remove search filter">
                   <X />
                 </button>

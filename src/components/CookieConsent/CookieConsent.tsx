@@ -40,7 +40,7 @@ export default function CookieConsent() {
           <h3 className={styles.title}>We value your privacy</h3>
           <p className={styles.description}>
             We use cookies to enhance your browsing experience and analyze our traffic.
-            By clicking "Accept", you consent to our use of cookies.{' '}
+            By clicking &quot;Accept&quot;, you consent to our use of cookies.{' '}
             <a href="/cookies" className={styles.link}>Learn more</a>
           </p>
         </div>

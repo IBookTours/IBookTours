@@ -911,7 +911,7 @@ function CheckoutContent() {
                   // Single tour passenger form
                   <PassengerForm
                     adults={travelers.adults}
-                    children={travelers.children}
+                    childCount={travelers.children}
                     initialDetails={passengerDetails}
                     onDetailsChange={(details: PassengerDetail[]) => setPassengerDetails(details)}
                     onValidChange={setIsPassengerFormValid}

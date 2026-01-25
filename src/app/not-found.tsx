@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Home, Search, ArrowLeft } from 'lucide-react';
 import styles from './error.module.scss';
 
@@ -8,6 +9,14 @@ export default function NotFound() {
   return (
     <div className={styles.errorPage}>
       <div className={styles.content}>
+        <Image
+          src="/logo.svg"
+          alt="ITravel Tours"
+          width={160}
+          height={48}
+          className={styles.logo}
+          priority
+        />
         <h1 className={styles.errorCode}>404</h1>
 
         <h2 className={styles.title}>Page Not Found</h2>

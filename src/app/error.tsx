@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './error.module.scss';
 
 interface ErrorProps {
@@ -19,6 +20,14 @@ export default function Error({ error, reset }: ErrorProps) {
   return (
     <div className={styles.errorPage}>
       <div className={styles.content}>
+        <Image
+          src="/logo.svg"
+          alt="ITravel Tours"
+          width={160}
+          height={48}
+          className={styles.logo}
+          priority
+        />
         <div className={styles.iconWrapper}>
           <AlertTriangle />
         </div>

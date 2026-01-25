@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ChevronLeft, ChevronDown, ChevronUp } from 'lucide-react';
 import { LegalPageContent } from '@/data/legalPages';
 import styles from './LegalPage.module.scss';
@@ -38,6 +39,18 @@ export default function LegalPage({ content }: LegalPageProps) {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
+        <div className={styles.brandHeader}>
+          <Link href="/">
+            <Image
+              src="/logo.svg"
+              alt="ITravel Tours"
+              width={140}
+              height={40}
+              className={styles.logo}
+            />
+          </Link>
+        </div>
+
         <Link href="/" className={styles.backLink}>
           <ChevronLeft size={16} />
           Back to Home

@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Globe, ChevronDown } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
+import { useLocale } from '@/components/providers/I18nProvider';
+import { localeNames, type Locale } from '@/i18n/config';
 import styles from './LanguageSwitcher.module.scss';
 
 interface LanguageSwitcherProps {
@@ -10,20 +11,15 @@ interface LanguageSwitcherProps {
   onAction?: () => void;
 }
 
-const languages = [
-  { code: 'en', name: 'English', nativeName: 'English', flag: '🇬🇧' },
-  { code: 'he', name: 'Hebrew', nativeName: 'עברית', flag: '🇮🇱' },
+const languages: { code: Locale; name: string; nativeName: string; flag: string }[] = [
+  { code: 'en', name: 'English', nativeName: localeNames.en, flag: '🇬🇧' },
+  { code: 'he', name: 'Hebrew', nativeName: localeNames.he, flag: '🇮🇱' },
 ];
 
 export default function LanguageSwitcher({ variant = 'desktop', onAction }: LanguageSwitcherProps) {
-  const { i18n } = useTranslation();
+  const [locale, setLocale] = useLocale();
   const [isOpen, setIsOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState('en');
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setCurrentLang(i18n.language);
-  }, [i18n.language]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -36,15 +32,14 @@ export default function LanguageSwitcher({ variant = 'desktop', onAction }: Lang
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleLanguageChange = (langCode: string) => {
-    i18n.changeLanguage(langCode);
-    setCurrentLang(langCode);
+  const handleLanguageChange = (langCode: Locale) => {
+    setLocale(langCode);
     setIsOpen(false);
     onAction?.();
   };
 
-  const currentLanguage = languages.find((l) => l.code === currentLang) || languages[0];
-  const otherLanguage = languages.find((l) => l.code !== currentLang) || languages[1];
+  const currentLanguage = languages.find((l) => l.code === locale) || languages[0];
+  const otherLanguage = languages.find((l) => l.code !== locale) || languages[1];
 
   if (variant === 'mobile') {
     return (
@@ -67,7 +62,7 @@ export default function LanguageSwitcher({ variant = 'desktop', onAction }: Lang
         aria-haspopup="listbox"
       >
         <Globe size={18} />
-        <span className={styles.langCode}>{currentLang.toUpperCase()}</span>
+        <span className={styles.langCode}>{locale.toUpperCase()}</span>
         <ChevronDown size={14} className={`${styles.chevron} ${isOpen ? styles.open : ''}`} />
       </button>
 
@@ -76,10 +71,10 @@ export default function LanguageSwitcher({ variant = 'desktop', onAction }: Lang
           {languages.map((lang) => (
             <button
               key={lang.code}
-              className={`${styles.option} ${lang.code === currentLang ? styles.active : ''}`}
+              className={`${styles.option} ${lang.code === locale ? styles.active : ''}`}
               onClick={() => handleLanguageChange(lang.code)}
               role="option"
-              aria-selected={lang.code === currentLang}
+              aria-selected={lang.code === locale}
             >
               <span className={styles.flag}>{lang.flag}</span>
               <span className={styles.langName}>{lang.nativeName}</span>

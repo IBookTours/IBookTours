@@ -7,7 +7,7 @@ import styles from './PassengerForm.module.scss';
 
 interface PassengerFormProps {
   adults: number;
-  children: number;
+  childCount: number;
   initialDetails?: PassengerDetail[];
   onDetailsChange: (details: PassengerDetail[]) => void;
   onValidChange?: (isValid: boolean) => void;
@@ -15,12 +15,12 @@ interface PassengerFormProps {
 
 export default function PassengerForm({
   adults,
-  children,
+  childCount,
   initialDetails = [],
   onDetailsChange,
   onValidChange,
 }: PassengerFormProps) {
-  const totalPassengers = adults + children;
+  const totalPassengers = adults + childCount;
 
   // Initialize passenger details
   const [passengers, setPassengers] = useState<PassengerDetail[]>(() => {
@@ -37,7 +37,7 @@ export default function PassengerForm({
         specialRequests: initialDetails[i]?.specialRequests || '',
       });
     }
-    for (let i = 0; i < children; i++) {
+    for (let i = 0; i < childCount; i++) {
       const idx = adults + i;
       defaultPassengers.push({
         fullName: initialDetails[idx]?.fullName || '',
@@ -57,13 +57,13 @@ export default function PassengerForm({
       for (let i = 0; i < adults; i++) {
         newPassengers.push(passengers[i] || { fullName: '', isChild: false, specialRequests: '' });
       }
-      for (let i = 0; i < children; i++) {
+      for (let i = 0; i < childCount; i++) {
         const oldIdx = adults + i;
         newPassengers.push(passengers[oldIdx] || { fullName: '', isChild: true, specialRequests: '' });
       }
       setPassengers(newPassengers);
     }
-  }, [adults, children, totalPassengers]);
+  }, [adults, childCount, totalPassengers]);
 
   // Notify parent of changes
   useEffect(() => {

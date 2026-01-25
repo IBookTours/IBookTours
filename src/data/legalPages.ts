@@ -1,7 +1,21 @@
+// ============================================
+// ITRAVEL - Legal Pages Data (CMS Ready)
+// ============================================
+// This file contains all legal content with i18n support.
+// Replace with Sanity fetches when CMS is connected:
+// const privacyPage = await sanityClient.fetch<LegalPage>(privacyQuery);
+
+import type { ProductType, LocalizedString, LocalizedText, Locale } from '@/types/cms';
+
+// ============================================
+// INTERFACES
+// ============================================
+
 export interface LegalSection {
   id: string;
   title: string;
   content: string[];
+  collapsible?: boolean;
 }
 
 export interface LegalPageContent {
@@ -10,6 +24,276 @@ export interface LegalPageContent {
   lastUpdated: string;
   sections: LegalSection[];
 }
+
+// CMS-Ready interfaces with i18n support
+export interface CMSLegalSection {
+  id: string;
+  title: LocalizedString;
+  content: LocalizedText;
+  collapsible?: boolean;
+}
+
+export interface CMSLegalPage {
+  _id: string;
+  _type: 'legalPage';
+  slug: string;
+  title: LocalizedString;
+  description: LocalizedString;
+  lastUpdated: string;
+  sections: CMSLegalSection[];
+}
+
+// ============================================
+// CANCELLATION POLICIES (Product-Specific)
+// ============================================
+
+export interface CancellationTier {
+  daysRange: { min: number; max: number | null }; // null = no upper limit
+  refundPercent: number;
+  label: LocalizedString;
+}
+
+export interface ProductCancellationPolicy {
+  _id: string;
+  _type: 'cancellationPolicy';
+  productType: ProductType;
+  name: LocalizedString;
+  policyCode: 'flexible' | 'standard' | 'strict' | 'custom';
+  description: LocalizedString;
+  tiers: CancellationTier[];
+  notes: LocalizedString;
+}
+
+// Product-specific cancellation policies for a small travel agency
+export const cancellationPolicies: ProductCancellationPolicy[] = [
+  {
+    _id: 'policy-vacation-package',
+    _type: 'cancellationPolicy',
+    productType: 'vacation-package',
+    name: {
+      en: 'Flexible Policy',
+      he: 'מדיניות גמישה',
+    },
+    policyCode: 'flexible',
+    description: {
+      en: 'Our vacation packages include flights and hotels, so we offer generous cancellation windows to give you peace of mind when booking.',
+      he: 'חבילות הנופש שלנו כוללות טיסות ומלונות, לכן אנו מציעים חלונות ביטול נדיבים כדי לתת לכם שקט נפשי בעת ההזמנה.',
+    },
+    tiers: [
+      {
+        daysRange: { min: 14, max: null },
+        refundPercent: 100,
+        label: {
+          en: '14+ days before departure',
+          he: '14+ ימים לפני היציאה',
+        },
+      },
+      {
+        daysRange: { min: 7, max: 13 },
+        refundPercent: 50,
+        label: {
+          en: '7-13 days before departure',
+          he: '7-13 ימים לפני היציאה',
+        },
+      },
+      {
+        daysRange: { min: 0, max: 6 },
+        refundPercent: 0,
+        label: {
+          en: 'Less than 7 days before departure',
+          he: 'פחות מ-7 ימים לפני היציאה',
+        },
+      },
+    ],
+    notes: {
+      en: 'Flight tickets may have separate airline cancellation policies. Non-refundable deposits, if any, will be deducted from refunds.',
+      he: 'כרטיסי טיסה עשויים להיות כפופים למדיניות ביטול נפרדת של חברת התעופה. פיקדונות שאינם ניתנים להחזר, אם ישנם, ינוכו מההחזרים.',
+    },
+  },
+  {
+    _id: 'policy-day-tour',
+    _type: 'cancellationPolicy',
+    productType: 'day-tour',
+    name: {
+      en: 'Standard Policy',
+      he: 'מדיניות רגילה',
+    },
+    policyCode: 'standard',
+    description: {
+      en: 'Day tours are easier to reschedule, so we offer shorter but fair cancellation windows.',
+      he: 'טיולי יום קל יותר לתזמן מחדש, לכן אנו מציעים חלונות ביטול קצרים יותר אך הוגנים.',
+    },
+    tiers: [
+      {
+        daysRange: { min: 2, max: null },
+        refundPercent: 100,
+        label: {
+          en: '48+ hours before tour',
+          he: '48+ שעות לפני הטיול',
+        },
+      },
+      {
+        daysRange: { min: 1, max: 1 },
+        refundPercent: 50,
+        label: {
+          en: '24-48 hours before tour',
+          he: '24-48 שעות לפני הטיול',
+        },
+      },
+      {
+        daysRange: { min: 0, max: 0 },
+        refundPercent: 0,
+        label: {
+          en: 'Less than 24 hours before tour',
+          he: 'פחות מ-24 שעות לפני הטיול',
+        },
+      },
+    ],
+    notes: {
+      en: 'If minimum group size is not met, we will offer a full refund or alternative date. Weather cancellations by us are fully refundable.',
+      he: 'אם גודל הקבוצה המינימלי לא מתקיים, נציע החזר מלא או תאריך חלופי. ביטולים בגלל מזג אוויר על ידנו זכאים להחזר מלא.',
+    },
+  },
+  {
+    _id: 'policy-event-ticket',
+    _type: 'cancellationPolicy',
+    productType: 'event-ticket',
+    name: {
+      en: 'Strict Policy',
+      he: 'מדיניות קפדנית',
+    },
+    policyCode: 'strict',
+    description: {
+      en: 'Event tickets are often limited and non-transferable. We have a stricter policy to ensure fair access for all customers.',
+      he: 'כרטיסים לאירועים לרוב מוגבלים ואינם ניתנים להעברה. יש לנו מדיניות קפדנית יותר כדי להבטיח גישה הוגנת לכל הלקוחות.',
+    },
+    tiers: [
+      {
+        daysRange: { min: 7, max: null },
+        refundPercent: 100,
+        label: {
+          en: '7+ days before event',
+          he: '7+ ימים לפני האירוע',
+        },
+      },
+      {
+        daysRange: { min: 0, max: 6 },
+        refundPercent: 0,
+        label: {
+          en: 'Less than 7 days before event',
+          he: 'פחות מ-7 ימים לפני האירוע',
+        },
+      },
+    ],
+    notes: {
+      en: 'Event cancellations by organizers will be fully refunded. Tickets may be transferable to another person with advance notice.',
+      he: 'ביטולי אירועים על ידי המארגנים יוחזרו במלואם. ניתן להעביר כרטיסים לאדם אחר בהודעה מראש.',
+    },
+  },
+  {
+    _id: 'policy-private-tour',
+    _type: 'cancellationPolicy',
+    productType: 'private-tour',
+    name: {
+      en: 'Custom Policy',
+      he: 'מדיניות מותאמת',
+    },
+    policyCode: 'custom',
+    description: {
+      en: 'Private tours require significant planning and resource allocation. Our tiered refund structure reflects this investment.',
+      he: 'טיולים פרטיים דורשים תכנון משמעותי והקצאת משאבים. מבנה ההחזרים המדורג שלנו משקף השקעה זו.',
+    },
+    tiers: [
+      {
+        daysRange: { min: 30, max: null },
+        refundPercent: 100,
+        label: {
+          en: '30+ days before tour',
+          he: '30+ ימים לפני הטיול',
+        },
+      },
+      {
+        daysRange: { min: 14, max: 29 },
+        refundPercent: 75,
+        label: {
+          en: '14-29 days before tour',
+          he: '14-29 ימים לפני הטיול',
+        },
+      },
+      {
+        daysRange: { min: 7, max: 13 },
+        refundPercent: 50,
+        label: {
+          en: '7-13 days before tour',
+          he: '7-13 ימים לפני הטיול',
+        },
+      },
+      {
+        daysRange: { min: 0, max: 6 },
+        refundPercent: 0,
+        label: {
+          en: 'Less than 7 days before tour',
+          he: 'פחות מ-7 ימים לפני הטיול',
+        },
+      },
+    ],
+    notes: {
+      en: 'Private tours can often be rescheduled instead of cancelled. Contact us to discuss options. Custom itinerary changes may incur fees.',
+      he: 'לעתים קרובות ניתן לתזמן מחדש טיולים פרטיים במקום לבטל. צרו איתנו קשר לדיון באפשרויות. שינויים במסלול מותאם אישית עשויים לכלול עמלות.',
+    },
+  },
+];
+
+// Helper function to get policy by product type
+export function getCancellationPolicy(
+  productType: ProductType
+): ProductCancellationPolicy | undefined {
+  return cancellationPolicies.find((p) => p.productType === productType);
+}
+
+// Helper function to get refund percentage for a specific product and days before
+export function getRefundPercent(productType: ProductType, daysBeforeStart: number): number {
+  const policy = getCancellationPolicy(productType);
+  if (!policy) return 0;
+
+  for (const tier of policy.tiers) {
+    const matchesMin = daysBeforeStart >= tier.daysRange.min;
+    const matchesMax = tier.daysRange.max === null || daysBeforeStart <= tier.daysRange.max;
+    if (matchesMin && matchesMax) {
+      return tier.refundPercent;
+    }
+  }
+  return 0;
+}
+
+// Helper function to get localized policy content
+export function getLocalizedPolicy(
+  productType: ProductType,
+  locale: Locale
+): {
+  name: string;
+  description: string;
+  tiers: { label: string; refundPercent: number }[];
+  notes: string;
+} | null {
+  const policy = getCancellationPolicy(productType);
+  if (!policy) return null;
+
+  return {
+    name: policy.name[locale],
+    description: policy.description[locale],
+    tiers: policy.tiers.map((tier) => ({
+      label: tier.label[locale],
+      refundPercent: tier.refundPercent,
+    })),
+    notes: policy.notes[locale],
+  };
+}
+
+// ============================================
+// LEGACY FORMAT (for backward compatibility)
+// ============================================
+// These maintain the current component interface while being CMS-ready
 
 export const privacyContent: LegalPageContent = {
   title: 'Privacy Policy',
@@ -105,9 +389,11 @@ export const termsContent: LegalPageContent = {
       id: 'cancellation',
       title: 'Cancellation Policy',
       content: [
-        'Free cancellation is available up to 30 days before the tour start date.',
-        'Cancellations made 15-30 days before receive a 50% refund.',
-        'Cancellations made less than 15 days before are non-refundable.',
+        'Cancellation policies vary by product type. Please review the specific policy for your booking.',
+        'Vacation Packages: 14+ days = full refund, 7-13 days = 50%, <7 days = no refund.',
+        'Day Tours: 48+ hours = full refund, 24-48 hours = 50%, <24 hours = no refund.',
+        'Event Tickets: 7+ days = full refund, <7 days = no refund.',
+        'Private Tours: 30+ days = full, 14-29 days = 75%, 7-13 days = 50%, <7 days = no refund.',
         'We reserve the right to cancel tours due to insufficient participants or force majeure.',
       ],
     },
@@ -263,13 +549,52 @@ export const cancellationContent: LegalPageContent = {
   lastUpdated: 'January 2026',
   sections: [
     {
-      id: 'cancellation-windows',
-      title: 'Cancellation Windows',
+      id: 'overview',
+      title: 'Overview',
       content: [
-        '30+ days before tour: Full refund (minus any non-refundable deposits).',
-        '15-30 days before tour: 50% refund.',
-        '7-14 days before tour: 25% refund.',
-        'Less than 7 days before tour: No refund available.',
+        'Our cancellation policies are designed to be fair while covering our operational costs.',
+        'Different products have different cancellation windows based on their nature.',
+        'We always try to accommodate changes when possible.',
+      ],
+    },
+    {
+      id: 'vacation-packages',
+      title: 'Vacation Packages (Flexible)',
+      content: [
+        '14+ days before departure: Full refund',
+        '7-13 days before departure: 50% refund',
+        'Less than 7 days before departure: No refund',
+        'Note: Flight tickets may have separate airline cancellation policies.',
+      ],
+    },
+    {
+      id: 'day-tours',
+      title: 'Day Tours (Standard)',
+      content: [
+        '48+ hours before tour: Full refund',
+        '24-48 hours before tour: 50% refund',
+        'Less than 24 hours before tour: No refund',
+        'Weather cancellations by us are always fully refundable.',
+      ],
+    },
+    {
+      id: 'event-tickets',
+      title: 'Event Tickets (Strict)',
+      content: [
+        '7+ days before event: Full refund',
+        'Less than 7 days before event: No refund',
+        'Tickets may be transferable to another person with advance notice.',
+      ],
+    },
+    {
+      id: 'private-tours',
+      title: 'Private Tours (Custom)',
+      content: [
+        '30+ days before tour: Full refund',
+        '14-29 days before tour: 75% refund',
+        '7-13 days before tour: 50% refund',
+        'Less than 7 days before tour: No refund',
+        'Private tours can often be rescheduled instead of cancelled.',
       ],
     },
     {
@@ -324,3 +649,142 @@ export const cancellationContent: LegalPageContent = {
     },
   ],
 };
+
+// ============================================
+// CMS-READY LEGAL PAGES (i18n)
+// ============================================
+// These are the fully i18n-ready versions for when CMS is connected
+
+export const cmsLegalPages: CMSLegalPage[] = [
+  {
+    _id: 'legal-privacy',
+    _type: 'legalPage',
+    slug: 'privacy',
+    title: {
+      en: 'Privacy Policy',
+      he: 'מדיניות פרטיות',
+    },
+    description: {
+      en: 'Learn how ITravel collects, uses, and protects your personal information.',
+      he: 'למדו כיצד ITravel אוספת, משתמשת ומגינה על המידע האישי שלכם.',
+    },
+    lastUpdated: 'January 2026',
+    sections: [
+      {
+        id: 'collection',
+        title: {
+          en: 'Information We Collect',
+          he: 'מידע שאנו אוספים',
+        },
+        content: {
+          en: [
+            'When you book a tour or create an account, we collect personal information including your name, email address, phone number, and payment details.',
+            'We automatically collect certain information when you visit our website, including your IP address, browser type, device information, and pages visited.',
+            'If you contact us, we keep records of our correspondence to improve our services.',
+          ],
+          he: [
+            'כאשר אתם מזמינים טיול או יוצרים חשבון, אנו אוספים מידע אישי כולל שם, כתובת אימייל, מספר טלפון ופרטי תשלום.',
+            'אנו אוספים אוטומטית מידע מסוים כאשר אתם מבקרים באתר שלנו, כולל כתובת IP, סוג דפדפן, מידע על המכשיר ודפים שבהם ביקרתם.',
+            'אם אתם יוצרים איתנו קשר, אנו שומרים רשומות של ההתכתבות שלנו כדי לשפר את השירותים שלנו.',
+          ],
+        },
+      },
+      {
+        id: 'usage',
+        title: {
+          en: 'How We Use Your Information',
+          he: 'כיצד אנו משתמשים במידע שלכם',
+        },
+        content: {
+          en: [
+            'We use your information to process bookings, manage your account, and provide customer support.',
+            'We may send you marketing communications about our tours and offers. You can opt out at any time.',
+            'We analyze usage patterns to improve our website and services.',
+          ],
+          he: [
+            'אנו משתמשים במידע שלכם לעיבוד הזמנות, ניהול החשבון שלכם ומתן תמיכת לקוחות.',
+            'אנו עשויים לשלוח לכם תקשורת שיווקית על הטיולים וההצעות שלנו. תוכלו לבטל את ההרשמה בכל עת.',
+            'אנו מנתחים דפוסי שימוש כדי לשפר את האתר והשירותים שלנו.',
+          ],
+        },
+      },
+      {
+        id: 'protection',
+        title: {
+          en: 'How We Protect Your Data',
+          he: 'כיצד אנו מגינים על המידע שלכם',
+        },
+        content: {
+          en: [
+            'We use industry-standard encryption (SSL/TLS) to protect data transmission.',
+            'Payment information is processed securely through Stripe and is never stored on our servers.',
+            'We implement access controls to limit who can access your personal data.',
+          ],
+          he: [
+            'אנו משתמשים בהצפנה תקנית (SSL/TLS) כדי להגן על העברת נתונים.',
+            'מידע תשלום מעובד בצורה מאובטחת דרך Stripe ולעולם לא נשמר בשרתים שלנו.',
+            'אנו מיישמים בקרות גישה כדי להגביל מי יכול לגשת למידע האישי שלכם.',
+          ],
+        },
+      },
+      {
+        id: 'rights',
+        title: {
+          en: 'Your Rights',
+          he: 'הזכויות שלכם',
+        },
+        content: {
+          en: [
+            'You have the right to access, correct, or delete your personal data.',
+            'You can request a copy of all data we hold about you.',
+            'You have the right to lodge a complaint with a data protection authority.',
+          ],
+          he: [
+            'יש לכם זכות לגשת, לתקן או למחוק את המידע האישי שלכם.',
+            'תוכלו לבקש עותק של כל המידע שאנו מחזיקים עליכם.',
+            'יש לכם זכות להגיש תלונה לרשות להגנת מידע.',
+          ],
+        },
+      },
+      {
+        id: 'contact',
+        title: {
+          en: 'Contact Us',
+          he: 'צרו קשר',
+        },
+        content: {
+          en: [
+            'Email: privacy@itravel.com',
+            'Phone: +972 50-656-6211',
+            'Address: Tirana, Albania',
+          ],
+          he: [
+            'אימייל: privacy@itravel.com',
+            'טלפון: +972 50-656-6211',
+            'כתובת: טירנה, אלבניה',
+          ],
+        },
+      },
+    ],
+  },
+];
+
+// Helper to get localized legal page content
+export function getLocalizedLegalPage(
+  slug: string,
+  locale: Locale
+): LegalPageContent | null {
+  const page = cmsLegalPages.find((p) => p.slug === slug);
+  if (!page) return null;
+
+  return {
+    title: page.title[locale],
+    description: page.description[locale],
+    lastUpdated: page.lastUpdated,
+    sections: page.sections.map((s) => ({
+      id: s.id,
+      title: s.title[locale],
+      content: s.content[locale],
+    })),
+  };
+}

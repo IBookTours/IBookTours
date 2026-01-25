@@ -1,4 +1,9 @@
 {
+  "site": {
+    "name": "ITravelTours",
+    "description": "Discover Unforgettable Adventures with Us",
+    "tagline": "Making travel dreams come true since 2020."
+  },
   "nav": {
     "home": "Home",
     "about": "About",
@@ -7,12 +12,15 @@
     "contact": "Contact",
     "search": "Search",
     "darkMode": "Dark Mode",
-    "lightMode": "Light Mode"
+    "lightMode": "Light Mode",
+    "menu": "Menu",
+    "close": "Close"
   },
   "hero": {
     "title": "Discover the Beauty of Albania!",
     "subtitle": "Your Gateway to the Hidden Gem of Europe",
-    "searchPlaceholder": "Search Albanian destinations..."
+    "searchPlaceholder": "Search Albanian destinations...",
+    "overlayText": "Albania"
   },
   "destinations": {
     "sectionLabel": "Top Destinations",
@@ -21,42 +29,102 @@
     "from": "From",
     "perPerson": "per person",
     "days": "Days",
-    "reviews": "reviews"
+    "reviews": "reviews",
+    "featured": "Featured"
   },
   "adventure": {
-    "sectionLabel": "Adventure Awaits",
+    "sectionLabel": "Explore Albania",
     "title": "Choose Your Albanian Adventure",
+    "description": "From pristine beaches to majestic mountains, ancient UNESCO sites to authentic culinary experiences — Albania offers adventures for every traveler. Let us guide you through this hidden gem of the Balkans.",
     "tours": "tours",
-    "ratingLabel": "Based on verified reviews from thousands of happy travelers"
+    "ratingLabel": "Reviews from travelers who discovered the magic of Albania with us",
+    "cta": "Browse All Tours",
+    "stats": {
+      "tours": "Unique Tours",
+      "destinations": "Destinations",
+      "satisfaction": "Happy Travelers"
+    }
   },
   "events": {
     "sectionLabel": "Upcoming Events",
     "title": "Top Albanian Events",
-    "learnMore": "Learn More"
+    "year": "2026",
+    "learnMore": "Learn More",
+    "getTickets": "Get Tickets"
+  },
+  "partners": {
+    "sectionLabel": "Our Partners",
+    "title": "Trusted by Leading Travel Technology Providers",
+    "subtitle": "We partner with the world's best travel technology companies to bring you seamless booking experiences and the best prices.",
+    "stats": {
+      "bookings": "Bookings Processed",
+      "hotels": "Hotels Worldwide",
+      "airlines": "Airlines Connected",
+      "support": "Customer Support"
+    }
+  },
+  "vacationPackages": {
+    "sectionLabel": "Flight + Hotel Packages",
+    "title": "Vacation Packages",
+    "subtitle": "Complete holiday packages with flights and handpicked hotels. Everything you need for the perfect getaway.",
+    "flightsIncluded": "Flights Included",
+    "hotelIncluded": "Hotel Included",
+    "viewDetails": "View Details",
+    "addToCart": "Add to Cart",
+    "viewAll": "View All Packages",
+    "nights": "nights"
+  },
+  "dayTours": {
+    "sectionLabel": "Day Tours",
+    "title": "Explore Albania in a Day",
+    "subtitle": "Join our guided day tours and discover the best of Albania with expert local guides.",
+    "from": "From",
+    "groupSize": "Group",
+    "people": "people",
+    "viewAll": "View All Day Tours"
   },
   "stats": {
     "travelers": "Happy Travelers",
-    "destinations": "Destinations",
-    "rating": "Average Rating"
+    "destinations": "Albanian destinations",
+    "rating": "Average Rating",
+    "satisfaction": "Positive feedback"
   },
   "cta": {
-    "title": "Ready for Your Albanian Adventure?",
-    "subtitle": "Book your dream vacation today and discover the beauty of Albania",
-    "button": "Start Planning"
+    "title": "Ready to Explore?",
+    "subtitle": "Start your journey today and create memories that will last a lifetime.",
+    "button": "Book Your Adventure"
   },
   "testimonials": {
     "sectionLabel": "Testimonials",
     "title": "What They Say About Us",
     "readMore": "Read More",
-    "readLess": "Read Less"
+    "readLess": "Read Less",
+    "verifiedReview": "Verified Review"
   },
   "about": {
+    "badge": "5K+ Happy Travelers",
     "heroTitle": "About ITravelTours",
     "heroSubtitle": "Your trusted partner for unforgettable Albanian adventures since 2020",
+    "title": "Your Albania Experts",
+    "description": "We are passionate about sharing the beauty of Albania with the world. As locals, we know the hidden gems, the best beaches, and the authentic experiences that make Albania truly special.",
     "missionTitle": "Our Mission",
     "valuesTitle": "Our Values",
     "teamTitle": "Meet the Dreamweavers",
-    "teamSubtitle": "The passionate team behind your unforgettable Albanian adventures"
+    "teamSubtitle": "The passionate team behind your unforgettable Albanian adventures",
+    "features": {
+      "expertise": {
+        "title": "Local Expertise",
+        "description": "Albanian guides who know every hidden corner"
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "Always available in English, Albanian & Italian"
+      },
+      "value": {
+        "title": "Best Prices",
+        "description": "Direct local rates without middlemen"
+      }
+    }
   },
   "contact": {
     "title": "Get in Touch",
@@ -68,7 +136,9 @@
       "subject": "Subject",
       "message": "Your Message",
       "submit": "Send Message",
-      "sending": "Sending..."
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "error": "Failed to send message. Please try again."
     },
     "info": {
       "address": "Address",
@@ -79,38 +149,73 @@
   },
   "tours": {
     "title": "Explore Our Tours",
+    "subtitle": "Discover Albania's hidden treasures with our expertly crafted tours",
     "filters": {
       "all": "All Tours",
+      "cultural": "Cultural",
+      "adventure": "Adventure",
+      "food": "Food & Wine",
+      "nature": "Nature",
       "featured": "Featured",
       "popular": "Popular",
       "new": "New"
+    },
+    "sort": {
+      "label": "Sort by",
+      "priceAsc": "Price: Low to High",
+      "priceDesc": "Price: High to Low",
+      "rating": "Highest Rated",
+      "duration": "Duration"
     },
     "duration": "Duration",
     "price": "Price",
     "bookNow": "Book Now",
     "viewDetails": "View Details",
-    "perPerson": "per person"
+    "perPerson": "per person",
+    "noResults": "No tours found matching your criteria",
+    "clearFilters": "Clear Filters"
   },
   "blog": {
     "sectionLabel": "Travel Stories",
     "title": "Latest from Our Blog",
     "readMore": "Read More",
     "readTime": "min read",
-    "viewAll": "View All Posts"
+    "viewAll": "View All Posts",
+    "categories": {
+      "destinationGuide": "Destination Guide",
+      "foodCulture": "Food & Culture",
+      "adventure": "Adventure",
+      "travelTips": "Travel Tips",
+      "hiddenGems": "Hidden Gems"
+    }
   },
   "footer": {
     "description": "Your trusted partner for unforgettable Albanian adventures. Discover the beauty of the Balkans with our expert-guided tours.",
-    "quickLinks": "Quick Links",
-    "support": "Support",
+    "sections": {
+      "company": "Company",
+      "support": "Support",
+      "legal": "Legal"
+    },
+    "links": {
+      "about": "About Us",
+      "careers": "Careers",
+      "press": "Press",
+      "help": "Help Center",
+      "safety": "Safety",
+      "cancellation": "Cancellation",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "cookies": "Cookies"
+    },
     "faq": "FAQ",
     "contactUs": "Contact Us",
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
     "copyright": "All rights reserved",
     "newsletter": {
       "title": "Subscribe to Our Newsletter",
       "placeholder": "Enter your email",
-      "button": "Subscribe"
+      "button": "Subscribe",
+      "success": "Thank you for subscribing!",
+      "error": "Failed to subscribe. Please try again."
     }
   },
   "common": {
@@ -124,21 +229,121 @@
     "backToTop": "Back to Top",
     "language": "Language",
     "english": "English",
-    "hebrew": "עברית"
+    "hebrew": "עברית",
+    "showMore": "Show More",
+    "showLess": "Show Less"
   },
   "auth": {
     "login": "Login",
     "logout": "Logout",
     "signup": "Sign Up",
     "myAccount": "My Account",
-    "profile": "Profile"
+    "profile": "Profile",
+    "signInWith": "Sign in with {provider}"
   },
   "cart": {
     "title": "Your Cart",
     "empty": "Your cart is empty",
+    "emptySubtitle": "Browse our tours and add something you love!",
     "total": "Total",
+    "subtotal": "Subtotal",
     "checkout": "Checkout",
     "continueShopping": "Continue Shopping",
-    "remove": "Remove"
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "itemAdded": "Item added to cart"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "steps": {
+      "cart": "Cart",
+      "details": "Details",
+      "payment": "Payment",
+      "confirmation": "Confirmation"
+    },
+    "travelerDetails": "Traveler Details",
+    "paymentDetails": "Payment Details",
+    "orderSummary": "Order Summary",
+    "placeOrder": "Place Order",
+    "processing": "Processing...",
+    "success": "Booking Confirmed!",
+    "successMessage": "Thank you for your booking. You will receive a confirmation email shortly."
+  },
+  "booking": {
+    "sectionLabel": "Why Choose Us",
+    "title": "Seamless Online Booking",
+    "description": "Book your next adventure with just a few taps. Our intuitive platform makes planning your dream vacation effortless.",
+    "stats": {
+      "trips": "Trips Booked",
+      "hotels": "Partner Hotels",
+      "rating": "User Rating"
+    },
+    "cta": "Download App"
+  },
+  "cancellation": {
+    "title": "Cancellation Policy",
+    "overview": "Overview",
+    "policies": {
+      "flexible": {
+        "name": "Flexible Policy",
+        "applies": "Vacation Packages"
+      },
+      "standard": {
+        "name": "Standard Policy",
+        "applies": "Day Tours"
+      },
+      "strict": {
+        "name": "Strict Policy",
+        "applies": "Event Tickets"
+      },
+      "custom": {
+        "name": "Custom Policy",
+        "applies": "Private Tours"
+      }
+    },
+    "refund": {
+      "full": "Full refund",
+      "partial": "{percent}% refund",
+      "none": "No refund"
+    },
+    "howToCancel": "How to Cancel",
+    "refundProcess": "Refund Process"
+  },
+  "legal": {
+    "lastUpdated": "Last updated",
+    "tableOfContents": "Table of Contents",
+    "contactCta": "Questions? Contact us"
+  },
+  "help": {
+    "title": "Help Center",
+    "subtitle": "Find answers to common questions",
+    "searchPlaceholder": "Search for answers...",
+    "categories": {
+      "booking": "Booking & Reservations",
+      "payment": "Payment & Pricing",
+      "cancellation": "Cancellations & Refunds",
+      "tours": "During Your Tour",
+      "account": "Account & Support"
+    },
+    "noResults": "No results found",
+    "contactSupport": "Contact Support"
+  },
+  "accessibility": {
+    "title": "Accessibility Settings",
+    "fontSize": "Font Size",
+    "contrast": "High Contrast",
+    "reducedMotion": "Reduced Motion",
+    "colorBlind": "Color Blind Mode",
+    "reset": "Reset All"
+  },
+  "cookies": {
+    "title": "Cookie Preferences",
+    "message": "We use cookies to enhance your browsing experience.",
+    "essential": "Essential",
+    "analytics": "Analytics",
+    "marketing": "Marketing",
+    "accept": "Accept All",
+    "decline": "Decline",
+    "customize": "Customize"
   }
 }

@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Compass, ChevronDown, Facebook, Instagram, Youtube } from 'lucide-react';
+import Image from 'next/image';
+import { ChevronDown, Facebook, Instagram, Youtube } from 'lucide-react';
 import { FooterContent } from '@/types';
 import styles from './Footer.module.scss';
 
@@ -77,10 +78,13 @@ export default function Footer({ content, siteName }: FooterProps) {
           <div className={styles.grid}>
             <div className={styles.brand}>
               <Link href="/" className={styles.logo}>
-                <span className={styles.logoIcon}>
-                  <Compass />
-                </span>
-                {siteName}
+                <Image
+                  src="/logo.svg"
+                  alt={siteName}
+                  width={140}
+                  height={40}
+                  className={styles.logoImage}
+                />
               </Link>
               <p className={styles.tagline}>{content.tagline}</p>
 
@@ -128,6 +132,9 @@ export default function Footer({ content, siteName }: FooterProps) {
               </Link>
             </div>
           </div>
+          <p className={styles.developer}>
+            Developed by Mahdy Gribkov
+          </p>
         </div>
       </div>
     </footer>
