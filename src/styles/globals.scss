@@ -82,11 +82,11 @@
   --glass-text: #1d3557;                        // Oxford Navy for glass text
   --glass-text-secondary: #457b9d;              // Cerulean for secondary glass text
 
-  // Hero/video overlay gradient stops (light mode - stronger overlay)
-  --hero-overlay-top: rgba(0, 0, 0, 0.45);
-  --hero-overlay-mid: rgba(0, 0, 0, 0.25);
-  --hero-overlay-lower: rgba(0, 0, 0, 0.35);
-  --hero-gradient-end: rgba(29, 53, 87, 0.6);  // Oxford Navy
+  // Hero/video overlay gradient stops (light mode - lighter to showcase video)
+  --hero-overlay-top: rgba(0, 0, 0, 0.25);      // Reduced from 0.45
+  --hero-overlay-mid: rgba(0, 0, 0, 0.12);      // Reduced from 0.25
+  --hero-overlay-lower: rgba(0, 0, 0, 0.18);    // Reduced from 0.35
+  --hero-gradient-end: rgba(29, 53, 87, 0.35);  // Reduced from 0.6
 
   // CTA Section gradient (Punch Red tones)
   --cta-gradient-start: rgba(183, 38, 51, 0.85);  // Darker Punch Red

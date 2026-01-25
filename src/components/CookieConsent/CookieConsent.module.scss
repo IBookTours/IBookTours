@@ -53,11 +53,11 @@
 }
 
 .link {
-  color: $primary-400;
+  color: var(--color-primary-600);
   text-decoration: underline;
 
   &:hover {
-    color: $primary-300;
+    color: var(--color-primary-700);
   }
 }
 

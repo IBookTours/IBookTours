@@ -1,0 +1,253 @@
+@use '@/styles/variables' as *;
+
+// ============================================
+// SELECT COMPONENT STYLES
+// ============================================
+// Consistent dropdown styling across the application
+
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+// Label
+.label {
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+}
+
+.required {
+  color: var(--color-error);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Select Wrapper
+.selectWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+// Icon
+.icon {
+  position: absolute;
+  left: $spacing-3;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// Chevron
+.chevron {
+  position: absolute;
+  right: $spacing-3;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+  width: 18px;
+  height: 18px;
+  transition: color $transition-fast;
+}
+
+// Native Select
+.select {
+  appearance: none;
+  width: 100%;
+  font-family: inherit;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-medium);
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all $transition-fast;
+  padding-right: $spacing-10; // Space for chevron
+
+  &:hover:not(:disabled) {
+    border-color: var(--border-dark);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-500);
+    box-shadow: 0 0 0 3px var(--color-primary-100);
+
+    + .chevron {
+      color: var(--color-primary-500);
+    }
+  }
+
+  &:disabled {
+    background-color: var(--bg-tertiary);
+    color: var(--text-tertiary);
+    cursor: not-allowed;
+  }
+
+  // Remove default arrow in IE
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+.hasIcon {
+  padding-left: $spacing-10;
+}
+
+// Size Variants
+.sm {
+  .select {
+    padding: $spacing-2 $spacing-3;
+    padding-right: $spacing-8;
+    font-size: $font-sm;
+  }
+
+  &.hasIcon .select {
+    padding-left: $spacing-8;
+  }
+
+  .icon svg,
+  .chevron {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.md {
+  .select {
+    padding: $spacing-2-5 $spacing-4;
+    padding-right: $spacing-10;
+    font-size: $font-base;
+  }
+
+  &.hasIcon .select {
+    padding-left: $spacing-10;
+  }
+}
+
+.lg {
+  .select {
+    padding: $spacing-3 $spacing-4;
+    padding-right: $spacing-12;
+    font-size: $font-lg;
+  }
+
+  &.hasIcon .select {
+    padding-left: $spacing-12;
+  }
+
+  .icon svg,
+  .chevron {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// Variant: Default
+.default {
+  .select {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-medium);
+  }
+}
+
+// Variant: Minimal (no border)
+.minimal {
+  .select {
+    background-color: transparent;
+    border: none;
+    padding-left: $spacing-2;
+
+    &:hover:not(:disabled) {
+      background-color: var(--bg-tertiary);
+    }
+
+    &:focus {
+      background-color: var(--bg-tertiary);
+      box-shadow: none;
+    }
+  }
+
+  &.hasIcon .select {
+    padding-left: $spacing-8;
+  }
+}
+
+// Variant: Outlined (stronger border)
+.outlined {
+  .select {
+    background-color: transparent;
+    border: 2px solid var(--border-medium);
+
+    &:hover:not(:disabled) {
+      border-color: var(--color-primary-300);
+    }
+
+    &:focus {
+      border-color: var(--color-primary-500);
+      box-shadow: none;
+    }
+  }
+}
+
+// Error State
+.hasError {
+  .select {
+    border-color: var(--color-error);
+
+    &:focus {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+    }
+  }
+
+  .icon,
+  .chevron {
+    color: var(--color-error);
+  }
+}
+
+// Error Message
+.error {
+  font-size: $font-sm;
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  margin-top: $spacing-1;
+}
+
+// Helper Text
+.helper {
+  font-size: $font-sm;
+  color: var(--text-tertiary);
+  margin-top: $spacing-1;
+}

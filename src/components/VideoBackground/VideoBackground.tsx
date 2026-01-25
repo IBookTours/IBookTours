@@ -1,7 +1,8 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
+import { Play, Pause } from 'lucide-react';
 import styles from './VideoBackground.module.scss';
 
 interface VideoBackgroundProps {
@@ -24,6 +25,7 @@ export default function VideoBackground({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [timedOut, setTimedOut] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   // Timeout fallback - if video doesn't load in 5 seconds, show image
   useEffect(() => {
@@ -38,6 +40,19 @@ export default function VideoBackground({
     return () => clearTimeout(timeout);
   }, [isLoaded, hasError]);
 
+  // Toggle pause/play
+  const togglePause = useCallback(() => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play().catch(() => {});
+        setIsPaused(false);
+      } else {
+        videoRef.current.pause();
+        setIsPaused(true);
+      }
+    }
+  }, []);
+
   // Pause video when out of view for performance
   useEffect(() => {
     const video = videoRef.current;
@@ -46,7 +61,7 @@ export default function VideoBackground({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !isPaused) {
           video.play().catch(() => {
             // Autoplay might be blocked, show fallback
             setHasError(true);
@@ -60,7 +75,46 @@ export default function VideoBackground({
 
     observer.observe(container);
     return () => observer.disconnect();
-  }, []);
+  }, [isPaused]);
+
+  // iOS requires user gesture before video can autoplay
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleUserGesture = () => {
+      if (video.paused && !isPaused) {
+        video.play().catch((err) => {
+          console.warn('Video autoplay failed:', err);
+        });
+      }
+    };
+
+    // Add listeners for first interaction
+    document.addEventListener('touchstart', handleUserGesture, { once: true });
+    document.addEventListener('click', handleUserGesture, { once: true });
+
+    return () => {
+      document.removeEventListener('touchstart', handleUserGesture);
+      document.removeEventListener('click', handleUserGesture);
+    };
+  }, [isPaused]);
+
+  // Pause video when tab is not visible (battery optimization)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!videoRef.current) return;
+
+      if (document.hidden) {
+        videoRef.current.pause();
+      } else if (!isPaused) {
+        videoRef.current.play().catch(() => {});
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [isPaused]);
 
   const handleVideoLoaded = () => {
     setIsLoaded(true);
@@ -97,6 +151,9 @@ export default function VideoBackground({
           muted
           loop
           playsInline
+          webkit-playsinline="true" // iOS Safari
+          x5-playsinline="true" // WeChat browser
+          preload="metadata"
           poster={video.poster}
           onLoadedData={handleVideoLoaded}
           onError={handleVideoError}
@@ -108,6 +165,18 @@ export default function VideoBackground({
 
       {/* Gradient overlay */}
       <div className={styles.overlay} />
+
+      {/* Pause/Play button */}
+      {!hasError && isLoaded && (
+        <button
+          className={styles.pauseButton}
+          onClick={togglePause}
+          aria-label={isPaused ? 'Play video' : 'Pause video'}
+          type="button"
+        >
+          {isPaused ? <Play size={16} /> : <Pause size={16} />}
+        </button>
+      )}
     </div>
   );
 }
