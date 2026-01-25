@@ -1,10 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Calendar, Clock } from 'lucide-react';
-import { BlogContent } from '@/types';
-import { useInView } from '@/hooks';
+import { ArrowRight, Calendar, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { BlogContent, BlogPost } from '@/types';
+import { useInView, useIsPhone } from '@/hooks';
 import styles from './BlogSection.module.scss';
 
 interface BlogSectionProps {
@@ -17,8 +18,71 @@ export default function BlogSection({ content }: BlogSectionProps) {
     triggerOnce: true,
   });
 
+  const isPhone = useIsPhone();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const featuredPost = content.posts.find((p) => p.featured) || content.posts[0];
   const otherPosts = content.posts.filter((p) => p.id !== featuredPost.id);
+  const allPosts = [featuredPost, ...otherPosts];
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? allPosts.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev === allPosts.length - 1 ? 0 : prev + 1));
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  // Render a blog card (reusable)
+  const renderBlogCard = (post: BlogPost, isFeatured: boolean, index?: number, showAnimation = true) => (
+    <article
+      key={post.id}
+      className={`${styles.blogCard} ${isFeatured ? styles.featuredPost : ''} ${showAnimation && isInView ? styles.visible : ''}`}
+      style={showAnimation && index !== undefined ? { transitionDelay: `${0.2 + index * 0.15}s` } : undefined}
+    >
+      <div className={styles.imageWrapper}>
+        <Image
+          src={post.image}
+          alt={post.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+        {isFeatured && post.stats && (
+          <div className={styles.statsBadge}>
+            <span className={styles.value}>{post.stats.value}</span>
+            <span className={styles.label}>{post.stats.label}</span>
+          </div>
+        )}
+        {!isFeatured && <span className={styles.category}>{post.category}</span>}
+      </div>
+      <div className={styles.cardContent}>
+        <h3 className={styles.postTitle}>{post.title}</h3>
+        <p className={styles.excerpt}>{post.excerpt}</p>
+        <div className={styles.meta}>
+          <span className={styles.date}>
+            <Calendar />
+            {post.date}
+          </span>
+          {post.readTime && (
+            <span className={styles.readTime}>
+              <Clock />
+              {post.readTime}
+            </span>
+          )}
+        </div>
+        {isFeatured && (
+          <Link href="/blog" className={styles.readMore}>
+            Read More
+            <ArrowRight />
+          </Link>
+        )}
+      </div>
+    </article>
+  );
 
   return (
     <section ref={sectionRef} className={styles.section} id="blog">
@@ -31,80 +95,54 @@ export default function BlogSection({ content }: BlogSectionProps) {
           </Link>
         </div>
 
-        <div className={styles.grid}>
-          {/* Featured Post */}
-          <article className={`${styles.blogCard} ${styles.featuredPost} ${isInView ? styles.visible : ''}`}>
-            <div className={styles.imageWrapper}>
-              <Image
-                src={featuredPost.image}
-                alt={featuredPost.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              {featuredPost.stats && (
-                <div className={styles.statsBadge}>
-                  <span className={styles.value}>{featuredPost.stats.value}</span>
-                  <span className={styles.label}>{featuredPost.stats.label}</span>
-                </div>
-              )}
+        {/* Phone: Carousel layout */}
+        {isPhone && (
+          <div className={`${styles.carouselContainer} ${isInView ? styles.visible : ''}`}>
+            <div className={styles.carouselTrack}>
+              {renderBlogCard(allPosts[currentIndex], currentIndex === 0, undefined, false)}
             </div>
-            <div className={styles.cardContent}>
-              <h3 className={styles.postTitle}>{featuredPost.title}</h3>
-              <p className={styles.excerpt}>{featuredPost.excerpt}</p>
-              <div className={styles.meta}>
-                <span className={styles.date}>
-                  <Calendar />
-                  {featuredPost.date}
-                </span>
-                {featuredPost.readTime && (
-                  <span className={styles.readTime}>
-                    <Clock />
-                    {featuredPost.readTime}
-                  </span>
-                )}
-              </div>
-              <Link href="/blog" className={styles.readMore}>
-                Read More
-                <ArrowRight />
-              </Link>
-            </div>
-          </article>
 
-          {/* Other Posts */}
-          {otherPosts.map((post, index) => (
-            <article
-              key={post.id}
-              className={`${styles.blogCard} ${isInView ? styles.visible : ''}`}
-              style={{ transitionDelay: `${0.2 + index * 0.15}s` }}
+            {/* Navigation arrows */}
+            <button
+              className={`${styles.carouselArrow} ${styles.prevArrow}`}
+              onClick={goToPrevious}
+              aria-label="Previous post"
             >
-              <div className={styles.imageWrapper}>
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
+              <ChevronLeft />
+            </button>
+            <button
+              className={`${styles.carouselArrow} ${styles.nextArrow}`}
+              onClick={goToNext}
+              aria-label="Next post"
+            >
+              <ChevronRight />
+            </button>
+
+            {/* Dot indicators */}
+            <div className={styles.carouselDots}>
+              {allPosts.map((_, index) => (
+                <button
+                  key={index}
+                  className={`${styles.dot} ${index === currentIndex ? styles.activeDot : ''}`}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Go to post ${index + 1}`}
+                  aria-current={index === currentIndex ? 'true' : 'false'}
                 />
-                <span className={styles.category}>{post.category}</span>
-              </div>
-              <div className={styles.cardContent}>
-                <h3 className={styles.postTitle}>{post.title}</h3>
-                <p className={styles.excerpt}>{post.excerpt}</p>
-                <div className={styles.meta}>
-                  <span className={styles.date}>
-                    <Calendar />
-                    {post.date}
-                  </span>
-                  {post.readTime && (
-                    <span className={styles.readTime}>
-                      <Clock />
-                      {post.readTime}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Tablet/Desktop: Grid layout */}
+        {!isPhone && (
+          <div className={styles.grid}>
+            {/* Featured Post */}
+            {renderBlogCard(featuredPost, true)}
+
+            {/* Other Posts */}
+            {otherPosts.map((post, index) => renderBlogCard(post, false, index))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -58,6 +58,7 @@
   }
 }
 
+// Tablet/Desktop Grid Layout
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -71,6 +72,88 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
+}
+
+// Phone Carousel Layout
+.carouselContainer {
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.carouselTrack {
+  position: relative;
+  width: 100%;
+}
+
+.carouselArrow {
+  position: absolute;
+  top: 30%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all $transition-fast;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--border-medium);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.prevArrow {
+  left: $spacing-2;
+}
+
+.nextArrow {
+  right: $spacing-2;
+}
+
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-top: $spacing-4;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-medium);
+  border: none;
+  cursor: pointer;
+  transition: all $transition-fast;
+  padding: 0;
+
+  &:hover {
+    background: var(--border-dark);
+  }
+}
+
+.activeDot {
+  background: var(--color-primary);
+  transform: scale(1.2);
 }
 
 // Featured blog post (large)

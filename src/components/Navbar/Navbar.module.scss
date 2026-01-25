@@ -62,9 +62,13 @@
 .nav {
   display: none;
 
-  @include respond-to(lg) {
+  @include respond-to(md) {
     display: flex;
     align-items: center;
+    gap: $spacing-6;
+  }
+
+  @include respond-to(lg) {
     gap: $spacing-8;
   }
 }
@@ -196,7 +200,7 @@
   @include flex-center;
   transition: all $transition-fast;
 
-  @include respond-to(lg) {
+  @include respond-to(md) {
     display: none;
   }
 
@@ -235,7 +239,7 @@
     transform: translateX(0);
   }
 
-  @include respond-to(lg) {
+  @include respond-to(md) {
     display: none;
   }
 }
