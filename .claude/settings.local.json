@@ -32,7 +32,8 @@
       "Bash(git push)",
       "Bash(git config:*)",
       "Bash(npm audit:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(ls:*)"
     ]
   }
 }
