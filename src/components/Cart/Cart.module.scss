@@ -305,33 +305,41 @@
   gap: $spacing-2;
 
   button {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border-radius: $radius-md;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-medium);
-    color: var(--text-secondary);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-dark);
+    color: var(--text-primary);
     cursor: pointer;
     @include flex-center;
     transition: all $transition-fast;
 
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
     &:hover:not(:disabled) {
-      background: var(--color-primary-50);
+      background: var(--color-primary-100);
       border-color: var(--color-primary-500);
       color: var(--color-primary-600);
     }
 
     &:disabled {
-      opacity: 0.3;
+      opacity: 0.5;
       cursor: not-allowed;
+      background: var(--bg-secondary);
+      border-color: var(--border-light);
+      color: var(--text-muted);
     }
   }
 
   span {
-    min-width: 20px;
+    min-width: 24px;
     text-align: center;
     font-size: $font-sm;
-    font-weight: $font-semibold;
+    font-weight: $font-bold;
     color: var(--text-primary);
   }
 }
