@@ -22,11 +22,12 @@ function startCleanup() {
 
   cleanupTimer = setInterval(() => {
     const now = Date.now();
-    for (const [key, entry] of rateLimitStore.entries()) {
+    // Use forEach for compatibility with TypeScript target
+    rateLimitStore.forEach((entry, key) => {
       if (entry.resetTime < now) {
         rateLimitStore.delete(key);
       }
-    }
+    });
   }, CLEANUP_INTERVAL);
 
   // Allow the timer to not keep the process alive
