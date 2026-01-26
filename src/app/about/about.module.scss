@@ -510,10 +510,14 @@
 .expandableReviewCard {
   background: var(--bg-secondary);
   border-radius: $radius-2xl;
-  padding: $spacing-6;
+  padding: $spacing-4;
   border: 1px solid var(--border-light);
   box-shadow: $shadow-sm;
   transition: all $transition-base;
+
+  @include respond-to(md) {
+    padding: $spacing-5;
+  }
 
   &:hover {
     box-shadow: $shadow-md;
@@ -534,8 +538,8 @@
 }
 
 .reviewAvatar {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: $radius-full;
   overflow: hidden;
   flex-shrink: 0;
@@ -549,7 +553,7 @@
   }
 
   span {
-    font-size: $font-xl;
+    font-size: $font-lg;
     font-weight: $font-bold;
     color: var(--color-primary-600);
   }
@@ -696,17 +700,17 @@
 }
 
 .expandButton {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: $spacing-1;
-  width: 100%;
-  margin-top: $spacing-4;
+  max-width: fit-content;
+  margin: $spacing-3 auto 0;
   padding: $spacing-2 $spacing-4;
   background: transparent;
   border: 1px solid var(--border-light);
   border-radius: $radius-lg;
-  font-size: $font-sm;
+  font-size: $font-xs;
   font-weight: $font-medium;
   color: var(--color-primary-600);
   cursor: pointer;

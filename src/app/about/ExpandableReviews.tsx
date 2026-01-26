@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Star, Quote, ChevronDown, ChevronUp, MapPin, Calendar, Camera } from 'lucide-react';
+import { Star, Quote, ChevronDown, ChevronUp, MapPin, Calendar, Camera, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Testimonial } from '@/types';
+import { useIsMobile, useIsTablet, useCarousel } from '@/hooks';
 import styles from './about.module.scss';
 
 interface ExpandableReviewsProps {
@@ -47,8 +48,8 @@ function ReviewCard({ review, isExpanded, onToggle }: ReviewCardProps) {
             <Image
               src={review.author.avatar}
               alt={review.author.name}
-              width={56}
-              height={56}
+              width={48}
+              height={48}
             />
           ) : (
             <span>{review.author.name.charAt(0)}</span>
@@ -72,7 +73,7 @@ function ReviewCard({ review, isExpanded, onToggle }: ReviewCardProps) {
       </div>
 
       <div className={styles.reviewCardContent}>
-        <Quote size={24} className={styles.quoteIcon} />
+        <Quote size={20} className={styles.quoteIcon} />
         <p className={styles.reviewText}>
           {isExpanded ? review.content : previewContent}
         </p>
@@ -140,6 +141,18 @@ function ReviewCard({ review, isExpanded, onToggle }: ReviewCardProps) {
 
 export default function ExpandableReviews({ testimonials }: ExpandableReviewsProps) {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
+
+  // Determine items per view based on screen size
+  const itemsPerView = isMobile ? 1 : isTablet ? 2 : testimonials.length;
+  const useCarouselMode = isMobile || isTablet;
+
+  const { index, goNext, goPrev, canGoNext, canGoPrev, maxIndex, touchHandlers } = useCarousel({
+    totalItems: testimonials.length,
+    visibleItems: itemsPerView,
+    loop: true,
+  });
 
   const toggleReview = (id: string) => {
     setExpandedIds((prev) => {
@@ -155,6 +168,18 @@ export default function ExpandableReviews({ testimonials }: ExpandableReviewsPro
 
   if (testimonials.length === 0) return null;
 
+  // Get visible testimonials for carousel mode
+  const getVisibleTestimonials = () => {
+    if (!useCarouselMode) return testimonials;
+
+    const visible: Testimonial[] = [];
+    for (let i = 0; i < itemsPerView; i++) {
+      const idx = (index + i) % testimonials.length;
+      visible.push(testimonials[idx]);
+    }
+    return visible;
+  };
+
   return (
     <section className={styles.reviewsSection} id="reviews">
       <div className={styles.container}>
@@ -166,16 +191,72 @@ export default function ExpandableReviews({ testimonials }: ExpandableReviewsPro
           </p>
         </div>
 
-        <div className={styles.reviewsGrid}>
-          {testimonials.map((review) => (
-            <ReviewCard
-              key={review.id}
-              review={review}
-              isExpanded={expandedIds.has(review.id)}
-              onToggle={() => toggleReview(review.id)}
-            />
-          ))}
-        </div>
+        {useCarouselMode ? (
+          // Carousel layout for mobile/tablet
+          <div className={styles.reviewsCarouselWrapper}>
+            <div className={styles.reviewsCarousel} {...touchHandlers}>
+              <div className={styles.reviewsCarouselTrack}>
+                {getVisibleTestimonials().map((review) => (
+                  <div key={review.id} className={styles.reviewsCarouselSlide}>
+                    <ReviewCard
+                      review={review}
+                      isExpanded={expandedIds.has(review.id)}
+                      onToggle={() => toggleReview(review.id)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Arrows */}
+            {testimonials.length > itemsPerView && (
+              <>
+                <button
+                  className={`${styles.reviewsCarouselArrow} ${styles.reviewsCarouselPrev}`}
+                  onClick={goPrev}
+                  disabled={!canGoPrev}
+                  aria-label="Previous reviews"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button
+                  className={`${styles.reviewsCarouselArrow} ${styles.reviewsCarouselNext}`}
+                  onClick={goNext}
+                  disabled={!canGoNext}
+                  aria-label="Next reviews"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </>
+            )}
+
+            {/* Dot indicators */}
+            {testimonials.length > itemsPerView && (
+              <div className={styles.reviewsCarouselDots}>
+                {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+                  <button
+                    key={i}
+                    className={`${styles.reviewsCarouselDot} ${i === index ? styles.activeDot : ''}`}
+                    aria-label={`Go to slide ${i + 1}`}
+                    aria-current={i === index ? 'true' : 'false'}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
+          // Grid layout for desktop
+          <div className={styles.reviewsGrid}>
+            {testimonials.map((review) => (
+              <ReviewCard
+                key={review.id}
+                review={review}
+                isExpanded={expandedIds.has(review.id)}
+                onToggle={() => toggleReview(review.id)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
