@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { User, Baby, MessageSquare, ChevronDown, ChevronUp } from 'lucide-react';
 import { PassengerDetail } from '@/store/bookingStore';
 import styles from './PassengerForm.module.scss';
@@ -50,6 +50,15 @@ export default function PassengerForm({
 
   const [expandedRequests, setExpandedRequests] = useState<number | null>(null);
 
+  // Use refs for callbacks to avoid infinite loops
+  const onDetailsChangeRef = useRef(onDetailsChange);
+  const onValidChangeRef = useRef(onValidChange);
+
+  useEffect(() => {
+    onDetailsChangeRef.current = onDetailsChange;
+    onValidChangeRef.current = onValidChange;
+  });
+
   // Sync with parent when travelers count changes
   useEffect(() => {
     if (passengers.length !== totalPassengers) {
@@ -67,12 +76,12 @@ export default function PassengerForm({
 
   // Notify parent of changes
   useEffect(() => {
-    onDetailsChange(passengers);
+    onDetailsChangeRef.current(passengers);
 
     // Check validity
     const allNamed = passengers.every(p => p.fullName.trim().length >= 2);
-    onValidChange?.(allNamed);
-  }, [passengers, onDetailsChange, onValidChange]);
+    onValidChangeRef.current?.(allNamed);
+  }, [passengers]);
 
   const updatePassenger = (index: number, field: keyof PassengerDetail, value: string | boolean) => {
     setPassengers(prev => {
