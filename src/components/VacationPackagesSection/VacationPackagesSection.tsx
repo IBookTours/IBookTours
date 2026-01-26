@@ -111,14 +111,15 @@ export default function VacationPackagesSection({
     setMobileIndex((prev) => (prev === packages.length - 1 ? 0 : prev + 1));
   }, [packages.length]);
 
-  // Tablet navigation handlers - single card per slide
+  // Tablet navigation handlers - 2 cards per page (3rd slot is fixed View All)
+  const tabletMaxIndex = Math.max(0, Math.ceil(packages.length / 2) - 1);
   const handleTabletPrev = useCallback(() => {
-    setTabletIndex((prev) => (prev === 0 ? packages.length - 1 : prev - 1));
-  }, [packages.length]);
+    setTabletIndex((prev) => (prev === 0 ? tabletMaxIndex : prev - 1));
+  }, [tabletMaxIndex]);
 
   const handleTabletNext = useCallback(() => {
-    setTabletIndex((prev) => (prev === packages.length - 1 ? 0 : prev + 1));
-  }, [packages.length]);
+    setTabletIndex((prev) => (prev >= tabletMaxIndex ? 0 : prev + 1));
+  }, [tabletMaxIndex]);
 
   // Medium screen navigation handlers - shows 2 cards at a time
   const mediumMaxIndex = Math.max(0, Math.ceil(packages.length / 2) - 1);
@@ -365,49 +366,56 @@ export default function VacationPackagesSection({
           </>
         )}
 
-        {/* Tablet: Single card carousel */}
+        {/* Tablet: 3-column grid (2 carousel cards + 1 fixed View All) */}
         {!isMobile && isTablet && packages.length > 0 && (
-          <div className={styles.tabletCarouselWrapper}>
-            <button
-              className={`${styles.tabletArrow} ${styles.tabletPrev}`}
-              onClick={handleTabletPrev}
-              aria-label="Previous package"
-            >
-              <ChevronLeft size={24} />
-            </button>
-
-            <div className={styles.tabletCarousel} {...tabletSwipeHandlers}>
-              <div
-                className={styles.tabletTrack}
-                style={{ transform: `translateX(-${tabletIndex * 100}%)` }}
-              >
-                {packages.map((pkg) => (
-                  <div key={pkg.id} className={styles.tabletSlide}>
-                    {renderPackageCard(pkg)}
-                  </div>
-                ))}
+          <div className={styles.tabletGridWrapper}>
+            {/* 3-column layout: 2 carousel cards + View All */}
+            <div className={styles.tabletGrid} {...tabletSwipeHandlers}>
+              {/* Carousel cards (positions 1-2) */}
+              <div className={styles.tabletCarouselCard}>
+                {packages[tabletIndex * 2] && renderPackageCard(packages[tabletIndex * 2], 0)}
+              </div>
+              <div className={styles.tabletCarouselCard}>
+                {packages[tabletIndex * 2 + 1] && renderPackageCard(packages[tabletIndex * 2 + 1], 1)}
+              </div>
+              {/* Fixed View All card (position 3) */}
+              <div className={styles.tabletViewAllCard}>
+                {renderViewAllCard(2)}
               </div>
             </div>
 
-            <button
-              className={`${styles.tabletArrow} ${styles.tabletNext}`}
-              onClick={handleTabletNext}
-              aria-label="Next package"
-            >
-              <ChevronRight size={24} />
-            </button>
-
-            {/* Tablet dots */}
-            <div className={styles.tabletDots}>
-              {packages.map((_, i) => (
+            {/* Navigation arrows */}
+            {packages.length > 2 && (
+              <div className={styles.tabletNavigation}>
                 <button
-                  key={i}
-                  className={`${styles.tabletDot} ${i === tabletIndex ? styles.activeDot : ''}`}
-                  onClick={() => setTabletIndex(i)}
-                  aria-label={`Go to package ${i + 1}`}
-                />
-              ))}
-            </div>
+                  className={`${styles.tabletArrow} ${styles.tabletPrev}`}
+                  onClick={handleTabletPrev}
+                  aria-label="Previous packages"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                {/* Tablet dots */}
+                <div className={styles.tabletDots}>
+                  {Array.from({ length: tabletMaxIndex + 1 }).map((_, i) => (
+                    <button
+                      key={i}
+                      className={`${styles.tabletDot} ${i === tabletIndex ? styles.activeDot : ''}`}
+                      onClick={() => setTabletIndex(i)}
+                      aria-label={`Go to page ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  className={`${styles.tabletArrow} ${styles.tabletNext}`}
+                  onClick={handleTabletNext}
+                  aria-label="Next packages"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            )}
           </div>
         )}
 

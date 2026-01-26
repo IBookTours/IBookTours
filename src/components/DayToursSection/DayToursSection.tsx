@@ -21,7 +21,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
-import { useIsMobile, useSwipe, useInView } from '@/hooks';
+import { useIsMobile, useIsTablet, useSwipe, useInView } from '@/hooks';
 import styles from './DayToursSection.module.scss';
 
 export type TourCategory = 'all' | 'cultural' | 'adventure' | 'food' | 'nature';
@@ -72,8 +72,10 @@ export default function DayToursSection({
   const [activeCategory, setActiveCategory] = useState<TourCategory>('all');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mobileIndex, setMobileIndex] = useState(0);
+  const [tabletIndex, setTabletIndex] = useState(0);
   const { addItem } = useCartStore();
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.1,
     triggerOnce: true,
@@ -95,6 +97,19 @@ export default function DayToursSection({
   // Swipe handlers for mobile
   const swipeHandlers = useSwipe(handleMobileNext, handleMobilePrev);
 
+  // Tablet navigation handlers - 2 cards per page (3rd slot is fixed View All)
+  const tabletMaxIndex = Math.max(0, Math.ceil(filteredTours.length / 2) - 1);
+  const handleTabletPrev = useCallback(() => {
+    setTabletIndex((prev) => (prev === 0 ? tabletMaxIndex : prev - 1));
+  }, [tabletMaxIndex]);
+
+  const handleTabletNext = useCallback(() => {
+    setTabletIndex((prev) => (prev >= tabletMaxIndex ? 0 : prev + 1));
+  }, [tabletMaxIndex]);
+
+  // Swipe handlers for tablet
+  const tabletSwipeHandlers = useSwipe(handleTabletNext, handleTabletPrev);
+
   // Calculate visible items and navigation
   const totalItems = filteredTours.length;
   const canShowSlider = showSlider && totalItems > maxDisplay;
@@ -113,6 +128,7 @@ export default function DayToursSection({
     setActiveCategory(category);
     setCurrentIndex(0);
     setMobileIndex(0);
+    setTabletIndex(0);
   };
 
   // Get visible tours (show only 3, reserve 4th slot for View All on desktop)
@@ -335,8 +351,61 @@ export default function DayToursSection({
           </>
         )}
 
-        {/* Desktop/Tablet: Grid with slider */}
-        {!isMobile && (
+        {/* Tablet: 3-column grid (2 carousel cards + 1 fixed View All) */}
+        {!isMobile && isTablet && filteredTours.length > 0 && (
+          <div className={styles.tabletGridWrapper}>
+            {/* 3-column layout: 2 carousel cards + View All */}
+            <div className={styles.tabletGrid} {...tabletSwipeHandlers}>
+              {/* Carousel cards (positions 1-2) */}
+              <div className={styles.tabletCarouselCard}>
+                {filteredTours[tabletIndex * 2] && renderTourCard(filteredTours[tabletIndex * 2], 0)}
+              </div>
+              <div className={styles.tabletCarouselCard}>
+                {filteredTours[tabletIndex * 2 + 1] && renderTourCard(filteredTours[tabletIndex * 2 + 1], 1)}
+              </div>
+              {/* Fixed View All card (position 3) */}
+              <div className={styles.tabletViewAllCard}>
+                {renderViewAllCard(2)}
+              </div>
+            </div>
+
+            {/* Navigation arrows */}
+            {filteredTours.length > 2 && (
+              <div className={styles.tabletNavigation}>
+                <button
+                  className={`${styles.tabletArrow} ${styles.tabletPrev}`}
+                  onClick={handleTabletPrev}
+                  aria-label="Previous tours"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                {/* Tablet dots */}
+                <div className={styles.tabletDots}>
+                  {Array.from({ length: tabletMaxIndex + 1 }).map((_, i) => (
+                    <button
+                      key={i}
+                      className={`${styles.tabletDot} ${i === tabletIndex ? styles.activeDot : ''}`}
+                      onClick={() => setTabletIndex(i)}
+                      aria-label={`Go to page ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  className={`${styles.tabletArrow} ${styles.tabletNext}`}
+                  onClick={handleTabletNext}
+                  aria-label="Next tours"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Desktop: Grid with slider (1024px+) */}
+        {!isMobile && !isTablet && (
           <>
             <div className={styles.sliderWrapper}>
               {canShowSlider && (

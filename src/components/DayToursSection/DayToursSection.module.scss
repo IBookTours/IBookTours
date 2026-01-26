@@ -578,6 +578,98 @@
 }
 
 // ============================================
+// TABLET GRID STYLES (2 carousel + 1 fixed View All)
+// ============================================
+
+.tabletGridWrapper {
+  margin-bottom: $spacing-6;
+}
+
+.tabletGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: $spacing-4;
+  touch-action: pan-y;
+}
+
+.tabletCarouselCard {
+  // Cards in carousel positions (1-2)
+  .card {
+    height: 100%;
+  }
+}
+
+.tabletViewAllCard {
+  // Fixed View All card (position 3)
+  .viewAllCard {
+    height: 100%;
+  }
+}
+
+.tabletNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-4;
+  margin-top: $spacing-6;
+}
+
+.tabletArrow {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all $transition-fast;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    background: var(--color-primary-600);
+    color: $text-light;
+    border-color: var(--color-primary-600);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.tabletPrev {
+  // Left arrow
+}
+
+.tabletNext {
+  // Right arrow
+}
+
+.tabletDots {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+}
+
+.tabletDot {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-full;
+  border: none;
+  background: var(--border-medium);
+  cursor: pointer;
+  padding: 0;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-400);
+  }
+}
+
+// ============================================
 // PROMOTIONAL BADGES
 // ============================================
 
