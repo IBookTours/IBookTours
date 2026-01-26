@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import {
   Search,
   SlidersHorizontal,
@@ -38,32 +39,30 @@ interface ToursClientProps {
   dayTours: DayTour[];
 }
 
-const priceRanges = [
-  { id: 'all', label: 'All Prices', min: 0, max: Infinity },
-  { id: 'budget', label: 'Under €500', min: 0, max: 500 },
-  { id: 'mid', label: '€500 - €1,000', min: 500, max: 1000 },
-  { id: 'premium', label: '€1,000 - €2,000', min: 1000, max: 2000 },
-  { id: 'luxury', label: 'Over €2,000', min: 2000, max: Infinity },
-];
+const priceRangeIds = ['all', 'budget', 'mid', 'premium', 'luxury'] as const;
+const priceRangeValues: Record<string, { min: number; max: number }> = {
+  all: { min: 0, max: Infinity },
+  budget: { min: 0, max: 500 },
+  mid: { min: 500, max: 1000 },
+  premium: { min: 1000, max: 2000 },
+  luxury: { min: 2000, max: Infinity },
+};
 
-const durations = [
-  { id: 'all', label: 'Any Duration' },
-  { id: 'short', label: '1-4 Days' },
-  { id: 'medium', label: '5-7 Days' },
-  { id: 'long', label: '8+ Days' },
-];
+const durationIds = ['all', 'short', 'medium', 'long'] as const;
 
-const tabs: { id: TabType; label: string; icon: React.ReactNode }[] = [
-  { id: 'all', label: 'All', icon: <Package size={18} /> },
-  { id: 'packages', label: 'Vacation Packages', icon: <Plane size={18} /> },
-  { id: 'day-tours', label: 'Day Tours', icon: <Clock size={18} /> },
-];
+const tabIds: TabType[] = ['all', 'packages', 'day-tours'];
+const tabIcons: Record<TabType, React.ReactNode> = {
+  'all': <Package size={18} />,
+  'packages': <Plane size={18} />,
+  'day-tours': <Clock size={18} />,
+};
 
 export default function ToursClient({
   destinations,
   vacationPackages,
   dayTours,
 }: ToursClientProps) {
+  const t = useTranslations('tours');
   const searchParams = useSearchParams();
   const router = useRouter();
   const { addItem } = useCartStore();
@@ -128,7 +127,7 @@ export default function ToursClient({
       // Price filter
       if (selectedPrice !== 'all') {
         const price = extractPrice(pkg.pricePerPerson);
-        const range = priceRanges.find((r) => r.id === selectedPrice);
+        const range = priceRangeValues[selectedPrice];
         if (range && (price < range.min || price >= range.max)) return false;
       }
 
@@ -160,7 +159,7 @@ export default function ToursClient({
       // Price filter
       if (selectedPrice !== 'all') {
         const price = extractPrice(tour.pricePerPerson);
-        const range = priceRanges.find((r) => r.id === selectedPrice);
+        const range = priceRangeValues[selectedPrice];
         if (range && (price < range.min || price >= range.max)) return false;
       }
 
@@ -246,18 +245,18 @@ export default function ToursClient({
         />
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
-          <h1>Explore Our Tours</h1>
-          <p>Discover handpicked adventures designed for unforgettable experiences</p>
+          <h1>{t('title')}</h1>
+          <p>{t('subtitle')}</p>
 
           {/* Search Bar */}
           <div className={styles.searchBar}>
             <Search className={styles.searchIcon} />
             <input
               type="text"
-              placeholder="Search destinations, tours..."
+              placeholder={t('searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              aria-label="Search tours and destinations"
+              aria-label={t('search')}
             />
             <button
               className={`${styles.filterToggle} ${showFilters || hasActiveFilters ? styles.active : ''}`}
@@ -266,7 +265,7 @@ export default function ToursClient({
               aria-controls="filter-bar"
             >
               <SlidersHorizontal />
-              {hasActiveFilters ? 'Filters On' : 'Filters'}
+              {hasActiveFilters ? t('filtersOn') : t('filtersButton')}
             </button>
           </div>
         </div>
@@ -275,19 +274,19 @@ export default function ToursClient({
       <div className={styles.container}>
         {/* Tabs */}
         <div className={styles.tabs} role="tablist" aria-label="Tour categories">
-          {tabs.map((tab) => (
+          {tabIds.map((tabId) => (
             <button
-              key={tab.id}
-              className={`${styles.tab} ${activeTab === tab.id ? styles.activeTab : ''}`}
-              onClick={() => handleTabChange(tab.id)}
+              key={tabId}
+              className={`${styles.tab} ${activeTab === tabId ? styles.activeTab : ''}`}
+              onClick={() => handleTabChange(tabId)}
               role="tab"
-              aria-selected={activeTab === tab.id}
-              aria-controls={`tabpanel-${tab.id}`}
-              id={`tab-${tab.id}`}
+              aria-selected={activeTab === tabId}
+              aria-controls={`tabpanel-${tabId}`}
+              id={`tab-${tabId}`}
             >
-              {tab.icon}
-              <span>{tab.label}</span>
-              <span className={styles.tabCount}>{counts[tab.id]}</span>
+              {tabIcons[tabId]}
+              <span>{tabId === 'all' ? t('tabs.all') : tabId === 'packages' ? t('tabs.packages') : t('tabs.dayTours')}</span>
+              <span className={styles.tabCount}>{counts[tabId]}</span>
             </button>
           ))}
         </div>
@@ -300,7 +299,7 @@ export default function ToursClient({
           aria-label="Tour filters"
         >
           <div className={styles.filterGroup}>
-            <label htmlFor="price-filter">Price</label>
+            <label htmlFor="price-filter">{t('price')}</label>
             <div className={styles.selectWrapper}>
               <select
                 id="price-filter"
@@ -308,9 +307,9 @@ export default function ToursClient({
                 onChange={(e) => setSelectedPrice(e.target.value)}
                 aria-label="Filter by price range"
               >
-                {priceRanges.map((range) => (
-                  <option key={range.id} value={range.id}>
-                    {range.label}
+                {priceRangeIds.map((rangeId) => (
+                  <option key={rangeId} value={rangeId}>
+                    {t(`priceRanges.${rangeId}`)}
                   </option>
                 ))}
               </select>
@@ -319,7 +318,7 @@ export default function ToursClient({
           </div>
 
           <div className={styles.filterGroup}>
-            <label htmlFor="duration-filter">Duration</label>
+            <label htmlFor="duration-filter">{t('duration')}</label>
             <div className={styles.selectWrapper}>
               <select
                 id="duration-filter"
@@ -327,9 +326,9 @@ export default function ToursClient({
                 onChange={(e) => setSelectedDuration(e.target.value)}
                 aria-label="Filter by duration"
               >
-                {durations.map((dur) => (
-                  <option key={dur.id} value={dur.id}>
-                    {dur.label}
+                {durationIds.map((durId) => (
+                  <option key={durId} value={durId}>
+                    {t(`durations.${durId}`)}
                   </option>
                 ))}
               </select>
@@ -340,7 +339,7 @@ export default function ToursClient({
           {hasActiveFilters && (
             <button className={styles.clearFilters} onClick={clearFilters} aria-label="Clear all filters">
               <X aria-hidden="true" />
-              Clear
+              {t('clear')}
             </button>
           )}
         </div>
@@ -350,7 +349,7 @@ export default function ToursClient({
           <div className={styles.activeFilters}>
             {searchQuery && (
               <span className={styles.filterChip}>
-                Search: &quot;{searchQuery}&quot;
+                {t('search')}: &quot;{searchQuery}&quot;
                 <button onClick={() => setSearchQuery('')} aria-label="Remove search filter">
                   <X />
                 </button>
@@ -358,7 +357,7 @@ export default function ToursClient({
             )}
             {selectedPrice !== 'all' && (
               <span className={styles.filterChip}>
-                {priceRanges.find(r => r.id === selectedPrice)?.label}
+                {t(`priceRanges.${selectedPrice}`)}
                 <button onClick={() => setSelectedPrice('all')} aria-label="Remove price filter">
                   <X />
                 </button>
@@ -366,7 +365,7 @@ export default function ToursClient({
             )}
             {selectedDuration !== 'all' && (
               <span className={styles.filterChip}>
-                {durations.find(d => d.id === selectedDuration)?.label}
+                {t(`durations.${selectedDuration}`)}
                 <button onClick={() => setSelectedDuration('all')} aria-label="Remove duration filter">
                   <X />
                 </button>
@@ -379,7 +378,7 @@ export default function ToursClient({
         <div className={styles.resultsHeader}>
           <p className={styles.resultCount}>
             <strong>{counts[activeTab]}</strong>{' '}
-            {activeTab === 'packages' ? 'packages' : activeTab === 'day-tours' ? 'day tours' : 'items'} found
+            {activeTab === 'packages' ? t('results.packages') : activeTab === 'day-tours' ? t('results.dayTours') : t('results.items')} {t('results.found')}
           </p>
           <div className={styles.viewToggle}>
             <button
@@ -422,17 +421,17 @@ export default function ToursClient({
                       {pkg.includesFlights && (
                         <span className={styles.badge}>
                           <Plane size={12} />
-                          Flights
+                          {t('badges.flights')}
                         </span>
                       )}
                       {pkg.includesHotel && (
                         <span className={styles.badge}>
                           <Hotel size={12} />
-                          Hotel
+                          {t('badges.hotel')}
                         </span>
                       )}
                     </div>
-                    <span className={styles.typeBadge}>Package</span>
+                    <span className={styles.typeBadge}>{t('badges.package')}</span>
                   </div>
                   <div className={styles.cardContent}>
                     <div className={styles.cardLocation}>
@@ -452,7 +451,7 @@ export default function ToursClient({
                     <div className={styles.cardMeta}>
                       <span>
                         <Calendar size={14} />
-                        {pkg.nights} nights
+                        {pkg.nights} {t('nights')}
                       </span>
                       <span className={styles.rating}>
                         <Star size={14} fill="currentColor" />
@@ -462,11 +461,11 @@ export default function ToursClient({
                     <div className={styles.cardFooter}>
                       <div className={styles.price}>
                         <span className={styles.amount}>{pkg.pricePerPerson}</span>
-                        <span className={styles.perPerson}>per person</span>
+                        <span className={styles.perPerson}>{t('perPerson')}</span>
                       </div>
                       <div className={styles.actions}>
                         <Link href={`/tours/${pkg.id}`} className={styles.viewBtn}>
-                          View
+                          {t('view')}
                           <ArrowRight size={14} />
                         </Link>
                         <button
@@ -497,7 +496,7 @@ export default function ToursClient({
                       <Clock size={12} />
                       {tour.duration}
                     </span>
-                    <span className={`${styles.typeBadge} ${styles.tourType}`}>Day Tour</span>
+                    <span className={`${styles.typeBadge} ${styles.tourType}`}>{t('badges.dayTour')}</span>
                   </div>
                   <div className={styles.cardContent}>
                     <div className={styles.cardLocation}>
@@ -508,7 +507,7 @@ export default function ToursClient({
                     <div className={styles.cardMeta}>
                       <span>
                         <Users size={14} />
-                        {tour.groupSize.min}-{tour.groupSize.max} people
+                        {tour.groupSize.min}-{tour.groupSize.max} {t('people')}
                       </span>
                       <span className={styles.rating}>
                         <Star size={14} fill="currentColor" />
@@ -518,11 +517,11 @@ export default function ToursClient({
                     <div className={styles.cardFooter}>
                       <div className={styles.price}>
                         <span className={styles.amount}>{tour.pricePerPerson}</span>
-                        <span className={styles.perPerson}>per person</span>
+                        <span className={styles.perPerson}>{t('perPerson')}</span>
                       </div>
                       <div className={styles.actions}>
                         <Link href={`/tours/${tour.id}`} className={styles.viewBtn}>
-                          View
+                          {t('view')}
                           <ArrowRight size={14} />
                         </Link>
                         <button
@@ -541,9 +540,9 @@ export default function ToursClient({
         ) : (
           <div className={styles.noResults}>
             <MapPin />
-            <h3>No {activeTab === 'packages' ? 'packages' : activeTab === 'day-tours' ? 'day tours' : 'tours'} found</h3>
-            <p>Try adjusting your filters or search terms</p>
-            <button onClick={clearFilters}>Clear Filters</button>
+            <h3>{activeTab === 'packages' ? t('noResultsPackages') : activeTab === 'day-tours' ? t('noResultsDayTours') : t('noResults')}</h3>
+            <p>{t('noResultsMessage')}</p>
+            <button onClick={clearFilters}>{t('clearFilters')}</button>
           </div>
         )}
       </div>

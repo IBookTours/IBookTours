@@ -153,7 +153,41 @@
   },
   "tours": {
     "title": "Explore Our Tours",
-    "subtitle": "Discover Albania's hidden treasures with our expertly crafted tours",
+    "subtitle": "Discover handpicked adventures designed for unforgettable experiences",
+    "searchPlaceholder": "Search destinations, tours...",
+    "filtersButton": "Filters",
+    "filtersOn": "Filters On",
+    "clear": "Clear",
+    "tabs": {
+      "all": "All",
+      "packages": "Vacation Packages",
+      "dayTours": "Day Tours"
+    },
+    "results": {
+      "packages": "packages",
+      "dayTours": "day tours",
+      "items": "items",
+      "found": "found"
+    },
+    "badges": {
+      "flights": "Flights",
+      "hotel": "Hotel",
+      "package": "Package",
+      "dayTour": "Day Tour"
+    },
+    "priceRanges": {
+      "all": "All Prices",
+      "budget": "Under €500",
+      "mid": "€500 - €1,000",
+      "premium": "€1,000 - €2,000",
+      "luxury": "Over €2,000"
+    },
+    "durations": {
+      "all": "Any Duration",
+      "short": "1-4 Days",
+      "medium": "5-7 Days",
+      "long": "8+ Days"
+    },
     "filters": {
       "all": "All Tours",
       "cultural": "Cultural",
@@ -175,9 +209,16 @@
     "price": "Price",
     "bookNow": "Book Now",
     "viewDetails": "View Details",
+    "view": "View",
     "perPerson": "per person",
+    "nights": "nights",
+    "people": "people",
     "noResults": "No tours found matching your criteria",
-    "clearFilters": "Clear Filters"
+    "noResultsPackages": "No packages found",
+    "noResultsDayTours": "No day tours found",
+    "noResultsMessage": "Try adjusting your filters or search terms",
+    "clearFilters": "Clear Filters",
+    "search": "Search"
   },
   "blog": {
     "sectionLabel": "Travel Stories",

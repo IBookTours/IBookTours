@@ -153,7 +153,41 @@
   },
   "tours": {
     "title": "גלו את הטיולים שלנו",
-    "subtitle": "גלו את האוצרות הנסתרים של אלבניה עם הטיולים המעוצבים במיומנות שלנו",
+    "subtitle": "גלו הרפתקאות מובחרות שתוכננו לחוויות בלתי נשכחות",
+    "searchPlaceholder": "חפשו יעדים, טיולים...",
+    "filtersButton": "מסננים",
+    "filtersOn": "מסננים פעילים",
+    "clear": "נקה",
+    "tabs": {
+      "all": "הכל",
+      "packages": "חבילות נופש",
+      "dayTours": "טיולי יום"
+    },
+    "results": {
+      "packages": "חבילות",
+      "dayTours": "טיולי יום",
+      "items": "פריטים",
+      "found": "נמצאו"
+    },
+    "badges": {
+      "flights": "טיסות",
+      "hotel": "מלון",
+      "package": "חבילה",
+      "dayTour": "טיול יום"
+    },
+    "priceRanges": {
+      "all": "כל המחירים",
+      "budget": "עד €500",
+      "mid": "€500 - €1,000",
+      "premium": "€1,000 - €2,000",
+      "luxury": "מעל €2,000"
+    },
+    "durations": {
+      "all": "כל משך",
+      "short": "1-4 ימים",
+      "medium": "5-7 ימים",
+      "long": "8+ ימים"
+    },
     "filters": {
       "all": "כל הטיולים",
       "cultural": "תרבות",
@@ -175,9 +209,16 @@
     "price": "מחיר",
     "bookNow": "הזמינו עכשיו",
     "viewDetails": "פרטים נוספים",
+    "view": "צפה",
     "perPerson": "לאדם",
+    "nights": "לילות",
+    "people": "אנשים",
     "noResults": "לא נמצאו טיולים התואמים לקריטריונים שלכם",
-    "clearFilters": "נקו מסננים"
+    "noResultsPackages": "לא נמצאו חבילות",
+    "noResultsDayTours": "לא נמצאו טיולי יום",
+    "noResultsMessage": "נסו להתאים את המסננים או מונחי החיפוש",
+    "clearFilters": "נקו מסננים",
+    "search": "חיפוש"
   },
   "blog": {
     "sectionLabel": "סיפורי מסע",

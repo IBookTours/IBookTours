@@ -1,26 +1,37 @@
 // ============================================
 // HOMEPAGE - Server Component
 // ============================================
-// Fetches data from Sanity CMS with fallback to mock data
 
+import dynamic from 'next/dynamic';
 import HeroSection from '@/components/HeroSection';
 import { VacationPackagesSection } from '@/components/VacationPackagesSection';
 import { DayToursSection } from '@/components/DayToursSection';
 import StatsSection from '@/components/StatsSection';
 import AboutSection from '@/components/AboutSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
 import AdventureSection from '@/components/AdventureSection';
-import { PartnersSection } from '@/components/PartnersSection';
-import BlogSection from '@/components/BlogSection';
-import CTASection from '@/components/CTASection';
-import EventsSection from '@/components/EventsSection';
 import Footer from '@/components/Footer';
 import { siteData } from '@/data/siteData';
-import { fetchStatsWithFallback } from '@/sanity';
+
+// Lazy load below-fold sections for better initial page load
+const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'), {
+  ssr: true,
+});
+const PartnersSection = dynamic(
+  () => import('@/components/PartnersSection').then((mod) => mod.PartnersSection),
+  { ssr: true }
+);
+const BlogSection = dynamic(() => import('@/components/BlogSection'), {
+  ssr: true,
+});
+const CTASection = dynamic(() => import('@/components/CTASection'), {
+  ssr: true,
+});
+const EventsSection = dynamic(() => import('@/components/EventsSection'), {
+  ssr: true,
+});
 
 export default async function Home() {
-  // Fetch stats from Sanity with fallback to mock data
-  const stats = await fetchStatsWithFallback();
+  const stats = siteData.stats;
 
   return (
     <>

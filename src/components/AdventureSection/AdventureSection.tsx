@@ -176,8 +176,63 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
             </div>
           )}
 
+          {/* Tablet: Featured + Carousel Row */}
+          {isTablet && !isMobile && categories.length > 0 && (
+            <div className={styles.tabletWrapper}>
+              {/* Featured card (full width, shorter) */}
+              <div className={styles.tabletFeatured}>
+                {renderCategoryCard(categories[0], 0, true)}
+              </div>
+
+              {/* Carousel row for other cards */}
+              {otherCategories.length > 0 && (
+                <div className={styles.tabletCarouselWrapper}>
+                  <button
+                    className={`${styles.tabletArrow} ${styles.tabletPrev}`}
+                    onClick={handleTabletPrev}
+                    disabled={tabletIndex === 0}
+                    aria-label="Previous categories"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+
+                  <div className={styles.tabletCarousel} {...tabletSwipeHandlers}>
+                    {otherCategories.slice(tabletIndex, tabletIndex + tabletCardsPerView).map((category, idx) => (
+                      <div key={category.id} className={styles.tabletCard}>
+                        {renderCategoryCard(category, idx + 1, false)}
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    className={`${styles.tabletArrow} ${styles.tabletNext}`}
+                    onClick={handleTabletNext}
+                    disabled={tabletIndex >= tabletMaxIndex}
+                    aria-label="Next categories"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              )}
+
+              {/* Tablet dots */}
+              {otherCategories.length > tabletCardsPerView && (
+                <div className={styles.tabletDots}>
+                  {Array.from({ length: tabletMaxIndex + 1 }).map((_, i) => (
+                    <button
+                      key={i}
+                      className={`${styles.tabletDot} ${i === tabletIndex ? styles.activeDot : ''}`}
+                      onClick={() => setTabletIndex(i)}
+                      aria-label={`Go to page ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Desktop: Grid layout */}
-          {!isMobile && (
+          {!isMobile && !isTablet && (
             <div className={styles.categories}>
               {categories.map((category, index) => renderCategoryCard(category, index, index === 0))}
             </div>

@@ -10,7 +10,7 @@ import {
   Heart,
   Target,
 } from 'lucide-react';
-import { fetchTestimonialsWithFallback } from '@/sanity';
+import { siteData } from '@/data/siteData';
 import ExpandableReviews from './ExpandableReviews';
 import styles from './about.module.scss';
 
@@ -78,8 +78,7 @@ const team = [
 ];
 
 export default async function AboutPage() {
-  // Fetch testimonials from Sanity with fallback to mock data
-  const testimonials = await fetchTestimonialsWithFallback();
+  const testimonials = siteData.testimonials.testimonials;
 
   return (
     <div className={styles.page}>

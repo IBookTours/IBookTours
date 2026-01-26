@@ -111,6 +111,11 @@
   --color-info-light: #e0f2fe;
   --color-info-main: #457b9d;     // Uses Cerulean
   --color-info-dark: #2d5368;
+
+  // Scrollbar Colors (theme-aware)
+  --scrollbar-track: #{$neutral-100};
+  --scrollbar-thumb: #{$neutral-300};
+  --scrollbar-thumb-hover: #{$neutral-400};
 }
 
 // ============================================
@@ -294,15 +299,15 @@ img {
 }
 
 ::-webkit-scrollbar-track {
-  background: $neutral-100;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $neutral-300;
+  background: var(--scrollbar-thumb);
   border-radius: $radius-full;
 
   &:hover {
-    background: $neutral-400;
+    background: var(--scrollbar-thumb-hover);
   }
 }
 
@@ -710,6 +715,11 @@ html.saturation-high {
   --color-info-main: #8d99ae;     // Uses Lavender Grey
   --color-info-dark: #bdc6d6;
 
+  // Scrollbar Colors (dark mode)
+  --scrollbar-track: #1a1b2e;
+  --scrollbar-thumb: #5c6378;
+  --scrollbar-thumb-hover: #8d99ae;
+
   // Apply to body
   color: var(--text-primary);
   background: var(--bg-primary);
@@ -717,19 +727,6 @@ html.saturation-high {
   // Adjust images for dark mode
   img:not([src*=".svg"]) {
     opacity: 0.9;
-  }
-
-  // Scrollbar for dark mode
-  &::-webkit-scrollbar-track {
-    background: #1a1b2e;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #5c6378;
-
-    &:hover {
-      background: #8d99ae;
-    }
   }
 }
 

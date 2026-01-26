@@ -25,6 +25,7 @@ export type TourCategory = 'all' | 'cultural' | 'adventure' | 'food' | 'nature';
 export interface DayTour {
   id: string;
   name: string;
+  description?: string;
   duration: string;
   location: string;
   departsFrom: string;
@@ -170,6 +171,15 @@ export default function DayToursSection({
             {tour.rating}
           </span>
         </div>
+
+        {/* Highlights list */}
+        {tour.highlights && tour.highlights.length > 0 && (
+          <ul className={styles.highlights}>
+            {tour.highlights.slice(0, 3).map((highlight, idx) => (
+              <li key={idx}>{highlight}</li>
+            ))}
+          </ul>
+        )}
 
         <div className={styles.footer}>
           <div className={styles.pricing}>

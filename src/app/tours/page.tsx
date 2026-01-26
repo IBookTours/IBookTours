@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import ToursClient from './ToursClient';
-import { fetchTourPackagesWithFallback } from '@/sanity';
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
@@ -35,7 +34,7 @@ function ToursLoading() {
 }
 
 export default async function ToursPage() {
-  const destinations = await fetchTourPackagesWithFallback();
+  const destinations = siteData.destinations;
 
   return (
     <Suspense fallback={<ToursLoading />}>

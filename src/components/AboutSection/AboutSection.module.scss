@@ -24,6 +24,13 @@
     grid-template-columns: 1fr 1fr;
     gap: $spacing-16;
   }
+
+  // RTL: Flip column order so images are on the right
+  [dir="rtl"] & {
+    @include respond-to(lg) {
+      direction: rtl;
+    }
+  }
 }
 
 .images {
@@ -44,6 +51,15 @@
   @include respond-to(md) {
     height: 500px;
   }
+
+  // RTL: Flip animation direction
+  [dir="rtl"] & {
+    transform: translateX(40px);
+
+    &.visible {
+      transform: translateX(0);
+    }
+  }
 }
 
 .imageWrapper {
@@ -57,10 +73,20 @@
 
   &:nth-child(2) {
     border-radius: $radius-2xl $radius-2xl $radius-2xl 50%;
+
+    // RTL: Flip curved corner to bottom-right
+    [dir="rtl"] & {
+      border-radius: $radius-2xl $radius-2xl 50% $radius-2xl;
+    }
   }
 
   &:nth-child(3) {
     border-radius: 50% $radius-2xl $radius-2xl $radius-2xl;
+
+    // RTL: Flip curved corner to top-right
+    [dir="rtl"] & {
+      border-radius: $radius-2xl 50% $radius-2xl $radius-2xl;
+    }
   }
 
   img {

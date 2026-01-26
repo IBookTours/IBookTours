@@ -458,3 +458,110 @@
   transform: scale(1.2);
 }
 
+// ============================================
+// TABLET CAROUSEL STYLES
+// ============================================
+
+.tabletWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.tabletFeatured {
+  width: 100%;
+
+  .category {
+    aspect-ratio: 16/7;  // Shorter aspect ratio for featured
+    width: 100%;
+  }
+}
+
+.tabletCarouselWrapper {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  width: 100%;
+}
+
+.tabletCarousel {
+  display: flex;
+  gap: $spacing-4;
+  flex: 1;
+  min-width: 0;
+  touch-action: pan-y;
+}
+
+.tabletCard {
+  flex: 1;
+  min-width: 0;
+
+  .category {
+    aspect-ratio: 4/5;
+    width: 100%;
+  }
+}
+
+.tabletArrow {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all $transition-base;
+  z-index: 2;
+
+  &:hover:not(:disabled) {
+    background: var(--color-primary-600);
+    color: $text-light;
+    border-color: var(--color-primary-600);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+.tabletPrev {
+  // Positioned on left
+}
+
+.tabletNext {
+  // Positioned on right
+}
+
+.tabletDots {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-top: $spacing-2;
+}
+
+.tabletDot {
+  width: 10px;
+  height: 10px;
+  border-radius: $radius-full;
+  border: none;
+  background: var(--border-medium);
+  cursor: pointer;
+  transition: all $transition-base;
+  padding: 0;
+
+  &:hover {
+    background: var(--color-primary-400);
+  }
+}
+

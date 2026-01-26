@@ -216,6 +216,8 @@
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
   background: var(--bg-primary);
   border-radius: $radius-xl;
   overflow: hidden;
@@ -223,6 +225,7 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow $transition-fast, border-color $transition-fast;
+  height: 100%;
 
   &.visible {
     opacity: 1;
@@ -303,6 +306,9 @@
 
 .content {
   padding: $spacing-4;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .location {
@@ -365,10 +371,38 @@
   }
 }
 
+// Highlights list (matching vacation packages style)
+.highlights {
+  list-style: none;
+  margin: 0 0 $spacing-3 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-1;
+
+  li {
+    font-size: $font-xs;
+    color: var(--text-secondary);
+    padding: $spacing-1 $spacing-2;
+    background: var(--bg-tertiary);
+    border-radius: $radius-full;
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+
+    &::before {
+      content: '•';
+      color: var(--color-primary-500);
+      font-weight: bold;
+    }
+  }
+}
+
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: auto;
 }
 
 .pricing {
