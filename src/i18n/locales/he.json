@@ -181,6 +181,10 @@
     "filtersOn": "מסננים פעילים",
     "clear": "נקה",
     "category": "קטגוריה",
+    "location": "מיקום",
+    "locations": {
+      "all": "כל המיקומים"
+    },
     "tabs": {
       "all": "הכל",
       "packages": "חבילות נופש",

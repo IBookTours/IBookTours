@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -85,8 +85,31 @@ export default function ToursClient({
   const [selectedPrice, setSelectedPrice] = useState('all');
   const [selectedDuration, setSelectedDuration] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('all');
+  const [selectedLocation, setSelectedLocation] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const filterBarRef = useRef<HTMLDivElement>(null);
+
+  // Get unique locations from all tours
+  const uniqueLocations = useMemo(() => {
+    const locationSet = new Set<string>();
+    vacationPackages.forEach(pkg => locationSet.add(pkg.location));
+    dayTours.forEach(tour => locationSet.add(tour.location));
+    return ['all', ...Array.from(locationSet).sort()];
+  }, [vacationPackages, dayTours]);
+
+  // Toggle filters with scroll behavior on mobile
+  const handleFilterToggle = useCallback(() => {
+    const newShowFilters = !showFilters;
+    setShowFilters(newShowFilters);
+
+    // On mobile, scroll to filter bar when opening
+    if (newShowFilters && filterBarRef.current) {
+      setTimeout(() => {
+        filterBarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [showFilters]);
 
   // Sync with URL params
   useEffect(() => {
@@ -149,9 +172,14 @@ export default function ToursClient({
         if (selectedDuration === 'long' && days < 8) return false;
       }
 
+      // Location filter
+      if (selectedLocation !== 'all') {
+        if (!pkg.location.toLowerCase().includes(selectedLocation.toLowerCase())) return false;
+      }
+
       return true;
     });
-  }, [vacationPackages, searchQuery, selectedPrice, selectedDuration]);
+  }, [vacationPackages, searchQuery, selectedPrice, selectedDuration, selectedLocation]);
 
   // Filter day tours based on search, price, duration, and category
   const filteredDayTours = useMemo(() => {
@@ -187,9 +215,14 @@ export default function ToursClient({
         if (selectedDuration === 'long' && days < 8) return false;
       }
 
+      // Location filter
+      if (selectedLocation !== 'all') {
+        if (!tour.location.toLowerCase().includes(selectedLocation.toLowerCase())) return false;
+      }
+
       return true;
     });
-  }, [dayTours, searchQuery, selectedPrice, selectedDuration, selectedCategory]);
+  }, [dayTours, searchQuery, selectedPrice, selectedDuration, selectedCategory, selectedLocation]);
 
   // Get counts for tabs
   const counts: Record<TabType, number> = {
@@ -210,9 +243,10 @@ export default function ToursClient({
     setSelectedPrice('all');
     setSelectedDuration('all');
     setSelectedCategory('all');
+    setSelectedLocation('all');
   };
 
-  const hasActiveFilters = searchQuery || selectedPrice !== 'all' || selectedDuration !== 'all' || selectedCategory !== 'all';
+  const hasActiveFilters = searchQuery || selectedPrice !== 'all' || selectedDuration !== 'all' || selectedCategory !== 'all' || selectedLocation !== 'all';
 
   const handleAddPackageToCart = (pkg: VacationPackage) => {
     addItem({
@@ -279,7 +313,7 @@ export default function ToursClient({
             />
             <button
               className={`${styles.filterToggle} ${showFilters || hasActiveFilters ? styles.active : ''}`}
-              onClick={() => setShowFilters(!showFilters)}
+              onClick={handleFilterToggle}
               aria-expanded={showFilters}
               aria-controls="filter-bar"
             >
@@ -326,6 +360,7 @@ export default function ToursClient({
 
         {/* Filter Bar */}
         <div
+          ref={filterBarRef}
           id="filter-bar"
           className={`${styles.filterBar} ${showFilters ? styles.open : ''}`}
           role="group"
@@ -373,6 +408,20 @@ export default function ToursClient({
             />
           </div>
 
+          <div className={styles.filterGroup}>
+            <label htmlFor="location-filter">{t('location')}</label>
+            <Dropdown
+              id="location-filter"
+              value={selectedLocation}
+              onChange={setSelectedLocation}
+              options={uniqueLocations.map((loc) => ({
+                value: loc,
+                label: loc === 'all' ? t('locations.all') : loc,
+              }))}
+              variant="compact"
+            />
+          </div>
+
           {hasActiveFilters && (
             <button className={styles.clearFilters} onClick={clearFilters} aria-label="Clear all filters">
               <X aria-hidden="true" />
@@ -412,6 +461,14 @@ export default function ToursClient({
               <span className={styles.filterChip}>
                 {t(`categories.${selectedCategory}`)}
                 <button onClick={() => setSelectedCategory('all')} aria-label="Remove category filter">
+                  <X />
+                </button>
+              </span>
+            )}
+            {selectedLocation !== 'all' && (
+              <span className={styles.filterChip}>
+                {selectedLocation}
+                <button onClick={() => setSelectedLocation('all')} aria-label="Remove location filter">
                   <X />
                 </button>
               </span>

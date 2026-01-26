@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -68,6 +68,22 @@ export default function VacationPackagesSection({
   const sliderRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  // Medium screen carousel index (for 2-column carousel on md-lg screens)
+  const [mediumIndex, setMediumIndex] = useState(0);
+  // Check if we're on a medium-sized screen (between md and xl breakpoints)
+  const [isMediumScreen, setIsMediumScreen] = useState(false);
+
+  // Check for medium screen (between 1024px and 1280px) - uses 2-column carousel
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      setIsMediumScreen(width >= 1024 && width < 1280);
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: 0.1,
     triggerOnce: true,
@@ -104,11 +120,24 @@ export default function VacationPackagesSection({
     setTabletIndex((prev) => (prev === packages.length - 1 ? 0 : prev + 1));
   }, [packages.length]);
 
+  // Medium screen navigation handlers - shows 2 cards at a time
+  const mediumMaxIndex = Math.max(0, Math.ceil(packages.length / 2) - 1);
+  const handleMediumPrev = useCallback(() => {
+    setMediumIndex((prev) => (prev === 0 ? mediumMaxIndex : prev - 1));
+  }, [mediumMaxIndex]);
+
+  const handleMediumNext = useCallback(() => {
+    setMediumIndex((prev) => (prev >= mediumMaxIndex ? 0 : prev + 1));
+  }, [mediumMaxIndex]);
+
   // Swipe handlers for mobile
   const swipeHandlers = useSwipe(handleMobileNext, handleMobilePrev);
 
   // Swipe handlers for tablet
   const tabletSwipeHandlers = useSwipe(handleTabletNext, handleTabletPrev);
+
+  // Swipe handlers for medium screens
+  const mediumSwipeHandlers = useSwipe(handleMediumNext, handleMediumPrev);
 
   const handleAddToCart = (pkg: VacationPackage) => {
     addItem({
@@ -382,8 +411,59 @@ export default function VacationPackagesSection({
           </div>
         )}
 
-        {/* Desktop: Grid with slider */}
-        {!isMobile && !isTablet && (
+        {/* Medium screens: 2-column carousel (1024-1280px) */}
+        {!isMobile && !isTablet && isMediumScreen && packages.length > 0 && (
+          <div className={styles.mediumCarouselWrapper}>
+            <button
+              className={`${styles.tabletArrow} ${styles.tabletPrev}`}
+              onClick={handleMediumPrev}
+              aria-label="Previous packages"
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            <div className={styles.mediumCarousel} {...mediumSwipeHandlers}>
+              <div
+                className={styles.mediumTrack}
+                style={{ transform: `translateX(-${mediumIndex * 100}%)` }}
+              >
+                {/* Group packages in pairs for 2-column display */}
+                {Array.from({ length: Math.ceil(packages.length / 2) }).map((_, slideIndex) => (
+                  <div key={slideIndex} className={styles.mediumSlide}>
+                    {packages.slice(slideIndex * 2, slideIndex * 2 + 2).map((pkg, idx) => (
+                      <div key={pkg.id} className={styles.mediumCard}>
+                        {renderPackageCard(pkg, idx)}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              className={`${styles.tabletArrow} ${styles.tabletNext}`}
+              onClick={handleMediumNext}
+              aria-label="Next packages"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Medium carousel dots */}
+            <div className={styles.tabletDots}>
+              {Array.from({ length: Math.ceil(packages.length / 2) }).map((_, i) => (
+                <button
+                  key={i}
+                  className={`${styles.tabletDot} ${i === mediumIndex ? styles.activeDot : ''}`}
+                  onClick={() => setMediumIndex(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Desktop: Grid with slider (1280px+) */}
+        {!isMobile && !isTablet && !isMediumScreen && (
           <>
             <div className={styles.sliderWrapper}>
               {canShowSlider && (

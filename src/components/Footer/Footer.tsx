@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { ChevronDown, Facebook, Instagram, Youtube } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { FooterContent } from '@/types';
+import { useInView } from '@/hooks';
 import styles from './Footer.module.scss';
 
 interface FooterProps {
@@ -39,6 +40,10 @@ const socialIcons: Record<string, React.ReactNode> = {
 export default function Footer({ content, siteName }: FooterProps) {
   const t = useTranslations('footer');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
+  const [faqRef, isFaqInView] = useInView<HTMLDivElement>({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   const toggleFaq = (id: string) => {
     setOpenFaq(openFaq === id ? null : id);
@@ -48,7 +53,7 @@ export default function Footer({ content, siteName }: FooterProps) {
     <footer className={styles.footer} id="contact">
       <div className={styles.container}>
         {/* FAQ Section */}
-        <div className={styles.faqSection}>
+        <div ref={faqRef} className={`${styles.faqSection} ${isFaqInView ? styles.visible : ''}`}>
           <div className={styles.faqHeader}>
             <h3 className={styles.faqTitle}>{t('faqTitle')}</h3>
             <p className={styles.faqSubtitle}>

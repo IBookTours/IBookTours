@@ -181,6 +181,10 @@
     "filtersOn": "Filters On",
     "clear": "Clear",
     "category": "Category",
+    "location": "Location",
+    "locations": {
+      "all": "All Locations"
+    },
     "tabs": {
       "all": "All",
       "packages": "Vacation Packages",

@@ -609,6 +609,39 @@
 }
 
 // ============================================
+// MEDIUM SCREEN CAROUSEL (2 columns, 1024-1280px)
+// ============================================
+
+.mediumCarouselWrapper {
+  position: relative;
+  margin-bottom: $spacing-6;
+}
+
+.mediumCarousel {
+  overflow: hidden;
+  touch-action: pan-y;
+  margin: 0 $spacing-16; // Space for arrows
+}
+
+.mediumTrack {
+  display: flex;
+  transition: transform 0.4s ease-out;
+}
+
+.mediumSlide {
+  flex-shrink: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-6;
+  padding: 0 $spacing-2;
+}
+
+.mediumCard {
+  min-width: 0; // Allow cards to shrink properly
+}
+
+// ============================================
 // PROMOTIONAL BADGES
 // ============================================
 

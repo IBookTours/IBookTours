@@ -1,10 +1,10 @@
 @use '@/styles/variables' as *;
 
 .form {
-  background: $bg-primary;
+  background: var(--bg-primary);
   border-radius: $radius-2xl;
   padding: $spacing-6;
-  border: 1px solid $border-light;
+  border: 1px solid var(--border-light);
   box-shadow: $shadow-lg;
 }
 
@@ -15,13 +15,13 @@
   margin-bottom: $spacing-6;
 
   svg {
-    color: $primary-600;
+    color: var(--color-primary-600);
   }
 
   h2 {
     font-size: $font-lg;
     font-weight: $font-bold;
-    color: $text-primary;
+    color: var(--text-primary);
     margin: 0;
   }
 }
@@ -59,7 +59,7 @@
   h3 {
     font-size: $font-sm;
     font-weight: $font-semibold;
-    color: $text-primary;
+    color: var(--text-primary);
     margin-bottom: $spacing-4;
   }
 }
@@ -71,7 +71,7 @@
     display: block;
     font-size: $font-xs;
     font-weight: $font-medium;
-    color: $text-secondary;
+    color: var(--text-secondary);
     margin-bottom: $spacing-2;
   }
 
@@ -80,20 +80,49 @@
     width: 100%;
     padding: $spacing-3 $spacing-4;
     font-size: $font-sm;
-    color: $text-primary;
-    background: $bg-primary;
-    border: 1px solid $border-medium;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-medium);
     border-radius: $radius-lg;
     transition: all $transition-fast;
 
     &:focus {
       outline: none;
-      border-color: $primary-500;
-      box-shadow: $focus-ring-primary;
+      border-color: var(--color-primary-500);
+      box-shadow: 0 0 0 3px var(--primary-alpha-15);
     }
 
     &::placeholder {
-      color: $text-tertiary;
+      color: var(--text-tertiary);
+    }
+  }
+
+  // Date input specific styling
+  input[type="date"] {
+    cursor: pointer;
+    position: relative;
+
+    // Style the native calendar picker
+    &::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      padding: $spacing-1;
+      border-radius: $radius-sm;
+      transition: background $transition-fast;
+
+      &:hover {
+        background: var(--color-primary-100);
+      }
+    }
+
+    // Dark mode: invert the calendar icon for visibility
+    :root[data-theme="dark"] & {
+      &::-webkit-calendar-picker-indicator {
+        filter: invert(0.85);
+
+        &:hover {
+          filter: invert(0.85) brightness(1.2);
+        }
+      }
     }
   }
 
@@ -157,9 +186,9 @@
 .success {
   text-align: center;
   padding: $spacing-8 $spacing-6;
-  background: $bg-primary;
+  background: var(--bg-primary);
   border-radius: $radius-2xl;
-  border: 1px solid $border-light;
+  border: 1px solid var(--border-light);
   box-shadow: $shadow-lg;
 }
 
@@ -181,13 +210,13 @@
 .success h2 {
   font-size: $font-xl;
   font-weight: $font-bold;
-  color: $text-primary;
+  color: var(--text-primary);
   margin-bottom: $spacing-2;
 }
 
 .success p {
   font-size: $font-sm;
-  color: $text-secondary;
+  color: var(--text-secondary);
 }
 
 .successDetails {
@@ -197,11 +226,11 @@
 .bookingId {
   margin-top: $spacing-4;
   padding: $spacing-3 $spacing-4;
-  background: $bg-secondary;
+  background: var(--bg-secondary);
   border-radius: $radius-lg;
   font-family: monospace;
   font-size: $font-sm;
-  color: $primary-600;
+  color: var(--color-primary-600);
 }
 
 // Index export

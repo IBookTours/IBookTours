@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Map, Building, Star, Download, Play, CheckCircle, Globe } from 'lucide-react';
 import { BookingContent } from '@/types';
+import { useInView } from '@/hooks';
 import styles from './BookingSection.module.scss';
 
 interface BookingSectionProps {
@@ -19,6 +20,10 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export default function BookingSection({ content }: BookingSectionProps) {
   const [showToast, setShowToast] = useState(false);
+  const [sectionRef, isInView] = useInView<HTMLElement>({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
 
   const handleComingSoon = () => {
     setShowToast(true);
@@ -26,7 +31,7 @@ export default function BookingSection({ content }: BookingSectionProps) {
   };
 
   return (
-    <section className={styles.section}>
+    <section ref={sectionRef} className={styles.section}>
       <div className={styles.bgDecoration} />
       <div className={styles.bgDecoration} />
 
@@ -39,7 +44,7 @@ export default function BookingSection({ content }: BookingSectionProps) {
 
       <div className={styles.container}>
         <div className={styles.grid}>
-          <div className={styles.content}>
+          <div className={`${styles.content} ${isInView ? styles.visible : ''}`}>
             <span className={styles.sectionLabel}>{content.sectionLabel}</span>
             <h2 className={styles.title}>{content.title}</h2>
             <p className={styles.description}>{content.description}</p>
@@ -68,7 +73,7 @@ export default function BookingSection({ content }: BookingSectionProps) {
             </div>
           </div>
 
-          <div className={styles.visual}>
+          <div className={`${styles.visual} ${isInView ? styles.visible : ''}`}>
             <div className={styles.phoneWrapper}>
               <div className={styles.phone}>
                 <div className={styles.phoneScreen}>
