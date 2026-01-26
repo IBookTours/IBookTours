@@ -151,6 +151,7 @@ function CheckoutContent() {
       // No items, redirect to tours
       router.push('/tours');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- Only run on mount or when cart length changes
   }, [tourId, cartItems.length, setTour, router]);
 
   // Calculate totals
