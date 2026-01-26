@@ -54,12 +54,17 @@ const priceRangeValues: Record<string, { min: number; max: number }> = {
 
 const durationIds = ['all', 'short', 'medium', 'long'] as const;
 
-const tabIds: TabType[] = ['all', 'packages', 'day-tours'];
+const tabIds: TabType[] = ['all', 'packages', 'day-tours', 'night-tours', 'cruises', 'events'];
 const tabIcons: Record<TabType, React.ReactNode> = {
   'all': <Package size={18} />,
   'packages': <Plane size={18} />,
   'day-tours': <Clock size={18} />,
+  'night-tours': <Moon size={18} />,
+  'cruises': <Ship size={18} />,
+  'events': <CalendarDays size={18} />,
 };
+
+const categoryIds: CategoryType[] = ['all', 'cultural', 'adventure', 'food', 'nature'];
 
 export default function ToursClient({
   destinations,
@@ -79,6 +84,7 @@ export default function ToursClient({
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [selectedPrice, setSelectedPrice] = useState('all');
   const [selectedDuration, setSelectedDuration] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState<CategoryType>('all');
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
@@ -147,7 +153,7 @@ export default function ToursClient({
     });
   }, [vacationPackages, searchQuery, selectedPrice, selectedDuration]);
 
-  // Filter day tours based on search, price, and duration
+  // Filter day tours based on search, price, duration, and category
   const filteredDayTours = useMemo(() => {
     return dayTours.filter((tour) => {
       // Search filter
@@ -158,6 +164,11 @@ export default function ToursClient({
           tour.location.toLowerCase().includes(query) ||
           tour.departsFrom.toLowerCase().includes(query);
         if (!matchesSearch) return false;
+      }
+
+      // Category filter
+      if (selectedCategory !== 'all') {
+        if (tour.category !== selectedCategory) return false;
       }
 
       // Price filter
@@ -178,7 +189,7 @@ export default function ToursClient({
 
       return true;
     });
-  }, [dayTours, searchQuery, selectedPrice, selectedDuration]);
+  }, [dayTours, searchQuery, selectedPrice, selectedDuration, selectedCategory]);
 
   // Get counts for tabs
   const counts = {
