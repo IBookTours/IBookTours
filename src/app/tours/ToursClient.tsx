@@ -22,6 +22,9 @@ import {
   ArrowRight,
   ShoppingCart,
   Hotel,
+  Moon,
+  Ship,
+  CalendarDays,
 } from 'lucide-react';
 import DestinationCard from '@/components/DestinationCard';
 import { Destination } from '@/types';
