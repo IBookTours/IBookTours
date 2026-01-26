@@ -1,8 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { emailService } from '@/lib/services/email';
+import { checkRateLimit, getClientIP, rateLimitExceededResponse, RATE_LIMITS } from '@/lib/rateLimit';
+
+// Input length limits
+const MAX_EMAIL_LENGTH = 254;
+const MAX_NAME_LENGTH = 100;
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting
+    const clientIP = getClientIP(request.headers);
+    const rateLimitResult = checkRateLimit(clientIP, '/api/newsletter', RATE_LIMITS.newsletter);
+
+    if (!rateLimitResult.allowed) {
+      return rateLimitExceededResponse(rateLimitResult, RATE_LIMITS.newsletter);
+    }
+
     const body = await request.json();
     const { email, name } = body;
 
@@ -10,6 +23,21 @@ export async function POST(request: NextRequest) {
     if (!email) {
       return NextResponse.json(
         { error: 'Email is required' },
+        { status: 400 }
+      );
+    }
+
+    // Validate input types and lengths
+    if (typeof email !== 'string' || email.length > MAX_EMAIL_LENGTH) {
+      return NextResponse.json(
+        { error: `Email must be ${MAX_EMAIL_LENGTH} characters or less` },
+        { status: 400 }
+      );
+    }
+
+    if (name && (typeof name !== 'string' || name.length > MAX_NAME_LENGTH)) {
+      return NextResponse.json(
+        { error: `Name must be ${MAX_NAME_LENGTH} characters or less` },
         { status: 400 }
       );
     }
@@ -23,7 +51,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await emailService.addToNewsletter(email, name);
+    const result = await emailService.addToNewsletter(
+      email.trim().toLowerCase(),
+      name ? name.trim() : undefined
+    );
 
     if (!result.success) {
       return NextResponse.json(
