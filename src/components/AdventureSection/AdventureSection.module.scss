@@ -421,12 +421,16 @@
   backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
-  display: flex;
+  display: none; // Hidden on mobile - swipe is enough
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all $transition-base;
   z-index: 2;
+
+  @include respond-to(sm) {
+    display: flex; // Show on 640px+ (tablets)
+  }
 
   &:hover {
     background: var(--color-primary-600);

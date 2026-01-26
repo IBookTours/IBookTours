@@ -201,11 +201,16 @@
   left: 0;
   right: 0;
   transform: translateY(-50%);
-  display: flex;
+  display: none; // Hidden on mobile - swipe is enough
   justify-content: space-between;
   pointer-events: none;
   z-index: 10;
   padding: 0 $spacing-2;
+
+  // Tablet: Show arrows on 640px+
+  @include respond-to(sm) {
+    display: flex;
+  }
 
   // Tablet: Keep arrows inside viewport
   @include respond-to(md) {

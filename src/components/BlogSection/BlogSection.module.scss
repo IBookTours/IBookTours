@@ -103,12 +103,16 @@
   border: 1px solid var(--border-light);
   color: var(--text-primary);
   cursor: pointer;
-  display: flex;
+  display: none; // Hidden on mobile - swipe is enough
   align-items: center;
   justify-content: center;
   z-index: 10;
   transition: all $transition-fast;
   box-shadow: $shadow-sm;
+
+  @include respond-to(sm) {
+    display: flex; // Show on 640px+ (tablets)
+  }
 
   &:hover {
     background: var(--bg-tertiary);
