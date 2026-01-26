@@ -44,8 +44,9 @@
 .year {
   font-size: $font-6xl;
   font-weight: $font-extrabold;
-  color: var(--bg-accent);
+  color: var(--color-primary-200);
   line-height: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
   @include respond-to(lg) {
     font-size: $font-7xl;
