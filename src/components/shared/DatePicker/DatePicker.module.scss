@@ -99,36 +99,29 @@
   border-radius: $radius-xl;
   box-shadow: $shadow-xl;
   padding: $spacing-4;
-  z-index: $z-dropdown;
-  animation: calendarSlideIn 0.2s ease-out;
+  z-index: $z-popover; // Higher than modal (600) to appear above cart drawer
+  animation: calendarSlideIn 0.2s ease-out forwards;
 
   [dir="rtl"] & {
     left: auto;
     right: 0;
   }
 
-  // Mobile: full width
+  // Mobile: constrained width, left-aligned
   @media (max-width: $breakpoint-sm) {
-    width: calc(100vw - $spacing-8);
-    left: 50%;
-    transform: translateX(-50%);
-
-    [dir="rtl"] & {
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
-    }
+    width: min(300px, calc(100vw - $spacing-8));
+    max-width: calc(100vw - $spacing-4);
   }
 }
 
 @keyframes calendarSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.98);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
