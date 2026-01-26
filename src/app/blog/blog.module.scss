@@ -31,7 +31,7 @@
   .badge {
     display: inline-block;
     padding: $spacing-2 $spacing-4;
-    background: rgba(255, 255, 255, 0.2);
+    background: $rgba-white-20;
     backdrop-filter: blur(10px);
     border-radius: $radius-full;
     color: $text-light;
@@ -53,7 +53,7 @@
 
   p {
     font-size: $font-lg;
-    color: rgba(255, 255, 255, 0.9);
+    color: $rgba-white-90;
     margin: 0;
   }
 }
@@ -369,7 +369,7 @@
 
   p {
     font-size: $font-base;
-    color: rgba(255, 255, 255, 0.9);
+    color: $rgba-white-90;
     margin: 0 0 $spacing-6 0;
   }
 }
@@ -397,7 +397,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 0 3px $rgba-white-30;
     }
   }
 

@@ -58,7 +58,7 @@
   width: 280px;
   height: 48px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.2);
+  background: $rgba-white-20;
 
   @media (max-width: 480px) {
     width: 180px;
@@ -70,7 +70,7 @@
   width: 360px;
   height: 24px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.15);
+  background: $rgba-white-15;
 
   @media (max-width: 480px) {
     width: 240px;

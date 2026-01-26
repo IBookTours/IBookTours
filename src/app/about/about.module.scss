@@ -66,8 +66,8 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0.6) 100%
+    $overlay-base 0%,
+    $overlay-xl 100%
   );
 }
 
@@ -81,7 +81,7 @@
   .badge {
     display: inline-block;
     padding: $spacing-2 $spacing-4;
-    background: rgba(255, 255, 255, 0.2);
+    background: $rgba-white-20;
     backdrop-filter: blur(10px);
     border-radius: $radius-full;
     color: $text-light;
@@ -104,7 +104,7 @@
 
   p {
     font-size: $font-lg;
-    color: rgba(255, 255, 255, 0.9);
+    color: $rgba-white-90;
     margin: 0;
     max-width: 600px;
     margin: 0 auto;
@@ -460,7 +460,7 @@
 
   p {
     font-size: $font-lg;
-    color: rgba(255, 255, 255, 0.9);
+    color: $rgba-white-90;
     margin: 0 0 $spacing-8 0;
   }
 }
@@ -597,7 +597,7 @@
 }
 
 .starFilled {
-  color: #fbbf24; // Gold - semantic color
+  color: $color-star;
 }
 
 .starEmpty {

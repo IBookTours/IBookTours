@@ -517,7 +517,7 @@ html.focus-indicators {
   *:focus-visible {
     outline: 3px solid var(--color-primary-600) !important;
     outline-offset: 3px !important;
-    box-shadow: 0 0 0 6px rgba(230, 57, 70, 0.25) !important;
+    box-shadow: 0 0 0 6px $error-alpha-20 !important;
   }
 
   a:focus-visible,
