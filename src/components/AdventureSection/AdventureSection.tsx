@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Star, ChevronLeft, ChevronRight, ArrowRight, MapPin, Route, Smile } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { AdventureContent } from '@/types';
-import { useInView, useIsMobile, useSwipe } from '@/hooks';
+import { useInView, useIsMobile, useIsTablet, useSwipe } from '@/hooks';
 import styles from './AdventureSection.module.scss';
 
 const statIcons: Record<string, React.ReactNode> = {
@@ -26,9 +26,12 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
     triggerOnce: true,
   });
   const [mobileIndex, setMobileIndex] = useState(0);
+  const [tabletIndex, setTabletIndex] = useState(0);
   const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
 
   const categories = content.categories;
+  const otherCategories = categories.slice(1); // Cards 2-5 for tablet carousel
 
   // Mobile navigation handlers
   const handleMobilePrev = useCallback(() => {
@@ -39,8 +42,21 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
     setMobileIndex((prev) => (prev === categories.length - 1 ? 0 : prev + 1));
   }, [categories.length]);
 
+  // Tablet carousel handlers (show 2 cards at a time)
+  const tabletCardsPerView = 2;
+  const tabletMaxIndex = Math.max(0, otherCategories.length - tabletCardsPerView);
+
+  const handleTabletPrev = useCallback(() => {
+    setTabletIndex((prev) => (prev === 0 ? tabletMaxIndex : prev - 1));
+  }, [tabletMaxIndex]);
+
+  const handleTabletNext = useCallback(() => {
+    setTabletIndex((prev) => (prev >= tabletMaxIndex ? 0 : prev + 1));
+  }, [tabletMaxIndex]);
+
   // Swipe handlers for mobile
   const swipeHandlers = useSwipe(handleMobileNext, handleMobilePrev);
+  const tabletSwipeHandlers = useSwipe(handleTabletNext, handleTabletPrev);
 
   // Render a category card
   const renderCategoryCard = (category: typeof categories[0], index: number, isFeatured: boolean = false) => (

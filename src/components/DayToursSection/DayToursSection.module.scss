@@ -199,11 +199,8 @@
   flex: 1;
   transition: all 0.3s ease;
 
-  @include respond-to(sm) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include respond-to(lg) {
+  // Tablet: Show 3 columns in 1 row
+  @include respond-to(md) {
     grid-template-columns: repeat(3, 1fr);
   }
 

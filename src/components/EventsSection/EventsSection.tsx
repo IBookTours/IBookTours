@@ -24,16 +24,30 @@ export default function EventsSection({ content }: EventsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const events = content.events;
 
+  // Show 2 cards at a time on mobile/tablet
+  const cardsPerView = 2;
+  const maxIndex = Math.max(0, events.length - cardsPerView);
+
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? events.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev === events.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
+  };
+
+  // Get visible events for carousel (2 at a time)
+  const getVisibleEvents = () => {
+    const visible = [];
+    for (let i = 0; i < cardsPerView; i++) {
+      const idx = (currentIndex + i) % events.length;
+      visible.push({ event: events[idx], originalIndex: idx });
+    }
+    return visible;
   };
 
   // Swipe handlers for mobile
@@ -92,37 +106,41 @@ export default function EventsSection({ content }: EventsSectionProps) {
           </div>
         )}
 
-        {/* Mobile/Tablet: Carousel layout */}
+        {/* Mobile/Tablet: Carousel layout with 2 cards */}
         {!isDesktop && (
           <div className={`${styles.carouselContainer} ${isInView ? styles.visible : ''}`}>
             <div className={styles.carouselTrack} {...swipeHandlers}>
-              {renderEventCard(events[currentIndex], currentIndex, false)}
+              {getVisibleEvents().map(({ event, originalIndex }) => (
+                <div key={event.id} className={styles.carouselSlide}>
+                  {renderEventCard(event, originalIndex, false)}
+                </div>
+              ))}
             </div>
 
             {/* Navigation arrows */}
             <button
               className={`${styles.carouselArrow} ${styles.prevArrow}`}
               onClick={goToPrevious}
-              aria-label="Previous event"
+              aria-label="Previous events"
             >
               <ChevronLeft />
             </button>
             <button
               className={`${styles.carouselArrow} ${styles.nextArrow}`}
               onClick={goToNext}
-              aria-label="Next event"
+              aria-label="Next events"
             >
               <ChevronRight />
             </button>
 
-            {/* Dot indicators */}
+            {/* Dot indicators - one per slide position */}
             <div className={styles.carouselDots}>
-              {events.map((_, index) => (
+              {Array.from({ length: maxIndex + 1 }).map((_, index) => (
                 <button
                   key={index}
                   className={`${styles.dot} ${index === currentIndex ? styles.activeDot : ''}`}
                   onClick={() => goToSlide(index)}
-                  aria-label={`Go to event ${index + 1}`}
+                  aria-label={`Go to slide ${index + 1}`}
                   aria-current={index === currentIndex ? 'true' : 'false'}
                 />
               ))}
