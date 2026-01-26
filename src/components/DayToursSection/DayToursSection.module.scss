@@ -219,12 +219,13 @@
   display: flex;
   flex-direction: column;
   background: var(--bg-primary);
-  border-radius: $radius-xl;
+  border-radius: $radius-2xl;
   overflow: hidden;
   border: 1px solid var(--border-light);
+  box-shadow: $shadow-lg;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow $transition-fast, border-color $transition-fast;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow $transition-base, border-color $transition-base;
   height: 100%;
 
   &.visible {
@@ -233,8 +234,9 @@
   }
 
   &.visible:hover {
-    box-shadow: $shadow-lg;
-    border-color: var(--border-medium);
+    transform: translateY(-4px);
+    box-shadow: $shadow-xl;
+    border-color: var(--color-primary-200);
 
     .imageWrapper img {
       transform: scale(1.05);
@@ -245,7 +247,7 @@
 .imageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/10;
   overflow: hidden;
 
   img {
@@ -305,7 +307,7 @@
 }
 
 .content {
-  padding: $spacing-4;
+  padding: $spacing-6;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -374,26 +376,26 @@
 // Highlights list (matching vacation packages style)
 .highlights {
   list-style: none;
-  margin: 0 0 $spacing-3 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: $spacing-1;
+  margin: 0 0 $spacing-5;
 
   li {
-    font-size: $font-xs;
+    position: relative;
+    padding-left: $spacing-5;
+    font-size: $font-sm;
     color: var(--text-secondary);
-    padding: $spacing-1 $spacing-2;
-    background: var(--bg-tertiary);
-    border-radius: $radius-full;
-    display: inline-flex;
-    align-items: center;
-    gap: $spacing-1;
+    margin-bottom: $spacing-2;
 
     &::before {
-      content: '•';
-      color: var(--color-primary-500);
-      font-weight: bold;
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: $success;
+      font-weight: $font-bold;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }
@@ -402,17 +404,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: $spacing-4;
+  border-top: 1px solid var(--border-light);
   margin-top: auto;
 }
 
 .pricing {
   display: flex;
-  align-items: baseline;
-  gap: $spacing-1;
+  flex-direction: column;
 }
 
 .price {
-  font-size: $font-lg;
+  font-size: $font-2xl;
   font-weight: $font-bold;
   color: var(--color-primary-600);
 }
@@ -564,4 +567,147 @@
 .activeDot {
   background: var(--color-primary-600);
   width: 24px;
+}
+
+// ============================================
+// PROMOTIONAL BADGES
+// ============================================
+
+.promoBadge {
+  position: absolute;
+  top: $spacing-3;
+  right: $spacing-3;
+  padding: $spacing-1 $spacing-3;
+  font-size: $font-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  border-radius: $radius-full;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  letter-spacing: 0.02em;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.badgePopular {
+  background: var(--color-primary-600);
+  color: $text-light;
+}
+
+.badgeDiscount {
+  background: $success;
+  color: $text-light;
+}
+
+.badgeFeatured {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: $text-light;
+}
+
+.badgeLimitedTime {
+  background: $warning;
+  color: #1a1a1a;
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: var(--text-tertiary);
+  font-size: $font-sm;
+  font-weight: $font-normal;
+  margin-right: $spacing-2;
+}
+
+// ============================================
+// VIEW ALL PROMOTIONAL CARD
+// ============================================
+
+.viewAllCard {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-radius: $radius-2xl;
+  border: 2px dashed var(--border-medium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $spacing-8;
+  min-height: 400px;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(30px);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    border-color: var(--color-primary-400);
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--color-primary-50) 100%);
+    transform: translateY(-4px);
+
+    .viewAllArrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.viewAllIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-full;
+  background: var(--color-secondary-100);
+  color: var(--color-secondary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-4;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.viewAllCount {
+  font-size: $font-4xl;
+  font-weight: $font-bold;
+  color: var(--color-secondary-600);
+  margin-bottom: $spacing-2;
+}
+
+.viewAllText {
+  font-size: $font-xl;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-2;
+}
+
+.viewAllSubtext {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  margin-bottom: $spacing-6;
+  max-width: 200px;
+}
+
+.viewAllArrow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: var(--color-secondary-600);
+  transition: transform $transition-fast;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }

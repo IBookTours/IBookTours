@@ -56,8 +56,9 @@ export default function EventsSection({ content }: EventsSectionProps) {
   // Render event card (reusable for both layouts)
   // When showAnimation is false (mobile carousel), card should always be visible
   const renderEventCard = (event: typeof events[0], index: number, showAnimation = true) => (
-    <article
+    <Link
       key={event.id}
+      href={event.href || '/tours'}
       className={`${styles.eventCard} ${!showAnimation || isInView ? styles.visible : ''}`}
       style={showAnimation ? { transitionDelay: `${0.1 + index * 0.15}s` } : undefined}
     >
@@ -81,7 +82,7 @@ export default function EventsSection({ content }: EventsSectionProps) {
           </span>
         )}
       </div>
-    </article>
+    </Link>
   );
 
   return (

@@ -28,7 +28,7 @@ export default function VideoBackground({
   const [isPaused, setIsPaused] = useState(false);
   const [isInView, setIsInView] = useState(true);
 
-  // Timeout fallback - if video doesn't load in 5 seconds, show image
+  // Timeout fallback - if video doesn't load in 8 seconds, show image
   useEffect(() => {
     if (isLoaded || hasError) return;
 
@@ -36,7 +36,7 @@ export default function VideoBackground({
       if (!isLoaded) {
         setTimedOut(true);
       }
-    }, 5000);
+    }, 8000);
 
     return () => clearTimeout(timeout);
   }, [isLoaded, hasError]);
@@ -155,7 +155,7 @@ export default function VideoBackground({
           playsInline
           webkit-playsinline="true" // iOS Safari
           x5-playsinline="true" // WeChat browser
-          preload="metadata"
+          preload="auto"
           poster={video.poster}
           onLoadedData={handleVideoLoaded}
           onError={handleVideoError}
@@ -176,7 +176,7 @@ export default function VideoBackground({
           aria-label={isPaused ? 'Play video' : 'Pause video'}
           type="button"
         >
-          {isPaused ? <Play size={16} /> : <Pause size={16} />}
+          {isPaused ? <Play size={12} /> : <Pause size={12} />}
         </button>
       )}
     </div>

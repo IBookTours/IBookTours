@@ -7,7 +7,7 @@
   "nav": {
     "home": "בית",
     "about": "אודות",
-    "tours": "טיולים",
+    "discover": "גלה",
     "blog": "בלוג",
     "contact": "צור קשר",
     "search": "חיפוש",
@@ -76,7 +76,16 @@
     "viewDetails": "פרטים נוספים",
     "addToCart": "הוסף לסל",
     "viewAll": "צפו בכל החבילות",
-    "nights": "לילות"
+    "nights": "לילות",
+    "viewAllTitle": "עוד חבילות",
+    "viewAllSubtext": "גלו את כל חבילות הנופש שלנו",
+    "exploreAll": "גלו הכל",
+    "badges": {
+      "popular": "פופולרי",
+      "featured": "מומלץ",
+      "discount": "הנחה",
+      "limitedTime": "זמן מוגבל"
+    }
   },
   "dayTours": {
     "sectionLabel": "טיולי יום",
@@ -85,7 +94,16 @@
     "from": "החל מ",
     "groupSize": "קבוצה",
     "people": "אנשים",
-    "viewAll": "צפו בכל טיולי היום"
+    "viewAll": "צפו בכל טיולי היום",
+    "viewAllTitle": "עוד טיולי יום",
+    "viewAllSubtext": "גלו את כל טיולי היום המודרכים שלנו",
+    "exploreAll": "גלו הכל",
+    "badges": {
+      "popular": "פופולרי",
+      "featured": "מומלץ",
+      "discount": "הנחה",
+      "limitedTime": "זמן מוגבל"
+    }
   },
   "stats": {
     "travelers": "מטיילים מרוצים",
@@ -125,8 +143,8 @@
         "description": "תמיד זמינים באנגלית, אלבנית ואיטלקית"
       },
       "value": {
-        "title": "המחירים הטובים ביותר",
-        "description": "מחירים מקומיים ישירים ללא מתווכים"
+        "title": "ערך מעולה",
+        "description": "חוויות פרימיום במחירים הוגנים"
       }
     }
   },

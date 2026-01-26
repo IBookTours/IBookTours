@@ -7,7 +7,7 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "tours": "Tours",
+    "discover": "Discover",
     "blog": "Blog",
     "contact": "Contact",
     "search": "Search",
@@ -76,7 +76,16 @@
     "viewDetails": "View Details",
     "addToCart": "Add to Cart",
     "viewAll": "View All Packages",
-    "nights": "nights"
+    "nights": "nights",
+    "viewAllTitle": "More Packages",
+    "viewAllSubtext": "Discover all our vacation packages",
+    "exploreAll": "Explore All",
+    "badges": {
+      "popular": "Popular",
+      "featured": "Featured",
+      "discount": "OFF",
+      "limitedTime": "Limited Time"
+    }
   },
   "dayTours": {
     "sectionLabel": "Day Tours",
@@ -85,7 +94,16 @@
     "from": "From",
     "groupSize": "Group",
     "people": "people",
-    "viewAll": "View All Day Tours"
+    "viewAll": "View All Day Tours",
+    "viewAllTitle": "More Day Tours",
+    "viewAllSubtext": "Discover all our guided day tours",
+    "exploreAll": "Explore All",
+    "badges": {
+      "popular": "Popular",
+      "featured": "Featured",
+      "discount": "OFF",
+      "limitedTime": "Limited Time"
+    }
   },
   "stats": {
     "travelers": "Happy Travelers",
@@ -125,8 +143,8 @@
         "description": "Always available in English, Albanian & Italian"
       },
       "value": {
-        "title": "Best Prices",
-        "description": "Direct local rates without middlemen"
+        "title": "Great Value",
+        "description": "Premium experiences at fair prices"
       }
     }
   },

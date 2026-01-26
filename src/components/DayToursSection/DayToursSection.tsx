@@ -13,6 +13,10 @@ import {
   Filter,
   ChevronLeft,
   ChevronRight,
+  Sparkles,
+  Percent,
+  TrendingUp,
+  Grid3X3,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
@@ -21,6 +25,7 @@ import { useIsMobile, useSwipe, useInView } from '@/hooks';
 import styles from './DayToursSection.module.scss';
 
 export type TourCategory = 'all' | 'cultural' | 'adventure' | 'food' | 'nature';
+type PromoBadgeType = 'limitedTime' | 'discount' | 'featured' | 'popular';
 
 export interface DayTour {
   id: string;
@@ -36,6 +41,9 @@ export interface DayTour {
   rating: number;
   reviewCount: number;
   highlights: string[];
+  promoBadge?: PromoBadgeType;
+  discountPercent?: number;
+  originalPrice?: string;
 }
 
 interface DayToursSectionProps {
@@ -107,10 +115,57 @@ export default function DayToursSection({
     setMobileIndex(0);
   };
 
-  // Get visible tours
+  // Get visible tours (show only 3, reserve 4th slot for View All on desktop)
+  const displayLimit = !isMobile && maxDisplay >= 4 ? 3 : maxDisplay;
   const visibleTours = canShowSlider
-    ? filteredTours.slice(currentIndex, currentIndex + maxDisplay)
-    : filteredTours.slice(0, maxDisplay);
+    ? filteredTours.slice(currentIndex, currentIndex + displayLimit)
+    : filteredTours.slice(0, displayLimit);
+
+  // Total tours count for View All card
+  const totalToursCount = tours.length;
+
+  // Promotional badge renderer
+  const renderPromoBadge = (tour: DayTour) => {
+    if (!tour.promoBadge) return null;
+
+    const badgeConfig = {
+      popular: { icon: TrendingUp, label: t('badges.popular'), className: styles.badgePopular },
+      discount: { icon: Percent, label: `${tour.discountPercent || 0}% OFF`, className: styles.badgeDiscount },
+      featured: { icon: Sparkles, label: t('badges.featured'), className: styles.badgeFeatured },
+      limitedTime: { icon: Clock, label: t('badges.limitedTime'), className: styles.badgeLimitedTime },
+    };
+
+    const config = badgeConfig[tour.promoBadge];
+    const Icon = config.icon;
+
+    return (
+      <span className={`${styles.promoBadge} ${config.className}`}>
+        <Icon size={12} />
+        {config.label}
+      </span>
+    );
+  };
+
+  // View All promotional card
+  const renderViewAllCard = (index: number = 0) => (
+    <Link
+      key="view-all"
+      href="/tours?type=day-tours"
+      className={`${styles.viewAllCard} ${isInView ? styles.visible : ''}`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
+    >
+      <div className={styles.viewAllIcon}>
+        <Grid3X3 />
+      </div>
+      <span className={styles.viewAllCount}>{totalToursCount}+</span>
+      <span className={styles.viewAllText}>{t('viewAllTitle')}</span>
+      <span className={styles.viewAllSubtext}>{t('viewAllSubtext')}</span>
+      <span className={styles.viewAllArrow}>
+        {t('exploreAll')}
+        <ArrowRight />
+      </span>
+    </Link>
+  );
 
   const handleAddToCart = (tour: DayTour) => {
     addItem({
@@ -151,6 +206,7 @@ export default function DayToursSection({
           <Clock size={12} />
           {tour.duration}
         </span>
+        {renderPromoBadge(tour)}
       </div>
 
       <div className={styles.content}>
@@ -183,7 +239,12 @@ export default function DayToursSection({
 
         <div className={styles.footer}>
           <div className={styles.pricing}>
-            <span className={styles.price}>{tour.pricePerPerson}</span>
+            <div>
+              {tour.originalPrice && (
+                <span className={styles.originalPrice}>{tour.originalPrice}</span>
+              )}
+              <span className={styles.price}>{tour.pricePerPerson}</span>
+            </div>
             <span className={styles.perPerson}>/ person</span>
           </div>
 
@@ -300,6 +361,7 @@ export default function DayToursSection({
                 }
               >
                 {visibleTours.map((tour, index) => renderTourCard(tour, index))}
+                {maxDisplay >= 4 && renderViewAllCard(visibleTours.length)}
               </div>
 
               {canShowSlider && (

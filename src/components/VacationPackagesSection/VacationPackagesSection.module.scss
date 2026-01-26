@@ -694,3 +694,146 @@
     background: var(--color-primary-400);
   }
 }
+
+// ============================================
+// PROMOTIONAL BADGES
+// ============================================
+
+.promoBadge {
+  position: absolute;
+  top: $spacing-3;
+  right: $spacing-3;
+  padding: $spacing-1 $spacing-3;
+  font-size: $font-xs;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  border-radius: $radius-full;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  letter-spacing: 0.02em;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.badgePopular {
+  background: var(--color-primary-600);
+  color: $text-light;
+}
+
+.badgeDiscount {
+  background: $success;
+  color: $text-light;
+}
+
+.badgeFeatured {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: $text-light;
+}
+
+.badgeLimitedTime {
+  background: $warning;
+  color: #1a1a1a;
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: var(--text-tertiary);
+  font-size: $font-sm;
+  font-weight: $font-normal;
+  margin-right: $spacing-2;
+}
+
+// ============================================
+// VIEW ALL PROMOTIONAL CARD
+// ============================================
+
+.viewAllCard {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-radius: $radius-2xl;
+  border: 2px dashed var(--border-medium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $spacing-8;
+  min-height: 400px;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(30px);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    border-color: var(--color-primary-400);
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--color-primary-50) 100%);
+    transform: translateY(-4px);
+
+    .viewAllArrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.viewAllIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-full;
+  background: var(--color-primary-100);
+  color: var(--color-primary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-4;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.viewAllCount {
+  font-size: $font-4xl;
+  font-weight: $font-bold;
+  color: var(--color-primary-600);
+  margin-bottom: $spacing-2;
+}
+
+.viewAllText {
+  font-size: $font-xl;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-2;
+}
+
+.viewAllSubtext {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  margin-bottom: $spacing-6;
+  max-width: 200px;
+}
+
+.viewAllArrow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: var(--color-primary-600);
+  transition: transform $transition-fast;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

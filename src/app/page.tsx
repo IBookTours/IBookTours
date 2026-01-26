@@ -39,10 +39,10 @@ export default async function Home() {
       <HeroSection content={siteData.hero} />
 
       {/* Vacation Packages - Flight + Hotel packages (Primary focus) */}
-      <VacationPackagesSection packages={siteData.vacationPackages} maxDisplay={3} />
+      <VacationPackagesSection packages={siteData.vacationPackages} maxDisplay={4} />
 
       {/* Day Tours - Guided day trips and excursions */}
-      <DayToursSection tours={siteData.dayTours} maxDisplay={3} />
+      <DayToursSection tours={siteData.dayTours} maxDisplay={4} />
 
       {/* Stats - Trust indicators */}
       <StatsSection stats={stats} />

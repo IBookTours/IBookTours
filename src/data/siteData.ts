@@ -16,7 +16,7 @@ export const siteData: SiteContent = {
   navigation: [
     { id: 'home', label: 'Home', href: '/' },
     { id: 'about', label: 'About', href: '/about' },
-    { id: 'tours', label: 'Tours', href: '/tours' },
+    { id: 'discover', label: 'Discover', href: '/tours' },
     { id: 'blog', label: 'Blog', href: '/blog' },
     { id: 'contact', label: 'Contact', href: '/contact' },
   ],
@@ -220,8 +220,8 @@ export const siteData: SiteContent = {
       {
         id: 'value',
         icon: 'shield',
-        title: 'Best Prices',
-        description: 'Direct local rates without middlemen',
+        title: 'Great Value',
+        description: 'Premium experiences at fair prices',
       },
     ],
     images: [
@@ -334,6 +334,7 @@ export const siteData: SiteContent = {
         image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&h=400&fit=crop&q=80',
         date: 'March 14, 2026',
         location: 'Elbasan, Albania',
+        href: '/tours?search=summer+day',
       },
       {
         id: 'kala-festival',
@@ -342,6 +343,7 @@ export const siteData: SiteContent = {
         image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&h=400&fit=crop&q=80',
         date: 'June 2026',
         location: 'Dhërmi, Albanian Riviera',
+        href: '/tours?search=kala+festival',
       },
       {
         id: 'tirana-jazz',
@@ -350,6 +352,7 @@ export const siteData: SiteContent = {
         image: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=600&h=400&fit=crop&q=80',
         date: 'September 2026',
         location: 'Tirana, Albania',
+        href: '/tours?search=jazz+tirana',
       },
     ],
     partners: [
@@ -589,8 +592,6 @@ export const siteData: SiteContent = {
         id: 'legal',
         title: 'Legal',
         links: [
-          { id: 'terms', label: 'Terms', href: '/terms' },
-          { id: 'privacy', label: 'Privacy', href: '/privacy' },
           { id: 'cookies', label: 'Cookies', href: '/cookies' },
         ],
       },
@@ -682,6 +683,7 @@ export const siteData: SiteContent = {
       includesHotel: true,
       rating: 4.9,
       reviewCount: 1247,
+      promoBadge: 'popular' as const,
     },
     {
       id: 'tirana-explorer-package',
@@ -693,6 +695,7 @@ export const siteData: SiteContent = {
       duration: '5 Days / 4 Nights',
       nights: 4,
       pricePerPerson: '€699',
+      originalPrice: '€799',
       image: 'https://images.unsplash.com/photo-1603787081207-362bcef7c144?w=800&h=600&fit=crop&q=80',
       highlights: [
         'Round-trip flights included',
@@ -705,6 +708,8 @@ export const siteData: SiteContent = {
       includesHotel: true,
       rating: 4.8,
       reviewCount: 892,
+      promoBadge: 'discount' as const,
+      discountPercent: 15,
     },
     {
       id: 'alps-adventure-package',
@@ -728,6 +733,7 @@ export const siteData: SiteContent = {
       includesHotel: true,
       rating: 4.9,
       reviewCount: 534,
+      promoBadge: 'featured' as const,
     },
     {
       id: 'durres-beach-getaway',
@@ -904,11 +910,12 @@ export const siteData: SiteContent = {
       departsFrom: 'Tirana',
       groupSize: { min: 4, max: 12 },
       pricePerPerson: '€99',
-      category: 'cultural',
+      category: 'cultural' as const,
       image: 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=800&h=600&fit=crop&q=80',
       rating: 4.9,
       reviewCount: 487,
       highlights: ['Lake swimming', 'UNESCO Berat', 'Traditional lunch'],
+      promoBadge: 'popular' as const,
     },
     {
       id: 'kruja-shkodra',
@@ -918,11 +925,14 @@ export const siteData: SiteContent = {
       departsFrom: 'Tirana',
       groupSize: { min: 4, max: 14 },
       pricePerPerson: '€89',
-      category: 'cultural',
+      originalPrice: '€109',
+      category: 'cultural' as const,
       image: 'https://images.unsplash.com/photo-1555990793-da11153b2473?w=800&h=600&fit=crop&q=80',
       rating: 4.8,
       reviewCount: 623,
       highlights: ['Skanderbeg Museum', 'Old Bazaar', 'Rozafa Castle'],
+      promoBadge: 'discount' as const,
+      discountPercent: 20,
     },
     {
       id: 'kruja-dajti-kazirma',
@@ -932,11 +942,12 @@ export const siteData: SiteContent = {
       departsFrom: 'Tirana',
       groupSize: { min: 4, max: 12 },
       pricePerPerson: '€79',
-      category: 'adventure',
+      category: 'adventure' as const,
       image: 'https://images.unsplash.com/photo-1603787081207-362bcef7c144?w=800&h=600&fit=crop&q=80',
       rating: 4.7,
       reviewCount: 892,
       highlights: ['Kruja Castle', 'Cable car ride', 'Mountain views'],
+      promoBadge: 'limitedTime' as const,
     },
     {
       id: 'vlora-llogara',

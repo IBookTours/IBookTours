@@ -31,7 +31,8 @@ import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
 import styles from './tours.module.scss';
 
-type TabType = 'all' | 'packages' | 'day-tours';
+type TabType = 'all' | 'packages' | 'day-tours' | 'night-tours' | 'cruises' | 'events';
+type CategoryType = 'all' | 'cultural' | 'adventure' | 'food' | 'nature';
 
 interface ToursClientProps {
   destinations: Destination[];

@@ -14,12 +14,19 @@ import {
   Users,
   ChevronLeft,
   ChevronRight,
+  Sparkles,
+  Percent,
+  Clock,
+  TrendingUp,
+  Grid3X3,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
 import { useIsMobile, useIsTablet, useSwipe, useInView } from '@/hooks';
 import styles from './VacationPackagesSection.module.scss';
+
+type PromoBadgeType = 'limitedTime' | 'discount' | 'featured' | 'popular';
 
 export interface VacationPackage {
   id: string;
@@ -37,6 +44,9 @@ export interface VacationPackage {
   includesHotel: boolean;
   rating: number;
   reviewCount: number;
+  promoBadge?: PromoBadgeType;
+  discountPercent?: number;
+  originalPrice?: string;
 }
 
 interface VacationPackagesSectionProps {
@@ -122,10 +132,57 @@ export default function VacationPackagesSection({
     });
   };
 
-  // Get visible packages
+  // Get visible packages (show only 3, reserve 4th slot for View All)
+  const displayLimit = maxDisplay > 3 ? 3 : maxDisplay;
   const visiblePackages = canShowSlider
-    ? packages.slice(currentIndex, currentIndex + maxDisplay)
-    : packages.slice(0, maxDisplay);
+    ? packages.slice(currentIndex, currentIndex + displayLimit)
+    : packages.slice(0, displayLimit);
+
+  // Total packages count for View All card
+  const totalPackagesCount = packages.length;
+
+  // Promotional badge renderer
+  const renderPromoBadge = (pkg: VacationPackage) => {
+    if (!pkg.promoBadge) return null;
+
+    const badgeConfig = {
+      popular: { icon: TrendingUp, label: t('badges.popular'), className: styles.badgePopular },
+      discount: { icon: Percent, label: `${pkg.discountPercent || 0}% OFF`, className: styles.badgeDiscount },
+      featured: { icon: Sparkles, label: t('badges.featured'), className: styles.badgeFeatured },
+      limitedTime: { icon: Clock, label: t('badges.limitedTime'), className: styles.badgeLimitedTime },
+    };
+
+    const config = badgeConfig[pkg.promoBadge];
+    const Icon = config.icon;
+
+    return (
+      <span className={`${styles.promoBadge} ${config.className}`}>
+        <Icon size={12} />
+        {config.label}
+      </span>
+    );
+  };
+
+  // View All promotional card
+  const renderViewAllCard = (index: number = 0) => (
+    <Link
+      key="view-all"
+      href="/tours?type=package"
+      className={`${styles.viewAllCard} ${isInView ? styles.visible : ''}`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
+    >
+      <div className={styles.viewAllIcon}>
+        <Grid3X3 />
+      </div>
+      <span className={styles.viewAllCount}>{totalPackagesCount}+</span>
+      <span className={styles.viewAllText}>{t('viewAllTitle')}</span>
+      <span className={styles.viewAllSubtext}>{t('viewAllSubtext')}</span>
+      <span className={styles.viewAllArrow}>
+        {t('exploreAll')}
+        <ArrowRight />
+      </span>
+    </Link>
+  );
 
   // Render a package card (reusable)
   const renderPackageCard = (pkg: VacationPackage, index: number = 0) => (
@@ -155,6 +212,7 @@ export default function VacationPackagesSection({
             </span>
           )}
         </div>
+        {renderPromoBadge(pkg)}
       </div>
 
       <div className={styles.content}>
@@ -194,7 +252,12 @@ export default function VacationPackagesSection({
 
         <div className={styles.footer}>
           <div className={styles.pricing}>
-            <span className={styles.price}>{pkg.pricePerPerson}</span>
+            <div>
+              {pkg.originalPrice && (
+                <span className={styles.originalPrice}>{pkg.originalPrice}</span>
+              )}
+              <span className={styles.price}>{pkg.pricePerPerson}</span>
+            </div>
             <span className={styles.perPerson}>per person</span>
           </div>
 
@@ -364,6 +427,7 @@ export default function VacationPackagesSection({
                 }
               >
                 {visiblePackages.map((pkg, index) => renderPackageCard(pkg, index))}
+                {maxDisplay >= 4 && renderViewAllCard(visiblePackages.length)}
               </div>
 
               {canShowSlider && (

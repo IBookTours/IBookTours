@@ -60,27 +60,34 @@
   pointer-events: none;
 }
 
-// Pause/Play button
+// Pause/Play button - tiny, accurate, always visible
 .pauseButton {
-  position: fixed; // Use fixed positioning to escape stacking context
+  position: absolute;
   bottom: $spacing-4;
   right: $spacing-4;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   border: none;
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity $transition-base, background $transition-fast;
-  z-index: 50; // High z-index since we're using fixed positioning
+  opacity: 0.7;
+  transition: opacity $transition-fast, background $transition-fast, transform $transition-fast;
+  z-index: 20;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
 
   &:hover {
-    background: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
   }
 
   &:focus {
@@ -89,18 +96,21 @@
     opacity: 1;
   }
 
-  // Show on container hover - this won't work with fixed, so we use JS
-  .videoBackground:hover & {
-    opacity: 0.8;
+  &:active {
+    transform: scale(0.95);
   }
 
-  // Always visible on mobile - positioned at top-right to avoid content overlap
+  // Mobile: slightly larger tap target but still small
   @media (max-width: 768px) {
-    opacity: 0.8;
-    bottom: auto;
-    top: calc(var(--navbar-height, 80px) + $spacing-3);
+    width: 32px;
+    height: 32px;
+    bottom: $spacing-3;
     right: $spacing-3;
-    width: 40px;
-    height: 40px;
+    opacity: 0.8;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
   }
 }

@@ -114,6 +114,7 @@ export interface Event {
   image: string;
   date?: string;
   location?: string;
+  href?: string;
 }
 
 export interface EventsContent {
@@ -217,6 +218,9 @@ export interface FooterContent {
 
 export type TourCategory = 'all' | 'cultural' | 'adventure' | 'food' | 'nature';
 
+// Promotional badge types for cards
+export type PromoBadgeType = 'limitedTime' | 'discount' | 'featured' | 'popular';
+
 export interface VacationPackage {
   id: string;
   destination: string;
@@ -233,6 +237,10 @@ export interface VacationPackage {
   includesHotel: boolean;
   rating: number;
   reviewCount: number;
+  // Promotional fields
+  promoBadge?: PromoBadgeType;
+  discountPercent?: number;
+  originalPrice?: string;
 }
 
 export interface DayTour {
@@ -248,6 +256,10 @@ export interface DayTour {
   rating: number;
   reviewCount: number;
   highlights: string[];
+  // Promotional fields
+  promoBadge?: PromoBadgeType;
+  discountPercent?: number;
+  originalPrice?: string;
 }
 
 export interface SiteContent {
