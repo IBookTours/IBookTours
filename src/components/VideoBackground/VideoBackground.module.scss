@@ -68,7 +68,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
+  background: $overlay-xl;
   border: none;
   color: white;
   cursor: pointer;
@@ -86,7 +86,7 @@
 
   &:hover {
     opacity: 1;
-    background: rgba(0, 0, 0, 0.8);
+    background: $rgba-black-80;
     transform: scale(1.1);
   }
 

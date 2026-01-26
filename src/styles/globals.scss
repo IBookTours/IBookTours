@@ -53,11 +53,11 @@
   --bg-accent: rgba(230, 57, 70, 0.05);  // Punch Red subtle tint
   --bg-hover: rgba(168, 218, 220, 0.15); // Frosted Blue hover
 
-  // Text Colors (Oxford Navy-based)
+  // Text Colors (Oxford Navy-based) - IMPROVED CONTRAST
   --text-primary: #1d3557;         // Headings, important - Oxford Navy
-  --text-secondary: #457b9d;       // Body text - Cerulean
-  --text-tertiary: #6b8fa3;        // Muted text - Light cerulean
-  --text-muted: #8da4b4;           // Subtle text - Soft blue-grey
+  --text-secondary: #2d5368;       // Body text - Darker Cerulean (~6.5:1 ratio)
+  --text-tertiary: #3d6b87;        // Muted text - Deep Cerulean (~4.8:1 ratio)
+  --text-muted: #5c8299;           // Subtle text - Medium Cerulean (~3.8:1 ratio)
   --text-inverse: #ffffff;         // On dark backgrounds - White
   --text-on-primary: #ffffff;      // On Punch Red - White
   --text-light: #ffffff;           // Deprecated - use text-inverse
@@ -111,6 +111,18 @@
   --color-info-light: #e0f2fe;
   --color-info-main: #457b9d;     // Uses Cerulean
   --color-info-dark: #2d5368;
+
+  // Interactive states using blue spectrum
+  --link-color: #3d6b87;             // Darker Cerulean for links
+  --link-hover: #2d5368;             // Deep Cerulean on hover
+  --tag-bg: rgba(168, 218, 220, 0.3); // Frosted Blue tag background
+  --tag-text: #2d5368;               // Deep Cerulean tag text
+  --badge-info-bg: #a8dadc;          // Frosted Blue info badges
+  --badge-info-text: #1d3557;        // Oxford Navy text
+
+  // Card accents
+  --card-border-hover: #a8dadc;      // Frosted Blue on hover
+  --card-shadow-color: rgba(29, 53, 87, 0.08); // Oxford Navy shadows
 
   // Scrollbar Colors (theme-aware)
   --scrollbar-track: #{$neutral-100};

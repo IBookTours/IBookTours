@@ -46,7 +46,7 @@
 .error {
   padding: $spacing-3 $spacing-4;
   background: $error-light;
-  border: 1px solid rgba($error, 0.3);
+  border: 1px solid $error-alpha-30;
   border-radius: $radius-lg;
   color: $error;
   font-size: $font-sm;

@@ -605,13 +605,13 @@
 }
 
 .badgeFeatured {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, $warning, $warning-dark);
   color: $text-light;
 }
 
 .badgeLimitedTime {
   background: $warning;
-  color: #1a1a1a;
+  color: $text-dark;
 }
 
 .originalPrice {

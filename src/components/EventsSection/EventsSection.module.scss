@@ -46,7 +46,7 @@
   font-weight: $font-extrabold;
   color: var(--color-primary-200);
   line-height: 1;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  text-shadow: 0 2px 4px $rgba-black-05;
 
   @include respond-to(lg) {
     font-size: $font-7xl;
@@ -109,20 +109,33 @@
   position: relative;
   display: flex;
   gap: $spacing-3;
-  width: calc(100% - #{$spacing-20});
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 $spacing-10;
+  width: 100%;
+  padding: 0 $spacing-12; // Space for arrows
 
   @include respond-to(sm) {
     gap: $spacing-4;
-    padding: 0 $spacing-12;
+    padding: 0 $spacing-16;
   }
 }
 
 .carouselSlide {
   flex: 1;
   min-width: 0;
+  display: flex;
+
+  // Ensure card fills the slide properly and is always visible in carousel
+  .eventCard {
+    width: 100%;
+    height: auto;
+    min-height: 280px;
+    // Override the default hidden state - carousel container handles animation
+    opacity: 1;
+    transform: none;
+
+    @include respond-to(sm) {
+      min-height: 320px;
+    }
+  }
 }
 
 .carouselArrow {
@@ -155,18 +168,18 @@
 }
 
 .prevArrow {
-  left: $spacing-2;
+  left: $spacing-1;
 
   @include respond-to(sm) {
-    left: $spacing-4;
+    left: $spacing-2;
   }
 }
 
 .nextArrow {
-  right: $spacing-2;
+  right: $spacing-1;
 
   @include respond-to(sm) {
-    right: $spacing-4;
+    right: $spacing-2;
   }
 }
 

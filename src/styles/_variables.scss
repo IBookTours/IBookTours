@@ -92,6 +92,10 @@ $text-tertiary: var(--text-tertiary);
 $text-muted: var(--text-muted);
 $text-light: #ffffff;  // Always white (used on dark backgrounds)
 
+// Fixed Text Colors (non-theme contexts)
+$text-dark: #1a1a1a;              // Dark text for warning/light backgrounds
+$text-dark-muted: #4a4a4a;        // Muted dark text
+
 // Border Colors - Theme aware
 $border-light: var(--border-light);
 $border-medium: var(--border-medium);
@@ -129,6 +133,9 @@ $rgba-black-30: rgba(0, 0, 0, 0.3);
 $rgba-black-40: rgba(0, 0, 0, 0.4);
 $rgba-black-50: rgba(0, 0, 0, 0.5);
 $rgba-black-60: rgba(0, 0, 0, 0.6);
+$rgba-black-70: rgba(0, 0, 0, 0.7);
+$rgba-black-80: rgba(0, 0, 0, 0.8);
+$rgba-black-90: rgba(0, 0, 0, 0.9);
 
 // Overlay Colors (Complete scale)
 $overlay-xs: rgba(0, 0, 0, 0.1);
@@ -161,6 +168,32 @@ $secondary-alpha-70: rgba(43, 45, 66, 0.7);
 $secondary-alpha-80: rgba(43, 45, 66, 0.8);
 $secondary-alpha-90: rgba(43, 45, 66, 0.9);
 $secondary-alpha-95: rgba(43, 45, 66, 0.95);
+
+// Oxford Navy alpha variants (for light mode accents)
+$oxford-alpha-10: rgba(29, 53, 87, 0.1);
+$oxford-alpha-20: rgba(29, 53, 87, 0.2);
+$oxford-alpha-30: rgba(29, 53, 87, 0.3);
+$oxford-alpha-40: rgba(29, 53, 87, 0.4);
+$oxford-alpha-50: rgba(29, 53, 87, 0.5);
+
+// ============================================
+// STATUS COLOR ALPHA TOKENS
+// ============================================
+
+// Success alpha variants
+$success-alpha-10: rgba(22, 163, 74, 0.1);
+$success-alpha-20: rgba(22, 163, 74, 0.2);
+$success-alpha-30: rgba(22, 163, 74, 0.3);
+
+// Error alpha variants (using punch red)
+$error-alpha-10: rgba(230, 57, 70, 0.1);
+$error-alpha-20: rgba(230, 57, 70, 0.2);
+$error-alpha-30: rgba(230, 57, 70, 0.3);
+
+// Warning alpha variants
+$warning-alpha-10: rgba(245, 158, 11, 0.1);
+$warning-alpha-20: rgba(245, 158, 11, 0.2);
+$warning-alpha-30: rgba(245, 158, 11, 0.3);
 
 // ============================================
 // GRADIENT TOKENS

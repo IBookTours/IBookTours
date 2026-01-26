@@ -103,7 +103,7 @@
   color: $text-light;
   margin: 0 0 $spacing-3 0;
   line-height: $leading-tight;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 20px $rgba-black-40;
 
   @include respond-to(sm) {
     font-size: $font-4xl;
@@ -125,7 +125,7 @@
   line-height: $leading-relaxed;
   max-width: 600px;
   margin: 0;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 10px $rgba-black-30;
 
   @include respond-to(md) {
     font-size: $font-lg;
@@ -225,7 +225,7 @@
 
   span {
     font-size: $font-xs;
-    color: rgba(255, 255, 255, 0.8);
+    color: $rgba-white-80;
 
     @include respond-to(md) {
       font-size: $font-sm;
