@@ -10,7 +10,6 @@ import {
   SlidersHorizontal,
   MapPin,
   X,
-  ChevronDown,
   Grid,
   List,
   Plane,
@@ -27,6 +26,7 @@ import {
   CalendarDays,
 } from 'lucide-react';
 import DestinationCard from '@/components/DestinationCard';
+import Dropdown from '@/components/shared/Dropdown';
 import { Destination } from '@/types';
 import { VacationPackage } from '@/components/VacationPackagesSection/VacationPackagesSection';
 import { DayTour } from '@/components/DayToursSection/DayToursSection';
@@ -333,59 +333,44 @@ export default function ToursClient({
         >
           <div className={styles.filterGroup}>
             <label htmlFor="price-filter">{t('price')}</label>
-            <div className={styles.selectWrapper}>
-              <select
-                id="price-filter"
-                value={selectedPrice}
-                onChange={(e) => setSelectedPrice(e.target.value)}
-                aria-label="Filter by price range"
-              >
-                {priceRangeIds.map((rangeId) => (
-                  <option key={rangeId} value={rangeId}>
-                    {t(`priceRanges.${rangeId}`)}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown aria-hidden="true" />
-            </div>
+            <Dropdown
+              id="price-filter"
+              value={selectedPrice}
+              onChange={setSelectedPrice}
+              options={priceRangeIds.map((rangeId) => ({
+                value: rangeId,
+                label: t(`priceRanges.${rangeId}`),
+              }))}
+              variant="compact"
+            />
           </div>
 
           <div className={styles.filterGroup}>
             <label htmlFor="duration-filter">{t('duration')}</label>
-            <div className={styles.selectWrapper}>
-              <select
-                id="duration-filter"
-                value={selectedDuration}
-                onChange={(e) => setSelectedDuration(e.target.value)}
-                aria-label="Filter by duration"
-              >
-                {durationIds.map((durId) => (
-                  <option key={durId} value={durId}>
-                    {t(`durations.${durId}`)}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown aria-hidden="true" />
-            </div>
+            <Dropdown
+              id="duration-filter"
+              value={selectedDuration}
+              onChange={setSelectedDuration}
+              options={durationIds.map((durId) => ({
+                value: durId,
+                label: t(`durations.${durId}`),
+              }))}
+              variant="compact"
+            />
           </div>
 
           <div className={styles.filterGroup}>
             <label htmlFor="category-filter">{t('category')}</label>
-            <div className={styles.selectWrapper}>
-              <select
-                id="category-filter"
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value as CategoryType)}
-                aria-label="Filter by category"
-              >
-                {categoryIds.map((catId) => (
-                  <option key={catId} value={catId}>
-                    {t(`categories.${catId}`)}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown aria-hidden="true" />
-            </div>
+            <Dropdown
+              id="category-filter"
+              value={selectedCategory}
+              onChange={(value) => setSelectedCategory(value as CategoryType)}
+              options={categoryIds.map((catId) => ({
+                value: catId,
+                label: t(`categories.${catId}`),
+              }))}
+              variant="compact"
+            />
           </div>
 
           {hasActiveFilters && (

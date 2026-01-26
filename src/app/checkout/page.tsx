@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import PassengerForm from '@/components/Checkout/PassengerForm';
 import AddToCalendar from '@/components/AddToCalendar';
+import DatePicker from '@/components/shared/DatePicker';
 import Upsells from '@/components/Upsells';
 import { createEventFromBooking } from '@/lib/calendar';
 import { useCartStore, formatCartPrice, CartItem } from '@/store/cartStore';
@@ -606,13 +607,12 @@ function CheckoutContent() {
                         <div className={styles.cartItemDetails}>
                           {/* Date Selection */}
                           <div className={styles.cartItemField}>
-                            <label><Calendar size={16} /> Travel Date</label>
-                            <input
-                              type="date"
+                            <DatePicker
                               value={item.date}
-                              onChange={(e) => updateDate(item.cartItemId, e.target.value)}
-                              min={new Date().toISOString().split('T')[0]}
-                              className={styles.dateInput}
+                              onChange={(date) => updateDate(item.cartItemId, date)}
+                              minDate={new Date().toISOString().split('T')[0]}
+                              label="Travel Date"
+                              placeholder="Select date"
                             />
                           </div>
 
@@ -700,12 +700,11 @@ function CheckoutContent() {
                     {/* Date Selection */}
                     <div className={styles.formSection}>
                       <h3><Calendar size={18} /> Select Travel Date</h3>
-                      <input
-                        type="date"
+                      <DatePicker
                         value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                        min={new Date().toISOString().split('T')[0]}
-                        className={styles.dateInput}
+                        onChange={setSelectedDate}
+                        minDate={new Date().toISOString().split('T')[0]}
+                        placeholder="Select date"
                       />
                     </div>
 

@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { Trash2, Calendar, Users, MapPin, Minus, Plus } from 'lucide-react';
+import { Trash2, Users, MapPin, Minus, Plus } from 'lucide-react';
 import { CartItem as CartItemType, useCartStore, formatCartPrice } from '@/store/cartStore';
+import DatePicker from '@/components/shared/DatePicker';
 import styles from './Cart.module.scss';
 
 interface CartItemProps {
@@ -59,20 +60,14 @@ export default function CartItem({ item }: CartItemProps) {
           </span>
         </div>
 
-        <div className={styles.dateField}>
-          <label className={styles.dateLabel}>
-            <Calendar size={14} />
-            Travel Date
-          </label>
-          <input
-            type="date"
-            value={item.date}
-            onChange={(e) => updateDate(item.cartItemId, e.target.value)}
-            min={minDate}
-            className={styles.dateInput}
-            aria-label="Select travel date"
-          />
-        </div>
+        <DatePicker
+          value={item.date}
+          onChange={(date) => updateDate(item.cartItemId, date)}
+          minDate={minDate}
+          label="Travel Date"
+          placeholder="Select date"
+          className={styles.dateField}
+        />
 
         <div className={styles.travelerControls}>
           <div className={styles.travelerRow}>
