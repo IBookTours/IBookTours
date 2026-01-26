@@ -49,11 +49,12 @@ export default function BlogSection({ content }: BlogSectionProps) {
   // Swipe handlers for mobile
   const swipeHandlers = useSwipe(goToNext, goToPrevious);
 
-  // Render a blog card (reusable)
+  // Render a blog card (reusable) - entire card is now clickable
   const renderBlogCard = (post: BlogPost, isFeatured: boolean, index?: number, showAnimation = true) => (
-    <article
+    <Link
       key={post.id}
-      className={`${styles.blogCard} ${isFeatured ? styles.featuredPost : ''} ${!showAnimation || isInView ? styles.visible : ''}`}
+      href={`/blog/${post.id}`}
+      className={`${styles.blogCard} ${styles.blogCardLink} ${isFeatured ? styles.featuredPost : ''} ${!showAnimation || isInView ? styles.visible : ''}`}
       style={showAnimation && index !== undefined ? { transitionDelay: `${0.2 + index * 0.15}s` } : undefined}
     >
       <div className={styles.imageWrapper}>
@@ -88,13 +89,13 @@ export default function BlogSection({ content }: BlogSectionProps) {
           )}
         </div>
         {isFeatured && (
-          <Link href="/blog" className={styles.readMore}>
+          <span className={styles.readMore}>
             {t('readMore')}
             <ArrowRight />
-          </Link>
+          </span>
         )}
       </div>
-    </article>
+    </Link>
   );
 
   return (

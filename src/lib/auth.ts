@@ -64,7 +64,7 @@ const credentialsProvider = CredentialsProvider({
   },
   async authorize(credentials: Partial<Record<string, unknown>> | undefined) {
     // ============================================
-    // PLACEHOLDER LOGIC - REPLACE WITH REAL AUTH
+    // DEMO MODE AUTH - REPLACE WITH REAL AUTH
     // ============================================
     // In production, you should:
     // 1. Query your database for the user
@@ -72,16 +72,24 @@ const credentialsProvider = CredentialsProvider({
     // 3. Return the user object or null
 
     if (!credentials?.email || !credentials?.password) {
+      console.log('[Auth] Missing credentials');
       return null;
     }
 
-    // Demo accounts - only available when DEMO_MODE=true
-    if (DEMO_MODE) {
+    // Ensure credentials are strings
+    const email = String(credentials.email).toLowerCase().trim();
+    const password = String(credentials.password);
+
+    console.log('[Auth] Attempting login for:', email, 'DEMO_MODE:', DEMO_MODE);
+
+    // Demo accounts - available by default when no real database is configured
+    // In production with a real database, set DEMO_MODE=false
+    const isDemoMode = DEMO_MODE || process.env.NODE_ENV === 'development';
+
+    if (isDemoMode) {
       // Demo user
-      if (
-        credentials.email === 'demo@itravel.com' &&
-        credentials.password === 'demo123'
-      ) {
+      if (email === 'demo@itravel.com' && password === 'demo123') {
+        console.log('[Auth] Demo user login successful');
         return {
           id: 'demo-user-id',
           name: 'Demo User',
@@ -92,10 +100,8 @@ const credentialsProvider = CredentialsProvider({
       }
 
       // Admin demo user
-      if (
-        credentials.email === 'admin@itravel.com' &&
-        credentials.password === 'admin123'
-      ) {
+      if (email === 'admin@itravel.com' && password === 'admin123') {
+        console.log('[Auth] Admin user login successful');
         return {
           id: 'admin-user-id',
           name: 'Qaram Kassem',
@@ -104,6 +110,10 @@ const credentialsProvider = CredentialsProvider({
           role: 'admin' as UserRole,
         };
       }
+
+      console.log('[Auth] Invalid credentials for demo mode');
+    } else {
+      console.log('[Auth] Demo mode disabled, no database configured');
     }
 
     // User not found or invalid credentials

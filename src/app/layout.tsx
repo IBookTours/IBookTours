@@ -110,6 +110,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
+        {/* Critical CSS to prevent background flash before theme script runs */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              html { background-color: #f1faee; }
+              @media (prefers-color-scheme: dark) { html:not([data-theme="light"]) { background-color: #2b2d42; } }
+              html[data-theme="dark"] { background-color: #2b2d42; }
+            `,
+          }}
+        />
         {/* Prevent Flash of Unstyled Content - apply theme before React hydrates */}
         <script
           dangerouslySetInnerHTML={{

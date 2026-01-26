@@ -171,11 +171,36 @@
   flex-direction: column;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow $transition-base;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow $transition-base, border-color $transition-base;
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// Clickable card link wrapper
+.blogCardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: $shadow-xl;
+    border-color: var(--color-primary-200);
+    transform: translateY(-4px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  // Keep visible state on hover
+  &.visible:hover {
+    transform: translateY(-4px);
   }
 }
 

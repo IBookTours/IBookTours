@@ -9,9 +9,13 @@
   padding: $spacing-4 0;
   transition: all $transition-base;
 
+  // Always apply subtle glass background for visibility on all pages
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
   &.scrolled {
-    // Theme-aware glassmorphism using CSS variables
-    background: var(--glass-bg-light);
+    // Enhanced glassmorphism when scrolled
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--glass-border);
@@ -31,13 +35,9 @@
   gap: $spacing-2;
   font-size: $font-xl;
   font-weight: $font-bold;
-  color: $text-light;
+  color: var(--text-primary);  // Theme-aware by default
   text-decoration: none;
   transition: color $transition-fast;
-
-  .scrolled & {
-    color: var(--text-primary);
-  }
 
   svg {
     width: 32px;
@@ -76,7 +76,7 @@
 .navLink {
   font-size: $font-sm;
   font-weight: $font-medium;
-  color: $rgba-white-90;
+  color: var(--text-secondary);  // Theme-aware by default
   text-decoration: none;
   transition: color $transition-fast;
   position: relative;
@@ -94,19 +94,10 @@
 
   &:hover,
   &.active {
-    color: $text-light;
+    color: var(--color-primary-600);
 
     &::after {
       width: 100%;
-    }
-  }
-
-  .scrolled & {
-    color: var(--text-secondary);
-
-    &:hover,
-    &.active {
-      color: var(--color-primary-600);
     }
   }
 }
@@ -122,25 +113,15 @@
   width: 40px;
   height: 40px;
   border-radius: $radius-full;
-  background: $rgba-white-15;
-  border: 1px solid $rgba-white-20;
-  color: $text-light;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
   @include flex-center;
   cursor: pointer;
   transition: all $transition-fast;
 
   &:hover {
-    background: $rgba-white-25;
-  }
-
-  .scrolled & {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-    color: var(--text-primary);
-
-    &:hover {
-      background: var(--bg-tertiary);
-    }
+    background: var(--bg-tertiary);
   }
 }
 
@@ -157,9 +138,9 @@
   width: 40px;
   height: 40px;
   border-radius: $radius-full;
-  background: $rgba-white-15;
-  border: 1px solid $rgba-white-20;
-  color: $text-light;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
   cursor: pointer;
   transition: all $transition-fast;
   @include flex-center;
@@ -169,17 +150,7 @@
   }
 
   &:hover {
-    background: $rgba-white-25;
-  }
-
-  .scrolled & {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-    color: var(--text-primary);
-
-    &:hover {
-      background: var(--bg-tertiary);
-    }
+    background: var(--bg-tertiary);
   }
 
   svg {
@@ -201,9 +172,9 @@
   width: 40px;
   height: 40px;
   border-radius: $radius-lg;
-  background: $rgba-white-15;
-  border: 1px solid $rgba-white-20;
-  color: $text-light;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
   cursor: pointer;
   @include flex-center;
   transition: all $transition-fast;
@@ -213,13 +184,7 @@
   }
 
   &:hover {
-    background: $rgba-white-25;
-  }
-
-  .scrolled & {
-    background: var(--glass-bg);
-    border-color: var(--glass-border);
-    color: var(--text-primary);
+    background: var(--bg-tertiary);
   }
 
   svg {
