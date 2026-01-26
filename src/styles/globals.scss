@@ -89,9 +89,9 @@
   --hero-overlay-lower: rgba(0, 0, 0, 0.18);    // Reduced from 0.35
   --hero-gradient-end: rgba(29, 53, 87, 0.35);  // Reduced from 0.6
 
-  // CTA Section gradient (Punch Red tones) - reduced opacity for better image visibility
-  --cta-gradient-start: rgba(183, 38, 51, 0.65);  // Darker Punch Red
-  --cta-gradient-end: rgba(197, 49, 61, 0.55);    // Punch Red
+  // CTA Section gradient (Deep Blue/Navy tones) - distinct from other sections
+  --cta-gradient-start: rgba(29, 53, 87, 0.85);   // Oxford Navy
+  --cta-gradient-end: rgba(69, 123, 157, 0.75);   // Ocean Blue
   --cta-text: #1d3557;  // Oxford Navy for button text
 
   // Semantic Colors (coordinated with palette)
@@ -704,9 +704,9 @@ html.saturation-high {
   --hero-overlay-lower: rgba(0, 0, 0, 0.2);
   --hero-gradient-end: rgba(43, 45, 66, 0.4);  // Space Indigo (lighter)
 
-  // CTA Section gradient (Strawberry Red tones) - reduced opacity for better image visibility
-  --cta-gradient-start: rgba(173, 22, 32, 0.65);  // Darker Strawberry Red
-  --cta-gradient-end: rgba(217, 4, 41, 0.55);     // Flag Red
+  // CTA Section gradient (Deep Blue/Indigo tones) - distinct from other sections
+  --cta-gradient-start: rgba(43, 45, 66, 0.88);   // Space Indigo
+  --cta-gradient-end: rgba(69, 123, 157, 0.78);   // Ocean Blue
   --cta-text: #1d3557;  // Oxford Navy for button text (dark text on white button)
 
   // Semantic Colors (dark mode variants)

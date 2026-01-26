@@ -52,7 +52,7 @@
 .title {
   font-size: $font-4xl;
   font-weight: $font-bold;
-  color: $text-light;
+  color: $rgba-white-90; // Slightly softer than pure white
   margin-bottom: $spacing-4;
   line-height: $leading-tight;
   text-shadow: 0 2px 20px $overlay-lg;
@@ -64,7 +64,7 @@
 
 .subtitle {
   font-size: $font-lg;
-  color: $text-light;
+  color: $rgba-white-70; // More muted for better readability
   margin-bottom: $spacing-8;
   line-height: $leading-relaxed;
   text-shadow: 0 1px 10px $overlay-base;

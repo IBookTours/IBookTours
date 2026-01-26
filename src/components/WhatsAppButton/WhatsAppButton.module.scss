@@ -2,9 +2,9 @@
 
 .fab {
   position: fixed;
-  // Position above cookie consent (~80px) + safe area for notched phones
-  bottom: calc($spacing-6 + 80px + env(safe-area-inset-bottom, 0px));
-  right: max($spacing-4, env(safe-area-inset-right, 0px));
+  // Align with accessibility button (same bottom value)
+  bottom: $spacing-6;
+  right: $spacing-6;
   z-index: $z-popover;  // 600
   display: flex;
   align-items: center;
@@ -51,8 +51,6 @@
   @include respond-to(md) {
     bottom: $spacing-8;
     right: $spacing-8;
-    width: 56px;
-    height: 56px;
   }
 }
 
