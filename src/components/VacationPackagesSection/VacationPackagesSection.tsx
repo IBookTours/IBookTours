@@ -86,16 +86,14 @@ export default function VacationPackagesSection({
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   }, [maxIndex]);
 
-  // Mobile navigation handlers - navigate by slides (2 cards per slide)
-  const totalSlides = Math.ceil(packages.length / 2);
-
+  // Mobile navigation handlers - single card per slide (matching Day Tours)
   const handleMobilePrev = useCallback(() => {
-    setMobileIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
-  }, [totalSlides]);
+    setMobileIndex((prev) => (prev === 0 ? packages.length - 1 : prev - 1));
+  }, [packages.length]);
 
   const handleMobileNext = useCallback(() => {
-    setMobileIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
-  }, [totalSlides]);
+    setMobileIndex((prev) => (prev === packages.length - 1 ? 0 : prev + 1));
+  }, [packages.length]);
 
   // Tablet navigation handlers - single card per slide
   const handleTabletPrev = useCallback(() => {
@@ -258,7 +256,7 @@ export default function VacationPackagesSection({
               )}
               <span className={styles.price}>{pkg.pricePerPerson}</span>
             </div>
-            <span className={styles.perPerson}>per person</span>
+            <span className={styles.perPerson}>{t('perPerson')}</span>
           </div>
 
           <div className={styles.rating}>
@@ -276,7 +274,7 @@ export default function VacationPackagesSection({
           <button
             className={styles.cartBtn}
             onClick={() => handleAddToCart(pkg)}
-            aria-label="Add to cart"
+            aria-label={t('addToCart')}
           >
             <ShoppingCart size={18} />
           </button>
@@ -299,59 +297,43 @@ export default function VacationPackagesSection({
           </p>
         </div>
 
-        {/* Mobile: 2-column horizontal scroll with arrows */}
+        {/* Mobile: Single card carousel with swipe (matching Day Tours) */}
         {isMobile && packages.length > 0 && (
-          <div className={styles.mobileCarouselWrapper}>
-            <button
-              className={`${styles.mobileArrow} ${styles.mobilePrev}`}
-              onClick={handleMobilePrev}
-              aria-label="Previous packages"
-            >
-              <ChevronLeft size={20} />
-            </button>
-
-            <div
-              className={styles.mobileCarousel}
-              ref={sliderRef}
-              {...swipeHandlers}
-            >
-              <div
-                className={styles.mobileTrack}
-                style={{ transform: `translateX(-${mobileIndex * 100}%)` }}
+          <>
+            <div className={styles.mobileCarousel} {...swipeHandlers}>
+              <button
+                className={`${styles.mobileArrow} ${styles.mobilePrev}`}
+                onClick={handleMobilePrev}
+                aria-label="Previous package"
               >
-                {/* Group packages in pairs */}
-                {Array.from({ length: Math.ceil(packages.length / 2) }).map((_, slideIndex) => (
-                  <div key={slideIndex} className={styles.mobileSlide}>
-                    {packages.slice(slideIndex * 2, slideIndex * 2 + 2).map((pkg) => (
-                      <div key={pkg.id} className={styles.mobileCardWrapper}>
-                        {renderPackageCard(pkg)}
-                      </div>
-                    ))}
-                  </div>
-                ))}
+                <ChevronLeft size={20} />
+              </button>
+
+              <div className={styles.mobileCard}>
+                {renderPackageCard(packages[mobileIndex])}
               </div>
+
+              <button
+                className={`${styles.mobileArrow} ${styles.mobileNext}`}
+                onClick={handleMobileNext}
+                aria-label="Next package"
+              >
+                <ChevronRight size={20} />
+              </button>
             </div>
 
-            <button
-              className={`${styles.mobileArrow} ${styles.mobileNext}`}
-              onClick={handleMobileNext}
-              aria-label="Next packages"
-            >
-              <ChevronRight size={20} />
-            </button>
-
-            {/* Mobile dots - one per slide (2 cards per slide) */}
+            {/* Mobile dots */}
             <div className={styles.mobileDots}>
-              {Array.from({ length: Math.ceil(packages.length / 2) }).map((_, i) => (
+              {packages.map((_, i) => (
                 <button
                   key={i}
                   className={`${styles.mobileDot} ${i === mobileIndex ? styles.activeDot : ''}`}
                   onClick={() => setMobileIndex(i)}
-                  aria-label={`Go to slide ${i + 1}`}
+                  aria-label={`Go to package ${i + 1}`}
                 />
               ))}
             </div>
-          </div>
+          </>
         )}
 
         {/* Tablet: Single card carousel */}
@@ -458,12 +440,6 @@ export default function VacationPackagesSection({
           </>
         )}
 
-        <div className={styles.cta}>
-          <Link href="/tours?type=package" className={styles.ctaButton}>
-            {t('viewAll')}
-            <ArrowRight size={18} />
-          </Link>
-        </div>
       </div>
     </section>
   );

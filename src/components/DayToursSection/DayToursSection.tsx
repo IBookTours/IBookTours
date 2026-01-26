@@ -245,17 +245,17 @@ export default function DayToursSection({
               )}
               <span className={styles.price}>{tour.pricePerPerson}</span>
             </div>
-            <span className={styles.perPerson}>/ person</span>
+            <span className={styles.perPerson}>{t('perPerson')}</span>
           </div>
 
           <div className={styles.actions}>
             <Link href={`/tours/${tour.id}`} className={styles.viewBtn}>
-              View
+              {t('view')}
             </Link>
             <button
               className={styles.cartBtn}
               onClick={() => handleAddToCart(tour)}
-              aria-label="Add to cart"
+              aria-label={t('addToCart')}
             >
               <ShoppingCart size={16} />
             </button>
@@ -269,18 +269,18 @@ export default function DayToursSection({
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-          <div className={styles.headerLeft}>
-            <span className={styles.badge}>
-              <Clock size={16} />
-              {t('sectionLabel')}
-            </span>
-            <h2 className={styles.title}>{t('title')}</h2>
-            <p className={styles.subtitle}>
-              {t('subtitle')}
-            </p>
-          </div>
+          <span className={styles.badge}>
+            <Clock size={16} />
+            {t('sectionLabel')}
+          </span>
+          <h2 className={styles.title}>{t('title')}</h2>
+          <p className={styles.subtitle}>
+            {t('subtitle')}
+          </p>
+        </div>
 
-          {showFilters && (
+        {showFilters && (
+          <div className={`${styles.filtersWrapper} ${isInView ? styles.visible : ''}`}>
             <div className={styles.filters}>
               <Filter size={16} className={styles.filterIcon} />
               {categories.map((category) => (
@@ -293,8 +293,8 @@ export default function DayToursSection({
                 </button>
               ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Mobile: Single card carousel with swipe */}
         {isMobile && filteredTours.length > 0 && (
@@ -392,12 +392,6 @@ export default function DayToursSection({
           </>
         )}
 
-        <div className={styles.cta}>
-          <Link href="/tours?type=day-tours" className={styles.ctaButton}>
-            {t('viewAll')}
-            <ArrowRight size={18} />
-          </Link>
-        </div>
       </div>
     </section>
   );

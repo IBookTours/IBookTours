@@ -62,12 +62,12 @@
   --text-on-primary: #ffffff;      // On Punch Red - White
   --text-light: #ffffff;           // Deprecated - use text-inverse
 
-  // Border Colors (Frosted Blue-coordinated)
-  --border-light: #e0ebe8;         // Subtle borders - Light green
-  --border-medium: #a8dadc;        // Visible borders - Frosted Blue
-  --border-strong: #6b8fa3;        // Emphasis borders - Cerulean
-  --border-dark: rgba(29, 53, 87, 0.3);      // Dark borders - Oxford Navy
-  --border-primary: rgba(230, 57, 70, 0.3);  // Punch Red borders
+  // Border Colors (Improved contrast for light mode)
+  --border-light: rgba(29, 53, 87, 0.12);    // Subtle borders - Oxford Navy 12%
+  --border-medium: rgba(29, 53, 87, 0.20);   // Visible borders - Oxford Navy 20%
+  --border-strong: #6b8fa3;                  // Emphasis borders - Cerulean
+  --border-dark: rgba(29, 53, 87, 0.35);     // Dark borders - Oxford Navy 35%
+  --border-primary: rgba(230, 57, 70, 0.35); // Punch Red borders
 
   // Shadow Colors
   --shadow-sm: 0 1px 2px rgba(29, 53, 87, 0.05);
@@ -78,8 +78,8 @@
   // Glassmorphism (Light mode - Neutral/adaptive glass effect)
   --glass-bg: rgba(255, 255, 255, 0.75);        // Neutral white glass
   --glass-bg-light: rgba(255, 255, 255, 0.65);  // Lighter white glass
-  --glass-border: rgba(29, 53, 87, 0.15);       // Oxford Navy subtle border
-  --glass-shadow: 0 8px 32px rgba(29, 53, 87, 0.12);  // Oxford Navy shadow
+  --glass-border: rgba(29, 53, 87, 0.20);       // Oxford Navy glass border (improved)
+  --glass-shadow: 0 8px 32px rgba(29, 53, 87, 0.15);  // Oxford Navy shadow
   --glass-text: #1d3557;                        // Oxford Navy for glass text
   --glass-text-secondary: #457b9d;              // Cerulean for secondary glass text
 

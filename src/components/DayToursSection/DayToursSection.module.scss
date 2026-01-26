@@ -10,10 +10,8 @@
 }
 
 .header {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-6;
-  margin-bottom: $spacing-10;
+  text-align: center;
+  margin-bottom: $spacing-8;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -22,16 +20,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-
-  @include respond-to(lg) {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-}
-
-.headerLeft {
-  max-width: 600px;
 }
 
 .badge {
@@ -44,26 +32,42 @@
   font-size: $font-xs;
   font-weight: $font-semibold;
   border-radius: $radius-full;
-  margin-bottom: $spacing-3;
+  margin-bottom: $spacing-4;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .title {
-  font-size: $font-2xl;
+  font-size: $font-3xl;
   font-weight: $font-bold;
   color: var(--text-primary);
-  margin-bottom: $spacing-2;
+  margin-bottom: $spacing-4;
 
   @include respond-to(md) {
-    font-size: $font-3xl;
+    font-size: $font-4xl;
   }
 }
 
 .subtitle {
-  font-size: $font-base;
+  font-size: $font-lg;
   color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
   line-height: $leading-relaxed;
+}
+
+.filtersWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-10;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .filters {
