@@ -176,10 +176,27 @@
     "filtersButton": "מסננים",
     "filtersOn": "מסננים פעילים",
     "clear": "נקה",
+    "category": "קטגוריה",
     "tabs": {
       "all": "הכל",
       "packages": "חבילות נופש",
-      "dayTours": "טיולי יום"
+      "dayTours": "טיולי יום",
+      "nightTours": "סיורי לילה",
+      "cruises": "שייט",
+      "events": "אירועים",
+      "soon": "בקרוב"
+    },
+    "categories": {
+      "all": "כל הקטגוריות",
+      "cultural": "תרבות",
+      "adventure": "הרפתקה",
+      "food": "אוכל ויין",
+      "nature": "טבע"
+    },
+    "comingSoon": {
+      "title": "בקרוב!",
+      "message": "אנחנו עובדים על הוספת חוויות חדשות ומרגשות בקטגוריה זו. חזרו בקרוב!",
+      "browseAll": "עיינו בכל הטיולים"
     },
     "results": {
       "packages": "חבילות",

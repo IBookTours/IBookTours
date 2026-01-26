@@ -176,10 +176,27 @@
     "filtersButton": "Filters",
     "filtersOn": "Filters On",
     "clear": "Clear",
+    "category": "Category",
     "tabs": {
       "all": "All",
       "packages": "Vacation Packages",
-      "dayTours": "Day Tours"
+      "dayTours": "Day Tours",
+      "nightTours": "Night Tours",
+      "cruises": "Cruises",
+      "events": "Events",
+      "soon": "Soon"
+    },
+    "categories": {
+      "all": "All Categories",
+      "cultural": "Cultural",
+      "adventure": "Adventure",
+      "food": "Food & Wine",
+      "nature": "Nature"
+    },
+    "comingSoon": {
+      "title": "Coming Soon!",
+      "message": "We're working on adding exciting new experiences in this category. Check back soon!",
+      "browseAll": "Browse All Tours"
     },
     "results": {
       "packages": "packages",

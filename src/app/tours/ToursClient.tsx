@@ -192,10 +192,13 @@ export default function ToursClient({
   }, [dayTours, searchQuery, selectedPrice, selectedDuration, selectedCategory]);
 
   // Get counts for tabs
-  const counts = {
+  const counts: Record<TabType, number> = {
     all: filteredPackages.length + filteredDayTours.length,
     packages: filteredPackages.length,
     'day-tours': filteredDayTours.length,
+    'night-tours': 0, // Coming soon
+    'cruises': 0, // Coming soon
+    'events': 0, // Coming soon
   };
 
   const handleTabChange = (tab: TabType) => {
@@ -206,9 +209,10 @@ export default function ToursClient({
     setSearchQuery('');
     setSelectedPrice('all');
     setSelectedDuration('all');
+    setSelectedCategory('all');
   };
 
-  const hasActiveFilters = searchQuery || selectedPrice !== 'all' || selectedDuration !== 'all';
+  const hasActiveFilters = searchQuery || selectedPrice !== 'all' || selectedDuration !== 'all' || selectedCategory !== 'all';
 
   const handleAddPackageToCart = (pkg: VacationPackage) => {
     addItem({
@@ -289,21 +293,35 @@ export default function ToursClient({
       <div className={styles.container}>
         {/* Tabs */}
         <div className={styles.tabs} role="tablist" aria-label="Tour categories">
-          {tabIds.map((tabId) => (
-            <button
-              key={tabId}
-              className={`${styles.tab} ${activeTab === tabId ? styles.activeTab : ''}`}
-              onClick={() => handleTabChange(tabId)}
-              role="tab"
-              aria-selected={activeTab === tabId}
-              aria-controls={`tabpanel-${tabId}`}
-              id={`tab-${tabId}`}
-            >
-              {tabIcons[tabId]}
-              <span>{tabId === 'all' ? t('tabs.all') : tabId === 'packages' ? t('tabs.packages') : t('tabs.dayTours')}</span>
-              <span className={styles.tabCount}>{counts[tabId]}</span>
-            </button>
-          ))}
+          {tabIds.map((tabId) => {
+            const tabLabels: Record<TabType, string> = {
+              'all': t('tabs.all'),
+              'packages': t('tabs.packages'),
+              'day-tours': t('tabs.dayTours'),
+              'night-tours': t('tabs.nightTours'),
+              'cruises': t('tabs.cruises'),
+              'events': t('tabs.events'),
+            };
+            return (
+              <button
+                key={tabId}
+                className={`${styles.tab} ${activeTab === tabId ? styles.activeTab : ''} ${counts[tabId] === 0 && tabId !== 'all' ? styles.comingSoon : ''}`}
+                onClick={() => handleTabChange(tabId)}
+                role="tab"
+                aria-selected={activeTab === tabId}
+                aria-controls={`tabpanel-${tabId}`}
+                id={`tab-${tabId}`}
+              >
+                {tabIcons[tabId]}
+                <span>{tabLabels[tabId]}</span>
+                {counts[tabId] > 0 ? (
+                  <span className={styles.tabCount}>{counts[tabId]}</span>
+                ) : tabId !== 'all' ? (
+                  <span className={styles.tabSoon}>{t('tabs.soon')}</span>
+                ) : null}
+              </button>
+            );
+          })}
         </div>
 
         {/* Filter Bar */}
@@ -351,6 +369,25 @@ export default function ToursClient({
             </div>
           </div>
 
+          <div className={styles.filterGroup}>
+            <label htmlFor="category-filter">{t('category')}</label>
+            <div className={styles.selectWrapper}>
+              <select
+                id="category-filter"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value as CategoryType)}
+                aria-label="Filter by category"
+              >
+                {categoryIds.map((catId) => (
+                  <option key={catId} value={catId}>
+                    {t(`categories.${catId}`)}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown aria-hidden="true" />
+            </div>
+          </div>
+
           {hasActiveFilters && (
             <button className={styles.clearFilters} onClick={clearFilters} aria-label="Clear all filters">
               <X aria-hidden="true" />
@@ -382,6 +419,14 @@ export default function ToursClient({
               <span className={styles.filterChip}>
                 {t(`durations.${selectedDuration}`)}
                 <button onClick={() => setSelectedDuration('all')} aria-label="Remove duration filter">
+                  <X />
+                </button>
+              </span>
+            )}
+            {selectedCategory !== 'all' && (
+              <span className={styles.filterChip}>
+                {t(`categories.${selectedCategory}`)}
+                <button onClick={() => setSelectedCategory('all')} aria-label="Remove category filter">
                   <X />
                 </button>
               </span>
@@ -554,10 +599,21 @@ export default function ToursClient({
           </div>
         ) : (
           <div className={styles.noResults}>
-            <MapPin />
-            <h3>{activeTab === 'packages' ? t('noResultsPackages') : activeTab === 'day-tours' ? t('noResultsDayTours') : t('noResults')}</h3>
-            <p>{t('noResultsMessage')}</p>
-            <button onClick={clearFilters}>{t('clearFilters')}</button>
+            {['night-tours', 'cruises', 'events'].includes(activeTab) ? (
+              <>
+                {tabIcons[activeTab]}
+                <h3>{t('comingSoon.title')}</h3>
+                <p>{t('comingSoon.message')}</p>
+                <button onClick={() => setActiveTab('all')}>{t('comingSoon.browseAll')}</button>
+              </>
+            ) : (
+              <>
+                <MapPin />
+                <h3>{activeTab === 'packages' ? t('noResultsPackages') : activeTab === 'day-tours' ? t('noResultsDayTours') : t('noResults')}</h3>
+                <p>{t('noResultsMessage')}</p>
+                <button onClick={clearFilters}>{t('clearFilters')}</button>
+              </>
+            )}
           </div>
         )}
       </div>
