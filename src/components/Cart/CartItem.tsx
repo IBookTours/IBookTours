@@ -10,8 +10,9 @@ interface CartItemProps {
 }
 
 export default function CartItem({ item }: CartItemProps) {
-  const { removeItem, updateTravelers, getItemPrice } = useCartStore();
+  const { removeItem, updateTravelers, updateDate, getItemPrice } = useCartStore();
   const itemPrice = getItemPrice(item.cartItemId);
+  const minDate = new Date().toISOString().split('T')[0];
 
   const handleDecreaseAdults = () => {
     if (item.travelers.adults > 1) {
@@ -56,10 +57,21 @@ export default function CartItem({ item }: CartItemProps) {
             <MapPin size={14} />
             {item.location}
           </span>
-          <span className={styles.metaItem}>
+        </div>
+
+        <div className={styles.dateField}>
+          <label className={styles.dateLabel}>
             <Calendar size={14} />
-            {item.date || 'Select date'}
-          </span>
+            Travel Date
+          </label>
+          <input
+            type="date"
+            value={item.date}
+            onChange={(e) => updateDate(item.cartItemId, e.target.value)}
+            min={minDate}
+            className={styles.dateInput}
+            aria-label="Select travel date"
+          />
         </div>
 
         <div className={styles.travelerControls}>
