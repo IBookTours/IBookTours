@@ -7,6 +7,8 @@
 
 import { getServiceConfig, type PaymentConfig } from '../ServiceRegistry';
 import { createLogger } from '@/lib/logger';
+import { StripeProvider } from './StripeProvider';
+import type { IPaymentService } from './PaymentService';
 
 // Types
 export type {
@@ -20,9 +22,6 @@ export { StripeProvider } from './StripeProvider';
 
 const logger = createLogger('PaymentServiceFactory');
 
-// Import provider type
-import type { IPaymentService } from './PaymentService';
-
 /**
  * Payment service singleton
  */
@@ -35,23 +34,15 @@ function createPaymentService(config: PaymentConfig): IPaymentService {
   logger.info('Creating payment service', { provider: config.provider });
 
   switch (config.provider) {
-    case 'stripe': {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { StripeProvider } = require('./StripeProvider');
+    case 'stripe':
       return new StripeProvider(config);
-    }
     // Add other providers here:
-    // case 'paypal': {
-    //   const { PayPalProvider } = require('./PayPalProvider');
+    // case 'paypal':
     //   return new PayPalProvider(config);
-    // }
     case 'mock':
-    default: {
+    default:
       // Use Stripe in demo mode (it handles demo mode internally)
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { StripeProvider } = require('./StripeProvider');
       return new StripeProvider(config);
-    }
   }
 }
 

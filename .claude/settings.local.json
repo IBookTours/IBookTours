@@ -40,7 +40,10 @@
       "Bash(timeout 30 npm run dev:*)",
       "Bash(npm ls:*)",
       "Bash(forfiles /P \"C:\\\\Users\\\\User\\\\.claude\\\\plans\" /C \"cmd /c echo @fdate @ftime @file\")",
-      "Read(//c/**)"
+      "Read(//c/**)",
+      "Bash(cd:*)",
+      "Bash(tree:*)",
+      "Bash(xargs:*)"
     ]
   }
 }

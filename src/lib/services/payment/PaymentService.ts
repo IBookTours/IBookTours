@@ -10,7 +10,7 @@ export interface PaymentIntent {
   clientSecret: string;
   amount: number;
   currency: string;
-  status: 'pending' | 'succeeded' | 'failed' | 'canceled';
+  status: 'pending' | 'processing' | 'succeeded' | 'failed' | 'canceled';
 }
 
 export interface CreatePaymentIntentParams {

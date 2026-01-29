@@ -57,6 +57,34 @@ export type {
   CreatePaymentIntentParams,
 } from './payment';
 
+// User Service
+export {
+  userService,
+  getUserService,
+  resetUserService,
+} from './user';
+export type {
+  IUserService,
+  CreateUserParams,
+  CreateUserResult,
+  FindOrCreateUserParams,
+  PasswordResetResult,
+} from './user';
+
+// Booking Service
+export {
+  bookingService,
+  getBookingService,
+  resetBookingService,
+} from './booking';
+export type {
+  IBookingService,
+  CreateBookingParams,
+  UpdateBookingParams,
+  BookingStatus,
+  PaymentStatus,
+} from './booking';
+
 // Base Classes (for implementing new providers)
 export {
   BaseService,

@@ -5,7 +5,8 @@
 
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { authOptions, UserRole, hasRole } from './auth';
+import { authOptions } from './auth';
+import { type UserRole, hasRole } from './auth-shared';
 
 /**
  * Get the current session on the server side

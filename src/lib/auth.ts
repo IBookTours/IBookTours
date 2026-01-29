@@ -20,8 +20,9 @@ if (!process.env.NEXTAUTH_SECRET) {
   console.warn('⚠️ NEXTAUTH_SECRET is not set. Using insecure default for development only.');
 }
 
-// Define user roles for authorization
-export type UserRole = 'user' | 'admin' | 'moderator';
+// Import UserRole from shared utilities (re-export for backward compatibility)
+import { UserRole } from './auth-shared';
+export type { UserRole } from './auth-shared';
 
 // Extend the built-in session types
 declare module 'next-auth' {
@@ -232,30 +233,9 @@ export const authOptions: NextAuthOptions = {
 };
 
 // ============================================
-// HELPER FUNCTIONS
+// HELPER FUNCTIONS (Re-exported from auth-shared)
 // ============================================
+// These are re-exported for backward compatibility.
+// For client components, import directly from '@/lib/auth-shared'
 
-/**
- * Check if a user has the required role
- */
-export function hasRole(userRole: UserRole, requiredRole: UserRole): boolean {
-  const roleHierarchy: Record<UserRole, number> = {
-    user: 1,
-    moderator: 2,
-    admin: 3,
-  };
-
-  return roleHierarchy[userRole] >= roleHierarchy[requiredRole];
-}
-
-/**
- * Get the display name for a role
- */
-export function getRoleDisplayName(role: UserRole): string {
-  const names: Record<UserRole, string> = {
-    user: 'User',
-    moderator: 'Moderator',
-    admin: 'Administrator',
-  };
-  return names[role];
-}
+export { hasRole, getRoleDisplayName, isAdmin, isModerator } from './auth-shared';

@@ -20,7 +20,7 @@ import {
   XCircle,
   AlertCircle,
 } from 'lucide-react';
-import { getRoleDisplayName } from '@/lib/auth';
+import { getRoleDisplayName } from '@/lib/auth-shared';
 import {
   useBookingsStore,
   formatBookingDate,

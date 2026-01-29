@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import Stripe from 'stripe';
 import { emailService } from '@/lib/services/email';
 
 // Stripe webhook secret (set in env for production)
@@ -6,6 +7,11 @@ const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
 
 // For demo mode, we'll simulate webhook events
 const DEMO_MODE = !process.env.STRIPE_SECRET_KEY;
+
+// Initialize Stripe client (only when not in demo mode)
+const stripe = !DEMO_MODE && process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY)
+  : null;
 
 interface StripeEvent {
   id: string;
@@ -48,23 +54,41 @@ export async function POST(request: NextRequest) {
         );
       }
     } else {
-      // Production: verify Stripe signature
+      // Production: verify Stripe signature using constructEvent
       const sig = request.headers.get('stripe-signature');
 
       if (!sig || !WEBHOOK_SECRET) {
+        console.error('[Webhook] Missing signature or webhook secret');
         return NextResponse.json(
           { error: 'Missing signature or webhook secret' },
           { status: 400 }
         );
       }
 
-      // In production, use: stripe.webhooks.constructEvent(body, sig, WEBHOOK_SECRET)
-      // For now, we'll parse directly since we're in demo mode
-      try {
-        event = JSON.parse(body);
-      } catch {
+      if (!stripe) {
+        console.error('[Webhook] Stripe client not initialized');
         return NextResponse.json(
-          { error: 'Invalid payload' },
+          { error: 'Stripe not configured' },
+          { status: 500 }
+        );
+      }
+
+      // Verify webhook signature using Stripe SDK
+      try {
+        const stripeEvent = stripe.webhooks.constructEvent(body, sig, WEBHOOK_SECRET);
+        // Map Stripe event to our interface
+        event = {
+          id: stripeEvent.id,
+          type: stripeEvent.type,
+          data: {
+            object: stripeEvent.data.object as StripeEvent['data']['object'],
+          },
+        };
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Unknown error';
+        console.error('[Webhook] Signature verification failed:', message);
+        return NextResponse.json(
+          { error: 'Invalid signature' },
           { status: 400 }
         );
       }

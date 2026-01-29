@@ -7,6 +7,8 @@
 
 import { getServiceConfig, type EmailConfig } from '../ServiceRegistry';
 import { createLogger } from '@/lib/logger';
+import { BrevoProvider } from './BrevoProvider';
+import type { IEmailService } from './EmailService';
 
 // Types
 export type {
@@ -22,9 +24,6 @@ export { BrevoProvider } from './BrevoProvider';
 
 const logger = createLogger('EmailServiceFactory');
 
-// Import provider type
-import type { IEmailService } from './EmailService';
-
 /**
  * Email service singleton
  */
@@ -37,23 +36,15 @@ function createEmailService(config: EmailConfig): IEmailService {
   logger.info('Creating email service', { provider: config.provider });
 
   switch (config.provider) {
-    case 'brevo': {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { BrevoProvider } = require('./BrevoProvider');
+    case 'brevo':
       return new BrevoProvider(config);
-    }
     // Add other providers here:
-    // case 'sendgrid': {
-    //   const { SendGridProvider } = require('./SendGridProvider');
+    // case 'sendgrid':
     //   return new SendGridProvider(config);
-    // }
     case 'mock':
-    default: {
+    default:
       // Use Brevo in demo mode (it handles demo mode internally)
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { BrevoProvider } = require('./BrevoProvider');
       return new BrevoProvider(config);
-    }
   }
 }
 
