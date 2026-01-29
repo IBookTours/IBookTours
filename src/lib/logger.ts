@@ -145,6 +145,7 @@ export const authLogger = createLogger('auth');
 export const paymentLogger = createLogger('payment');
 export const emailLogger = createLogger('email');
 export const calendarLogger = createLogger('calendar');
+export const cmsLogger = createLogger('cms');
 
 /**
  * Request logger helper - creates a child logger with request context

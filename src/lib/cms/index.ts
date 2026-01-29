@@ -10,12 +10,15 @@
 
 import { IContentProvider } from './ContentService';
 import { MockContentProvider } from './MockContentProvider';
+import { PayloadProvider } from './PayloadProvider';
+import { cmsLogger } from '@/lib/logger';
 
 // Export types
 export * from './types';
 export type { IContentProvider } from './ContentService';
 export { BaseContentProvider } from './ContentService';
 export { MockContentProvider } from './MockContentProvider';
+export { PayloadProvider } from './PayloadProvider';
 
 /**
  * Content provider singleton
@@ -41,24 +44,21 @@ export function getContentProvider(): IContentProvider {
 
     switch (providerType) {
       case 'payload':
-        // Placeholder for Payload CMS integration
-        // When ready: import PayloadProvider and instantiate with PAYLOAD_API_URL
-        if (process.env.NODE_ENV === 'development') {
-          console.warn(
-            '[CMS] Payload provider not yet implemented, falling back to mock'
-          );
+        // Payload CMS integration
+        const payloadProvider = new PayloadProvider();
+        if (payloadProvider.isReady()) {
+          contentProvider = payloadProvider;
+          cmsLogger.info('CMS: Using Payload provider');
+        } else {
+          cmsLogger.warn('CMS: Payload not configured (missing PAYLOAD_API_URL), falling back to mock');
+          contentProvider = new MockContentProvider();
         }
-        contentProvider = new MockContentProvider();
         break;
 
       case 'sanity':
         // Placeholder for Sanity CMS integration
         // When ready: import SanityProvider and instantiate with SANITY_PROJECT_ID
-        if (process.env.NODE_ENV === 'development') {
-          console.warn(
-            '[CMS] Sanity provider not yet implemented, falling back to mock'
-          );
-        }
+        cmsLogger.warn('CMS: Sanity provider not yet implemented, falling back to mock');
         contentProvider = new MockContentProvider();
         break;
 
