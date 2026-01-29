@@ -1,16 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { STORAGE_KEYS } from '@/lib/constants';
 import styles from './CookieConsent.module.scss';
-
-const COOKIE_CONSENT_KEY = 'itravel-cookie-consent';
 
 export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
     // Check if user has already made a choice
-    const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
+    const consent = localStorage.getItem(STORAGE_KEYS.cookieConsent);
     if (consent === null) {
       // Small delay before showing banner for better UX
       const timer = setTimeout(() => setShowBanner(true), 1000);
@@ -19,14 +18,14 @@ export default function CookieConsent() {
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
+    localStorage.setItem(STORAGE_KEYS.cookieConsent, 'accepted');
     setShowBanner(false);
     // Here you would enable analytics/tracking scripts
     // window.dataLayer?.push({ event: 'cookie_consent_given' });
   };
 
   const handleDecline = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'declined');
+    localStorage.setItem(STORAGE_KEYS.cookieConsent, 'declined');
     setShowBanner(false);
     // Analytics remain disabled
   };

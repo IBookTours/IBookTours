@@ -1,5 +1,5 @@
 // ============================================
-// ITRAVEL - Mock Data (CMS Ready)
+// IBOOKTOURS - Mock Data (CMS Ready)
 // ============================================
 // Replace these imports with your CMS fetch calls.
 // Example: const siteData = await sanityClient.fetch(query);
@@ -10,7 +10,7 @@ import { SiteContent } from '@/types';
 // All images are free to use under Unsplash license
 
 export const siteData: SiteContent = {
-  siteName: 'ITravelTours',
+  siteName: 'IBookTours',
   siteDescription: 'Discover Unforgettable Adventures with Us',
 
   navigation: [
@@ -615,10 +615,10 @@ export const siteData: SiteContent = {
       },
     ],
     socialLinks: [
-      { platform: 'Instagram', url: 'https://www.instagram.com/itraveltours666', icon: 'instagram' },
-      { platform: 'Facebook', url: 'https://www.facebook.com/itravel.Tourism/', icon: 'facebook' },
-      { platform: 'TikTok', url: 'https://www.tiktok.com/@k.q031', icon: 'tiktok' },
-      { platform: 'YouTube', url: 'https://youtube.com/@itravel', icon: 'youtube' },
+      { platform: 'Instagram', url: 'https://www.instagram.com/ibooktours', icon: 'instagram' },
+      { platform: 'Facebook', url: 'https://www.facebook.com/ibooktours', icon: 'facebook' },
+      { platform: 'TikTok', url: 'https://www.tiktok.com/@ibooktours', icon: 'tiktok' },
+      { platform: 'YouTube', url: 'https://youtube.com/@ibooktours', icon: 'youtube' },
     ],
     faqs: [
       {
@@ -647,7 +647,7 @@ export const siteData: SiteContent = {
         answer: 'Citizens of the EU, USA, UK, Canada, Australia, and many other countries can visit Albania visa-free for up to 90 days within a 180-day period. Israeli citizens can stay up to 1 year visa-free. Always check current requirements before travel.',
       },
     ],
-    copyright: '© 2025 ITravelTours. All rights reserved.',
+    copyright: '© 2025 IBookTours. All rights reserved.',
   },
 
   // ============================================

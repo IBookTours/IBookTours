@@ -1,6 +1,6 @@
 {
-  "name": "I-Travel Tourism",
-  "short_name": "I-Travel",
+  "name": "IBookTours",
+  "short_name": "IBookTours",
   "description": "Discover Unforgettable Adventures in Albania - Book vacation packages, day tours, and guided experiences",
   "start_url": "/",
   "display": "standalone",
@@ -27,7 +27,7 @@
       "src": "/og-image.jpg",
       "sizes": "1200x630",
       "type": "image/jpeg",
-      "label": "I-Travel Homepage"
+      "label": "IBookTours Homepage"
     }
   ]
 }

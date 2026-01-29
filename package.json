@@ -1,11 +1,11 @@
 {
-  "name": "itravel",
+  "name": "ibooktours",
   "version": "0.1.0",
   "private": true,
   "license": "UNLICENSED",
   "author": {
-    "name": "Mahdy Gribkov",
-    "email": "dev@itraveltours.com"
+    "name": "IBookTours Team",
+    "email": "dev@ibooktours.com"
   },
   "scripts": {
     "dev": "next dev",

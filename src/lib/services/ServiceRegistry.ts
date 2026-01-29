@@ -56,7 +56,7 @@ export interface ServiceConfig {
  * Get the default domain configuration
  */
 function getDefaultDomain(): DomainConfig {
-  const domain = process.env.DOMAIN || 'itraveltours.com';
+  const domain = process.env.DOMAIN || 'ibooktours.com';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `https://${domain}`;
 
   return {
@@ -86,7 +86,7 @@ function getEmailConfig(): EmailConfig {
     provider,
     apiKey,
     senderEmail: process.env.BREVO_SENDER_EMAIL || domain.noReplyEmail,
-    senderName: process.env.BREVO_SENDER_NAME || 'ITravel Tours',
+    senderName: process.env.BREVO_SENDER_NAME || 'IBookTours',
     contactEmail: process.env.CONTACT_EMAIL || domain.supportEmail,
     newsletterListId: parseInt(process.env.BREVO_NEWSLETTER_LIST_ID || '1', 10),
   };
