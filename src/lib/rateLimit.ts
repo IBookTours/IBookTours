@@ -2,7 +2,17 @@
 // RATE LIMITING UTILITY
 // ============================================
 // Simple in-memory rate limiter for API routes
-// Note: For production with multiple instances, use Redis
+//
+// IMPORTANT: This in-memory implementation only works for single-instance deployments.
+// For production with multiple serverless instances, migrate to:
+// - Vercel KV (Redis-compatible): https://vercel.com/docs/storage/vercel-kv
+// - Upstash Redis: https://upstash.com/
+//
+// Rate limits can be customized via environment variables:
+// - RATE_LIMIT_AUTH_MAX (default: 10)
+// - RATE_LIMIT_CONTACT_MAX (default: 5)
+// - RATE_LIMIT_NEWSLETTER_MAX (default: 3)
+// - RATE_LIMIT_PAYMENT_MAX (default: 10)
 
 interface RateLimitEntry {
   count: number;
@@ -59,34 +69,42 @@ export interface RateLimitResult {
   current: number;
 }
 
-// Default configurations for different route types
+// Helper to parse env var as integer with default
+const getEnvInt = (key: string, defaultValue: number): number => {
+  const value = process.env[key];
+  if (!value) return defaultValue;
+  const parsed = parseInt(value, 10);
+  return isNaN(parsed) ? defaultValue : parsed;
+};
+
+// Rate limit configurations - customizable via environment variables
 export const RATE_LIMITS = {
   // Contact form: 5 requests per 15 minutes
   contact: {
     windowMs: 15 * 60 * 1000,
-    maxRequests: 5,
+    maxRequests: getEnvInt('RATE_LIMIT_CONTACT_MAX', 5),
   },
   // Newsletter: 3 requests per hour
   newsletter: {
     windowMs: 60 * 60 * 1000,
-    maxRequests: 3,
+    maxRequests: getEnvInt('RATE_LIMIT_NEWSLETTER_MAX', 3),
   },
   // Payment: 10 requests per minute
   payment: {
     windowMs: 60 * 1000,
-    maxRequests: 10,
+    maxRequests: getEnvInt('RATE_LIMIT_PAYMENT_MAX', 10),
   },
-  // Auth: 10 login attempts per 15 minutes
+  // Auth: 10 login attempts per 15 minutes (brute force protection)
   auth: {
     windowMs: 15 * 60 * 1000,
-    maxRequests: 10,
+    maxRequests: getEnvInt('RATE_LIMIT_AUTH_MAX', 10),
   },
   // Default: 100 requests per minute
   default: {
     windowMs: 60 * 1000,
-    maxRequests: 100,
+    maxRequests: getEnvInt('RATE_LIMIT_DEFAULT_MAX', 100),
   },
-} as const;
+};
 
 /**
  * Check if a request should be rate limited

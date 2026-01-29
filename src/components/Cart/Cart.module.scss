@@ -10,17 +10,19 @@
   width: 40px;
   height: 40px;
   border-radius: $radius-full;
-  background: $rgba-white-15;
-  border: 1px solid $rgba-white-20;
-  color: $text-light;
+  // Use theme-aware variables by default for visibility on all backgrounds
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
   cursor: pointer;
   transition: all $transition-fast;
   @include flex-center;
 
   &:hover {
-    background: $rgba-white-25;
+    background: var(--bg-tertiary);
   }
 
+  // .scrolled kept for backwards compatibility (now same as default)
   &.scrolled {
     background: var(--glass-bg);
     border-color: var(--glass-border);

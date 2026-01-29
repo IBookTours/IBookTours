@@ -1,0 +1,29 @@
+{
+  "name": "IBookTours",
+  "description": "Tour booking platform for Albania and the Balkans. Book day tours, vacation packages, and custom travel experiences.",
+  "url": "https://ibooktours.com",
+  "logo": "https://ibooktours.com/images/logo.png",
+  "contact": {
+    "email": "support@ibooktours.com",
+    "website": "https://ibooktours.com/contact"
+  },
+  "services": [
+    "Day Tours",
+    "Vacation Packages",
+    "Custom Tours",
+    "Car Rental"
+  ],
+  "regions": [
+    "Albania",
+    "Balkans"
+  ],
+  "languages": ["en", "he"],
+  "api": {
+    "available": false,
+    "contact": "partnerships@ibooktours.com"
+  },
+  "robots": {
+    "allow_indexing": true,
+    "allow_training": true
+  }
+}

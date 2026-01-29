@@ -1,0 +1,32 @@
+# IBookTours - Tour Booking Platform
+
+## About
+IBookTours is a premier tour booking platform specializing in Albania and the Balkans region. We offer day tours, multi-day vacation packages, and custom travel experiences.
+
+## Services
+- Day Tours: Half-day and full-day guided excursions
+- Vacation Packages: Multi-day trips with accommodation and activities
+- Custom Tours: Tailored travel experiences for groups
+- Car Rental: Vehicle hire for self-guided exploration
+
+## Destinations
+- Albania: Tirana, Berat, Gjirokaster, Albanian Riviera, Albanian Alps
+- Balkans: Kosovo, North Macedonia, Montenegro (coming soon)
+
+## Key Features
+- Secure online booking and payment
+- Instant confirmation
+- Free cancellation up to 24 hours before
+- Multi-language support
+- 24/7 customer support
+
+## Contact
+- Website: https://ibooktours.com
+- Email: support@ibooktours.com
+- Phone: Available on website
+
+## API Access
+For partnership or integration inquiries, contact partnerships@ibooktours.com
+
+## Last Updated
+2026-01-29
