@@ -1,24 +1,23 @@
-// ============================================
-// STRIPE PAYMENT PROVIDER (Demo Mode)
-// ============================================
-// Implementation of IPaymentService for demo/development.
-// This mock implementation simulates Stripe behavior without
-// requiring the actual Stripe npm package.
-//
-// For production, install stripe package and uncomment the real implementation:
-// npm install stripe @stripe/stripe-js @stripe/react-stripe-js
-//
-// Environment Variables (for production):
-// - STRIPE_SECRET_KEY: Your Stripe secret key
-// - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: Your Stripe publishable key
+/**
+ * Stripe Payment Provider
+ *
+ * Implementation of IPaymentService using Stripe.
+ * Supports both production mode (with API key) and demo mode (simulated).
+ */
 
 import {
   IPaymentService,
   PaymentIntent,
   CreatePaymentIntentParams,
 } from './PaymentService';
+import type { PaymentConfig } from '../ServiceRegistry';
+import { createLogger } from '@/lib/logger';
 
-// Generate a random ID similar to Stripe's format
+const logger = createLogger('StripeProvider');
+
+/**
+ * Generate a random ID similar to Stripe's format
+ */
 function generateId(prefix: string): string {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = prefix + '_';
@@ -32,19 +31,30 @@ function generateId(prefix: string): string {
 const demoPaymentIntents = new Map<string, PaymentIntent>();
 
 export class StripeProvider implements IPaymentService {
-  private isProduction: boolean;
+  private readonly isProduction: boolean;
+  private readonly secretKey: string | undefined;
 
-  constructor() {
-    const secretKey = process.env.STRIPE_SECRET_KEY;
-    this.isProduction = Boolean(secretKey && !secretKey.includes('placeholder'));
+  constructor(config?: PaymentConfig) {
+    // Use config if provided, otherwise fall back to env vars
+    this.secretKey = config?.secretKey || process.env.STRIPE_SECRET_KEY;
+    this.isProduction = Boolean(
+      this.secretKey &&
+      !this.secretKey.includes('placeholder') &&
+      config?.provider !== 'mock'
+    );
 
     if (!this.isProduction) {
-      console.info('[Payment] Running in DEMO mode - no real charges will be made');
+      logger.info('Running in DEMO mode - no real charges will be made');
     }
   }
 
   async createPaymentIntent(params: CreatePaymentIntentParams): Promise<PaymentIntent> {
     const { amount, currency, metadata, description } = params;
+
+    if (this.isProduction && this.secretKey) {
+      // Production mode: Make real Stripe API call
+      return this.createRealPaymentIntent(params);
+    }
 
     // Demo mode: Create a mock payment intent
     const paymentIntent: PaymentIntent = {
@@ -58,21 +68,96 @@ export class StripeProvider implements IPaymentService {
     // Store for later retrieval
     demoPaymentIntents.set(paymentIntent.id, paymentIntent);
 
-    console.info('[Payment Demo] Created payment intent:', {
+    logger.info('Demo: Created payment intent', {
       id: paymentIntent.id,
       amount: `${(amount / 100).toFixed(2)} ${currency.toUpperCase()}`,
-      description,
-      metadata,
+      hasDescription: !!description,
+      hasMetadata: !!metadata,
     });
 
     return paymentIntent;
   }
 
+  /**
+   * Create a real payment intent via Stripe API
+   */
+  private async createRealPaymentIntent(params: CreatePaymentIntentParams): Promise<PaymentIntent> {
+    const { amount, currency, metadata, description } = params;
+
+    try {
+      const response = await fetch('https://api.stripe.com/v1/payment_intents', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.secretKey}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          amount: amount.toString(),
+          currency,
+          'automatic_payment_methods[enabled]': 'true',
+          ...(description && { description }),
+          ...(metadata && Object.fromEntries(
+            Object.entries(metadata).map(([k, v]) => [`metadata[${k}]`, v])
+          )),
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        logger.error('Create payment intent failed', { status: response.status, error: errorText });
+        throw new Error('Failed to create payment intent');
+      }
+
+      const data = await response.json();
+
+      logger.info('Created payment intent', {
+        id: data.id,
+        amount: `${(amount / 100).toFixed(2)} ${currency.toUpperCase()}`,
+      });
+
+      return {
+        id: data.id,
+        clientSecret: data.client_secret,
+        amount: data.amount,
+        currency: data.currency,
+        status: this.mapStatus(data.status),
+      };
+    } catch (error) {
+      logger.error('Create payment intent exception', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Map Stripe status to our status type
+   */
+  private mapStatus(stripeStatus: string): PaymentIntent['status'] {
+    switch (stripeStatus) {
+      case 'succeeded':
+        return 'succeeded';
+      case 'canceled':
+        return 'canceled';
+      case 'processing':
+        return 'processing';
+      case 'requires_payment_method':
+      case 'requires_confirmation':
+      case 'requires_action':
+      case 'requires_capture':
+      default:
+        return 'pending';
+    }
+  }
+
   async getPaymentIntent(paymentIntentId: string): Promise<PaymentIntent> {
+    if (this.isProduction && this.secretKey) {
+      return this.getRealPaymentIntent(paymentIntentId);
+    }
+
+    // Demo mode
     const intent = demoPaymentIntents.get(paymentIntentId);
 
     if (!intent) {
-      // Return a mock "not found" style response
+      logger.warn('Demo: Payment intent not found', { id: paymentIntentId });
       return {
         id: paymentIntentId,
         clientSecret: '',
@@ -85,12 +170,62 @@ export class StripeProvider implements IPaymentService {
     return intent;
   }
 
+  /**
+   * Get a real payment intent from Stripe
+   */
+  private async getRealPaymentIntent(paymentIntentId: string): Promise<PaymentIntent> {
+    try {
+      const response = await fetch(`https://api.stripe.com/v1/payment_intents/${paymentIntentId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${this.secretKey}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        logger.error('Get payment intent failed', { status: response.status, error: errorText });
+        return {
+          id: paymentIntentId,
+          clientSecret: '',
+          amount: 0,
+          currency: 'eur',
+          status: 'failed',
+        };
+      }
+
+      const data = await response.json();
+      return {
+        id: data.id,
+        clientSecret: data.client_secret,
+        amount: data.amount,
+        currency: data.currency,
+        status: this.mapStatus(data.status),
+      };
+    } catch (error) {
+      logger.error('Get payment intent exception', error);
+      return {
+        id: paymentIntentId,
+        clientSecret: '',
+        amount: 0,
+        currency: 'eur',
+        status: 'failed',
+      };
+    }
+  }
+
   async cancelPaymentIntent(paymentIntentId: string): Promise<PaymentIntent> {
+    if (this.isProduction && this.secretKey) {
+      return this.cancelRealPaymentIntent(paymentIntentId);
+    }
+
+    // Demo mode
     const intent = demoPaymentIntents.get(paymentIntentId);
 
     if (intent) {
       intent.status = 'canceled';
       demoPaymentIntents.set(paymentIntentId, intent);
+      logger.info('Demo: Canceled payment intent', { id: paymentIntentId });
       return intent;
     }
 
@@ -103,47 +238,41 @@ export class StripeProvider implements IPaymentService {
     };
   }
 
+  /**
+   * Cancel a real payment intent via Stripe
+   */
+  private async cancelRealPaymentIntent(paymentIntentId: string): Promise<PaymentIntent> {
+    try {
+      const response = await fetch(`https://api.stripe.com/v1/payment_intents/${paymentIntentId}/cancel`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.secretKey}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        logger.error('Cancel payment intent failed', { status: response.status, error: errorText });
+        throw new Error('Failed to cancel payment intent');
+      }
+
+      const data = await response.json();
+      logger.info('Canceled payment intent', { id: paymentIntentId });
+
+      return {
+        id: data.id,
+        clientSecret: data.client_secret,
+        amount: data.amount,
+        currency: data.currency,
+        status: 'canceled',
+      };
+    } catch (error) {
+      logger.error('Cancel payment intent exception', error);
+      throw error;
+    }
+  }
+
   getProviderName(): string {
     return this.isProduction ? 'Stripe' : 'Stripe (Demo)';
   }
 }
-
-// ============================================
-// PRODUCTION IMPLEMENTATION (Commented)
-// ============================================
-// To enable real Stripe payments:
-// 1. npm install stripe
-// 2. Uncomment the code below
-// 3. Comment out the demo class above
-//
-// import Stripe from 'stripe';
-//
-// export class StripeProviderProduction implements IPaymentService {
-//   private stripe: Stripe;
-//
-//   constructor() {
-//     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-//       apiVersion: '2023-10-16',
-//     });
-//   }
-//
-//   async createPaymentIntent(params: CreatePaymentIntentParams): Promise<PaymentIntent> {
-//     const paymentIntent = await this.stripe.paymentIntents.create({
-//       amount: params.amount,
-//       currency: params.currency,
-//       metadata: params.metadata,
-//       description: params.description,
-//       automatic_payment_methods: { enabled: true },
-//     });
-//
-//     return {
-//       id: paymentIntent.id,
-//       clientSecret: paymentIntent.client_secret || '',
-//       amount: paymentIntent.amount,
-//       currency: paymentIntent.currency,
-//       status: this.mapStatus(paymentIntent.status),
-//     };
-//   }
-//
-//   // ... rest of implementation
-// }

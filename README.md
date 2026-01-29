@@ -13,7 +13,7 @@ A modern, production-ready travel agency website built with Next.js 14, TypeScri
 - **SEO Optimized** - Structured data, Open Graph, and meta tags
 - **Performance** - Optimized images, lazy loading, and code splitting
 
-## Tech Stack
+## Tech Stack 
 
 | Category | Technology |
 |----------|------------|

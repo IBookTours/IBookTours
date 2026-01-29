@@ -1,14 +1,9 @@
-// ============================================
-// BREVO (SENDINBLUE) EMAIL PROVIDER
-// ============================================
-// Implementation of IEmailService using Brevo
-//
-// Environment Variables Required:
-// - BREVO_API_KEY: Your Brevo API key
-// - BREVO_SENDER_EMAIL: Verified sender email address
-// - BREVO_SENDER_NAME: Sender name for emails
-// - BREVO_NEWSLETTER_LIST_ID: List ID for newsletter subscriptions
-// - CONTACT_EMAIL: Email to receive contact form submissions
+/**
+ * Brevo (Sendinblue) Email Provider
+ *
+ * Implementation of IEmailService using Brevo's transactional email API.
+ * Supports both production mode (with API key) and demo mode (simulated).
+ */
 
 import {
   IEmailService,
@@ -24,42 +19,46 @@ import {
   ContactReplyData,
   PasswordResetData,
 } from './templates';
+import type { EmailConfig } from '../ServiceRegistry';
+import { createLogger } from '@/lib/logger';
 
 const BREVO_API_URL = 'https://api.brevo.com/v3';
+const logger = createLogger('BrevoProvider');
 
 export class BrevoProvider implements IEmailService {
-  private apiKey: string;
-  private senderEmail: string;
-  private senderName: string;
-  private newsletterListId: number;
-  private contactEmail: string;
-  private isDemoMode: boolean;
+  private readonly apiKey: string;
+  private readonly senderEmail: string;
+  private readonly senderName: string;
+  private readonly newsletterListId: number;
+  private readonly contactEmail: string;
+  private readonly isDemoMode: boolean;
 
-  constructor() {
-    this.apiKey = process.env.BREVO_API_KEY || '';
-    this.senderEmail = process.env.BREVO_SENDER_EMAIL || 'noreply@itravel.com';
-    this.senderName = process.env.BREVO_SENDER_NAME || 'ITravel Tours';
-    this.newsletterListId = parseInt(process.env.BREVO_NEWSLETTER_LIST_ID || '1', 10);
-    this.contactEmail = process.env.CONTACT_EMAIL || 'contact@itravel.com';
-    this.isDemoMode = !this.apiKey;
+  constructor(config?: EmailConfig) {
+    // Use config if provided, otherwise fall back to env vars (for backward compatibility)
+    this.apiKey = config?.apiKey || process.env.BREVO_API_KEY || '';
+    this.senderEmail = config?.senderEmail || process.env.BREVO_SENDER_EMAIL || 'noreply@itravel.com';
+    this.senderName = config?.senderName || process.env.BREVO_SENDER_NAME || 'ITravel Tours';
+    this.newsletterListId = config?.newsletterListId || parseInt(process.env.BREVO_NEWSLETTER_LIST_ID || '1', 10);
+    this.contactEmail = config?.contactEmail || process.env.CONTACT_EMAIL || 'contact@itravel.com';
+    this.isDemoMode = !this.apiKey || config?.provider === 'mock';
 
     if (this.isDemoMode) {
-      console.info('[Email] Running in DEMO MODE - emails will be simulated, not sent');
+      logger.info('Running in DEMO MODE - emails will be simulated');
     }
   }
 
   private getDemoResult(): SendEmailResult {
     return {
       success: true,
-      messageId: `demo_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      messageId: `demo_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`,
     };
   }
 
   async sendEmail(params: SendEmailParams): Promise<SendEmailResult> {
     // Demo mode - simulate successful email
     if (this.isDemoMode) {
-      console.info('[Email Demo] Would send email:', {
-        to: params.to,
+      logger.info('Demo: Would send email', {
+        to: Array.isArray(params.to) ? params.to.length : 1,
         subject: params.subject,
       });
       return this.getDemoResult();
@@ -104,16 +103,16 @@ export class BrevoProvider implements IEmailService {
       });
 
       if (!response.ok) {
-        const error = await response.text();
-        console.error('Brevo send email error:', error);
+        const errorText = await response.text();
+        logger.error('Send email failed', { status: response.status, error: errorText });
         return { success: false, error: 'Failed to send email' };
       }
 
       const data = await response.json();
+      logger.info('Email sent successfully', { messageId: data.messageId });
       return { success: true, messageId: data.messageId };
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : String(error);
-      console.error('Brevo send email exception:', message);
+      logger.error('Send email exception', error);
       return { success: false, error: 'Failed to send email' };
     }
   }
@@ -326,13 +325,9 @@ export class BrevoProvider implements IEmailService {
   ): Promise<SendEmailResult> {
     // Demo mode - simulate successful subscription
     if (this.isDemoMode) {
-      console.info('[Email Demo] Would add to newsletter:', { email, name });
+      logger.info('Demo: Would add to newsletter', { hasName: !!name });
       if (sendWelcomeEmail) {
-        const rendered = renderEmailTemplate('newsletter-welcome', { email }, language);
-        console.info('[Email Demo] Would send newsletter welcome:', {
-          to: email,
-          subject: rendered.subject,
-        });
+        logger.info('Demo: Would send newsletter welcome');
       }
       return this.getDemoResult();
     }
@@ -359,12 +354,13 @@ export class BrevoProvider implements IEmailService {
       });
 
       if (!response.ok) {
-        const error = await response.text();
+        const errorText = await response.text();
         // Contact already exists is not an error
-        if (error.includes('Contact already exist')) {
+        if (errorText.includes('Contact already exist')) {
+          logger.info('Contact already subscribed');
           return { success: true };
         }
-        console.error('Brevo add to newsletter error:', error);
+        logger.error('Add to newsletter failed', { status: response.status, error: errorText });
         return { success: false, error: 'Failed to subscribe to newsletter' };
       }
 
@@ -379,15 +375,15 @@ export class BrevoProvider implements IEmailService {
         });
       }
 
+      logger.info('Newsletter subscription successful');
       return { success: true };
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : String(error);
-      console.error('Brevo add to newsletter exception:', message);
+      logger.error('Add to newsletter exception', error);
       return { success: false, error: 'Failed to subscribe to newsletter' };
     }
   }
 
   getProviderName(): string {
-    return 'Brevo';
+    return this.isDemoMode ? 'Brevo (Demo)' : 'Brevo';
   }
 }

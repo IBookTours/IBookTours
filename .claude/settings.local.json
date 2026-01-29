@@ -38,7 +38,9 @@
       "Bash(timeout /t 5 /nobreak)",
       "Bash(npm uninstall:*)",
       "Bash(timeout 30 npm run dev:*)",
-      "Bash(npm ls:*)"
+      "Bash(npm ls:*)",
+      "Bash(forfiles /P \"C:\\\\Users\\\\User\\\\.claude\\\\plans\" /C \"cmd /c echo @fdate @ftime @file\")",
+      "Read(//c/**)"
     ]
   }
 }
