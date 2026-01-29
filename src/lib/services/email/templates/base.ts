@@ -1,9 +1,12 @@
 // ============================================
 // EMAIL BASE TEMPLATE
 // ============================================
-// Responsive HTML wrapper with RTL support for Hebrew
+// Responsive HTML wrapper with RTL support for Hebrew and Arabic
 
 import { EmailLanguage } from './types';
+
+// RTL languages
+const RTL_LANGUAGES: EmailLanguage[] = ['he', 'ar'];
 
 // Brand colors matching the app theme
 const COLORS = {
@@ -23,12 +26,33 @@ interface BaseTemplateOptions {
   previewText?: string;
 }
 
+// Footer disclaimer by language
+const FOOTER_DISCLAIMER: Record<EmailLanguage, string> = {
+  en: 'You received this email because you signed up for IBookTours services.',
+  he: 'קיבלת אימייל זה כי נרשמת לשירותי IBookTours.',
+  pt: 'Você recebeu este e-mail porque se inscreveu nos serviços da IBookTours.',
+  sq: 'Keni marrë këtë email sepse jeni regjistruar për shërbimet e IBookTours.',
+  es: 'Has recibido este correo porque te registraste en los servicios de IBookTours.',
+  ar: 'لقد تلقيت هذا البريد الإلكتروني لأنك اشتركت في خدمات IBookTours.',
+  ru: 'Вы получили это письмо, потому что зарегистрировались в сервисах IBookTours.',
+  nl: 'U ontvangt deze e-mail omdat u zich heeft aangemeld voor de diensten van IBookTours.',
+};
+
 export function baseTemplate({ language, content, previewText }: BaseTemplateOptions): string {
-  const isRTL = language === 'he';
+  const isRTL = RTL_LANGUAGES.includes(language);
   const dir = isRTL ? 'rtl' : 'ltr';
-  const fontFamily = isRTL
-    ? "'Rubik', 'Heebo', Arial, sans-serif"
-    : "'Plus Jakarta Sans', Arial, sans-serif";
+
+  // Font families by language type
+  let fontFamily: string;
+  if (language === 'he') {
+    fontFamily = "'Rubik', 'Heebo', Arial, sans-serif";
+  } else if (language === 'ar') {
+    fontFamily = "'Noto Sans Arabic', 'Amiri', Arial, sans-serif";
+  } else if (language === 'ru') {
+    fontFamily = "'Roboto', 'PT Sans', Arial, sans-serif";
+  } else {
+    fontFamily = "'Plus Jakarta Sans', Arial, sans-serif";
+  }
 
   return `
 <!DOCTYPE html>
@@ -259,9 +283,7 @@ export function baseTemplate({ language, content, previewText }: BaseTemplateOpt
                 <a href="https://ibooktours.com/help">Help Center</a>
               </p>
               <p style="font-size: 12px; margin-top: 16px;">
-                ${isRTL
-                  ? 'קיבלת אימייל זה כי נרשמת לשירותי IBookTours.'
-                  : 'You received this email because you signed up for IBookTours services.'}
+                ${FOOTER_DISCLAIMER[language]}
               </p>
             </td>
           </tr>

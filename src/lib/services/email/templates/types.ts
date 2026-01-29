@@ -3,7 +3,7 @@
 // ============================================
 // Service-agnostic template types that work with any email provider
 
-export type EmailLanguage = 'en' | 'he';
+export type EmailLanguage = 'en' | 'he' | 'pt' | 'sq' | 'es' | 'ar' | 'ru' | 'nl';
 
 export type EmailTemplateType =
   | 'welcome'
