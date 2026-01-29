@@ -1,3 +1,20 @@
+/**
+ * Current Booking Store (bookingStore)
+ *
+ * Manages the ACTIVE booking form state during the checkout flow.
+ * This store holds data for a booking that is currently being created,
+ * including tour selection, traveler details, and pricing calculations.
+ *
+ * Use this store when:
+ * - User is filling out the booking form
+ * - Calculating prices during checkout
+ * - Managing passenger details before payment
+ *
+ * For completed/historical bookings, see: bookingsStore.ts
+ *
+ * Persisted to localStorage to survive page refreshes during checkout.
+ */
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

@@ -1,3 +1,20 @@
+/**
+ * Booking History Store (bookingsStore)
+ *
+ * Manages COMPLETED booking records and order history.
+ * This store holds data for bookings that have been submitted/paid,
+ * including confirmation numbers, status tracking, and payment records.
+ *
+ * Use this store when:
+ * - Displaying user's booking history
+ * - Checking booking status (pending, confirmed, completed, cancelled)
+ * - Managing payment status tracking
+ *
+ * For active/in-progress bookings during checkout, see: bookingStore.ts
+ *
+ * Persisted to localStorage for offline access to booking history.
+ */
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { CartItem } from './cartStore';

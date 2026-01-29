@@ -1,7 +1,20 @@
-// ============================================
-// AUTHENTICATION UTILITY FUNCTIONS
-// ============================================
-// Helper functions for authentication in components and pages
+/**
+ * Auth Utils - Server-Side Only
+ *
+ * Server-side authentication utilities for Next.js App Router.
+ * These functions use NextAuth's getServerSession and should ONLY be
+ * imported in Server Components, API Routes, or Server Actions.
+ *
+ * WARNING: Do NOT import this file in Client Components ('use client').
+ * It will cause build errors due to server-side dependencies.
+ *
+ * Use these for:
+ * - Getting current session in Server Components
+ * - Protecting pages with authentication
+ * - Role-based access control in API routes
+ *
+ * For client-safe auth utilities (types, role checks), use auth-shared.ts instead.
+ */
 
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
