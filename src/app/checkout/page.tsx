@@ -440,7 +440,7 @@ function CheckoutContent() {
               <CheckCircle size={64} />
             </div>
             <h1>Booking{bookingIds.length > 1 ? 's' : ''} Confirmed!</h1>
-            <p>Thank you for booking with ITravel</p>
+            <p>Thank you for booking with IBookTours</p>
 
             <div className={styles.bookingDetails}>
               {bookingIds.map((id, i) => (

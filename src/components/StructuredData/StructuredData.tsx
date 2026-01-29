@@ -1,7 +1,7 @@
 import { siteData } from '@/data/siteData';
 
 // Use environment variable for site URL, fallback to production URL
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://itravel.al';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ibooktours.al';
 
 interface OrganizationSchema {
   '@context': string;

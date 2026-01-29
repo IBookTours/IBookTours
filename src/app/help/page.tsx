@@ -6,8 +6,8 @@ import { helpCategories } from '@/data/helpData';
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
-  title: 'Help Center | ITravel',
-  description: 'Get help with your ITravel bookings, account, and more.',
+  title: 'Help Center | IBookTours',
+  description: 'Get help with your IBookTours bookings, account, and more.',
 };
 
 export default function HelpPage() {

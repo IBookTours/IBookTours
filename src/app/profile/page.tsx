@@ -4,8 +4,8 @@ import { redirect } from 'next/navigation';
 import UserProfileClient from './UserProfileClient';
 
 export const metadata: Metadata = {
-  title: 'My Profile | ITravel',
-  description: 'View and manage your ITravel profile and bookings',
+  title: 'My Profile | IBookTours',
+  description: 'View and manage your IBookTours profile and bookings',
 };
 
 export default async function ProfilePage() {

@@ -546,7 +546,7 @@ export const useAvailabilityStore = create<AvailabilityState>()(
       },
     }),
     {
-      name: 'itravel-availability',
+      name: 'ibooktours-availability',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         tourAvailability: state.tourAvailability,

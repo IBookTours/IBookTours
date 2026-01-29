@@ -63,11 +63,11 @@ export function bookingConfirmationTemplate(data: BookingConfirmationData): Rend
     ` : ''}
 
     <p style="text-align: center;">
-      <a href="https://itraveltours.com/profile" class="button">צפו בהזמנות שלי</a>
+      <a href="https://ibooktours.com/profile" class="button">צפו בהזמנות שלי</a>
     </p>
 
     <p>אם יש לכם שאלות לפני הטיול, אל תהססו ליצור קשר.</p>
-    <p><strong>צוות ITravelTours</strong></p>
+    <p><strong>צוות IBookTours</strong></p>
   `;
 
   const html = baseTemplate({

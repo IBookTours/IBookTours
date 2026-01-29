@@ -1,6 +1,6 @@
 # Troubleshooting Guide
 
-Common issues and their solutions for the ITravel project.
+Common issues and their solutions for the IBookTours project.
 
 ## Deployment Issues
 
@@ -203,7 +203,7 @@ npm run build
 
 If your issue isn't listed here:
 
-1. Check the [GitHub Issues](https://github.com/your-repo/itravel/issues)
+1. Check the [GitHub Issues](https://github.com/your-repo/ibooktours/issues)
 2. Review recent commits for related changes
 3. Enable verbose logging in development
 4. Check browser DevTools console and Network tab

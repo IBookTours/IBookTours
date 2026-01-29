@@ -5,9 +5,9 @@ export function welcomeTemplate(data: WelcomeData): RenderedEmail {
   const { customerName } = data;
 
   const content = `
-    <h1>ברוכים הבאים ל-ITravelTours!</h1>
+    <h1>ברוכים הבאים ל-IBookTours!</h1>
     <p>${customerName} יקר/ה,</p>
-    <p>תודה שהצטרפת ל-ITravelTours! אנחנו נרגשים לקבל אותך כחלק מקהילת המטיילים שלנו.</p>
+    <p>תודה שהצטרפת ל-IBookTours! אנחנו נרגשים לקבל אותך כחלק מקהילת המטיילים שלנו.</p>
     <p>אלבניה מחכה לך עם נופים מרהיבים, היסטוריה עשירה והכנסת אורחים חמה. בין אם אתם מחפשים חופשת חוף רגועה או טיול הרים מאתגר, יש לנו את הטיול המושלם בשבילכם.</p>
 
     <div class="info-box">
@@ -18,22 +18,22 @@ export function welcomeTemplate(data: WelcomeData): RenderedEmail {
     </div>
 
     <p style="text-align: center;">
-      <a href="https://itraveltours.com/tours" class="button">גלו טיולים</a>
+      <a href="https://ibooktours.com/tours" class="button">גלו טיולים</a>
     </p>
 
     <p>אם יש לכם שאלות, הצוות שלנו תמיד כאן לעזור.</p>
     <p>טיולים נעימים!</p>
-    <p><strong>צוות ITravelTours</strong></p>
+    <p><strong>צוות IBookTours</strong></p>
   `;
 
   const html = baseTemplate({
     language: 'he',
     content,
-    previewText: `ברוכים הבאים ל-ITravelTours, ${customerName}! התחילו לגלות את הטיולים הטובים ביותר באלבניה.`,
+    previewText: `ברוכים הבאים ל-IBookTours, ${customerName}! התחילו לגלות את הטיולים הטובים ביותר באלבניה.`,
   });
 
   return {
-    subject: `ברוכים הבאים ל-ITravelTours, ${customerName}!`,
+    subject: `ברוכים הבאים ל-IBookTours, ${customerName}!`,
     html,
     text: htmlToText(html),
   };

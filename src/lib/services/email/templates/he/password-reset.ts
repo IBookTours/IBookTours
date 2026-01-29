@@ -7,7 +7,7 @@ export function passwordResetTemplate(data: PasswordResetData): RenderedEmail {
   const content = `
     <h1>איפוס סיסמה</h1>
     <p>${customerName} יקר/ה,</p>
-    <p>קיבלנו בקשה לאיפוס סיסמת חשבון ITravelTours שלך. לחצו על הכפתור למטה כדי ליצור סיסמה חדשה:</p>
+    <p>קיבלנו בקשה לאיפוס סיסמת חשבון IBookTours שלך. לחצו על הכפתור למטה כדי ליצור סיסמה חדשה:</p>
 
     <p style="text-align: center;">
       <a href="${resetLink}" class="button">איפוס סיסמה</a>
@@ -34,17 +34,17 @@ export function passwordResetTemplate(data: PasswordResetData): RenderedEmail {
     </ul>
 
     <p>אם לא ביקשתם איפוס סיסמה זה, אנא צרו איתנו קשר מיידית.</p>
-    <p><strong>צוות ITravelTours</strong></p>
+    <p><strong>צוות IBookTours</strong></p>
   `;
 
   const html = baseTemplate({
     language: 'he',
     content,
-    previewText: `איפוס סיסמת ITravelTours שלך. הקישור פג תוך ${expiresIn}.`,
+    previewText: `איפוס סיסמת IBookTours שלך. הקישור פג תוך ${expiresIn}.`,
   });
 
   return {
-    subject: 'איפוס סיסמת ITravelTours שלך',
+    subject: 'איפוס סיסמת IBookTours שלך',
     html,
     text: htmlToText(html),
   };

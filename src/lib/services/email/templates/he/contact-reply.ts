@@ -7,7 +7,7 @@ export function contactReplyTemplate(data: ContactReplyData): RenderedEmail {
   const content = `
     <h1>קיבלנו את ההודעה שלך</h1>
     <p>${customerName} יקר/ה,</p>
-    <p>תודה שפנית ל-ITravelTours! קיבלנו את ההודעה שלך ורצינו לעקוב.</p>
+    <p>תודה שפנית ל-IBookTours! קיבלנו את ההודעה שלך ורצינו לעקוב.</p>
 
     <div class="info-box">
       <p>
@@ -24,11 +24,11 @@ export function contactReplyTemplate(data: ContactReplyData): RenderedEmail {
     <p>אם יש לכם שאלות נוספות, אתם מוזמנים להשיב לאימייל זה או לבקר במרכז העזרה שלנו.</p>
 
     <p style="text-align: center;">
-      <a href="https://itraveltours.com/help" class="button">בקרו במרכז העזרה</a>
+      <a href="https://ibooktours.com/help" class="button">בקרו במרכז העזרה</a>
     </p>
 
     <p>בברכה,</p>
-    <p><strong>צוות ITravelTours</strong></p>
+    <p><strong>צוות IBookTours</strong></p>
   `;
 
   const html = baseTemplate({

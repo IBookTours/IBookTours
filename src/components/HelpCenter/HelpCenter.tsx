@@ -156,7 +156,7 @@ export default function HelpCenter({ categories }: HelpCenterProps) {
           <h3>Still need help?</h3>
           <p>Our support team is here to assist you.</p>
           <div className={styles.contactOptions}>
-            <a href="mailto:support@itravel.com" className={styles.contactBtn}>
+            <a href="mailto:support@ibooktours.com" className={styles.contactBtn}>
               <Mail size={20} />
               Email Support
             </a>

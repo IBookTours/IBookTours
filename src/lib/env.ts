@@ -60,7 +60,7 @@ const serverEnvSchema = z.object({
 const clientEnvSchema = z.object({
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
   NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
-  NEXT_PUBLIC_APP_NAME: z.string().default('ITravelTours'),
+  NEXT_PUBLIC_APP_NAME: z.string().default('IBookTours'),
 });
 
 /**

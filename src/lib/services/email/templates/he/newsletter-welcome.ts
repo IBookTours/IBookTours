@@ -6,7 +6,7 @@ export function newsletterWelcomeTemplate(data: NewsletterWelcomeData): Rendered
 
   const content = `
     <h1>ברוכים הבאים לניוזלטר שלנו!</h1>
-    <p>תודה שנרשמתם לניוזלטר של ITravelTours!</p>
+    <p>תודה שנרשמתם לניוזלטר של IBookTours!</p>
     <p>אתם עכשיו חלק מקהילת חובבי הטיולים שלנו שאוהבים לגלות את הפנינים הנסתרות והיעדים המרהיבים של אלבניה.</p>
 
     <div class="info-box">
@@ -18,12 +18,12 @@ export function newsletterWelcomeTemplate(data: NewsletterWelcomeData): Rendered
     </div>
 
     <p style="text-align: center;">
-      <a href="https://itraveltours.com/tours" class="button">התחילו לגלות</a>
+      <a href="https://ibooktours.com/tours" class="button">התחילו לגלות</a>
     </p>
 
     <p>אנחנו מבטיחים לשלוח לכם רק תוכן בעל ערך - ללא ספאם, לעולם!</p>
     <p>טיולים נעימים!</p>
-    <p><strong>צוות ITravelTours</strong></p>
+    <p><strong>צוות IBookTours</strong></p>
 
     <p style="font-size: 12px; color: #6b7280; margin-top: 24px;">
       אימייל רשום: ${email}<br>
@@ -34,11 +34,11 @@ export function newsletterWelcomeTemplate(data: NewsletterWelcomeData): Rendered
   const html = baseTemplate({
     language: 'he',
     content,
-    previewText: 'ברוכים הבאים לניוזלטר של ITravelTours! התכוננו להצעות בלעדיות וטיפים לטיולים.',
+    previewText: 'ברוכים הבאים לניוזלטר של IBookTours! התכוננו להצעות בלעדיות וטיפים לטיולים.',
   });
 
   return {
-    subject: 'ברוכים הבאים לניוזלטר של ITravelTours!',
+    subject: 'ברוכים הבאים לניוזלטר של IBookTours!',
     html,
     text: htmlToText(html),
   };

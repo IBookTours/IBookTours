@@ -1,6 +1,6 @@
-# ITravel Setup Guide
+# IBookTours Setup Guide
 
-This guide walks you through setting up ITravel for production deployment. **No coding required** - just follow the steps and copy/paste values.
+This guide walks you through setting up IBookTours for production deployment. **No coding required** - just follow the steps and copy/paste values.
 
 ## Table of Contents
 
@@ -42,7 +42,7 @@ Skip to [Step 3](#step-3-configure-environment-variables).
 
 1. Go to [vercel.com](https://vercel.com) and sign up with GitHub
 2. Click **"Add New Project"**
-3. Import your ITravel repository from GitHub
+3. Import your IBookTours repository from GitHub
 4. Vercel will auto-detect it's a Next.js project
 5. **Don't deploy yet** - first configure environment variables (Step 3)
 
@@ -105,8 +105,8 @@ To enable demo login accounts for testing:
 | `DEMO_MODE` | `true` | Production, Preview, Development |
 
 This enables these test accounts:
-- **User:** demo@itravel.com / demo123
-- **Admin:** admin@itravel.com / admin123
+- **User:** demo@ibooktours.com / demo123
+- **Admin:** admin@ibooktours.com / admin123
 
 Set to `false` to disable demo accounts.
 
@@ -134,7 +134,7 @@ vercel --prod
 1. Visit your site: https://it-ravel.vercel.app
 2. Test the demo login (if DEMO_MODE=true):
    - Click Login
-   - Use: demo@itravel.com / demo123
+   - Use: demo@ibooktours.com / demo123
 3. Check that all pages load correctly
 
 ---
@@ -216,7 +216,7 @@ Without Brevo, emails are logged to console only. To enable:
 |------|-------|
 | `BREVO_API_KEY` | (your API key) |
 | `BREVO_SENDER_EMAIL` | noreply@yourdomain.com |
-| `BREVO_SENDER_NAME` | ITravel |
+| `BREVO_SENDER_NAME` | IBookTours |
 
 ---
 
@@ -282,8 +282,8 @@ Without Brevo, emails are logged to console only. To enable:
 
 | Role | Email | Password |
 |------|-------|----------|
-| User | demo@itravel.com | demo123 |
-| Admin | admin@itravel.com | admin123 |
+| User | demo@ibooktours.com | demo123 |
+| Admin | admin@ibooktours.com | admin123 |
 
 ### Minimum Required Variables
 

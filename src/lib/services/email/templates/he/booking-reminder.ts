@@ -52,11 +52,11 @@ export function bookingReminderTemplate(data: BookingReminderData): RenderedEmai
     <p>אנא הגיעו 10-15 דקות לפני זמן היציאה המתוכנן.</p>
 
     <p style="text-align: center;">
-      <a href="https://itraveltours.com/profile" class="button">צפו בפרטי ההזמנה</a>
+      <a href="https://ibooktours.com/profile" class="button">צפו בפרטי ההזמנה</a>
     </p>
 
     <p>להתראות בקרוב!</p>
-    <p><strong>צוות ITravelTours</strong></p>
+    <p><strong>צוות IBookTours</strong></p>
   `;
 
   const html = baseTemplate({

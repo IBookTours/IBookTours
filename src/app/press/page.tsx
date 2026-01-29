@@ -6,8 +6,8 @@ import { pressReleases, mediaKit, mediaContact, companyFacts } from '@/data/pres
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
-  title: 'Press & Media | ITravel',
-  description: 'Press releases, media kit, and news about ITravel.',
+  title: 'Press & Media | IBookTours',
+  description: 'Press releases, media kit, and news about IBookTours.',
 };
 
 export default function Press() {

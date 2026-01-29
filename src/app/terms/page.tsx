@@ -6,8 +6,8 @@ import { termsContent } from '@/data/legalPages';
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | ITravel',
-  description: 'Read our terms of service and conditions for using ITravel.',
+  title: 'Terms of Service | IBookTours',
+  description: 'Read our terms of service and conditions for using IBookTours.',
 };
 
 export default function TermsPage() {

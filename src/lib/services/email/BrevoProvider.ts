@@ -36,10 +36,10 @@ export class BrevoProvider implements IEmailService {
   constructor(config?: EmailConfig) {
     // Use config if provided, otherwise fall back to env vars (for backward compatibility)
     this.apiKey = config?.apiKey || process.env.BREVO_API_KEY || '';
-    this.senderEmail = config?.senderEmail || process.env.BREVO_SENDER_EMAIL || 'noreply@itravel.com';
-    this.senderName = config?.senderName || process.env.BREVO_SENDER_NAME || 'ITravel Tours';
+    this.senderEmail = config?.senderEmail || process.env.BREVO_SENDER_EMAIL || 'noreply@ibooktours.com';
+    this.senderName = config?.senderName || process.env.BREVO_SENDER_NAME || 'IBookTours';
     this.newsletterListId = config?.newsletterListId || parseInt(process.env.BREVO_NEWSLETTER_LIST_ID || '1', 10);
-    this.contactEmail = config?.contactEmail || process.env.CONTACT_EMAIL || 'contact@itravel.com';
+    this.contactEmail = config?.contactEmail || process.env.CONTACT_EMAIL || 'contact@ibooktours.com';
     this.isDemoMode = !this.apiKey || config?.provider === 'mock';
 
     if (this.isDemoMode) {
@@ -135,7 +135,7 @@ export class BrevoProvider implements IEmailService {
     );
 
     return this.sendEmail({
-      to: { email: this.contactEmail, name: 'ITravel Team' },
+      to: { email: this.contactEmail, name: 'IBookTours Team' },
       subject: rendered.subject,
       htmlContent: rendered.html,
       textContent: rendered.text,

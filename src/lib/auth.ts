@@ -1,7 +1,7 @@
 // ============================================
 // NEXTAUTH.JS CONFIGURATION
 // ============================================
-// Authentication configuration for ITravel
+// Authentication configuration for IBookTours
 // Supports Google OAuth and Credentials (email/password)
 
 import { NextAuthOptions, User, Account, Profile, Session } from 'next-auth';

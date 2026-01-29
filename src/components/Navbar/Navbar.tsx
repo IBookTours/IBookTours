@@ -60,7 +60,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
         <div className={styles.container}>
           <Link href="/" className={styles.logo}>
             <span className={styles.logoIcon}>
-              <Image src="/logo.svg" alt="ITravelTours" width={32} height={32} />
+              <Image src="/logo.svg" alt="IBookTours" width={32} height={32} />
             </span>
             {siteName}
           </Link>
@@ -109,7 +109,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
         <div className={styles.mobileMenuHeader}>
           <Link href="/" className={styles.logo} onClick={closeMobileMenu}>
             <span className={styles.logoIcon}>
-              <Image src="/logo.svg" alt="ITravelTours" width={32} height={32} />
+              <Image src="/logo.svg" alt="IBookTours" width={32} height={32} />
             </span>
             {siteName}
           </Link>

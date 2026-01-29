@@ -297,7 +297,7 @@ export function getLocalizedPolicy(
 
 export const privacyContent: LegalPageContent = {
   title: 'Privacy Policy',
-  description: 'Learn how ITravel collects, uses, and protects your personal information.',
+  description: 'Learn how IBookTours collects, uses, and protects your personal information.',
   lastUpdated: 'January 2026',
   sections: [
     {
@@ -353,7 +353,7 @@ export const privacyContent: LegalPageContent = {
       title: 'Contact Us',
       content: [
         'If you have questions about this Privacy Policy or your personal data, contact us at:',
-        'Email: privacy@itravel.com',
+        'Email: privacy@ibooktours.com',
         'Phone: +972 50-656-6211',
         'Address: Tirana, Albania',
       ],
@@ -363,14 +363,14 @@ export const privacyContent: LegalPageContent = {
 
 export const termsContent: LegalPageContent = {
   title: 'Terms of Service',
-  description: 'Read the terms and conditions that govern your use of ITravel services.',
+  description: 'Read the terms and conditions that govern your use of IBookTours services.',
   lastUpdated: 'January 2026',
   sections: [
     {
       id: 'acceptance',
       title: 'Acceptance of Terms',
       content: [
-        'By accessing or using ITravel services, you agree to be bound by these Terms of Service.',
+        'By accessing or using IBookTours services, you agree to be bound by these Terms of Service.',
         'If you do not agree with any part of these terms, you may not use our services.',
         'We may update these terms from time to time. Continued use constitutes acceptance of changes.',
       ],
@@ -411,7 +411,7 @@ export const termsContent: LegalPageContent = {
       id: 'liability',
       title: 'Limitation of Liability',
       content: [
-        'ITravel acts as an intermediary between you and tour operators.',
+        'IBookTours acts as an intermediary between you and tour operators.',
         'We are not liable for actions or omissions of third-party service providers.',
         'Our liability is limited to the amount paid for the tour in question.',
         'We are not responsible for circumstances beyond our control (weather, political unrest, etc.).',
@@ -431,7 +431,7 @@ export const termsContent: LegalPageContent = {
 
 export const cookiesContent: LegalPageContent = {
   title: 'Cookie Policy',
-  description: 'Understand how ITravel uses cookies and similar technologies.',
+  description: 'Understand how IBookTours uses cookies and similar technologies.',
   lastUpdated: 'January 2026',
   sections: [
     {
@@ -487,7 +487,7 @@ export const cookiesContent: LegalPageContent = {
 
 export const safetyContent: LegalPageContent = {
   title: 'Safety Information',
-  description: 'Important safety guidelines and information for travelers with ITravel.',
+  description: 'Important safety guidelines and information for travelers with IBookTours.',
   lastUpdated: 'January 2026',
   sections: [
     {
@@ -525,7 +525,7 @@ export const safetyContent: LegalPageContent = {
       title: 'Emergency Contacts',
       content: [
         'Emergency Services (Police, Fire, Ambulance): 112',
-        'ITravel 24/7 Emergency Line: +972 50-656-6211',
+        'IBookTours 24/7 Emergency Line: +972 50-656-6211',
         'US Embassy in Tirana: +355 4 224 7285',
         'UK Embassy in Tirana: +355 4 223 4973',
       ],
@@ -601,7 +601,7 @@ export const cancellationContent: LegalPageContent = {
       id: 'how-to-cancel',
       title: 'How to Cancel',
       content: [
-        'Contact us via email at bookings@itravel.com with your booking reference.',
+        'Contact us via email at bookings@ibooktours.com with your booking reference.',
         'Call our customer service at +972 50-656-6211.',
         'Cancellations are processed based on the date we receive your request.',
         'You will receive confirmation of cancellation within 48 hours.',
@@ -629,7 +629,7 @@ export const cancellationContent: LegalPageContent = {
     },
     {
       id: 'our-cancellations',
-      title: 'Cancellations by ITravel',
+      title: 'Cancellations by IBookTours',
       content: [
         'If we cancel a tour, you will receive a full refund.',
         'Alternatively, you may transfer your booking to another date at no extra cost.',
@@ -665,8 +665,8 @@ export const cmsLegalPages: CMSLegalPage[] = [
       he: 'מדיניות פרטיות',
     },
     description: {
-      en: 'Learn how ITravel collects, uses, and protects your personal information.',
-      he: 'למדו כיצד ITravel אוספת, משתמשת ומגינה על המידע האישי שלכם.',
+      en: 'Learn how IBookTours collects, uses, and protects your personal information.',
+      he: 'למדו כיצד IBookTours אוספת, משתמשת ומגינה על המידע האישי שלכם.',
     },
     lastUpdated: 'January 2026',
     sections: [
@@ -754,12 +754,12 @@ export const cmsLegalPages: CMSLegalPage[] = [
         },
         content: {
           en: [
-            'Email: privacy@itravel.com',
+            'Email: privacy@ibooktours.com',
             'Phone: +972 50-656-6211',
             'Address: Tirana, Albania',
           ],
           he: [
-            'אימייל: privacy@itravel.com',
+            'אימייל: privacy@ibooktours.com',
             'טלפון: +972 50-656-6211',
             'כתובת: טירנה, אלבניה',
           ],

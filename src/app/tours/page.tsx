@@ -4,7 +4,7 @@ import ToursClient from './ToursClient';
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
-  title: 'Tours & Packages | ITravel',
+  title: 'Tours & Packages | IBookTours',
   description: 'Explore our curated collection of travel packages and adventure tours across the globe.',
 };
 

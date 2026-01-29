@@ -48,7 +48,7 @@ export default function ForgotPasswordPage() {
           <blockquote className={styles.quote}>
             &ldquo;Every journey has its challenges, but the destination is always worth it.&rdquo;
           </blockquote>
-          <cite className={styles.author}>- ITravel Team</cite>
+          <cite className={styles.author}>- IBookTours Team</cite>
         </div>
       </div>
 
@@ -60,7 +60,7 @@ export default function ForgotPasswordPage() {
             <span className={styles.logoIcon}>
               <Compass />
             </span>
-            ITravel
+            IBookTours
           </Link>
 
           {/* Back to Sign In */}

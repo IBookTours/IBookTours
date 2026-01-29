@@ -1,7 +1,7 @@
 // ============================================
 // VALIDATION UTILITIES
 // ============================================
-// Form validation patterns and functions for ITravel
+// Form validation patterns and functions for IBookTours
 
 /**
  * Validation patterns for common input types

@@ -73,7 +73,7 @@ export function generateOutlookWebUrl(event: CalendarEvent): string {
  * Generate ICS file content for Apple Calendar and desktop Outlook
  */
 export function generateICSContent(event: CalendarEvent): string {
-  const uid = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}@itravel.com`;
+  const uid = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}@ibooktours.com`;
   const now = formatICSDate(new Date());
 
   // Escape special characters for ICS format
@@ -88,7 +88,7 @@ export function generateICSContent(event: CalendarEvent): string {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//ITravel//Travel Booking//EN',
+    'PRODID:-//IBookTours//Travel Booking//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
@@ -177,11 +177,11 @@ export function createEventFromBooking(booking: {
   }
 
   const description = booking.type === 'vacation-package'
-    ? `Your vacation package to ${booking.location}. Have a wonderful trip! \n\nBooked with ITravel - www.itravel.com`
-    : `Your ${booking.type} in ${booking.location}. Have a wonderful experience! \n\nBooked with ITravel - www.itravel.com`;
+    ? `Your vacation package to ${booking.location}. Have a wonderful trip! \n\nBooked with IBookTours - www.ibooktours.com`
+    : `Your ${booking.type} in ${booking.location}. Have a wonderful experience! \n\nBooked with IBookTours - www.ibooktours.com`;
 
   return {
-    title: `ITravel: ${booking.name}`,
+    title: `IBookTours: ${booking.name}`,
     description,
     location: booking.location,
     startDate,

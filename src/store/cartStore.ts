@@ -152,7 +152,7 @@ export const useCartStore = create<CartState>()(
       },
     }),
     {
-      name: 'itravel-cart',
+      name: 'ibooktours-cart',
       partialize: (state) => ({
         items: state.items,
       }),

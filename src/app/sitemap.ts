@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { siteData } from '@/data/siteData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://itravel.al';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ibooktours.al';
 
   // Static pages
   const staticPages = [

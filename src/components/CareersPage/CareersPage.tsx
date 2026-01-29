@@ -171,7 +171,7 @@ export default function CareersPage({ values, benefits, jobs }: CareersPageProps
                       </div>
 
                       <a
-                        href={`mailto:careers@itravel.com?subject=Application for ${job.title}`}
+                        href={`mailto:careers@ibooktours.com?subject=Application for ${job.title}`}
                         className={styles.applyBtn}
                       >
                         Apply Now
@@ -190,7 +190,7 @@ export default function CareersPage({ values, benefits, jobs }: CareersPageProps
             We&apos;re always looking for talented people. Send us your CV and tell us how you can
             contribute.
           </p>
-          <a href="mailto:careers@itravel.com" className={styles.ctaBtn}>
+          <a href="mailto:careers@ibooktours.com" className={styles.ctaBtn}>
             Send Open Application
           </a>
         </section>

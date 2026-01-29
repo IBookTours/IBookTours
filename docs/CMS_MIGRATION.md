@@ -22,7 +22,7 @@ The website currently uses:
 
 1. Go to https://neon.tech
 2. Sign up with the business Gmail account
-3. Create a new project named "itravel"
+3. Create a new project named "ibooktours"
 4. Copy the connection string
 
 ### Step 2: Install Payload CMS
@@ -37,7 +37,7 @@ npm install -D @payloadcms/next
 Add to Vercel (and `.env.local` for development):
 
 ```env
-DATABASE_URI=postgresql://user:pass@ep-xxx.neon.tech/itravel?sslmode=require
+DATABASE_URI=postgresql://user:pass@ep-xxx.neon.tech/ibooktours?sslmode=require
 PAYLOAD_SECRET=generate-a-32-character-secret-key
 ```
 

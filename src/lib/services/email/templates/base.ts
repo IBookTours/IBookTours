@@ -37,7 +37,7 @@ export function baseTemplate({ language, content, previewText }: BaseTemplateOpt
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ITravelTours</title>
+  <title>IBookTours</title>
   <!--[if mso]>
   <noscript>
     <xml>
@@ -236,7 +236,7 @@ export function baseTemplate({ language, content, previewText }: BaseTemplateOpt
           <!-- Header -->
           <tr>
             <td class="header">
-              <a href="https://itraveltours.com" class="logo">ITravelTours</a>
+              <a href="https://ibooktours.com" class="logo">IBookTours</a>
             </td>
           </tr>
 
@@ -250,18 +250,18 @@ export function baseTemplate({ language, content, previewText }: BaseTemplateOpt
           <!-- Footer -->
           <tr>
             <td class="footer">
-              <p><strong>ITravelTours</strong></p>
+              <p><strong>IBookTours</strong></p>
               <p>Your gateway to Albanian adventures</p>
               <div class="divider"></div>
               <p>
-                <a href="https://itraveltours.com">Website</a> |
-                <a href="https://itraveltours.com/contact">Contact</a> |
-                <a href="https://itraveltours.com/help">Help Center</a>
+                <a href="https://ibooktours.com">Website</a> |
+                <a href="https://ibooktours.com/contact">Contact</a> |
+                <a href="https://ibooktours.com/help">Help Center</a>
               </p>
               <p style="font-size: 12px; margin-top: 16px;">
                 ${isRTL
-                  ? 'קיבלת אימייל זה כי נרשמת לשירותי ITravelTours.'
-                  : 'You received this email because you signed up for ITravelTours services.'}
+                  ? 'קיבלת אימייל זה כי נרשמת לשירותי IBookTours.'
+                  : 'You received this email because you signed up for IBookTours services.'}
               </p>
             </td>
           </tr>

@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import SignInContent from './SignInContent';
 
 export const metadata: Metadata = {
-  title: 'Sign In | ITravel',
-  description: 'Sign in to your ITravel account to book your next adventure.',
+  title: 'Sign In | IBookTours',
+  description: 'Sign in to your IBookTours account to book your next adventure.',
 };
 
 function SignInLoading() {

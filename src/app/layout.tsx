@@ -27,7 +27,7 @@ const inter = Inter({
   weight: ['400', '500', '600', '700'],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://itravel.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ibooktours.com';
 
 export const viewport: Viewport = {
   width: 'device-width',

@@ -6,7 +6,7 @@ export default function Loading() {
     <div className={styles.loadingPage}>
       <Image
         src="/logo.svg"
-        alt="ITravel Tours"
+        alt="IBookTours"
         width={180}
         height={56}
         className={styles.loadingLogo}

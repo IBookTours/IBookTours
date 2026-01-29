@@ -6,8 +6,8 @@ import { privacyContent } from '@/data/legalPages';
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | ITravel',
-  description: 'Learn how ITravel protects and handles your personal data.',
+  title: 'Privacy Policy | IBookTours',
+  description: 'Learn how IBookTours protects and handles your personal data.',
 };
 
 export default function PrivacyPage() {

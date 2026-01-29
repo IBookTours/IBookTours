@@ -6,8 +6,8 @@ import { companyValues, benefits, jobListings } from '@/data/careersData';
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
-  title: 'Careers | ITravel',
-  description: 'Join our team at ITravel and help people explore the world.',
+  title: 'Careers | IBookTours',
+  description: 'Join our team at IBookTours and help people explore the world.',
 };
 
 export default function Careers() {

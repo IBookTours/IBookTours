@@ -18,7 +18,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: 'Our Office',
-    details: ['ITravel Headquarters', 'Tirana, Albania', '1001'],
+    details: ['IBookTours Headquarters', 'Tirana, Albania', '1001'],
   },
   {
     icon: Phone,
@@ -28,7 +28,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
-    details: ['hello@itravel.com', 'support@itravel.com'],
+    details: ['hello@ibooktours.com', 'support@ibooktours.com'],
   },
   {
     icon: Clock,
@@ -269,7 +269,7 @@ export default function ContactPage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="ITravel Office Location - Tirana, Albania"
+                title="IBookTours Office Location - Tirana, Albania"
               />
             </div>
           </div>

@@ -34,11 +34,11 @@ export function bookingCancelledTemplate(data: BookingCancelledData): RenderedEm
     <p>We hope to welcome you on a future adventure! Albania has so many amazing experiences waiting for you.</p>
 
     <p style="text-align: center;">
-      <a href="https://itraveltours.com/tours" class="button">Browse Other Tours</a>
+      <a href="https://ibooktours.com/tours" class="button">Browse Other Tours</a>
     </p>
 
     <p>If you have any questions about your cancellation or refund, please don't hesitate to contact us.</p>
-    <p><strong>The ITravelTours Team</strong></p>
+    <p><strong>The IBookTours Team</strong></p>
   `;
 
   const html = baseTemplate({

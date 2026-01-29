@@ -68,7 +68,7 @@ export default function PressPage({
         <header className={styles.header}>
           <h1>Press & Media</h1>
           <p>
-            News, press releases, and media resources about ITravel.
+            News, press releases, and media resources about IBookTours.
           </p>
         </header>
 

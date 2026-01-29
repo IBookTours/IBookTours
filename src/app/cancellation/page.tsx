@@ -6,7 +6,7 @@ import { cancellationContent } from '@/data/legalPages';
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
-  title: 'Cancellation Policy | ITravel',
+  title: 'Cancellation Policy | IBookTours',
   description: 'Understand our booking cancellation and refund policies.',
 };
 

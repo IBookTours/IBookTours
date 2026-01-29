@@ -1,5 +1,5 @@
 // ============================================
-// ITRAVEL - Help Center Data (CMS Ready)
+// IBOOKTOURS - Help Center Data (CMS Ready)
 // ============================================
 // This file contains FAQ and help content with i18n support.
 // Replace with Sanity fetches when CMS is connected:
@@ -221,8 +221,8 @@ export const cmsFAQCategories: CMSFAQCategory[] = [
           he: 'איך אני מבטל את ההזמנה?',
         },
         answer: {
-          en: 'Email us at bookings@itravel.com with your booking reference, or call our customer service. Cancellations are processed within 48 hours.',
-          he: 'שלחו לנו אימייל ל-bookings@itravel.com עם מספר ההזמנה, או התקשרו לשירות הלקוחות שלנו. ביטולים מעובדים תוך 48 שעות.',
+          en: 'Email us at bookings@ibooktours.com with your booking reference, or call our customer service. Cancellations are processed within 48 hours.',
+          he: 'שלחו לנו אימייל ל-bookings@ibooktours.com עם מספר ההזמנה, או התקשרו לשירות הלקוחות שלנו. ביטולים מעובדים תוך 48 שעות.',
         },
         order: 2,
       },
@@ -373,8 +373,8 @@ export const cmsFAQCategories: CMSFAQCategory[] = [
           he: 'איך אפשר ליצור קשר עם התמיכה?',
         },
         answer: {
-          en: 'Email us at support@itravel.com, call +972 50-656-6211, or use the WhatsApp button on our website. We typically respond within 24 hours.',
-          he: 'שלחו לנו אימייל ל-support@itravel.com, התקשרו ל-+972 50-656-6211, או השתמשו בכפתור הוואטסאפ באתר. אנחנו בדרך כלל משיבים תוך 24 שעות.',
+          en: 'Email us at support@ibooktours.com, call +972 50-656-6211, or use the WhatsApp button on our website. We typically respond within 24 hours.',
+          he: 'שלחו לנו אימייל ל-support@ibooktours.com, התקשרו ל-+972 50-656-6211, או השתמשו בכפתור הוואטסאפ באתר. אנחנו בדרך כלל משיבים תוך 24 שעות.',
         },
         order: 3,
       },
@@ -479,7 +479,7 @@ export const helpCategories: FAQCategory[] = [
         id: 'how-to-cancel',
         question: 'How do I cancel my booking?',
         answer:
-          'Email us at bookings@itravel.com with your booking reference, or call our customer service. Cancellations are processed within 48 hours.',
+          'Email us at bookings@ibooktours.com with your booking reference, or call our customer service. Cancellations are processed within 48 hours.',
       },
       {
         id: 'refund-time',
@@ -547,7 +547,7 @@ export const helpCategories: FAQCategory[] = [
         id: 'contact-support',
         question: 'How can I contact customer support?',
         answer:
-          'Email us at support@itravel.com, call +972 50-656-6211, or use the WhatsApp button on our website. We typically respond within 24 hours.',
+          'Email us at support@ibooktours.com, call +972 50-656-6211, or use the WhatsApp button on our website. We typically respond within 24 hours.',
       },
       {
         id: 'business-hours',

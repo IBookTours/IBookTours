@@ -79,7 +79,7 @@ export default function BookingSection({ content }: BookingSectionProps) {
                 <div className={styles.phoneScreen}>
                   <Image
                     src={content.appPreview}
-                    alt="ITravel App Preview"
+                    alt="IBookTours App Preview"
                     fill
                     sizes="320px"
                   />

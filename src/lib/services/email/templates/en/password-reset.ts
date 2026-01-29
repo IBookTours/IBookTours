@@ -7,7 +7,7 @@ export function passwordResetTemplate(data: PasswordResetData): RenderedEmail {
   const content = `
     <h1>Reset Your Password</h1>
     <p>Dear ${customerName},</p>
-    <p>We received a request to reset your ITravelTours account password. Click the button below to create a new password:</p>
+    <p>We received a request to reset your IBookTours account password. Click the button below to create a new password:</p>
 
     <p style="text-align: center;">
       <a href="${resetLink}" class="button">Reset Password</a>
@@ -34,17 +34,17 @@ export function passwordResetTemplate(data: PasswordResetData): RenderedEmail {
     </ul>
 
     <p>If you didn't request this password reset, please contact us immediately.</p>
-    <p><strong>The ITravelTours Team</strong></p>
+    <p><strong>The IBookTours Team</strong></p>
   `;
 
   const html = baseTemplate({
     language: 'en',
     content,
-    previewText: `Reset your ITravelTours password. Link expires in ${expiresIn}.`,
+    previewText: `Reset your IBookTours password. Link expires in ${expiresIn}.`,
   });
 
   return {
-    subject: 'Reset Your ITravelTours Password',
+    subject: 'Reset Your IBookTours Password',
     html,
     text: htmlToText(html),
   };

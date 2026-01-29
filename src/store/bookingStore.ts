@@ -175,7 +175,7 @@ export const useBookingStore = create<BookingState>()(
       reset: () => set(initialState),
     }),
     {
-      name: 'itravel-booking',
+      name: 'ibooktours-booking',
       // Only persist essential booking data, not pricing rules
       partialize: (state) => ({
         tourId: state.tourId,

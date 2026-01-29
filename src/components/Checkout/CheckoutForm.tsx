@@ -97,7 +97,7 @@ export default function CheckoutForm({
           <CheckCircle size={48} />
         </div>
         <h2>Booking Confirmed!</h2>
-        <p>Thank you for booking with ITravel.</p>
+        <p>Thank you for booking with IBookTours.</p>
         <p className={styles.successDetails}>
           A confirmation email has been sent to <strong>{formData.email}</strong>
         </p>

@@ -15,7 +15,7 @@ import ExpandableReviews from './ExpandableReviews';
 import styles from './about.module.scss';
 
 export const metadata: Metadata = {
-  title: 'About Us | ITravel',
+  title: 'About Us | IBookTours',
   description: 'Learn about our mission to create unforgettable travel experiences for adventurers worldwide.',
 };
 
@@ -66,7 +66,7 @@ const team = [
     name: 'Qaram Kassem',
     role: 'Founder & CEO',
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&q=80',
-    bio: 'Qaram founded ITravel with a vision to share Albania\'s incredible beauty with the world.',
+    bio: 'Qaram founded IBookTours with a vision to share Albania\'s incredible beauty with the world.',
   },
   {
     id: 'operations',
@@ -159,7 +159,7 @@ export default async function AboutPage() {
               <span className={styles.sectionLabel}>Who We Are</span>
               <h2>Passionate About Creating Unforgettable Experiences</h2>
               <p>
-                Founded in 2020, ITravel began with a simple vision: to make extraordinary
+                Founded in 2020, IBookTours began with a simple vision: to make extraordinary
                 travel accessible to everyone. What started as a small team of travel
                 enthusiasts has grown into a global community of adventurers, dreamers,
                 and explorers.
@@ -253,7 +253,7 @@ export default async function AboutPage() {
         <div className={styles.container}>
           <div className={styles.ctaContent}>
             <h2>Ready to Start Your Adventure?</h2>
-            <p>Join thousands of travelers who trust ITravel for their journeys.</p>
+            <p>Join thousands of travelers who trust IBookTours for their journeys.</p>
             <a href="/tours" className={styles.ctaButton}>
               Explore Our Tours
             </a>

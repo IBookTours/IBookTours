@@ -6,7 +6,7 @@ import { safetyContent } from '@/data/legalPages';
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
-  title: 'Safety Information | ITravel',
+  title: 'Safety Information | IBookTours',
   description: 'Learn about our safety measures and travel guidelines.',
 };
 

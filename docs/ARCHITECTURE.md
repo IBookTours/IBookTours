@@ -1,6 +1,6 @@
-# ITravel - Technical Architecture
+# IBookTours - Technical Architecture
 
-This document provides a comprehensive technical overview of the ITravel project architecture, design decisions, and implementation details.
+This document provides a comprehensive technical overview of the IBookTours project architecture, design decisions, and implementation details.
 
 ## Table of Contents
 1. [Technology Stack](#technology-stack)

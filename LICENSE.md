@@ -1,6 +1,6 @@
 # PROPRIETARY SOFTWARE LICENSE
 
-**Copyright (c) 2024-2026 ITravel Tours & Karma. All Rights Reserved.**
+**Copyright (c) 2024-2026 IBookTours Tours & Karma. All Rights Reserved.**
 
 ## Developer
 
@@ -9,7 +9,7 @@ Developed by **Mahdy Gribkov**
 ## License Grant
 
 This software and associated documentation files (the "Software") are proprietary
-and confidential. The Software is licensed, not sold, exclusively to ITravel Tours
+and confidential. The Software is licensed, not sold, exclusively to IBookTours Tours
 and Karma ("Licensee") for their internal business operations.
 
 ## Restrictions
@@ -30,7 +30,7 @@ All intellectual property rights in the Software, including but not limited to:
 - Database schemas and content structures
 - Documentation and technical specifications
 
-remain the exclusive property of the Developer (Mahdy Gribkov) and ITravel Tours / Karma.
+remain the exclusive property of the Developer (Mahdy Gribkov) and IBookTours Tours / Karma.
 
 ## Confidentiality
 
@@ -70,7 +70,7 @@ regard to its conflict of law provisions.
 
 For licensing inquiries or permissions, contact:
 - **Developer:** Mahdy Gribkov
-- **Licensee:** ITravel Tours / Karma
+- **Licensee:** IBookTours Tours / Karma
 
 ---
 

@@ -6,8 +6,8 @@ import { cookiesContent } from '@/data/legalPages';
 import { siteData } from '@/data/siteData';
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy | ITravel',
-  description: 'Learn how ITravel uses cookies and similar technologies.',
+  title: 'Cookie Policy | IBookTours',
+  description: 'Learn how IBookTours uses cookies and similar technologies.',
 };
 
 export default function CookiesPage() {

@@ -11,7 +11,7 @@ export default function NotFound() {
       <div className={styles.content}>
         <Image
           src="/logo.svg"
-          alt="ITravel Tours"
+          alt="IBookTours"
           width={160}
           height={48}
           className={styles.logo}

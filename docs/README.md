@@ -1,6 +1,6 @@
-# ITravel Documentation
+# IBookTours Documentation
 
-Welcome to the ITravel documentation. This folder contains detailed guides for development, deployment, and troubleshooting.
+Welcome to the IBookTours documentation. This folder contains detailed guides for development, deployment, and troubleshooting.
 
 ## Quick Links
 
@@ -41,7 +41,7 @@ src/
 
 ## Theming
 
-ITravel uses a dual-theme system with CSS custom properties:
+IBookTours uses a dual-theme system with CSS custom properties:
 
 ### Light Mode (Honeydew Palette)
 - Primary: Punch Red (`#e63946`)

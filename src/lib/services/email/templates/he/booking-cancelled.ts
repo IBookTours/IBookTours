@@ -34,11 +34,11 @@ export function bookingCancelledTemplate(data: BookingCancelledData): RenderedEm
     <p>אנחנו מקווים לארח אותך בהרפתקה עתידית! לאלבניה יש כל כך הרבה חוויות מדהימות שמחכות לך.</p>
 
     <p style="text-align: center;">
-      <a href="https://itraveltours.com/tours" class="button">עיינו בטיולים אחרים</a>
+      <a href="https://ibooktours.com/tours" class="button">עיינו בטיולים אחרים</a>
     </p>
 
     <p>אם יש לכם שאלות על הביטול או ההחזר, אל תהססו ליצור קשר.</p>
-    <p><strong>צוות ITravelTours</strong></p>
+    <p><strong>צוות IBookTours</strong></p>
   `;
 
   const html = baseTemplate({

@@ -277,7 +277,7 @@ export default function BookingModal({ isOpen, onClose, destination }: BookingMo
                 <Check size={40} />
               </div>
               <h3>Booking Confirmed!</h3>
-              <p>Thank you for booking with ITravel.</p>
+              <p>Thank you for booking with IBookTours.</p>
               <p className={styles.bookingRef}>
                 Booking Reference: <strong>IT-{Math.random().toString(36).substring(2, 8).toUpperCase()}</strong>
               </p>

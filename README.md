@@ -1,4 +1,4 @@
-# ITravel - Albanian Travel Agency
+# IBookTours - Albanian Travel Agency
 
 A modern, production-ready travel agency website built with Next.js 14, TypeScript, and SCSS Modules. Features demo mode for testing, optional Sanity CMS integration, and secure authentication.
 
@@ -38,7 +38,7 @@ A modern, production-ready travel agency website built with Next.js 14, TypeScri
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd ITravel
+cd IBookTours
 
 # Install dependencies
 npm install
@@ -81,8 +81,8 @@ When `DEMO_MODE=true`, these test accounts are available:
 
 | Account | Email | Password |
 |---------|-------|----------|
-| User | demo@itravel.com | demo123 |
-| Admin | admin@itravel.com | admin123 |
+| User | demo@ibooktours.com | demo123 |
+| Admin | admin@ibooktours.com | admin123 |
 
 Set `DEMO_MODE=false` or remove it to disable demo accounts in production.
 
@@ -98,7 +98,7 @@ npm run lint     # Run ESLint
 ## Project Structure
 
 ```
-ITravel/
+IBookTours/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── api/               # API routes

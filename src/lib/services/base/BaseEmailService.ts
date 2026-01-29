@@ -36,8 +36,8 @@ export abstract class BaseEmailService extends BaseService {
 
   constructor(
     serviceName: string,
-    senderEmail: string = 'noreply@itraveltours.com',
-    senderName: string = 'ITravelTours'
+    senderEmail: string = 'noreply@ibooktours.com',
+    senderName: string = 'IBookTours'
   ) {
     super(serviceName);
     this.senderEmail = senderEmail;

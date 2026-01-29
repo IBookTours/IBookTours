@@ -43,7 +43,7 @@ export default function LegalPage({ content }: LegalPageProps) {
           <Link href="/">
             <Image
               src="/logo.svg"
-              alt="ITravel Tours"
+              alt="IBookTours"
               width={140}
               height={40}
               className={styles.logo}
