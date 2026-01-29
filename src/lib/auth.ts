@@ -89,24 +89,24 @@ const credentialsProvider = CredentialsProvider({
 
     if (isDemoMode) {
       // Demo user
-      if (email === 'demo@itravel.com' && password === 'demo123') {
+      if (email === 'demo@ibooktours.com' && password === 'demo123') {
         console.log('[Auth] Demo user login successful');
         return {
           id: 'demo-user-id',
           name: 'Demo User',
-          email: 'demo@itravel.com',
+          email: 'demo@ibooktours.com',
           image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&q=80',
           role: 'user' as UserRole,
         };
       }
 
       // Admin demo user
-      if (email === 'admin@itravel.com' && password === 'admin123') {
+      if (email === 'admin@ibooktours.com' && password === 'admin123') {
         console.log('[Auth] Admin user login successful');
         return {
           id: 'admin-user-id',
-          name: 'Qaram Kassem',
-          email: 'admin@itravel.com',
+          name: 'Admin User',
+          email: 'admin@ibooktours.com',
           image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&q=80',
           role: 'admin' as UserRole,
         };
@@ -150,12 +150,12 @@ export const authOptions: NextAuthOptions = {
   // Configure session handling
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 24 * 60 * 60, // 24 hours (reduced from 30 days for security)
   },
 
   // JWT configuration
   jwt: {
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 24 * 60 * 60, // 24 hours (reduced from 30 days for security)
   },
 
   // Custom pages (optional - uncomment to use)

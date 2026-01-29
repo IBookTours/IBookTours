@@ -106,7 +106,7 @@ export default function SignInContent() {
             <span className={styles.logoIcon}>
               <Compass />
             </span>
-            ITravel
+            IBookTours
           </Link>
 
           {/* Welcome Text */}
@@ -218,12 +218,14 @@ export default function SignInContent() {
             Continue with Google
           </button>
 
-          {/* Demo Credentials */}
-          <div className={styles.demoCredentials}>
-            <p>Demo Credentials:</p>
-            <code>demo@itravel.com / demo123</code>
-            <code>admin@itravel.com / admin123</code>
-          </div>
+          {/* Demo Credentials - Only shown in development */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className={styles.demoCredentials}>
+              <p>Demo Credentials:</p>
+              <code>demo@ibooktours.com / demo123</code>
+              <code>admin@ibooktours.com / admin123</code>
+            </div>
+          )}
 
           {/* Sign Up Link */}
           <p className={styles.signupLink}>

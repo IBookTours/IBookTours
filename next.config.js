@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+
+// Determine if we're in production mode
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
   sassOptions: {
     includePaths: ['./src/styles'],
@@ -58,9 +62,15 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
+            // Production CSP: Remove unsafe-eval, keep unsafe-inline for Next.js styles
+            // Development CSP: Allow unsafe-inline and unsafe-eval for hot reload
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net",
+              // In production, no unsafe-eval; in development, allow for hot reload
+              isProd
+                ? "script-src 'self' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net"
+                : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net",
+              // Styles need unsafe-inline due to Next.js style injection
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://images.unsplash.com https://cdn.sanity.io https://i.pravatar.cc",
               "font-src 'self'",
@@ -69,6 +79,8 @@ const nextConfig = {
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
+              // Upgrade HTTP to HTTPS in production
+              ...(isProd ? ["upgrade-insecure-requests"] : []),
             ].join('; '),
           },
         ],

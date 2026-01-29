@@ -3,6 +3,7 @@ import { emailService } from '@/lib/services/email';
 import { checkRateLimit, getClientIP, rateLimitExceededResponse, RATE_LIMITS } from '@/lib/rateLimit';
 import { newsletterSchema, createValidationErrorResponse } from '@/lib/schemas';
 import { apiLogger, createRequestLogger } from '@/lib/logger';
+import { validateCsrfToken, csrfErrorResponse } from '@/lib/csrf';
 
 export async function POST(request: NextRequest) {
   const logger = createRequestLogger(apiLogger, request);
@@ -18,6 +19,13 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
+
+    // CSRF validation
+    const isValidCsrf = await validateCsrfToken(request, body);
+    if (!isValidCsrf) {
+      logger.warn('CSRF validation failed', { clientIP });
+      return csrfErrorResponse();
+    }
 
     // Validate input with Zod schema
     const validation = newsletterSchema.safeParse(body);
