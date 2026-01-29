@@ -281,3 +281,6 @@ export interface SiteContent {
   vacationPackages: VacationPackage[];
   dayTours: DayTour[];
 }
+
+// Re-export car rental types
+export * from './carRental';

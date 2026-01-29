@@ -13,6 +13,9 @@ import Footer from '@/components/Footer';
 import { siteData } from '@/data/siteData';
 
 // Lazy load below-fold sections for better initial page load
+const CarRentalSection = dynamic(() => import('@/components/CarRentalSection'), {
+  ssr: true,
+});
 const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'), {
   ssr: true,
 });
@@ -43,6 +46,9 @@ export default async function Home() {
 
       {/* Day Tours - Guided day trips and excursions */}
       <DayToursSection tours={siteData.dayTours} maxDisplay={4} />
+
+      {/* Car Rental - Self-drive exploration */}
+      <CarRentalSection />
 
       {/* Stats - Trust indicators */}
       <StatsSection stats={stats} />
