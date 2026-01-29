@@ -84,11 +84,9 @@ const credentialsProvider = CredentialsProvider({
 
     authLogger.debug('Attempting login', { email, demoMode: DEMO_MODE });
 
-    // Demo accounts - available by default when no real database is configured
-    // In production with a real database, set DEMO_MODE=false
-    const isDemoMode = DEMO_MODE || process.env.NODE_ENV === 'development';
-
-    if (isDemoMode) {
+    // Demo accounts - only available when DEMO_MODE=true is explicitly set
+    // For production, configure DATABASE_URL and real user auth
+    if (DEMO_MODE) {
       // Demo user
       if (email === 'demo@ibooktours.com' && password === 'demo123') {
         authLogger.info('Demo user login successful', { email });
@@ -115,7 +113,9 @@ const credentialsProvider = CredentialsProvider({
 
       authLogger.debug('Invalid credentials for demo mode', { email });
     } else {
-      authLogger.debug('Demo mode disabled, no database configured');
+      // Production mode - implement database auth here
+      // Query your database for the user and verify password hash
+      authLogger.debug('Demo mode disabled, database auth required');
     }
 
     // User not found or invalid credentials

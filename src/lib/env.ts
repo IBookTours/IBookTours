@@ -25,9 +25,11 @@ const serverEnvSchema = z.object({
 
   // Application mode
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  // DEMO_MODE defaults to false - production-ready by default
+  // Set to 'true' only for local development/testing with demo accounts
   DEMO_MODE: z
     .string()
-    .default('true')
+    .default('false')
     .transform((val) => val === 'true'),
 
   // Payment (Stripe)
@@ -104,7 +106,7 @@ export const validateEnv = (): Env => {
       validatedEnv = envSchema.parse({
         ...process.env,
         NODE_ENV: process.env.NODE_ENV || 'development',
-        DEMO_MODE: process.env.DEMO_MODE || 'true',
+        DEMO_MODE: process.env.DEMO_MODE || 'false',
       });
       return validatedEnv;
     }
@@ -122,14 +124,11 @@ export const env = (): Env => validateEnv();
 
 /**
  * Check if running in demo mode
+ * Only returns true if DEMO_MODE env var is explicitly set to 'true'
+ * Services handle their own degradation when not configured
  */
 export const isDemoMode = (): boolean => {
-  const config = env();
-  return (
-    config.DEMO_MODE ||
-    !config.STRIPE_SECRET_KEY ||
-    !config.BREVO_API_KEY
-  );
+  return env().DEMO_MODE;
 };
 
 /**
