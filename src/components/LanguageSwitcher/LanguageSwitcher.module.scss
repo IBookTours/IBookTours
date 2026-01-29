@@ -109,7 +109,12 @@
   flex: 1;
 }
 
-// Mobile variant - full width button
+// Mobile variant - full width button with dropdown
+.mobileContainer {
+  position: relative;
+  width: 100%;
+}
+
 .mobileButton {
   display: flex;
   align-items: center;
@@ -133,5 +138,52 @@
 
   svg {
     color: var(--color-primary-600);
+  }
+}
+
+.mobileDropdown {
+  position: absolute;
+  bottom: calc(100% + $spacing-2);
+  left: 0;
+  right: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  z-index: 100;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.mobileOption {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: $font-base;
+  cursor: pointer;
+  transition: background $transition-fast;
+  text-align: left;
+
+  [dir="rtl"] & {
+    text-align: right;
+  }
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+
+  &.active {
+    background: var(--color-primary-50);
+    color: var(--color-primary-700);
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--border-light);
   }
 }

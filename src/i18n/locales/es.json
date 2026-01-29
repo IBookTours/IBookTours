@@ -1,0 +1,474 @@
+{
+  "site": {
+    "name": "IBookTours",
+    "description": "Descubre Aventuras Inolvidables con Nosotros",
+    "tagline": "Haciendo realidad los sueños de viaje desde 2020."
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "Nosotros",
+    "discover": "Descubrir",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "search": "Buscar",
+    "darkMode": "Modo Oscuro",
+    "lightMode": "Modo Claro",
+    "menu": "Menú",
+    "close": "Cerrar"
+  },
+  "hero": {
+    "title": "¡Descubre la Belleza de Albania!",
+    "subtitle": "Tu Puerta de Entrada a la Joya Oculta de Europa",
+    "searchPlaceholder": "Buscar destinos en Albania...",
+    "overlayText": "Albania",
+    "popular": "Popular:",
+    "scrollDown": "Desplazar Abajo"
+  },
+  "destinations": {
+    "sectionLabel": "Hacemos tu viaje especial",
+    "title": "¡Descubre Aventuras Inolvidables con Nosotros!",
+    "subtitle": "Explora destinos impresionantes seleccionados por nuestros expertos en viajes. Desde playas serenas hasta montañas majestuosas, tu aventura perfecta te espera.",
+    "viewAll": "Ver Todos los Tours",
+    "from": "Desde",
+    "perPerson": "por persona",
+    "days": "Días",
+    "reviews": "reseñas",
+    "featured": "Destacado"
+  },
+  "adventure": {
+    "sectionLabel": "Explora Albania",
+    "title": "Elige Tu Aventura Albanesa",
+    "description": "Desde playas prístinas hasta montañas majestuosas, antiguos sitios UNESCO hasta experiencias culinarias auténticas — Albania ofrece aventuras para cada viajero. Permítenos guiarte a través de esta joya oculta de los Balcanes.",
+    "tours": "tours",
+    "ratingLabel": "Reseñas de viajeros que descubrieron la magia de Albania con nosotros",
+    "cta": "Explorar Todos los Tours",
+    "stats": {
+      "tours": "Tours Únicos",
+      "destinations": "Destinos",
+      "satisfaction": "Viajeros Felices"
+    }
+  },
+  "events": {
+    "sectionLabel": "Próximos Eventos",
+    "title": "Principales Eventos en Albania",
+    "year": "2026",
+    "learnMore": "Más Información",
+    "getTickets": "Comprar Entradas",
+    "viewAll": "Ver Todos los Eventos"
+  },
+  "partners": {
+    "sectionLabel": "Nuestros Socios",
+    "title": "Confiado por Líderes en Tecnología de Viajes",
+    "subtitle": "Nos asociamos con las mejores empresas de tecnología de viajes del mundo para ofrecerte experiencias de reserva perfectas y los mejores precios.",
+    "stats": {
+      "bookings": "Reservas Procesadas",
+      "hotels": "Hoteles en el Mundo",
+      "airlines": "Aerolíneas Conectadas",
+      "support": "Soporte al Cliente"
+    }
+  },
+  "vacationPackages": {
+    "sectionLabel": "Paquetes Vuelo + Hotel",
+    "title": "Paquetes Vacacionales",
+    "subtitle": "Paquetes completos de vacaciones con vuelos y hoteles seleccionados. Todo lo que necesitas para una escapada perfecta.",
+    "flightsIncluded": "Vuelos Incluidos",
+    "hotelIncluded": "Hotel Incluido",
+    "viewDetails": "Ver Detalles",
+    "addToCart": "Añadir al Carrito",
+    "viewAll": "Ver Todos los Paquetes",
+    "nights": "noches",
+    "perPerson": "por persona",
+    "viewAllTitle": "Más Paquetes",
+    "viewAllSubtext": "Descubre todos nuestros paquetes vacacionales",
+    "exploreAll": "Explorar Todos",
+    "badges": {
+      "popular": "Popular",
+      "featured": "Destacado",
+      "discount": "DESC",
+      "limitedTime": "Tiempo Limitado"
+    }
+  },
+  "dayTours": {
+    "sectionLabel": "Tours de Un Día",
+    "title": "Explora Albania en Un Día",
+    "subtitle": "Únete a nuestros tours guiados de un día y descubre lo mejor de Albania con guías locales expertos.",
+    "from": "Desde",
+    "groupSize": "Grupo",
+    "people": "personas",
+    "perPerson": "/ persona",
+    "view": "Ver",
+    "addToCart": "Añadir al Carrito",
+    "viewAll": "Ver Todos los Tours",
+    "viewAllTitle": "Más Tours",
+    "viewAllSubtext": "Descubre todos nuestros tours guiados de un día",
+    "exploreAll": "Explorar Todos",
+    "badges": {
+      "popular": "Popular",
+      "featured": "Destacado",
+      "discount": "DESC",
+      "limitedTime": "Tiempo Limitado"
+    }
+  },
+  "stats": {
+    "travelers": "Viajeros Felices",
+    "destinations": "Destinos en Albania",
+    "rating": "Valoración Media",
+    "satisfaction": "Comentarios Positivos"
+  },
+  "cta": {
+    "title": "¿Listo para Explorar?",
+    "subtitle": "Comienza tu viaje hoy y crea recuerdos que durarán toda la vida.",
+    "button": "Reserva Tu Aventura"
+  },
+  "testimonials": {
+    "sectionLabel": "Testimonios",
+    "title": "Lo Que Dicen de Nosotros",
+    "readMore": "Leer Más",
+    "readLess": "Leer Menos",
+    "verifiedReview": "Reseña Verificada"
+  },
+  "about": {
+    "badge": "5K+ Viajeros Felices",
+    "heroTitle": "Sobre IBookTours",
+    "heroSubtitle": "Tu socio de confianza para aventuras inolvidables en Albania desde 2020",
+    "title": "Tus Expertos en Albania",
+    "description": "Nos apasiona compartir la belleza de Albania con el mundo. Como locales, conocemos las joyas ocultas, las mejores playas y las experiencias auténticas que hacen de Albania un lugar verdaderamente especial.",
+    "missionTitle": "Nuestra Misión",
+    "valuesTitle": "Nuestros Valores",
+    "teamTitle": "Conoce al Equipo",
+    "teamSubtitle": "El equipo apasionado detrás de tus aventuras inolvidables en Albania",
+    "features": {
+      "expertise": {
+        "title": "Experiencia Local",
+        "description": "Guías albaneses que conocen cada rincón oculto"
+      },
+      "support": {
+        "title": "Soporte 24/7",
+        "description": "Siempre disponibles en inglés, albanés e italiano"
+      },
+      "value": {
+        "title": "Gran Valor",
+        "description": "Experiencias premium a precios justos"
+      }
+    }
+  },
+  "contact": {
+    "title": "Ponte en Contacto",
+    "subtitle": "¿Tienes preguntas? Nos encantaría saber de ti",
+    "form": {
+      "name": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "phone": "Número de Teléfono",
+      "subject": "Asunto",
+      "message": "Tu Mensaje",
+      "submit": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "success": "¡Mensaje enviado con éxito!",
+      "error": "Error al enviar el mensaje. Por favor, inténtalo de nuevo."
+    },
+    "info": {
+      "address": "Dirección",
+      "phone": "Teléfono",
+      "email": "Email",
+      "hours": "Horario de Atención"
+    }
+  },
+  "tours": {
+    "title": "Explora Nuestros Tours",
+    "subtitle": "Descubre aventuras seleccionadas diseñadas para experiencias inolvidables",
+    "searchPlaceholder": "Buscar destinos, tours...",
+    "filtersButton": "Filtros",
+    "filtersOn": "Filtros Activos",
+    "clear": "Limpiar",
+    "category": "Categoría",
+    "location": "Ubicación",
+    "locations": {
+      "all": "Todas las Ubicaciones"
+    },
+    "tabs": {
+      "all": "Todos",
+      "packages": "Paquetes Vacacionales",
+      "dayTours": "Tours de Un Día",
+      "nightTours": "Tours Nocturnos",
+      "cruises": "Cruceros",
+      "events": "Eventos",
+      "soon": "Próximamente"
+    },
+    "categories": {
+      "all": "Todas las Categorías",
+      "cultural": "Cultural",
+      "adventure": "Aventura",
+      "food": "Gastronomía",
+      "nature": "Naturaleza"
+    },
+    "comingSoon": {
+      "title": "¡Próximamente!",
+      "message": "Estamos trabajando en añadir nuevas experiencias emocionantes en esta categoría. ¡Vuelve pronto!",
+      "browseAll": "Explorar Todos los Tours"
+    },
+    "results": {
+      "packages": "paquetes",
+      "dayTours": "tours de un día",
+      "items": "elementos",
+      "found": "encontrados"
+    },
+    "badges": {
+      "flights": "Vuelos",
+      "hotel": "Hotel",
+      "package": "Paquete",
+      "dayTour": "Tour"
+    },
+    "priceRanges": {
+      "all": "Todos los Precios",
+      "budget": "Menos de €500",
+      "mid": "€500 - €1.000",
+      "premium": "€1.000 - €2.000",
+      "luxury": "Más de €2.000"
+    },
+    "durations": {
+      "all": "Cualquier Duración",
+      "short": "1-4 Días",
+      "medium": "5-7 Días",
+      "long": "8+ Días"
+    },
+    "filters": {
+      "all": "Todos los Tours",
+      "cultural": "Cultural",
+      "adventure": "Aventura",
+      "food": "Gastronomía",
+      "nature": "Naturaleza",
+      "featured": "Destacados",
+      "popular": "Populares",
+      "new": "Nuevos"
+    },
+    "sort": {
+      "label": "Ordenar por",
+      "priceAsc": "Precio: Menor a Mayor",
+      "priceDesc": "Precio: Mayor a Menor",
+      "rating": "Mejor Valorados",
+      "duration": "Duración"
+    },
+    "duration": "Duración",
+    "price": "Precio",
+    "bookNow": "Reservar Ahora",
+    "viewDetails": "Ver Detalles",
+    "view": "Ver",
+    "perPerson": "por persona",
+    "nights": "noches",
+    "people": "personas",
+    "noResults": "No se encontraron tours con tus criterios",
+    "noResultsPackages": "No se encontraron paquetes",
+    "noResultsDayTours": "No se encontraron tours de un día",
+    "noResultsMessage": "Intenta ajustar tus filtros o términos de búsqueda",
+    "clearFilters": "Limpiar Filtros",
+    "search": "Buscar"
+  },
+  "blog": {
+    "sectionLabel": "Historias de Viaje",
+    "title": "Lo Último de Nuestro Blog",
+    "readMore": "Leer Más",
+    "readTime": "min de lectura",
+    "viewAll": "Ver Todas las Publicaciones",
+    "categories": {
+      "destinationGuide": "Guía de Destino",
+      "foodCulture": "Gastronomía y Cultura",
+      "adventure": "Aventura",
+      "travelTips": "Consejos de Viaje",
+      "hiddenGems": "Joyas Ocultas"
+    }
+  },
+  "footer": {
+    "description": "Tu socio de confianza para aventuras inolvidables en Albania. Descubre la belleza de los Balcanes con nuestros tours guiados por expertos.",
+    "sections": {
+      "company": "Empresa",
+      "support": "Soporte",
+      "legal": "Legal"
+    },
+    "links": {
+      "about": "Sobre Nosotros",
+      "careers": "Carreras",
+      "press": "Prensa",
+      "help": "Centro de Ayuda",
+      "safety": "Seguridad",
+      "cancellation": "Cancelación",
+      "terms": "Términos",
+      "privacy": "Privacidad",
+      "cookies": "Cookies"
+    },
+    "faq": "FAQ",
+    "faqTitle": "Explora Nuestras Preguntas de Viaje",
+    "faqSubtitle": "Encuentra respuestas a preguntas frecuentes sobre nuestros servicios",
+    "termsOfService": "Términos de Servicio",
+    "privacyPolicy": "Política de Privacidad",
+    "developedBy": "Desarrollado por",
+    "contactUs": "Contáctanos",
+    "copyright": "Todos los derechos reservados",
+    "newsletter": {
+      "title": "Suscríbete a Nuestro Boletín",
+      "placeholder": "Introduce tu email",
+      "button": "Suscribirse",
+      "success": "¡Gracias por suscribirte!",
+      "error": "Error en la suscripción. Por favor, inténtalo de nuevo."
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "tryAgain": "Intentar de Nuevo",
+    "close": "Cerrar",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "viewMore": "Ver Más",
+    "backToTop": "Volver Arriba",
+    "language": "Idioma",
+    "english": "English",
+    "hebrew": "עברית",
+    "showMore": "Mostrar Más",
+    "showLess": "Mostrar Menos"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "signup": "Registrarse",
+    "myAccount": "Mi Cuenta",
+    "profile": "Perfil",
+    "signInWith": "Iniciar sesión con {provider}"
+  },
+  "cart": {
+    "title": "Tu Carrito",
+    "empty": "Tu carrito está vacío",
+    "emptySubtitle": "¡Explora nuestros tours y añade algo que te guste!",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "checkout": "Finalizar Compra",
+    "continueShopping": "Continuar Comprando",
+    "remove": "Eliminar",
+    "quantity": "Cantidad",
+    "itemAdded": "Artículo añadido al carrito"
+  },
+  "checkout": {
+    "title": "Pago",
+    "steps": {
+      "cart": "Carrito",
+      "details": "Detalles",
+      "payment": "Pago",
+      "confirmation": "Confirmación"
+    },
+    "travelerDetails": "Datos del Viajero",
+    "paymentDetails": "Datos de Pago",
+    "orderSummary": "Resumen del Pedido",
+    "placeOrder": "Realizar Pedido",
+    "processing": "Procesando...",
+    "success": "¡Reserva Confirmada!",
+    "successMessage": "Gracias por tu reserva. Recibirás un email de confirmación en breve."
+  },
+  "booking": {
+    "sectionLabel": "Por Qué Elegirnos",
+    "title": "Reserva Online Sin Complicaciones",
+    "description": "Reserva tu próxima aventura con solo unos toques. Nuestra plataforma intuitiva hace que planificar tus vacaciones soñadas sea fácil.",
+    "stats": {
+      "trips": "Viajes Reservados",
+      "hotels": "Hoteles Asociados",
+      "rating": "Valoración de Usuarios"
+    },
+    "cta": "Descargar App"
+  },
+  "cancellation": {
+    "title": "Política de Cancelación",
+    "overview": "Resumen",
+    "policies": {
+      "flexible": {
+        "name": "Política Flexible",
+        "applies": "Paquetes Vacacionales"
+      },
+      "standard": {
+        "name": "Política Estándar",
+        "applies": "Tours de Un Día"
+      },
+      "strict": {
+        "name": "Política Estricta",
+        "applies": "Entradas a Eventos"
+      },
+      "custom": {
+        "name": "Política Personalizada",
+        "applies": "Tours Privados"
+      }
+    },
+    "refund": {
+      "full": "Reembolso completo",
+      "partial": "Reembolso del {percent}%",
+      "none": "Sin reembolso"
+    },
+    "howToCancel": "Cómo Cancelar",
+    "refundProcess": "Proceso de Reembolso"
+  },
+  "legal": {
+    "lastUpdated": "Última actualización",
+    "tableOfContents": "Índice",
+    "contactCta": "¿Preguntas? Contáctanos"
+  },
+  "help": {
+    "title": "Centro de Ayuda",
+    "subtitle": "Encuentra respuestas a preguntas comunes",
+    "searchPlaceholder": "Buscar respuestas...",
+    "categories": {
+      "booking": "Reservas y Pedidos",
+      "payment": "Pagos y Precios",
+      "cancellation": "Cancelaciones y Reembolsos",
+      "tours": "Durante Tu Tour",
+      "account": "Cuenta y Soporte"
+    },
+    "noResults": "No se encontraron resultados",
+    "contactSupport": "Contactar Soporte"
+  },
+  "accessibility": {
+    "title": "Ajustes de Accesibilidad",
+    "fontSize": "Tamaño de Fuente",
+    "contrast": "Alto Contraste",
+    "reducedMotion": "Movimiento Reducido",
+    "colorBlind": "Modo Daltonismo",
+    "reset": "Restablecer Todo"
+  },
+  "cookies": {
+    "title": "Preferencias de Cookies",
+    "message": "Usamos cookies para mejorar tu experiencia de navegación.",
+    "essential": "Esenciales",
+    "analytics": "Análisis",
+    "marketing": "Marketing",
+    "accept": "Aceptar Todas",
+    "decline": "Rechazar",
+    "customize": "Personalizar"
+  },
+  "carRental": {
+    "sectionLabel": "Alquiler de Coches",
+    "title": "Explora Albania a Tu Ritmo",
+    "description": "Alquila un coche y descubre Albania con total libertad. Nuestra variada flota se adapta a todos los estilos de viaje.",
+    "filters": {
+      "all": "Todos",
+      "economy": "Económico",
+      "compact": "Compacto",
+      "midsize": "Mediano",
+      "suv": "SUV",
+      "luxury": "Lujo",
+      "van": "Furgoneta"
+    },
+    "specs": {
+      "seats": "plazas",
+      "transmission": "Transmisión",
+      "fuel": "Combustible"
+    },
+    "transmission": {
+      "automatic": "Automático",
+      "manual": "Manual"
+    },
+    "fuel": {
+      "petrol": "Gasolina",
+      "diesel": "Diésel",
+      "hybrid": "Híbrido",
+      "electric": "Eléctrico"
+    },
+    "perDay": "/día",
+    "bookNow": "Reservar",
+    "viewAll": "Ver Todos los Vehículos"
+  }
+}

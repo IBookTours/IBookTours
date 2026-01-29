@@ -4,7 +4,7 @@
 // Centralized configuration for internationalization
 // Supports both URL-based routing and client-side switching
 
-export const locales = ['en', 'he'] as const;
+export const locales = ['en', 'he', 'pt', 'sq', 'es', 'ar', 'ru', 'nl'] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'en';
@@ -13,10 +13,16 @@ export const defaultLocale: Locale = 'en';
 export const localeNames: Record<Locale, string> = {
   en: 'English',
   he: 'עברית',
+  pt: 'Português',
+  sq: 'Shqip',
+  es: 'Español',
+  ar: 'العربية',
+  ru: 'Русский',
+  nl: 'Nederlands',
 };
 
 // RTL locales
-export const rtlLocales: Locale[] = ['he'];
+export const rtlLocales: Locale[] = ['he', 'ar'];
 
 export function isRTL(locale: Locale): boolean {
   return rtlLocales.includes(locale);

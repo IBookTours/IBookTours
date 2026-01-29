@@ -1,0 +1,474 @@
+{
+  "site": {
+    "name": "IBookTours",
+    "description": "Ontdek Onvergetelijke Avonturen met Ons",
+    "tagline": "Reisdromen waarmaken sinds 2020."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "Over Ons",
+    "discover": "Ontdek",
+    "blog": "Blog",
+    "contact": "Contact",
+    "search": "Zoeken",
+    "darkMode": "Donkere Modus",
+    "lightMode": "Lichte Modus",
+    "menu": "Menu",
+    "close": "Sluiten"
+  },
+  "hero": {
+    "title": "Ontdek de Schoonheid van Albanië!",
+    "subtitle": "Jouw Toegang tot de Verborgen Parel van Europa",
+    "searchPlaceholder": "Zoek Albanese bestemmingen...",
+    "overlayText": "Albanië",
+    "popular": "Populair:",
+    "scrollDown": "Scroll Omlaag"
+  },
+  "destinations": {
+    "sectionLabel": "Wij maken je reis bijzonder",
+    "title": "Ontdek Onvergetelijke Avonturen met Ons!",
+    "subtitle": "Verken adembenemende bestemmingen geselecteerd door onze reisexperts. Van serene stranden tot majestueuze bergen, je perfecte avontuur wacht.",
+    "viewAll": "Bekijk Alle Tours",
+    "from": "Vanaf",
+    "perPerson": "per persoon",
+    "days": "Dagen",
+    "reviews": "beoordelingen",
+    "featured": "Aanbevolen"
+  },
+  "adventure": {
+    "sectionLabel": "Verken Albanië",
+    "title": "Kies Je Albanese Avontuur",
+    "description": "Van ongerepte stranden tot majestueuze bergen, oude UNESCO-sites tot authentieke culinaire ervaringen — Albanië biedt avonturen voor elke reiziger. Laat ons je begeleiden door deze verborgen parel van de Balkan.",
+    "tours": "tours",
+    "ratingLabel": "Beoordelingen van reizigers die de magie van Albanië met ons ontdekten",
+    "cta": "Bekijk Alle Tours",
+    "stats": {
+      "tours": "Unieke Tours",
+      "destinations": "Bestemmingen",
+      "satisfaction": "Tevreden Reizigers"
+    }
+  },
+  "events": {
+    "sectionLabel": "Aankomende Evenementen",
+    "title": "Top Evenementen in Albanië",
+    "year": "2026",
+    "learnMore": "Meer Info",
+    "getTickets": "Tickets Kopen",
+    "viewAll": "Bekijk Alle Evenementen"
+  },
+  "partners": {
+    "sectionLabel": "Onze Partners",
+    "title": "Vertrouwd door Toonaangevende Reistechnologie Providers",
+    "subtitle": "We werken samen met 's werelds beste reistechnologiebedrijven om je naadloze boekingservaringen en de beste prijzen te bieden.",
+    "stats": {
+      "bookings": "Verwerkte Boekingen",
+      "hotels": "Hotels Wereldwijd",
+      "airlines": "Verbonden Luchtvaartmaatschappijen",
+      "support": "Klantenservice"
+    }
+  },
+  "vacationPackages": {
+    "sectionLabel": "Vlucht + Hotel Pakketten",
+    "title": "Vakantiepakketten",
+    "subtitle": "Complete vakantiepakketten met vluchten en zorgvuldig geselecteerde hotels. Alles wat je nodig hebt voor de perfecte vakantie.",
+    "flightsIncluded": "Vluchten Inbegrepen",
+    "hotelIncluded": "Hotel Inbegrepen",
+    "viewDetails": "Details Bekijken",
+    "addToCart": "Toevoegen aan Winkelwagen",
+    "viewAll": "Bekijk Alle Pakketten",
+    "nights": "nachten",
+    "perPerson": "per persoon",
+    "viewAllTitle": "Meer Pakketten",
+    "viewAllSubtext": "Ontdek al onze vakantiepakketten",
+    "exploreAll": "Verken Alles",
+    "badges": {
+      "popular": "Populair",
+      "featured": "Aanbevolen",
+      "discount": "KORTING",
+      "limitedTime": "Beperkte Tijd"
+    }
+  },
+  "dayTours": {
+    "sectionLabel": "Dagtrips",
+    "title": "Verken Albanië in Één Dag",
+    "subtitle": "Sluit je aan bij onze begeleide dagtrips en ontdek het beste van Albanië met deskundige lokale gidsen.",
+    "from": "Vanaf",
+    "groupSize": "Groep",
+    "people": "personen",
+    "perPerson": "/ persoon",
+    "view": "Bekijk",
+    "addToCart": "Toevoegen aan Winkelwagen",
+    "viewAll": "Bekijk Alle Dagtrips",
+    "viewAllTitle": "Meer Dagtrips",
+    "viewAllSubtext": "Ontdek al onze begeleide dagtrips",
+    "exploreAll": "Verken Alles",
+    "badges": {
+      "popular": "Populair",
+      "featured": "Aanbevolen",
+      "discount": "KORTING",
+      "limitedTime": "Beperkte Tijd"
+    }
+  },
+  "stats": {
+    "travelers": "Tevreden Reizigers",
+    "destinations": "Albanese bestemmingen",
+    "rating": "Gemiddelde Beoordeling",
+    "satisfaction": "Positieve Feedback"
+  },
+  "cta": {
+    "title": "Klaar om te Verkennen?",
+    "subtitle": "Begin je reis vandaag en creëer herinneringen voor het leven.",
+    "button": "Boek Je Avontuur"
+  },
+  "testimonials": {
+    "sectionLabel": "Getuigenissen",
+    "title": "Wat Ze Over Ons Zeggen",
+    "readMore": "Lees Meer",
+    "readLess": "Minder Lezen",
+    "verifiedReview": "Geverifieerde Review"
+  },
+  "about": {
+    "badge": "5K+ Tevreden Reizigers",
+    "heroTitle": "Over IBookTours",
+    "heroSubtitle": "Je betrouwbare partner voor onvergetelijke Albanese avonturen sinds 2020",
+    "title": "Jouw Albanië Experts",
+    "description": "We zijn gepassioneerd over het delen van de schoonheid van Albanië met de wereld. Als locals kennen we de verborgen parels, de beste stranden en de authentieke ervaringen die Albanië echt bijzonder maken.",
+    "missionTitle": "Onze Missie",
+    "valuesTitle": "Onze Waarden",
+    "teamTitle": "Ontmoet het Team",
+    "teamSubtitle": "Het gepassioneerde team achter je onvergetelijke Albanese avonturen",
+    "features": {
+      "expertise": {
+        "title": "Lokale Expertise",
+        "description": "Albanese gidsen die elke verborgen hoek kennen"
+      },
+      "support": {
+        "title": "24/7 Ondersteuning",
+        "description": "Altijd beschikbaar in het Engels, Albanees en Italiaans"
+      },
+      "value": {
+        "title": "Geweldige Waarde",
+        "description": "Premium ervaringen tegen eerlijke prijzen"
+      }
+    }
+  },
+  "contact": {
+    "title": "Neem Contact Op",
+    "subtitle": "Heb je vragen? We horen graag van je",
+    "form": {
+      "name": "Volledige Naam",
+      "email": "E-mailadres",
+      "phone": "Telefoonnummer",
+      "subject": "Onderwerp",
+      "message": "Je Bericht",
+      "submit": "Bericht Versturen",
+      "sending": "Versturen...",
+      "success": "Bericht succesvol verzonden!",
+      "error": "Bericht versturen mislukt. Probeer het opnieuw."
+    },
+    "info": {
+      "address": "Adres",
+      "phone": "Telefoon",
+      "email": "E-mail",
+      "hours": "Openingstijden"
+    }
+  },
+  "tours": {
+    "title": "Verken Onze Tours",
+    "subtitle": "Ontdek geselecteerde avonturen ontworpen voor onvergetelijke ervaringen",
+    "searchPlaceholder": "Zoek bestemmingen, tours...",
+    "filtersButton": "Filters",
+    "filtersOn": "Filters Actief",
+    "clear": "Wissen",
+    "category": "Categorie",
+    "location": "Locatie",
+    "locations": {
+      "all": "Alle Locaties"
+    },
+    "tabs": {
+      "all": "Alles",
+      "packages": "Vakantiepakketten",
+      "dayTours": "Dagtrips",
+      "nightTours": "Avondtours",
+      "cruises": "Cruises",
+      "events": "Evenementen",
+      "soon": "Binnenkort"
+    },
+    "categories": {
+      "all": "Alle Categorieën",
+      "cultural": "Cultureel",
+      "adventure": "Avontuur",
+      "food": "Eten & Wijn",
+      "nature": "Natuur"
+    },
+    "comingSoon": {
+      "title": "Binnenkort!",
+      "message": "We werken aan het toevoegen van spannende nieuwe ervaringen in deze categorie. Kom snel terug!",
+      "browseAll": "Bekijk Alle Tours"
+    },
+    "results": {
+      "packages": "pakketten",
+      "dayTours": "dagtrips",
+      "items": "items",
+      "found": "gevonden"
+    },
+    "badges": {
+      "flights": "Vluchten",
+      "hotel": "Hotel",
+      "package": "Pakket",
+      "dayTour": "Dagtrip"
+    },
+    "priceRanges": {
+      "all": "Alle Prijzen",
+      "budget": "Tot €500",
+      "mid": "€500 - €1.000",
+      "premium": "€1.000 - €2.000",
+      "luxury": "Boven €2.000"
+    },
+    "durations": {
+      "all": "Elke Duur",
+      "short": "1-4 Dagen",
+      "medium": "5-7 Dagen",
+      "long": "8+ Dagen"
+    },
+    "filters": {
+      "all": "Alle Tours",
+      "cultural": "Cultureel",
+      "adventure": "Avontuur",
+      "food": "Eten & Wijn",
+      "nature": "Natuur",
+      "featured": "Aanbevolen",
+      "popular": "Populair",
+      "new": "Nieuw"
+    },
+    "sort": {
+      "label": "Sorteren op",
+      "priceAsc": "Prijs: Laag naar Hoog",
+      "priceDesc": "Prijs: Hoog naar Laag",
+      "rating": "Hoogst Beoordeeld",
+      "duration": "Duur"
+    },
+    "duration": "Duur",
+    "price": "Prijs",
+    "bookNow": "Nu Boeken",
+    "viewDetails": "Details Bekijken",
+    "view": "Bekijk",
+    "perPerson": "per persoon",
+    "nights": "nachten",
+    "people": "personen",
+    "noResults": "Geen tours gevonden die voldoen aan je criteria",
+    "noResultsPackages": "Geen pakketten gevonden",
+    "noResultsDayTours": "Geen dagtrips gevonden",
+    "noResultsMessage": "Probeer je filters of zoektermen aan te passen",
+    "clearFilters": "Filters Wissen",
+    "search": "Zoeken"
+  },
+  "blog": {
+    "sectionLabel": "Reisverhalen",
+    "title": "Laatste van Onze Blog",
+    "readMore": "Lees Meer",
+    "readTime": "min lezen",
+    "viewAll": "Bekijk Alle Berichten",
+    "categories": {
+      "destinationGuide": "Bestemmingsgids",
+      "foodCulture": "Eten & Cultuur",
+      "adventure": "Avontuur",
+      "travelTips": "Reistips",
+      "hiddenGems": "Verborgen Parels"
+    }
+  },
+  "footer": {
+    "description": "Je betrouwbare partner voor onvergetelijke Albanese avonturen. Ontdek de schoonheid van de Balkan met onze door experts begeleide tours.",
+    "sections": {
+      "company": "Bedrijf",
+      "support": "Ondersteuning",
+      "legal": "Juridisch"
+    },
+    "links": {
+      "about": "Over Ons",
+      "careers": "Carrières",
+      "press": "Pers",
+      "help": "Helpcentrum",
+      "safety": "Veiligheid",
+      "cancellation": "Annulering",
+      "terms": "Voorwaarden",
+      "privacy": "Privacy",
+      "cookies": "Cookies"
+    },
+    "faq": "FAQ",
+    "faqTitle": "Verken Onze Reisvragen",
+    "faqSubtitle": "Vind antwoorden op veelgestelde vragen over onze diensten",
+    "termsOfService": "Servicevoorwaarden",
+    "privacyPolicy": "Privacybeleid",
+    "developedBy": "Ontwikkeld door",
+    "contactUs": "Neem Contact Op",
+    "copyright": "Alle rechten voorbehouden",
+    "newsletter": {
+      "title": "Abonneer op Onze Nieuwsbrief",
+      "placeholder": "Voer je e-mail in",
+      "button": "Abonneren",
+      "success": "Bedankt voor je inschrijving!",
+      "error": "Inschrijving mislukt. Probeer het opnieuw."
+    }
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Er ging iets mis",
+    "tryAgain": "Opnieuw Proberen",
+    "close": "Sluiten",
+    "next": "Volgende",
+    "previous": "Vorige",
+    "viewMore": "Meer Bekijken",
+    "backToTop": "Terug naar Boven",
+    "language": "Taal",
+    "english": "English",
+    "hebrew": "עברית",
+    "showMore": "Meer Tonen",
+    "showLess": "Minder Tonen"
+  },
+  "auth": {
+    "login": "Inloggen",
+    "logout": "Uitloggen",
+    "signup": "Registreren",
+    "myAccount": "Mijn Account",
+    "profile": "Profiel",
+    "signInWith": "Inloggen met {provider}"
+  },
+  "cart": {
+    "title": "Je Winkelwagen",
+    "empty": "Je winkelwagen is leeg",
+    "emptySubtitle": "Bekijk onze tours en voeg iets toe dat je leuk vindt!",
+    "total": "Totaal",
+    "subtotal": "Subtotaal",
+    "checkout": "Afrekenen",
+    "continueShopping": "Verder Winkelen",
+    "remove": "Verwijderen",
+    "quantity": "Aantal",
+    "itemAdded": "Item toegevoegd aan winkelwagen"
+  },
+  "checkout": {
+    "title": "Afrekenen",
+    "steps": {
+      "cart": "Winkelwagen",
+      "details": "Details",
+      "payment": "Betaling",
+      "confirmation": "Bevestiging"
+    },
+    "travelerDetails": "Reizigersgegevens",
+    "paymentDetails": "Betalingsgegevens",
+    "orderSummary": "Besteloverzicht",
+    "placeOrder": "Bestelling Plaatsen",
+    "processing": "Verwerken...",
+    "success": "Boeking Bevestigd!",
+    "successMessage": "Bedankt voor je boeking. Je ontvangt binnenkort een bevestigingsmail."
+  },
+  "booking": {
+    "sectionLabel": "Waarom Ons Kiezen",
+    "title": "Naadloos Online Boeken",
+    "description": "Boek je volgende avontuur met slechts een paar tikken. Ons intuïtieve platform maakt het plannen van je droomvakantie moeiteloos.",
+    "stats": {
+      "trips": "Geboekte Reizen",
+      "hotels": "Partnerhotels",
+      "rating": "Gebruikersbeoordeling"
+    },
+    "cta": "Download App"
+  },
+  "cancellation": {
+    "title": "Annuleringsbeleid",
+    "overview": "Overzicht",
+    "policies": {
+      "flexible": {
+        "name": "Flexibel Beleid",
+        "applies": "Vakantiepakketten"
+      },
+      "standard": {
+        "name": "Standaard Beleid",
+        "applies": "Dagtrips"
+      },
+      "strict": {
+        "name": "Strikt Beleid",
+        "applies": "Evenementtickets"
+      },
+      "custom": {
+        "name": "Aangepast Beleid",
+        "applies": "Privétours"
+      }
+    },
+    "refund": {
+      "full": "Volledige terugbetaling",
+      "partial": "{percent}% terugbetaling",
+      "none": "Geen terugbetaling"
+    },
+    "howToCancel": "Hoe te Annuleren",
+    "refundProcess": "Terugbetalingsproces"
+  },
+  "legal": {
+    "lastUpdated": "Laatst bijgewerkt",
+    "tableOfContents": "Inhoudsopgave",
+    "contactCta": "Vragen? Neem contact op"
+  },
+  "help": {
+    "title": "Helpcentrum",
+    "subtitle": "Vind antwoorden op veelgestelde vragen",
+    "searchPlaceholder": "Zoek antwoorden...",
+    "categories": {
+      "booking": "Boekingen & Reserveringen",
+      "payment": "Betaling & Prijzen",
+      "cancellation": "Annuleringen & Terugbetalingen",
+      "tours": "Tijdens Je Tour",
+      "account": "Account & Ondersteuning"
+    },
+    "noResults": "Geen resultaten gevonden",
+    "contactSupport": "Contact Ondersteuning"
+  },
+  "accessibility": {
+    "title": "Toegankelijkheidsinstellingen",
+    "fontSize": "Lettergrootte",
+    "contrast": "Hoog Contrast",
+    "reducedMotion": "Minder Beweging",
+    "colorBlind": "Kleurenblindmodus",
+    "reset": "Alles Resetten"
+  },
+  "cookies": {
+    "title": "Cookievoorkeuren",
+    "message": "Wij gebruiken cookies om je surfervaring te verbeteren.",
+    "essential": "Essentieel",
+    "analytics": "Analyse",
+    "marketing": "Marketing",
+    "accept": "Alles Accepteren",
+    "decline": "Weigeren",
+    "customize": "Aanpassen"
+  },
+  "carRental": {
+    "sectionLabel": "Autoverhuur",
+    "title": "Verken Albanië op Je Eigen Tempo",
+    "description": "Huur een auto en ontdek Albanië met volledige vrijheid. Ons gevarieerde wagenpark past bij elke reisstijl.",
+    "filters": {
+      "all": "Alles",
+      "economy": "Economy",
+      "compact": "Compact",
+      "midsize": "Middenklasse",
+      "suv": "SUV",
+      "luxury": "Luxe",
+      "van": "Busje"
+    },
+    "specs": {
+      "seats": "zitplaatsen",
+      "transmission": "Transmissie",
+      "fuel": "Brandstof"
+    },
+    "transmission": {
+      "automatic": "Automaat",
+      "manual": "Handgeschakeld"
+    },
+    "fuel": {
+      "petrol": "Benzine",
+      "diesel": "Diesel",
+      "hybrid": "Hybride",
+      "electric": "Elektrisch"
+    },
+    "perDay": "/dag",
+    "bookNow": "Boeken",
+    "viewAll": "Bekijk Alle Voertuigen"
+  }
+}

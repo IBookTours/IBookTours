@@ -1,0 +1,474 @@
+{
+  "site": {
+    "name": "IBookTours",
+    "description": "Zbuloni Aventura të Paharrueshme me Ne",
+    "tagline": "Duke i bërë ëndrrat e udhëtimit realitet që nga 2020."
+  },
+  "nav": {
+    "home": "Kryefaqja",
+    "about": "Rreth Nesh",
+    "discover": "Zbulo",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "search": "Kërko",
+    "darkMode": "Modaliteti i Errët",
+    "lightMode": "Modaliteti i Ndritshëm",
+    "menu": "Menu",
+    "close": "Mbyll"
+  },
+  "hero": {
+    "title": "Zbuloni Bukurinë e Shqipërisë!",
+    "subtitle": "Porta Juaj drejt Xhevahirit të Fshehur të Europës",
+    "searchPlaceholder": "Kërko destinacione shqiptare...",
+    "overlayText": "Shqipëria",
+    "popular": "Popullore:",
+    "scrollDown": "Lëviz Poshtë"
+  },
+  "destinations": {
+    "sectionLabel": "Ne e bëjmë udhëtimin tuaj",
+    "title": "Zbuloni Aventura të Paharrueshme me Ne!",
+    "subtitle": "Eksploroni destinacione mahnitëse të zgjedhura nga ekspertët tanë të udhëtimit. Nga plazhet e qeta te malet madhështore, aventura juaj e përsosur ju pret.",
+    "viewAll": "Shiko të Gjitha Turnet",
+    "from": "Nga",
+    "perPerson": "për person",
+    "days": "Ditë",
+    "reviews": "komente",
+    "featured": "I Veçantë"
+  },
+  "adventure": {
+    "sectionLabel": "Eksploro Shqipërinë",
+    "title": "Zgjidhni Aventurën Tuaj Shqiptare",
+    "description": "Nga plazhet e paprekura te malet madhështore, nga faqet antike të UNESCO-s te përvojat autentike kulinare — Shqipëria ofron aventura për çdo udhëtar. Na lejoni t'ju udhëheqim nëpër këtë xhevahir të fshehur të Ballkanit.",
+    "tours": "turne",
+    "ratingLabel": "Komente nga udhëtarët që zbuluan magjinë e Shqipërisë me ne",
+    "cta": "Shfleto të Gjitha Turnet",
+    "stats": {
+      "tours": "Turne Unike",
+      "destinations": "Destinacione",
+      "satisfaction": "Udhëtarë të Lumtur"
+    }
+  },
+  "events": {
+    "sectionLabel": "Ngjarjet e Ardhshme",
+    "title": "Ngjarjet Kryesore në Shqipëri",
+    "year": "2026",
+    "learnMore": "Mëso Më Shumë",
+    "getTickets": "Merr Bileta",
+    "viewAll": "Shiko të Gjitha Ngjarjet"
+  },
+  "partners": {
+    "sectionLabel": "Partnerët Tanë",
+    "title": "Besuar nga Ofruesit Kryesorë të Teknologjisë së Udhëtimit",
+    "subtitle": "Bashkëpunojmë me kompanitë më të mira të teknologjisë së udhëtimit në botë për t'ju sjellë përvoja rezervimi të shkëlqyera dhe çmimet më të mira.",
+    "stats": {
+      "bookings": "Rezervime të Procesuar",
+      "hotels": "Hotele në Botë",
+      "airlines": "Linja Ajrore të Lidhura",
+      "support": "Mbështetje Klientësh"
+    }
+  },
+  "vacationPackages": {
+    "sectionLabel": "Paketat Fluturim + Hotel",
+    "title": "Paketat e Pushimeve",
+    "subtitle": "Paketa të plota pushimesh me fluturime dhe hotele të zgjedhura. Gjithçka që ju nevojitet për një pushim të përsosur.",
+    "flightsIncluded": "Fluturimet e Përfshira",
+    "hotelIncluded": "Hoteli i Përfshirë",
+    "viewDetails": "Shiko Detajet",
+    "addToCart": "Shto në Shportë",
+    "viewAll": "Shiko të Gjitha Paketat",
+    "nights": "netë",
+    "perPerson": "për person",
+    "viewAllTitle": "Më Shumë Paketa",
+    "viewAllSubtext": "Zbuloni të gjitha paketat tona të pushimeve",
+    "exploreAll": "Eksploro të Gjitha",
+    "badges": {
+      "popular": "Popullor",
+      "featured": "I Veçantë",
+      "discount": "ZBRITJE",
+      "limitedTime": "Kohë e Kufizuar"
+    }
+  },
+  "dayTours": {
+    "sectionLabel": "Turne Ditor",
+    "title": "Eksploroni Shqipërinë në Një Ditë",
+    "subtitle": "Bashkohuni me turnet tona ditore të udhëhequra dhe zbuloni më të mirën e Shqipërisë me guida lokale eksperte.",
+    "from": "Nga",
+    "groupSize": "Grupi",
+    "people": "persona",
+    "perPerson": "/ person",
+    "view": "Shiko",
+    "addToCart": "Shto në Shportë",
+    "viewAll": "Shiko të Gjitha Turnet Ditore",
+    "viewAllTitle": "Më Shumë Turne Ditore",
+    "viewAllSubtext": "Zbuloni të gjitha turnet tona ditore të udhëhequra",
+    "exploreAll": "Eksploro të Gjitha",
+    "badges": {
+      "popular": "Popullor",
+      "featured": "I Veçantë",
+      "discount": "ZBRITJE",
+      "limitedTime": "Kohë e Kufizuar"
+    }
+  },
+  "stats": {
+    "travelers": "Udhëtarë të Lumtur",
+    "destinations": "Destinacione shqiptare",
+    "rating": "Vlerësimi Mesatar",
+    "satisfaction": "Reagime Pozitive"
+  },
+  "cta": {
+    "title": "Gati për të Eksploruar?",
+    "subtitle": "Filloni udhëtimin tuaj sot dhe krijoni kujtime që do të zgjasin përgjithmonë.",
+    "button": "Rezervoni Aventurën Tuaj"
+  },
+  "testimonials": {
+    "sectionLabel": "Dëshmitë",
+    "title": "Çfarë Thonë për Ne",
+    "readMore": "Lexo Më Shumë",
+    "readLess": "Lexo Më Pak",
+    "verifiedReview": "Koment i Verifikuar"
+  },
+  "about": {
+    "badge": "5K+ Udhëtarë të Lumtur",
+    "heroTitle": "Rreth IBookTours",
+    "heroSubtitle": "Partneri juaj i besuar për aventura të paharrueshme shqiptare që nga 2020",
+    "title": "Ekspertët Tuaj për Shqipërinë",
+    "description": "Jemi të pasionuar për të ndarë bukurinë e Shqipërisë me botën. Si vendas, ne i njohim xhevahirët e fshehur, plazhet më të mira dhe përvojat autentike që e bëjnë Shqipërinë vërtet të veçantë.",
+    "missionTitle": "Misioni Ynë",
+    "valuesTitle": "Vlerat Tona",
+    "teamTitle": "Njihuni me Ekipin",
+    "teamSubtitle": "Ekipi i pasionuar pas aventurave tuaja të paharrueshme shqiptare",
+    "features": {
+      "expertise": {
+        "title": "Ekspertizë Lokale",
+        "description": "Guida shqiptare që njohin çdo cep të fshehur"
+      },
+      "support": {
+        "title": "Mbështetje 24/7",
+        "description": "Gjithmonë të disponueshëm në anglisht, shqip dhe italisht"
+      },
+      "value": {
+        "title": "Vlerë e Shkëlqyer",
+        "description": "Përvoja premium me çmime të drejta"
+      }
+    }
+  },
+  "contact": {
+    "title": "Na Kontaktoni",
+    "subtitle": "Keni pyetje? Do të donim të dëgjojmë nga ju",
+    "form": {
+      "name": "Emri i Plotë",
+      "email": "Adresa Email",
+      "phone": "Numri i Telefonit",
+      "subject": "Subjekti",
+      "message": "Mesazhi Juaj",
+      "submit": "Dërgo Mesazhin",
+      "sending": "Duke dërguar...",
+      "success": "Mesazhi u dërgua me sukses!",
+      "error": "Dërgimi i mesazhit dështoi. Ju lutemi provoni përsëri."
+    },
+    "info": {
+      "address": "Adresa",
+      "phone": "Telefoni",
+      "email": "Email",
+      "hours": "Orari i Punës"
+    }
+  },
+  "tours": {
+    "title": "Eksploroni Turnet Tona",
+    "subtitle": "Zbuloni aventura të zgjedhura të dizajnuara për përvoja të paharrueshme",
+    "searchPlaceholder": "Kërko destinacione, turne...",
+    "filtersButton": "Filtrat",
+    "filtersOn": "Filtrat Aktive",
+    "clear": "Pastro",
+    "category": "Kategoria",
+    "location": "Vendndodhja",
+    "locations": {
+      "all": "Të Gjitha Vendndodhjet"
+    },
+    "tabs": {
+      "all": "Të Gjitha",
+      "packages": "Paketat e Pushimeve",
+      "dayTours": "Turne Ditore",
+      "nightTours": "Turne Natore",
+      "cruises": "Lundrime",
+      "events": "Ngjarje",
+      "soon": "Së Shpejti"
+    },
+    "categories": {
+      "all": "Të Gjitha Kategoritë",
+      "cultural": "Kulturore",
+      "adventure": "Aventurë",
+      "food": "Ushqim dhe Verë",
+      "nature": "Natyrë"
+    },
+    "comingSoon": {
+      "title": "Së Shpejti!",
+      "message": "Po punojmë për të shtuar përvoja të reja emocionuese në këtë kategori. Kontrolloni përsëri së shpejti!",
+      "browseAll": "Shfleto të Gjitha Turnet"
+    },
+    "results": {
+      "packages": "paketa",
+      "dayTours": "turne ditore",
+      "items": "artikuj",
+      "found": "u gjetën"
+    },
+    "badges": {
+      "flights": "Fluturime",
+      "hotel": "Hotel",
+      "package": "Paketë",
+      "dayTour": "Tur Ditor"
+    },
+    "priceRanges": {
+      "all": "Të Gjitha Çmimet",
+      "budget": "Nën €500",
+      "mid": "€500 - €1,000",
+      "premium": "€1,000 - €2,000",
+      "luxury": "Mbi €2,000"
+    },
+    "durations": {
+      "all": "Çdo Kohëzgjatje",
+      "short": "1-4 Ditë",
+      "medium": "5-7 Ditë",
+      "long": "8+ Ditë"
+    },
+    "filters": {
+      "all": "Të Gjitha Turnet",
+      "cultural": "Kulturore",
+      "adventure": "Aventurë",
+      "food": "Ushqim dhe Verë",
+      "nature": "Natyrë",
+      "featured": "Të Veçantë",
+      "popular": "Popullore",
+      "new": "Të Reja"
+    },
+    "sort": {
+      "label": "Rendit sipas",
+      "priceAsc": "Çmimi: Ulët në Lartë",
+      "priceDesc": "Çmimi: Lartë në Ulët",
+      "rating": "Më të Vlerësuara",
+      "duration": "Kohëzgjatja"
+    },
+    "duration": "Kohëzgjatja",
+    "price": "Çmimi",
+    "bookNow": "Rezervo Tani",
+    "viewDetails": "Shiko Detajet",
+    "view": "Shiko",
+    "perPerson": "për person",
+    "nights": "netë",
+    "people": "persona",
+    "noResults": "Nuk u gjetën turne që përputhen me kriteret tuaja",
+    "noResultsPackages": "Nuk u gjetën paketa",
+    "noResultsDayTours": "Nuk u gjetën turne ditore",
+    "noResultsMessage": "Provoni të rregulloni filtrat ose termat e kërkimit",
+    "clearFilters": "Pastro Filtrat",
+    "search": "Kërko"
+  },
+  "blog": {
+    "sectionLabel": "Tregime Udhëtimi",
+    "title": "Të Fundit nga Blogu Ynë",
+    "readMore": "Lexo Më Shumë",
+    "readTime": "min lexim",
+    "viewAll": "Shiko të Gjitha Postimet",
+    "categories": {
+      "destinationGuide": "Udhëzues Destinacioni",
+      "foodCulture": "Ushqim dhe Kulturë",
+      "adventure": "Aventurë",
+      "travelTips": "Këshilla Udhëtimi",
+      "hiddenGems": "Xhevahirë të Fshehur"
+    }
+  },
+  "footer": {
+    "description": "Partneri juaj i besuar për aventura të paharrueshme shqiptare. Zbuloni bukurinë e Ballkanit me turnet tona të udhëhequra nga ekspertë.",
+    "sections": {
+      "company": "Kompania",
+      "support": "Mbështetja",
+      "legal": "Ligjore"
+    },
+    "links": {
+      "about": "Rreth Nesh",
+      "careers": "Karriera",
+      "press": "Shtypi",
+      "help": "Qendra e Ndihmës",
+      "safety": "Siguria",
+      "cancellation": "Anulimi",
+      "terms": "Kushtet",
+      "privacy": "Privatësia",
+      "cookies": "Cookies"
+    },
+    "faq": "FAQ",
+    "faqTitle": "Eksploroni Pyetjet Tona të Udhëtimit",
+    "faqSubtitle": "Gjeni përgjigje për pyetjet e bëra zakonisht rreth shërbimeve tona",
+    "termsOfService": "Kushtet e Shërbimit",
+    "privacyPolicy": "Politika e Privatësisë",
+    "developedBy": "Zhvilluar nga",
+    "contactUs": "Na Kontaktoni",
+    "copyright": "Të gjitha të drejtat e rezervuara",
+    "newsletter": {
+      "title": "Abonohu në Buletinin Tonë",
+      "placeholder": "Shkruani emailin tuaj",
+      "button": "Abonohu",
+      "success": "Faleminderit që u abonuat!",
+      "error": "Abonimi dështoi. Ju lutemi provoni përsëri."
+    }
+  },
+  "common": {
+    "loading": "Duke ngarkuar...",
+    "error": "Diçka shkoi keq",
+    "tryAgain": "Provo Përsëri",
+    "close": "Mbyll",
+    "next": "Tjetri",
+    "previous": "I Mëparshmi",
+    "viewMore": "Shiko Më Shumë",
+    "backToTop": "Kthehu Lart",
+    "language": "Gjuha",
+    "english": "English",
+    "hebrew": "עברית",
+    "showMore": "Shfaq Më Shumë",
+    "showLess": "Shfaq Më Pak"
+  },
+  "auth": {
+    "login": "Hyr",
+    "logout": "Dil",
+    "signup": "Regjistrohu",
+    "myAccount": "Llogaria Ime",
+    "profile": "Profili",
+    "signInWith": "Hyr me {provider}"
+  },
+  "cart": {
+    "title": "Shporta Juaj",
+    "empty": "Shporta juaj është bosh",
+    "emptySubtitle": "Shfletoni turnet tona dhe shtoni diçka që ju pëlqen!",
+    "total": "Totali",
+    "subtotal": "Nëntotali",
+    "checkout": "Përfundo Blerjen",
+    "continueShopping": "Vazhdo Blerjen",
+    "remove": "Hiq",
+    "quantity": "Sasia",
+    "itemAdded": "Artikulli u shtua në shportë"
+  },
+  "checkout": {
+    "title": "Përfundimi i Blerjes",
+    "steps": {
+      "cart": "Shporta",
+      "details": "Detajet",
+      "payment": "Pagesa",
+      "confirmation": "Konfirmimi"
+    },
+    "travelerDetails": "Detajet e Udhëtarit",
+    "paymentDetails": "Detajet e Pagesës",
+    "orderSummary": "Përmbledhja e Porosisë",
+    "placeOrder": "Vendos Porosinë",
+    "processing": "Duke procesuar...",
+    "success": "Rezervimi u Konfirmua!",
+    "successMessage": "Faleminderit për rezervimin tuaj. Do të merrni një email konfirmimi së shpejti."
+  },
+  "booking": {
+    "sectionLabel": "Pse të Na Zgjidhni",
+    "title": "Rezervim Online i Lehtë",
+    "description": "Rezervoni aventurën tuaj të ardhshme me vetëm disa klikime. Platforma jonë intuitive e bën planifikimin e pushimeve tuaja të ëndrrave të lehtë.",
+    "stats": {
+      "trips": "Udhëtime të Rezervuara",
+      "hotels": "Hotele Partnere",
+      "rating": "Vlerësimi i Përdoruesve"
+    },
+    "cta": "Shkarko Aplikacionin"
+  },
+  "cancellation": {
+    "title": "Politika e Anulimit",
+    "overview": "Përmbledhje",
+    "policies": {
+      "flexible": {
+        "name": "Politikë Fleksibël",
+        "applies": "Paketat e Pushimeve"
+      },
+      "standard": {
+        "name": "Politikë Standarde",
+        "applies": "Turne Ditore"
+      },
+      "strict": {
+        "name": "Politikë e Rreptë",
+        "applies": "Bileta Ngjarjesh"
+      },
+      "custom": {
+        "name": "Politikë e Personalizuar",
+        "applies": "Turne Private"
+      }
+    },
+    "refund": {
+      "full": "Rimbursim i plotë",
+      "partial": "Rimbursim {percent}%",
+      "none": "Pa rimbursim"
+    },
+    "howToCancel": "Si të Anuloni",
+    "refundProcess": "Procesi i Rimbursimit"
+  },
+  "legal": {
+    "lastUpdated": "Përditësuar së fundmi",
+    "tableOfContents": "Tabela e Përmbajtjes",
+    "contactCta": "Pyetje? Na kontaktoni"
+  },
+  "help": {
+    "title": "Qendra e Ndihmës",
+    "subtitle": "Gjeni përgjigje për pyetjet e zakonshme",
+    "searchPlaceholder": "Kërko përgjigje...",
+    "categories": {
+      "booking": "Rezervime dhe Porosi",
+      "payment": "Pagesa dhe Çmimet",
+      "cancellation": "Anulime dhe Rimbursime",
+      "tours": "Gjatë Turit Tuaj",
+      "account": "Llogaria dhe Mbështetja"
+    },
+    "noResults": "Nuk u gjetën rezultate",
+    "contactSupport": "Kontakto Mbështetjen"
+  },
+  "accessibility": {
+    "title": "Cilësimet e Aksesibilitetit",
+    "fontSize": "Madhësia e Fontit",
+    "contrast": "Kontrast i Lartë",
+    "reducedMotion": "Lëvizje e Reduktuar",
+    "colorBlind": "Modaliteti i Verbërisë së Ngjyrave",
+    "reset": "Rivendos të Gjitha"
+  },
+  "cookies": {
+    "title": "Preferencat e Cookies",
+    "message": "Ne përdorim cookies për të përmirësuar përvojën tuaj të shfletimit.",
+    "essential": "Thelbësore",
+    "analytics": "Analitike",
+    "marketing": "Marketing",
+    "accept": "Prano të Gjitha",
+    "decline": "Refuzo",
+    "customize": "Personalizo"
+  },
+  "carRental": {
+    "sectionLabel": "Marrje me Qira Makinash",
+    "title": "Eksploroni Shqipërinë me Ritmin Tuaj",
+    "description": "Merrni me qira një makinë dhe zbuloni Shqipërinë me liri të plotë. Flota jonë e larmishme i përshtatet çdo stili udhëtimi.",
+    "filters": {
+      "all": "Të Gjitha",
+      "economy": "Ekonomike",
+      "compact": "Kompakte",
+      "midsize": "Mesatare",
+      "suv": "SUV",
+      "luxury": "Luksoze",
+      "van": "Furgon"
+    },
+    "specs": {
+      "seats": "vende",
+      "transmission": "Transmisioni",
+      "fuel": "Karburanti"
+    },
+    "transmission": {
+      "automatic": "Automatik",
+      "manual": "Manual"
+    },
+    "fuel": {
+      "petrol": "Benzinë",
+      "diesel": "Naftë",
+      "hybrid": "Hibrid",
+      "electric": "Elektrik"
+    },
+    "perDay": "/ditë",
+    "bookNow": "Rezervo",
+    "viewAll": "Shiko të Gjitha Automjetet"
+  }
+}

@@ -14,6 +14,12 @@ interface LanguageSwitcherProps {
 const languages: { code: Locale; name: string; nativeName: string; flag: string }[] = [
   { code: 'en', name: 'English', nativeName: localeNames.en, flag: '🇬🇧' },
   { code: 'he', name: 'Hebrew', nativeName: localeNames.he, flag: '🇮🇱' },
+  { code: 'pt', name: 'Portuguese', nativeName: localeNames.pt, flag: '🇧🇷' },
+  { code: 'sq', name: 'Albanian', nativeName: localeNames.sq, flag: '🇦🇱' },
+  { code: 'es', name: 'Spanish', nativeName: localeNames.es, flag: '🇪🇸' },
+  { code: 'ar', name: 'Arabic', nativeName: localeNames.ar, flag: '🇸🇦' },
+  { code: 'ru', name: 'Russian', nativeName: localeNames.ru, flag: '🇷🇺' },
+  { code: 'nl', name: 'Dutch', nativeName: localeNames.nl, flag: '🇳🇱' },
 ];
 
 export default function LanguageSwitcher({ variant = 'desktop', onAction }: LanguageSwitcherProps) {
@@ -39,17 +45,36 @@ export default function LanguageSwitcher({ variant = 'desktop', onAction }: Lang
   };
 
   const currentLanguage = languages.find((l) => l.code === locale) || languages[0];
-  const otherLanguage = languages.find((l) => l.code !== locale) || languages[1];
 
   if (variant === 'mobile') {
     return (
-      <button
-        className={styles.mobileButton}
-        onClick={() => handleLanguageChange(otherLanguage.code)}
-      >
-        <Globe size={20} />
-        <span>{otherLanguage.nativeName}</span>
-      </button>
+      <div className={styles.mobileContainer} ref={dropdownRef}>
+        <button
+          className={styles.mobileButton}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+        >
+          <Globe size={20} />
+          <span>{currentLanguage.nativeName}</span>
+          <ChevronDown size={14} className={`${styles.chevron} ${isOpen ? styles.open : ''}`} />
+        </button>
+        {isOpen && (
+          <div className={styles.mobileDropdown} role="listbox">
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                className={`${styles.mobileOption} ${lang.code === locale ? styles.active : ''}`}
+                onClick={() => handleLanguageChange(lang.code)}
+                role="option"
+                aria-selected={lang.code === locale}
+              >
+                <span className={styles.flag}>{lang.flag}</span>
+                <span className={styles.langName}>{lang.nativeName}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     );
   }
 
