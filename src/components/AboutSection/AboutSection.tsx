@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Compass, Headphones, Shield, ArrowRight, Star, Quote } from 'lucide-react';
 import { AboutContent, Testimonial } from '@/types';
 import { useInView } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './AboutSection.module.scss';
 
 interface AboutSectionProps {
@@ -35,7 +36,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function AboutSection({ content }: AboutSectionProps) {
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.2,
+    threshold: ANIMATION.THRESHOLD_STANDARD,
     triggerOnce: true,
   });
 

@@ -8,6 +8,7 @@ import { NextAuthOptions, User, Account, Profile, Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { authLogger } from '@/lib/logger';
 
 // Check if we're in demo mode (enables demo accounts)
 const DEMO_MODE = process.env.DEMO_MODE === 'true';
@@ -17,7 +18,7 @@ if (!process.env.NEXTAUTH_SECRET) {
   if (process.env.NODE_ENV === 'production') {
     throw new Error('NEXTAUTH_SECRET environment variable is required in production');
   }
-  console.warn('⚠️ NEXTAUTH_SECRET is not set. Using insecure default for development only.');
+  authLogger.warn('NEXTAUTH_SECRET is not set. Using insecure default for development only.');
 }
 
 // Import UserRole from shared utilities (re-export for backward compatibility)
@@ -73,7 +74,7 @@ const credentialsProvider = CredentialsProvider({
     // 3. Return the user object or null
 
     if (!credentials?.email || !credentials?.password) {
-      console.log('[Auth] Missing credentials');
+      authLogger.debug('Missing credentials');
       return null;
     }
 
@@ -81,7 +82,7 @@ const credentialsProvider = CredentialsProvider({
     const email = String(credentials.email).toLowerCase().trim();
     const password = String(credentials.password);
 
-    console.log('[Auth] Attempting login for:', email, 'DEMO_MODE:', DEMO_MODE);
+    authLogger.debug('Attempting login', { email, demoMode: DEMO_MODE });
 
     // Demo accounts - available by default when no real database is configured
     // In production with a real database, set DEMO_MODE=false
@@ -90,7 +91,7 @@ const credentialsProvider = CredentialsProvider({
     if (isDemoMode) {
       // Demo user
       if (email === 'demo@ibooktours.com' && password === 'demo123') {
-        console.log('[Auth] Demo user login successful');
+        authLogger.info('Demo user login successful', { email });
         return {
           id: 'demo-user-id',
           name: 'Demo User',
@@ -102,7 +103,7 @@ const credentialsProvider = CredentialsProvider({
 
       // Admin demo user
       if (email === 'admin@ibooktours.com' && password === 'admin123') {
-        console.log('[Auth] Admin user login successful');
+        authLogger.info('Admin user login successful', { email });
         return {
           id: 'admin-user-id',
           name: 'Admin User',
@@ -112,9 +113,9 @@ const credentialsProvider = CredentialsProvider({
         };
       }
 
-      console.log('[Auth] Invalid credentials for demo mode');
+      authLogger.debug('Invalid credentials for demo mode', { email });
     } else {
-      console.log('[Auth] Demo mode disabled, no database configured');
+      authLogger.debug('Demo mode disabled, no database configured');
     }
 
     // User not found or invalid credentials
@@ -221,10 +222,10 @@ export const authOptions: NextAuthOptions = {
   // Events for logging and analytics
   events: {
     async signIn({ user, isNewUser }: { user: User; isNewUser?: boolean }) {
-      console.log(`User signed in: ${user.email}, isNewUser: ${isNewUser}`);
+      authLogger.info('User signed in', { email: user.email, isNewUser });
     },
     async signOut({ token }: { token: JWT }) {
-      console.log(`User signed out: ${token.email}`);
+      authLogger.info('User signed out', { email: token.email });
     },
   },
 

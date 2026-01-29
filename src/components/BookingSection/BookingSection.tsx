@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Map, Building, Star, Download, Play, CheckCircle, Globe } from 'lucide-react';
 import { BookingContent } from '@/types';
 import { useInView } from '@/hooks';
+import { TIMING, ANIMATION } from '@/lib/constants';
 import styles from './BookingSection.module.scss';
 
 interface BookingSectionProps {
@@ -21,13 +22,13 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function BookingSection({ content }: BookingSectionProps) {
   const [showToast, setShowToast] = useState(false);
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.2,
+    threshold: ANIMATION.THRESHOLD_STANDARD,
     triggerOnce: true,
   });
 
   const handleComingSoon = () => {
     setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000);
+    setTimeout(() => setShowToast(false), TIMING.TOAST_DURATION);
   };
 
   return (

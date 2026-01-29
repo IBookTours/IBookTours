@@ -187,7 +187,9 @@ function initializeAnalytics(): void {
   // Example:
   // window.gtag?.('config', gaId, { anonymize_ip: true });
 
-  console.debug('[Cookies] Analytics initialized');
+  if (process.env.NODE_ENV === 'development') {
+    console.debug('[Cookies] Analytics initialized');
+  }
 }
 
 /**
@@ -197,5 +199,7 @@ function initializeAnalytics(): void {
 function initializeMarketing(): void {
   // Marketing scripts initialization
   // This is a placeholder - implement actual marketing pixel initialization
-  console.debug('[Cookies] Marketing scripts initialized');
+  if (process.env.NODE_ENV === 'development') {
+    console.debug('[Cookies] Marketing scripts initialized');
+  }
 }

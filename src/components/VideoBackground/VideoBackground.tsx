@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { Play, Pause } from 'lucide-react';
+import { TIMING, ANIMATION } from '@/lib/constants';
 import styles from './VideoBackground.module.scss';
 
 interface VideoBackgroundProps {
@@ -28,7 +29,7 @@ export default function VideoBackground({
   const [isPaused, setIsPaused] = useState(false);
   const [isInView, setIsInView] = useState(true);
 
-  // Timeout fallback - if video doesn't load in 8 seconds, show image
+  // Timeout fallback - if video doesn't load in time, show image
   useEffect(() => {
     if (isLoaded || hasError) return;
 
@@ -36,7 +37,7 @@ export default function VideoBackground({
       if (!isLoaded) {
         setTimedOut(true);
       }
-    }, 8000);
+    }, TIMING.VIDEO_LOAD_TIMEOUT);
 
     return () => clearTimeout(timeout);
   }, [isLoaded, hasError]);
@@ -72,7 +73,7 @@ export default function VideoBackground({
           video.pause();
         }
       },
-      { threshold: 0.1 }
+      { threshold: ANIMATION.THRESHOLD_LIGHT }
     );
 
     observer.observe(container);

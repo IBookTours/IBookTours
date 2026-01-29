@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Destination } from '@/types';
 import DestinationCard from '@/components/DestinationCard';
 import { useInView } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './DestinationsSection.module.scss';
 
 interface DestinationsSectionProps {
@@ -16,7 +17,7 @@ export default function DestinationsSection({ destinations }: DestinationsSectio
   const t = useTranslations('destinations');
   const [currentPage, setCurrentPage] = useState(0);
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.2,
+    threshold: ANIMATION.THRESHOLD_STANDARD,
     triggerOnce: true,
   });
 

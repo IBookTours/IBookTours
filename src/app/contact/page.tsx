@@ -12,6 +12,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import { validateEmail, validateName, getFieldError } from '@/utils/validation';
+import { TIMING } from '@/lib/constants';
 import styles from './contact.module.scss';
 
 const contactInfo = [
@@ -94,7 +95,7 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, TIMING.PAYMENT_SIMULATION_DELAY));
 
     setIsSubmitting(false);
     setIsSubmitted(true);

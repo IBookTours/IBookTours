@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Stat } from '@/types';
 import { useInView, useCountUp } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './StatsSection.module.scss';
 
 interface StatsSectionProps {
@@ -32,7 +33,7 @@ function AnimatedStat({ stat, isInView, translatedLabel }: { stat: Stat; isInVie
 export default function StatsSection({ stats }: StatsSectionProps) {
   const t = useTranslations('stats');
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.3,
+    threshold: ANIMATION.THRESHOLD_HEAVY,
     triggerOnce: true,
   });
 

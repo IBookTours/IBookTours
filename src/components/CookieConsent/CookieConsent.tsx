@@ -12,6 +12,7 @@ import {
   DEFAULT_CONSENT,
   initializeConditionalScripts,
 } from '@/lib/cookies';
+import { TIMING } from '@/lib/constants';
 import styles from './CookieConsent.module.scss';
 
 export default function CookieConsent() {
@@ -23,7 +24,7 @@ export default function CookieConsent() {
     // Check if user has already made a choice
     if (!hasConsentDecision()) {
       // Small delay before showing banner for better UX
-      const timer = setTimeout(() => setShowBanner(true), 1000);
+      const timer = setTimeout(() => setShowBanner(true), TIMING.BANNER_SHOW_DELAY);
       return () => clearTimeout(timer);
     } else {
       // Initialize scripts based on existing consent

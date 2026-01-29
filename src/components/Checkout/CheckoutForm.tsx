@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CreditCard, Lock, CheckCircle } from 'lucide-react';
+import { TIMING } from '@/lib/constants';
 import styles from './CheckoutForm.module.scss';
 
 interface CheckoutFormProps {
@@ -79,7 +80,7 @@ export default function CheckoutForm({
       }
 
       // Simulate payment processing delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, TIMING.PAYMENT_SIMULATION_DELAY));
 
       // Demo: Always succeed
       setIsSuccess(true);

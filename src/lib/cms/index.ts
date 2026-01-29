@@ -2,7 +2,10 @@
  * CMS Module Exports
  *
  * Factory for content providers.
- * Change the provider here to switch CMS backends.
+ * Set CMS_PROVIDER env variable to switch CMS backends:
+ * - 'mock' (default) - Uses static data from data files
+ * - 'payload' - Payload CMS (requires PAYLOAD_API_URL)
+ * - 'sanity' - Sanity CMS (requires SANITY_PROJECT_ID)
  */
 
 import { IContentProvider } from './ContentService';
@@ -20,17 +23,50 @@ export { MockContentProvider } from './MockContentProvider';
 let contentProvider: IContentProvider | null = null;
 
 /**
- * Get the configured content provider
+ * Supported CMS provider types
+ */
+export type CMSProviderType = 'mock' | 'payload' | 'sanity';
+
+/**
+ * Get the configured content provider based on CMS_PROVIDER env variable
  *
- * To switch providers, modify this function:
- * - For Sanity: return new SanityProvider(config)
- * - For Strapi: return new StrapiProvider(config)
+ * Supported providers:
+ * - 'mock' (default): Uses MockContentProvider with static data
+ * - 'payload': Payload CMS (implement PayloadProvider when ready)
+ * - 'sanity': Sanity CMS (implement SanityProvider when ready)
  */
 export function getContentProvider(): IContentProvider {
   if (!contentProvider) {
-    // Use mock provider by default
-    // TODO: Check env vars and instantiate real CMS provider
-    contentProvider = new MockContentProvider();
+    const providerType = (process.env.CMS_PROVIDER || 'mock') as CMSProviderType;
+
+    switch (providerType) {
+      case 'payload':
+        // Placeholder for Payload CMS integration
+        // When ready: import PayloadProvider and instantiate with PAYLOAD_API_URL
+        if (process.env.NODE_ENV === 'development') {
+          console.warn(
+            '[CMS] Payload provider not yet implemented, falling back to mock'
+          );
+        }
+        contentProvider = new MockContentProvider();
+        break;
+
+      case 'sanity':
+        // Placeholder for Sanity CMS integration
+        // When ready: import SanityProvider and instantiate with SANITY_PROJECT_ID
+        if (process.env.NODE_ENV === 'development') {
+          console.warn(
+            '[CMS] Sanity provider not yet implemented, falling back to mock'
+          );
+        }
+        contentProvider = new MockContentProvider();
+        break;
+
+      case 'mock':
+      default:
+        contentProvider = new MockContentProvider();
+        break;
+    }
   }
   return contentProvider;
 }

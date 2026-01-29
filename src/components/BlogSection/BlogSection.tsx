@@ -7,6 +7,7 @@ import { ArrowRight, Calendar, Clock, ChevronLeft, ChevronRight } from 'lucide-r
 import { useTranslations } from 'next-intl';
 import { BlogContent, BlogPost } from '@/types';
 import { useInView, useIsMobile, useSwipe } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './BlogSection.module.scss';
 
 const FALLBACK_IMAGE = '/media/hero-fallback.jpg';
@@ -18,7 +19,7 @@ interface BlogSectionProps {
 export default function BlogSection({ content }: BlogSectionProps) {
   const t = useTranslations('blog');
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.15,
+    threshold: ANIMATION.THRESHOLD_MEDIUM,
     triggerOnce: true,
   });
 

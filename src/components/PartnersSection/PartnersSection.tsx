@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Shield } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useInView } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './PartnersSection.module.scss';
 
 export interface Partner {
@@ -20,7 +21,7 @@ interface PartnersSectionProps {
 export default function PartnersSection({ partners }: PartnersSectionProps) {
   const t = useTranslations('partners');
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.1,
+    threshold: ANIMATION.THRESHOLD_LIGHT,
     triggerOnce: true,
   });
 

@@ -16,6 +16,7 @@ import {
   downloadICS,
   copyEventDetails,
 } from '@/lib/calendar';
+import { TIMING } from '@/lib/constants';
 import styles from './AddToCalendar.module.scss';
 
 interface AddToCalendarProps {
@@ -89,7 +90,7 @@ export default function AddToCalendar({
     const success = await copyEventDetails(event);
     if (success) {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), TIMING.COPY_FEEDBACK_DURATION);
     }
     setIsOpen(false);
   };

@@ -7,6 +7,7 @@ import { ChevronDown, Facebook, Instagram, Youtube } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { FooterContent } from '@/types';
 import { useInView } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './Footer.module.scss';
 
 interface FooterProps {
@@ -41,7 +42,7 @@ export default function Footer({ content, siteName }: FooterProps) {
   const t = useTranslations('footer');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
   const [faqRef, isFaqInView] = useInView<HTMLDivElement>({
-    threshold: 0.1,
+    threshold: ANIMATION.THRESHOLD_LIGHT,
     triggerOnce: true,
   });
 

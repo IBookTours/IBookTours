@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { emailService } from '@/lib/services/email';
+import { paymentLogger } from '@/lib/logger';
 
 // Stripe webhook secret (set in env for production)
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
@@ -46,7 +47,7 @@ export async function POST(request: NextRequest) {
       // Demo mode: parse body directly
       try {
         event = JSON.parse(body);
-        console.log('[Webhook DEMO] Received event:', event.type);
+        paymentLogger.debug('Webhook DEMO event received', { type: event.type });
       } catch {
         return NextResponse.json(
           { error: 'Invalid JSON payload' },
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
       const sig = request.headers.get('stripe-signature');
 
       if (!sig || !WEBHOOK_SECRET) {
-        console.error('[Webhook] Missing signature or webhook secret');
+        paymentLogger.error('Missing signature or webhook secret');
         return NextResponse.json(
           { error: 'Missing signature or webhook secret' },
           { status: 400 }
@@ -66,7 +67,7 @@ export async function POST(request: NextRequest) {
       }
 
       if (!stripe) {
-        console.error('[Webhook] Stripe client not initialized');
+        paymentLogger.error('Stripe client not initialized');
         return NextResponse.json(
           { error: 'Stripe not configured' },
           { status: 500 }
@@ -85,8 +86,7 @@ export async function POST(request: NextRequest) {
           },
         };
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'Unknown error';
-        console.error('[Webhook] Signature verification failed:', message);
+        paymentLogger.error('Signature verification failed', err);
         return NextResponse.json(
           { error: 'Invalid signature' },
           { status: 400 }
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
         const paymentIntent = event.data.object;
         const metadata = paymentIntent.metadata;
 
-        console.log('[Webhook] Payment succeeded:', {
+        paymentLogger.info('Payment succeeded', {
           paymentId: paymentIntent.id,
           amount: paymentIntent.amount,
           tourName: metadata.tourName,
@@ -118,10 +118,9 @@ export async function POST(request: NextRequest) {
               tourDate: metadata.selectedDate || 'TBD',
               totalAmount: `€${(paymentIntent.amount / 100).toFixed(2)}`,
             });
-            console.log('[Webhook] Confirmation email sent to:', metadata.bookerEmail);
+            paymentLogger.info('Confirmation email sent', { email: metadata.bookerEmail });
           } catch (emailError: unknown) {
-            const emailMessage = emailError instanceof Error ? emailError.message : String(emailError);
-            console.error('[Webhook] Failed to send email:', emailMessage);
+            paymentLogger.error('Failed to send confirmation email', emailError);
             // Don't fail the webhook if email fails
           }
         }
@@ -136,26 +135,25 @@ export async function POST(request: NextRequest) {
 
       case 'payment_intent.payment_failed': {
         const paymentIntent = event.data.object;
-        console.log('[Webhook] Payment failed:', paymentIntent.id);
+        paymentLogger.warn('Payment failed', { paymentId: paymentIntent.id });
 
         // Optionally notify the business of failed payment
         break;
       }
 
       case 'charge.refunded': {
-        console.log('[Webhook] Refund processed:', event.data.object.id);
+        paymentLogger.info('Refund processed', { chargeId: event.data.object.id });
         // Handle refund logic
         break;
       }
 
       default:
-        console.log('[Webhook] Unhandled event type:', event.type);
+        paymentLogger.debug('Unhandled event type', { type: event.type });
     }
 
     return NextResponse.json({ received: true });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.error('[Webhook] Error processing webhook:', message);
+    paymentLogger.error('Error processing webhook', error);
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 }

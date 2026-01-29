@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { TestimonialsContent } from '@/types';
 import { useInView, useSwipe } from '@/hooks';
 import { CarouselArrows } from '@/components/shared';
+import { ANIMATION } from '@/lib/constants';
 import styles from './TestimonialsSection.module.scss';
 
 interface TestimonialsSectionProps {
@@ -17,7 +18,7 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
   const t = useTranslations('testimonials');
   const [activeIndex, setActiveIndex] = useState(0);
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.2,
+    threshold: ANIMATION.THRESHOLD_STANDARD,
     triggerOnce: true,
   });
 

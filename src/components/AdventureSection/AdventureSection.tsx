@@ -7,6 +7,7 @@ import { Star, ChevronLeft, ChevronRight, ArrowRight, MapPin, Route, Smile } fro
 import { useTranslations } from 'next-intl';
 import { AdventureContent } from '@/types';
 import { useInView, useIsMobile, useIsTablet, useSwipe } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './AdventureSection.module.scss';
 
 const statIcons: Record<string, React.ReactNode> = {
@@ -22,7 +23,7 @@ interface AdventureSectionProps {
 export default function AdventureSection({ content }: AdventureSectionProps) {
   const t = useTranslations('adventure');
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.2,
+    threshold: ANIMATION.THRESHOLD_STANDARD,
     triggerOnce: true,
   });
   const [mobileIndex, setMobileIndex] = useState(0);

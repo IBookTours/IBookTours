@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { CTAContent } from '@/types';
 import { useInView } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './CTASection.module.scss';
 
 interface CTASectionProps {
@@ -15,7 +16,7 @@ interface CTASectionProps {
 export default function CTASection({ content }: CTASectionProps) {
   const t = useTranslations('cta');
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.3,
+    threshold: ANIMATION.THRESHOLD_HEAVY,
     triggerOnce: true,
   });
 

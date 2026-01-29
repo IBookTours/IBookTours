@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Mail, Compass, AlertCircle, ArrowLeft, CheckCircle } from 'lucide-react';
+import { TIMING } from '@/lib/constants';
 import styles from './forgot-password.module.scss';
 
 export default function ForgotPasswordPage() {
@@ -19,7 +20,7 @@ export default function ForgotPasswordPage() {
 
     try {
       // Simulate API call - in production, this would call a real endpoint
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, TIMING.PAYMENT_SIMULATION_DELAY));
 
       // In demo mode, just show success message
       setIsSubmitted(true);

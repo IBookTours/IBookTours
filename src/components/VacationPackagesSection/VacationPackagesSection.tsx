@@ -24,6 +24,7 @@ import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
 import { useIsMobile, useIsTablet, useSwipe, useInView } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './VacationPackagesSection.module.scss';
 
 type PromoBadgeType = 'limitedTime' | 'discount' | 'featured' | 'popular';
@@ -85,7 +86,7 @@ export default function VacationPackagesSection({
   }, []);
 
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.1,
+    threshold: ANIMATION.THRESHOLD_LIGHT,
     triggerOnce: true,
   });
 

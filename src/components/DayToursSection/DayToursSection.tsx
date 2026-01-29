@@ -22,6 +22,7 @@ import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
 import { useIsMobile, useIsTablet, useSwipe, useInView } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './DayToursSection.module.scss';
 
 export type TourCategory = 'all' | 'cultural' | 'adventure' | 'food' | 'nature';
@@ -77,7 +78,7 @@ export default function DayToursSection({
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.1,
+    threshold: ANIMATION.THRESHOLD_LIGHT,
     triggerOnce: true,
   });
 

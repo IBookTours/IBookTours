@@ -38,6 +38,7 @@ import {
 } from '@/store/bookingsStore';
 import { siteData } from '@/data/siteData';
 import { validateEmail, validatePhone, validateName, getFieldError } from '@/utils/validation';
+import { TIMING } from '@/lib/constants';
 import styles from './checkout.module.scss';
 
 type Step = 1 | 2 | 3 | 4;
@@ -279,7 +280,7 @@ function CheckoutContent() {
       if (!response.ok) throw new Error('Payment failed');
 
       // Simulate payment processing
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, TIMING.PAYMENT_SIMULATION_DELAY));
 
       // Build booking items with passenger info
       let bookingItems: BookingItem[];

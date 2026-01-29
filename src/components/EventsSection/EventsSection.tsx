@@ -7,6 +7,7 @@ import { ArrowRight, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { EventsContent } from '@/types';
 import { useInView, useIsDesktop, useSwipe } from '@/hooks';
+import { ANIMATION } from '@/lib/constants';
 import styles from './EventsSection.module.scss';
 
 interface EventsSectionProps {
@@ -16,7 +17,7 @@ interface EventsSectionProps {
 export default function EventsSection({ content }: EventsSectionProps) {
   const t = useTranslations('events');
   const [sectionRef, isInView] = useInView<HTMLElement>({
-    threshold: 0.15,
+    threshold: ANIMATION.THRESHOLD_MEDIUM,
     triggerOnce: true,
   });
 
