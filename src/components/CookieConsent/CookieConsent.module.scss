@@ -1,11 +1,15 @@
 @use '@/styles/variables' as *;
 
+// ============================================
+// COOKIE BANNER
+// ============================================
+
 .banner {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: $z-popover;  // 600
+  z-index: $z-popover;
   background-color: var(--bg-secondary);
   border-top: 1px solid var(--border-light);
   padding: $spacing-4;
@@ -63,21 +67,37 @@
 
 .actions {
   display: flex;
-  gap: $spacing-3;
+  flex-wrap: wrap;
+  gap: $spacing-2;
   flex-shrink: 0;
+
+  @include respond-to(md) {
+    gap: $spacing-3;
+  }
 }
 
-.declineButton,
-.acceptButton {
-  padding: $spacing-2 $spacing-5;
+// ============================================
+// BUTTONS
+// ============================================
+
+.rejectButton,
+.preferencesButton,
+.acceptButton,
+.saveButton {
+  padding: $spacing-2 $spacing-4;
   border-radius: $radius-md;
   font-size: $font-sm;
   font-weight: $font-medium;
   cursor: pointer;
   transition: all 0.2s ease;
+  white-space: nowrap;
+
+  @include respond-to(md) {
+    padding: $spacing-2 $spacing-5;
+  }
 }
 
-.declineButton {
+.rejectButton {
   background-color: transparent;
   border: 1px solid var(--border-medium);
   color: var(--text-primary);
@@ -93,7 +113,25 @@
   }
 }
 
-.acceptButton {
+.preferencesButton {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+
+  &:hover {
+    background-color: var(--bg-secondary);
+    border-color: var(--color-primary-500);
+    color: var(--color-primary-600);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+.acceptButton,
+.saveButton {
   background-color: $primary-600;
   border: 1px solid $primary-600;
   color: $text-light;
@@ -109,6 +147,268 @@
   }
 }
 
+// ============================================
+// MODAL OVERLAY
+// ============================================
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: $z-modal;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-4;
+  animation: fadeIn 0.2s ease-out;
+}
+
+// ============================================
+// MODAL
+// ============================================
+
+.modal {
+  background-color: var(--bg-primary);
+  border-radius: $radius-lg;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: scaleIn 0.2s ease-out;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-5 $spacing-6;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.modalTitle {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background-color: transparent;
+  border-radius: $radius-md;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+.modalBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-5 $spacing-6;
+}
+
+.modalDescription {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: $spacing-5;
+}
+
+.modalFooter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+  padding: $spacing-5 $spacing-6;
+  border-top: 1px solid var(--border-light);
+  justify-content: flex-end;
+}
+
+// ============================================
+// COOKIE CATEGORIES
+// ============================================
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.category {
+  border: 1px solid var(--border-light);
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-4;
+  padding: $spacing-4;
+  background-color: var(--bg-secondary);
+}
+
+.categoryInfo {
+  flex: 1;
+}
+
+.categoryName {
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin: 0 0 $spacing-1 0;
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.requiredBadge {
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  color: var(--text-light);
+  background-color: var(--color-primary-600);
+  padding: 2px $spacing-2;
+  border-radius: $radius-full;
+}
+
+.categoryDescription {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+// ============================================
+// TOGGLE SWITCH
+// ============================================
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .toggleSlider {
+      background-color: var(--color-primary-600);
+    }
+
+    &:checked + .toggleSlider::before {
+      transform: translateX(22px);
+    }
+
+    &:disabled + .toggleSlider {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &:focus-visible + .toggleSlider {
+      outline: 2px solid var(--color-primary-500);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.toggleSlider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: var(--border-strong);
+  border-radius: $radius-full;
+  transition: background-color 0.2s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    bottom: 2px;
+    height: 22px;
+    width: 22px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// ============================================
+// COOKIE DETAILS
+// ============================================
+
+.cookieDetails {
+  border-top: 1px solid var(--border-light);
+}
+
+.cookieSummary {
+  padding: $spacing-3 $spacing-4;
+  font-size: $font-sm;
+  color: var(--color-primary-600);
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: -2px;
+  }
+}
+
+.cookieTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-xs;
+
+  th,
+  td {
+    padding: $spacing-2 $spacing-3;
+    text-align: left;
+    border-top: 1px solid var(--border-light);
+  }
+
+  th {
+    background-color: var(--bg-tertiary);
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+  }
+
+  td {
+    color: var(--text-secondary);
+  }
+
+  tr:hover td {
+    background-color: var(--bg-secondary);
+  }
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
 @keyframes slideUp {
   from {
     transform: translateY(100%);
@@ -117,5 +417,25 @@
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
