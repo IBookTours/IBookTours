@@ -16,27 +16,37 @@ export type EmailTemplateType =
   | 'password-reset';
 
 // Data types for each template
-export interface WelcomeData {
+export interface WelcomeEmailData {
   customerName: string;
+  loginLink?: string;
 }
+
+// Alias for backward compatibility
+export type WelcomeData = WelcomeEmailData;
 
 export interface BookingConfirmationData {
   customerName: string;
   bookingId: string;
   tourName: string;
   tourDate: string;
-  travelers: number;
-  totalAmount: string;
-  meetingPoint?: string;
+  travelers: number | string;
+  totalPrice: string;
+  totalAmount?: string; // Alias for totalPrice
+  meetingPoint: string;
+  meetingTime: string;
+  guideContact?: string;
   contactPhone?: string;
 }
 
 export interface BookingReminderData {
   customerName: string;
+  bookingId: string;
   tourName: string;
   tourDate: string;
-  daysUntil: number;
-  meetingPoint?: string;
+  daysUntil?: number;
+  meetingPoint: string;
+  meetingTime: string;
+  whatToBring?: string[];
   contactPhone?: string;
 }
 
@@ -72,7 +82,7 @@ export interface PasswordResetData {
 
 // Map template type to its data type
 export interface EmailTemplateDataMap {
-  'welcome': WelcomeData;
+  'welcome': WelcomeEmailData;
   'booking-confirmation': BookingConfirmationData;
   'booking-reminder': BookingReminderData;
   'booking-cancelled': BookingCancelledData;

@@ -575,35 +575,26 @@ export class PayloadProvider extends BaseContentProvider {
   private transformToVacationPackage(doc: unknown): VacationPackage {
     const data = doc as Record<string, unknown>;
 
-    // Example transformation - customize based on your Payload schema
+    // Transform to match VacationPackage interface from types/index.ts
     return {
       id: String(data.id || data._id || ''),
-      slug: String(data.slug || ''),
-      name: String(data.name || data.title || ''),
       destination: String(data.destination || ''),
-      description: String(data.description || ''),
+      location: String(data.location || ''),
+      departureCities: Array.isArray(data.departureCities) ? data.departureCities.map(String) : [],
+      hotelName: String(data.hotelName || (data.hotel as Record<string, unknown>)?.name || ''),
+      hotelRating: Number(data.hotelRating || (data.hotel as Record<string, unknown>)?.rating || 0),
       duration: String(data.duration || ''),
-      price: String(data.price || '0'),
-      originalPrice: data.originalPrice ? String(data.originalPrice) : undefined,
+      nights: Number(data.nights || 0),
+      pricePerPerson: String(data.pricePerPerson || data.price || '0'),
       image: String(data.image || (data.featuredImage as Record<string, unknown>)?.url || ''),
-      rating: Number(data.rating || 0),
-      reviews: Number(data.reviews || 0),
       highlights: Array.isArray(data.highlights) ? data.highlights.map(String) : [],
-      included: Array.isArray(data.included) ? data.included.map(String) : [],
-      itinerary: Array.isArray(data.itinerary)
-        ? data.itinerary.map((item: unknown) => {
-            const i = item as Record<string, unknown>;
-            return {
-              day: Number(i.day || 0),
-              title: String(i.title || ''),
-              description: String(i.description || ''),
-            };
-          })
-        : [],
-      featured: Boolean(data.featured),
-      popular: Boolean(data.popular),
-      discount: data.discount ? Number(data.discount) : undefined,
-      badge: data.badge ? String(data.badge) : undefined,
+      includesFlights: Boolean(data.includesFlights || (data.includes as Record<string, unknown>)?.flights),
+      includesHotel: Boolean(data.includesHotel || (data.includes as Record<string, unknown>)?.hotel),
+      rating: Number(data.rating || 0),
+      reviewCount: Number(data.reviewCount || data.reviews || 0),
+      promoBadge: data.promoBadge as VacationPackage['promoBadge'],
+      discountPercent: data.discountPercent ? Number(data.discountPercent) : undefined,
+      originalPrice: data.originalPrice ? String(data.originalPrice) : undefined,
     };
   }
 
@@ -613,25 +604,27 @@ export class PayloadProvider extends BaseContentProvider {
    */
   private transformToDayTour(doc: unknown): DayTour {
     const data = doc as Record<string, unknown>;
+    const groupSizeData = data.groupSize as Record<string, unknown> | undefined;
 
     return {
       id: String(data.id || data._id || ''),
-      slug: String(data.slug || ''),
       name: String(data.name || data.title || ''),
-      location: String(data.location || ''),
-      description: String(data.description || ''),
       duration: String(data.duration || ''),
-      price: String(data.price || '0'),
+      location: String(data.location || ''),
+      departsFrom: String(data.departsFrom || ''),
+      groupSize: {
+        min: Number(groupSizeData?.min || 1),
+        max: Number(groupSizeData?.max || 10),
+      },
+      pricePerPerson: String(data.pricePerPerson || data.price || '0'),
+      category: (data.category as DayTour['category']) || 'adventure',
       image: String(data.image || (data.featuredImage as Record<string, unknown>)?.url || ''),
       rating: Number(data.rating || 0),
-      reviews: Number(data.reviews || 0),
-      category: String(data.category || 'adventure'),
-      groupSize: Number(data.groupSize || 10),
+      reviewCount: Number(data.reviewCount || data.reviews || 0),
       highlights: Array.isArray(data.highlights) ? data.highlights.map(String) : [],
-      included: Array.isArray(data.included) ? data.included.map(String) : [],
-      startTime: String(data.startTime || ''),
-      featured: Boolean(data.featured),
-      popular: Boolean(data.popular),
+      promoBadge: data.promoBadge as DayTour['promoBadge'],
+      discountPercent: data.discountPercent ? Number(data.discountPercent) : undefined,
+      originalPrice: data.originalPrice ? String(data.originalPrice) : undefined,
     };
   }
 
@@ -646,12 +639,10 @@ export class PayloadProvider extends BaseContentProvider {
       id: String(data.id || data._id || ''),
       title: String(data.title || data.name || ''),
       description: String(data.description || ''),
-      date: String(data.date || ''),
-      location: String(data.location || ''),
       image: String(data.image || (data.featuredImage as Record<string, unknown>)?.url || ''),
-      category: String(data.category || ''),
-      price: data.price ? String(data.price) : undefined,
-      ticketUrl: data.ticketUrl ? String(data.ticketUrl) : undefined,
+      date: data.date ? String(data.date) : undefined,
+      location: data.location ? String(data.location) : undefined,
+      href: data.href || data.ticketUrl ? String(data.href || data.ticketUrl) : undefined,
     };
   }
 
@@ -661,18 +652,23 @@ export class PayloadProvider extends BaseContentProvider {
    */
   private transformToBlogPost(doc: unknown): BlogPost {
     const data = doc as Record<string, unknown>;
+    const authorData = data.author as Record<string, unknown> | string | undefined;
 
     return {
       id: String(data.id || data._id || ''),
-      slug: String(data.slug || ''),
       title: String(data.title || ''),
       excerpt: String(data.excerpt || data.description || ''),
-      content: String(data.content || ''),
       image: String(data.image || (data.featuredImage as Record<string, unknown>)?.url || ''),
-      author: String(data.author || 'IBookTours Team'),
-      date: String(data.date || data.publishedAt || data.createdAt || ''),
       category: String(data.category || ''),
-      readTime: Number(data.readTime || 5),
+      author: typeof authorData === 'object' && authorData
+        ? {
+            name: String(authorData.name || 'IBookTours Team'),
+            avatar: String(authorData.avatar || ''),
+          }
+        : undefined,
+      date: String(data.date || data.publishedAt || data.createdAt || ''),
+      readTime: data.readTime ? String(data.readTime) : undefined,
+      featured: data.featured ? Boolean(data.featured) : undefined,
     };
   }
 
@@ -682,15 +678,19 @@ export class PayloadProvider extends BaseContentProvider {
    */
   private transformToTestimonial(doc: unknown): Testimonial {
     const data = doc as Record<string, unknown>;
+    const authorData = data.author as Record<string, unknown> | undefined;
 
     return {
       id: String(data.id || data._id || ''),
-      name: String(data.name || data.author || ''),
-      location: String(data.location || ''),
+      author: {
+        name: String(authorData?.name || data.name || ''),
+        title: String(authorData?.title || data.title || ''),
+        avatar: String(authorData?.avatar || data.avatar || data.image || ''),
+        location: authorData?.location || data.location ? String(authorData?.location || data.location) : undefined,
+      },
+      content: String(data.content || data.text || data.review || ''),
       rating: Number(data.rating || 5),
-      text: String(data.text || data.content || data.review || ''),
-      image: String(data.image || (data.avatar as Record<string, unknown>)?.url || ''),
-      tourName: String(data.tourName || data.tour || ''),
+      date: data.date ? String(data.date) : undefined,
     };
   }
 
@@ -704,10 +704,14 @@ export class PayloadProvider extends BaseContentProvider {
     return {
       id: String(data.id || data._id || ''),
       name: String(data.name || data.title || ''),
+      location: String(data.location || ''),
       description: String(data.description || ''),
       image: String(data.image || (data.featuredImage as Record<string, unknown>)?.url || ''),
-      tours: Number(data.tours || data.tourCount || 0),
-      slug: String(data.slug || ''),
+      rating: data.rating ? Number(data.rating) : undefined,
+      reviewCount: data.reviewCount ? Number(data.reviewCount) : undefined,
+      price: data.price ? String(data.price) : undefined,
+      duration: data.duration ? String(data.duration) : undefined,
+      featured: data.featured ? Boolean(data.featured) : undefined,
     };
   }
 

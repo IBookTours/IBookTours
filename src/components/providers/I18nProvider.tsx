@@ -7,10 +7,22 @@ import { defaultLocale, isRTL, type Locale } from '@/i18n/config';
 // Import messages statically for client-side
 import enMessages from '@/i18n/locales/en.json';
 import heMessages from '@/i18n/locales/he.json';
+import ptMessages from '@/i18n/locales/pt.json';
+import sqMessages from '@/i18n/locales/sq.json';
+import esMessages from '@/i18n/locales/es.json';
+import arMessages from '@/i18n/locales/ar.json';
+import ruMessages from '@/i18n/locales/ru.json';
+import nlMessages from '@/i18n/locales/nl.json';
 
 const messages: Record<Locale, AbstractIntlMessages> = {
   en: enMessages,
   he: heMessages,
+  pt: ptMessages,
+  sq: sqMessages,
+  es: esMessages,
+  ar: arMessages,
+  ru: ruMessages,
+  nl: nlMessages,
 };
 
 interface I18nProviderProps {
