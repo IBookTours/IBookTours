@@ -1,0 +1,695 @@
+@use '@/styles/variables' as *;
+
+// ============================================
+// CAR RENTAL PAGE
+// ============================================
+
+.page {
+  min-height: 100vh;
+  background: $bg-secondary;
+}
+
+// ============================================
+// HERO SECTION
+// ============================================
+
+.hero {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  @include respond-to(lg) {
+    height: 500px;
+  }
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    $overlay-base 0%,
+    $overlay-xl 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: $spacing-4;
+  max-width: 700px;
+
+  h1 {
+    font-size: $font-4xl;
+    font-weight: $font-bold;
+    color: $text-light;
+    margin: 0 0 $spacing-4 0;
+
+    @include respond-to(lg) {
+      font-size: $font-5xl;
+    }
+  }
+
+  p {
+    font-size: $font-lg;
+    color: $rgba-white-90;
+    margin: 0 0 $spacing-8 0;
+  }
+}
+
+.searchBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: $bg-primary;
+  border-radius: $radius-full;
+  padding: $spacing-2;
+  box-shadow: $shadow-xl;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchIcon {
+  position: absolute;
+  left: $spacing-5;
+  width: 20px;
+  height: 20px;
+  color: $text-muted;
+}
+
+.searchBar input {
+  flex: 1;
+  padding: $spacing-3 $spacing-4 $spacing-3 $spacing-12;
+  border: none;
+  background: transparent;
+  font-size: $font-base;
+  color: $text-primary;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.filterToggle {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-4;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: $radius-full;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--color-primary-400);
+  }
+
+  &.active {
+    background: var(--color-primary-600);
+    color: $text-light;
+    border-color: var(--color-primary-600);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  @include respond-to(md) {
+    display: none;
+  }
+}
+
+// ============================================
+// CONTAINER
+// ============================================
+
+.container {
+  @include container;
+  padding-top: $spacing-8;
+  padding-bottom: $spacing-16;
+}
+
+// ============================================
+// CATEGORY TABS
+// ============================================
+
+.tabs {
+  display: flex;
+  gap: $spacing-2;
+  margin-bottom: $spacing-6;
+  padding: $spacing-2;
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  border: 1px solid var(--border-light);
+  overflow-x: auto;
+
+  @include respond-to(md) {
+    gap: $spacing-3;
+  }
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-5;
+  background: transparent;
+  border: none;
+  border-radius: $radius-lg;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all $transition-fast;
+  white-space: nowrap;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+}
+
+.activeTab {
+  background: var(--color-primary-600);
+  color: $text-light;
+
+  &:hover {
+    background: var(--color-primary-700);
+    color: $text-light;
+  }
+}
+
+.tabCount {
+  padding: $spacing-1 $spacing-2;
+  background: var(--bg-secondary);
+  border-radius: $radius-full;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  color: var(--text-tertiary);
+
+  .activeTab & {
+    background: $rgba-white-20;
+    color: $text-light;
+  }
+}
+
+// ============================================
+// FILTER BAR
+// ============================================
+
+.filterBar {
+  display: none;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  border: 1px solid var(--border-light);
+  margin-bottom: $spacing-6;
+  flex-wrap: wrap;
+  align-items: center;
+
+  &.open {
+    display: flex;
+  }
+
+  @include respond-to(md) {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: $spacing-3 $spacing-4;
+    gap: $spacing-4;
+  }
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+  flex: 1;
+  min-width: 140px;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-2;
+    min-width: auto;
+  }
+
+  label {
+    display: none;
+
+    @include respond-to(md) {
+      display: flex;
+      align-items: center;
+      gap: $spacing-1;
+      font-size: $font-xs;
+      font-weight: $font-medium;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}
+
+.clearFilters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-1;
+  padding: $spacing-2 $spacing-3;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: $radius-lg;
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all $transition-fast;
+  white-space: nowrap;
+
+  @include respond-to(md) {
+    margin-left: auto;
+  }
+
+  &:hover {
+    background: var(--color-error-light);
+    border-color: var(--color-error);
+    color: var(--color-error);
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+// Active filters chips
+.activeFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  margin-bottom: $spacing-4;
+}
+
+.filterChip {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-1 $spacing-2 $spacing-1 $spacing-3;
+  background: var(--color-primary-50);
+  border: 1px solid var(--color-primary-200);
+  border-radius: $radius-full;
+  font-size: $font-xs;
+  color: var(--color-primary-700);
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--color-primary-500);
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: var(--color-primary-200);
+      color: var(--color-primary-700);
+    }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+// ============================================
+// RESULTS HEADER
+// ============================================
+
+.resultsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-6;
+}
+
+.resultCount {
+  font-size: $font-sm;
+  color: $text-secondary;
+  margin: 0;
+
+  strong {
+    color: $text-primary;
+    font-weight: $font-semibold;
+  }
+}
+
+.viewToggle {
+  display: flex;
+  gap: $spacing-1;
+  background: $bg-primary;
+  padding: $spacing-1;
+  border-radius: $radius-lg;
+  border: 1px solid $border-light;
+
+  button {
+    width: 36px;
+    height: 36px;
+    @include flex-center;
+    background: transparent;
+    border: none;
+    border-radius: $radius-md;
+    color: $text-muted;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      color: $text-primary;
+    }
+
+    &.active {
+      background: $primary-600;
+      color: $text-light;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// ============================================
+// VEHICLE GRID
+// ============================================
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to(xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &.listView {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ============================================
+// VEHICLE CARD
+// ============================================
+
+.vehicleCard {
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  transition: all $transition-fast;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    border-color: var(--border-medium);
+    transform: translateY(-2px);
+  }
+}
+
+.cardImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    transition: transform $transition-slow;
+  }
+
+  .vehicleCard:hover & {
+    img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.cardBadges {
+  position: absolute;
+  top: $spacing-3;
+  left: $spacing-3;
+  display: flex;
+  gap: $spacing-2;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-1 $spacing-2;
+  background: var(--color-primary-600);
+  color: $text-light;
+  font-size: 10px;
+  font-weight: $font-semibold;
+  border-radius: $radius-full;
+  backdrop-filter: blur(4px);
+
+  &.featured {
+    background: $color-star;
+  }
+
+  &.discount {
+    background: var(--color-success);
+  }
+
+  &.electric {
+    background: var(--color-success);
+  }
+}
+
+.categoryBadge {
+  position: absolute;
+  top: $spacing-3;
+  right: $spacing-3;
+  padding: $spacing-1 $spacing-3;
+  background: var(--color-secondary-500);
+  color: $text-light;
+  font-size: 10px;
+  font-weight: $font-bold;
+  border-radius: $radius-full;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cardContent {
+  padding: $spacing-4;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: $spacing-3;
+}
+
+.cardTitle {
+  font-size: $font-lg;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.cardRating {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+
+  svg {
+    color: $color-star;
+  }
+
+  span {
+    font-weight: $font-normal;
+    color: var(--text-tertiary);
+  }
+}
+
+.cardSpecs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+  padding-bottom: $spacing-3;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: $spacing-3;
+}
+
+.spec {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-sm;
+  color: var(--text-tertiary);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+  }
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+}
+
+.originalPrice {
+  font-size: $font-sm;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.currentPrice {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-1;
+}
+
+.amount {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: var(--color-primary-600);
+}
+
+.perDay {
+  font-size: $font-xs;
+  color: var(--text-tertiary);
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.viewBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-2 $spacing-4;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  border-radius: $radius-lg;
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-600);
+    color: $text-light;
+  }
+}
+
+.bookBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-2 $spacing-4;
+  background: var(--color-primary-600);
+  color: $text-light;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  border: none;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-700);
+  }
+}
+
+// ============================================
+// NO RESULTS
+// ============================================
+
+.noResults {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-16;
+  text-align: center;
+
+  svg {
+    width: 48px;
+    height: 48px;
+    color: $text-muted;
+    margin-bottom: $spacing-4;
+  }
+
+  h3 {
+    font-size: $font-xl;
+    font-weight: $font-semibold;
+    color: $text-primary;
+    margin: 0 0 $spacing-2 0;
+  }
+
+  p {
+    font-size: $font-base;
+    color: $text-secondary;
+    margin: 0 0 $spacing-6 0;
+  }
+
+  button {
+    @include button-primary;
+  }
+}

@@ -17,6 +17,7 @@ export const siteData: SiteContent = {
     { id: 'home', label: 'Home', href: '/' },
     { id: 'about', label: 'About', href: '/about' },
     { id: 'discover', label: 'Discover', href: '/tours' },
+    { id: 'carRental', label: 'Car Rental', href: '/car-rental' },
     { id: 'blog', label: 'Blog', href: '/blog' },
     { id: 'contact', label: 'Contact', href: '/contact' },
   ],
