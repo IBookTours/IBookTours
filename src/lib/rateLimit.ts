@@ -13,6 +13,62 @@
 // - RATE_LIMIT_CONTACT_MAX (default: 5)
 // - RATE_LIMIT_NEWSLETTER_MAX (default: 3)
 // - RATE_LIMIT_PAYMENT_MAX (default: 10)
+//
+// ============================================
+// REDIS MIGRATION GUIDE (for multi-instance production)
+// ============================================
+//
+// 1. Install Vercel KV:
+//    npm install @vercel/kv
+//
+// 2. Add environment variables:
+//    KV_REST_API_URL=your-kv-url
+//    KV_REST_API_TOKEN=your-kv-token
+//
+// 3. Create checkRateLimitRedis function:
+//    ```typescript
+//    import { kv } from '@vercel/kv';
+//
+//    async function checkRateLimitRedis(
+//      identifier: string,
+//      path: string,
+//      config: RateLimitConfig
+//    ): Promise<RateLimitResult> {
+//      const key = `ratelimit:${identifier}:${path}`;
+//      const now = Date.now();
+//
+//      // Use Redis MULTI for atomic operations
+//      const current = await kv.incr(key);
+//
+//      if (current === 1) {
+//        // First request in window, set expiry
+//        await kv.pexpire(key, config.windowMs);
+//      }
+//
+//      const ttl = await kv.pttl(key);
+//      const resetTime = now + (ttl > 0 ? ttl : config.windowMs);
+//
+//      return {
+//        allowed: current <= config.maxRequests,
+//        remaining: Math.max(0, config.maxRequests - current),
+//        resetTime,
+//        current,
+//      };
+//    }
+//    ```
+//
+// 4. Update checkRateLimit to use Redis when available:
+//    ```typescript
+//    const USE_REDIS = !!process.env.KV_REST_API_URL;
+//
+//    export async function checkRateLimit(...) {
+//      if (USE_REDIS) {
+//        return checkRateLimitRedis(identifier, path, config);
+//      }
+//      return checkRateLimitMemory(identifier, path, config);
+//    }
+//    ```
+// ============================================
 
 interface RateLimitEntry {
   count: number;

@@ -32,6 +32,7 @@ interface I18nProviderProps {
 export default function I18nProvider({ children }: I18nProviderProps) {
   const [locale, setLocale] = useState<Locale>(defaultLocale);
   const [mounted, setMounted] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -47,7 +48,20 @@ export default function I18nProvider({ children }: I18nProviderProps) {
 
     setLocale(initialLocale);
     updateDocumentDirection(initialLocale);
+
+    // Mark as hydrated after locale is set to prevent flicker
+    setIsHydrated(true);
   }, []);
+
+  // Add i18n-ready class to body once hydration is complete
+  useEffect(() => {
+    if (isHydrated) {
+      document.body.classList.add('i18n-ready');
+    }
+    return () => {
+      document.body.classList.remove('i18n-ready');
+    };
+  }, [isHydrated]);
 
   const updateDocumentDirection = (lang: Locale) => {
     document.documentElement.dir = isRTL(lang) ? 'rtl' : 'ltr';

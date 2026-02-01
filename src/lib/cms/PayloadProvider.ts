@@ -559,7 +559,22 @@ export class PayloadProvider extends BaseContentProvider {
 
   /**
    * Transform Payload response to SiteContent
-   * TODO: Implement based on your Payload site-config global schema
+   *
+   * Expected Payload 'site-config' global schema:
+   * ```typescript
+   * const SiteConfig: GlobalConfig = {
+   *   slug: 'site-config',
+   *   fields: [
+   *     { name: 'siteName', type: 'text', required: true },
+   *     { name: 'siteDescription', type: 'textarea' },
+   *     { name: 'logo', type: 'upload', relationTo: 'media' },
+   *     { name: 'favicon', type: 'upload', relationTo: 'media' },
+   *     { name: 'heroSection', type: 'group', fields: [...] },
+   *     { name: 'aboutSection', type: 'group', fields: [...] },
+   *     { name: 'socialLinks', type: 'array', fields: [...] },
+   *   ]
+   * };
+   * ```
    */
   private transformToSiteContent(data: unknown): SiteContent {
     // Placeholder implementation - customize based on your Payload schema
@@ -570,7 +585,38 @@ export class PayloadProvider extends BaseContentProvider {
 
   /**
    * Transform Payload document to VacationPackage
-   * TODO: Implement based on your vacation-packages collection schema
+   *
+   * Expected Payload 'vacation-packages' collection schema:
+   * ```typescript
+   * const VacationPackages: CollectionConfig = {
+   *   slug: 'vacation-packages',
+   *   fields: [
+   *     { name: 'destination', type: 'text', required: true },
+   *     { name: 'location', type: 'text', required: true },
+   *     { name: 'slug', type: 'text', unique: true },
+   *     { name: 'departureCities', type: 'array', fields: [{ name: 'city', type: 'text' }] },
+   *     { name: 'hotel', type: 'group', fields: [
+   *       { name: 'name', type: 'text' },
+   *       { name: 'rating', type: 'number', min: 1, max: 5 }
+   *     ]},
+   *     { name: 'duration', type: 'text' }, // e.g., "7 days / 6 nights"
+   *     { name: 'nights', type: 'number' },
+   *     { name: 'pricePerPerson', type: 'text' }, // e.g., "€1,299"
+   *     { name: 'featuredImage', type: 'upload', relationTo: 'media' },
+   *     { name: 'highlights', type: 'array', fields: [{ name: 'item', type: 'text' }] },
+   *     { name: 'includes', type: 'group', fields: [
+   *       { name: 'flights', type: 'checkbox' },
+   *       { name: 'hotel', type: 'checkbox' }
+   *     ]},
+   *     { name: 'rating', type: 'number' },
+   *     { name: 'reviewCount', type: 'number' },
+   *     { name: 'featured', type: 'checkbox' },
+   *     { name: 'promoBadge', type: 'select', options: ['bestSeller', 'newArrival', 'lastMinute', 'exclusive'] },
+   *     { name: 'discountPercent', type: 'number' },
+   *     { name: 'originalPrice', type: 'text' }
+   *   ]
+   * };
+   * ```
    */
   private transformToVacationPackage(doc: unknown): VacationPackage {
     const data = doc as Record<string, unknown>;
@@ -600,7 +646,33 @@ export class PayloadProvider extends BaseContentProvider {
 
   /**
    * Transform Payload document to DayTour
-   * TODO: Implement based on your day-tours collection schema
+   *
+   * Expected Payload 'day-tours' collection schema:
+   * ```typescript
+   * const DayTours: CollectionConfig = {
+   *   slug: 'day-tours',
+   *   fields: [
+   *     { name: 'name', type: 'text', required: true },
+   *     { name: 'slug', type: 'text', unique: true },
+   *     { name: 'duration', type: 'text' }, // e.g., "8 hours"
+   *     { name: 'location', type: 'text' },
+   *     { name: 'departsFrom', type: 'text' },
+   *     { name: 'groupSize', type: 'group', fields: [
+   *       { name: 'min', type: 'number' },
+   *       { name: 'max', type: 'number' }
+   *     ]},
+   *     { name: 'pricePerPerson', type: 'text' },
+   *     { name: 'category', type: 'select', options: ['cultural', 'adventure', 'nature', 'culinary', 'beach', 'historical'] },
+   *     { name: 'featuredImage', type: 'upload', relationTo: 'media' },
+   *     { name: 'rating', type: 'number' },
+   *     { name: 'reviewCount', type: 'number' },
+   *     { name: 'highlights', type: 'array', fields: [{ name: 'item', type: 'text' }] },
+   *     { name: 'promoBadge', type: 'select', options: ['bestSeller', 'new', 'popular'] },
+   *     { name: 'discountPercent', type: 'number' },
+   *     { name: 'originalPrice', type: 'text' }
+   *   ]
+   * };
+   * ```
    */
   private transformToDayTour(doc: unknown): DayTour {
     const data = doc as Record<string, unknown>;
@@ -630,7 +702,21 @@ export class PayloadProvider extends BaseContentProvider {
 
   /**
    * Transform Payload document to Event
-   * TODO: Implement based on your events collection schema
+   *
+   * Expected Payload 'events' collection schema:
+   * ```typescript
+   * const Events: CollectionConfig = {
+   *   slug: 'events',
+   *   fields: [
+   *     { name: 'title', type: 'text', required: true },
+   *     { name: 'description', type: 'richText' },
+   *     { name: 'featuredImage', type: 'upload', relationTo: 'media' },
+   *     { name: 'date', type: 'date' },
+   *     { name: 'location', type: 'text' },
+   *     { name: 'ticketUrl', type: 'text' }
+   *   ]
+   * };
+   * ```
    */
   private transformToEvent(doc: unknown): Event {
     const data = doc as Record<string, unknown>;
@@ -648,7 +734,25 @@ export class PayloadProvider extends BaseContentProvider {
 
   /**
    * Transform Payload document to BlogPost
-   * TODO: Implement based on your blog-posts collection schema
+   *
+   * Expected Payload 'blog-posts' collection schema:
+   * ```typescript
+   * const BlogPosts: CollectionConfig = {
+   *   slug: 'blog-posts',
+   *   fields: [
+   *     { name: 'title', type: 'text', required: true },
+   *     { name: 'slug', type: 'text', unique: true },
+   *     { name: 'excerpt', type: 'textarea' },
+   *     { name: 'content', type: 'richText' },
+   *     { name: 'featuredImage', type: 'upload', relationTo: 'media' },
+   *     { name: 'category', type: 'relationship', relationTo: 'categories' },
+   *     { name: 'author', type: 'relationship', relationTo: 'users' },
+   *     { name: 'publishedAt', type: 'date' },
+   *     { name: 'readTime', type: 'text' }, // e.g., "5 min read"
+   *     { name: 'featured', type: 'checkbox' }
+   *   ]
+   * };
+   * ```
    */
   private transformToBlogPost(doc: unknown): BlogPost {
     const data = doc as Record<string, unknown>;
@@ -674,7 +778,24 @@ export class PayloadProvider extends BaseContentProvider {
 
   /**
    * Transform Payload document to Testimonial
-   * TODO: Implement based on your testimonials collection schema
+   *
+   * Expected Payload 'testimonials' collection schema:
+   * ```typescript
+   * const Testimonials: CollectionConfig = {
+   *   slug: 'testimonials',
+   *   fields: [
+   *     { name: 'author', type: 'group', fields: [
+   *       { name: 'name', type: 'text', required: true },
+   *       { name: 'title', type: 'text' }, // e.g., "Travel Enthusiast"
+   *       { name: 'avatar', type: 'upload', relationTo: 'media' },
+   *       { name: 'location', type: 'text' }
+   *     ]},
+   *     { name: 'content', type: 'textarea', required: true },
+   *     { name: 'rating', type: 'number', min: 1, max: 5 },
+   *     { name: 'date', type: 'date' }
+   *   ]
+   * };
+   * ```
    */
   private transformToTestimonial(doc: unknown): Testimonial {
     const data = doc as Record<string, unknown>;
@@ -696,7 +817,25 @@ export class PayloadProvider extends BaseContentProvider {
 
   /**
    * Transform Payload document to Destination
-   * TODO: Implement based on your destinations collection schema
+   *
+   * Expected Payload 'destinations' collection schema:
+   * ```typescript
+   * const Destinations: CollectionConfig = {
+   *   slug: 'destinations',
+   *   fields: [
+   *     { name: 'name', type: 'text', required: true },
+   *     { name: 'slug', type: 'text', unique: true },
+   *     { name: 'location', type: 'text' },
+   *     { name: 'description', type: 'richText' },
+   *     { name: 'featuredImage', type: 'upload', relationTo: 'media' },
+   *     { name: 'rating', type: 'number' },
+   *     { name: 'reviewCount', type: 'number' },
+   *     { name: 'price', type: 'text' }, // Starting price
+   *     { name: 'duration', type: 'text' },
+   *     { name: 'featured', type: 'checkbox' }
+   *   ]
+   * };
+   * ```
    */
   private transformToDestination(doc: unknown): Destination {
     const data = doc as Record<string, unknown>;
