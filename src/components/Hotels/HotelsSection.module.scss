@@ -7,6 +7,7 @@
 .section {
   padding: $spacing-16 0;
   background: var(--bg-secondary);
+  overflow-x: hidden;
 
   @include respond-to(md) {
     padding: $spacing-20 0;

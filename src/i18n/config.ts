@@ -9,6 +9,9 @@ export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'en';
 
+// Default timezone for date formatting
+export const defaultTimeZone = 'Europe/Tirane';
+
 // Locale metadata for language switcher
 export const localeNames: Record<Locale, string> = {
   en: 'English',

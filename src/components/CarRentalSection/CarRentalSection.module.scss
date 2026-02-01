@@ -7,6 +7,7 @@
 .section {
   padding: $spacing-16 0;
   background: var(--bg-secondary);
+  overflow-x: hidden;
 
   @include respond-to(md) {
     padding: $spacing-20 0;
@@ -146,6 +147,7 @@
   border-radius: $radius-2xl;
   border: 1px solid var(--border-light);
   overflow: hidden;
+  max-width: 100%;
   transition: all $transition-base;
   animation: fadeInUp 0.5s ease-out forwards;
   opacity: 0;
@@ -203,6 +205,8 @@
   font-weight: $font-bold;
   color: var(--text-primary);
   margin: 0 0 $spacing-3;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .specs {

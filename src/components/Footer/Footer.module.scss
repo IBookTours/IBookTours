@@ -3,6 +3,7 @@
 .footer {
   background: var(--bg-secondary);  // Theme-aware background
   padding-top: $section-padding-y-mobile;
+  overflow-x: hidden;
 
   @include respond-to(lg) {
     padding-top: $section-padding-y;
@@ -144,6 +145,11 @@
 
 .brand {
   max-width: 100%;
+  text-align: center;
+
+  @include respond-to(sm) {
+    text-align: left;
+  }
 
   @include respond-to(md) {
     max-width: 280px;
@@ -175,6 +181,8 @@
   color: var(--text-secondary);
   line-height: $leading-relaxed;
   margin-bottom: $spacing-6;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .social {
@@ -216,6 +224,12 @@
 }
 
 .linkSection {
+  text-align: center;
+
+  @include respond-to(sm) {
+    text-align: left;
+  }
+
   h4 {
     font-size: $font-sm;
     font-weight: $font-semibold;

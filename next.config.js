@@ -18,6 +18,7 @@ const nextConfig = {
     includePaths: ['./src/styles'],
   },
   images: {
+    qualities: [60, 75, 80, 85, 90],
     remotePatterns: [
       {
         protocol: 'https',
@@ -104,7 +105,7 @@ const nextConfig = {
               "img-src 'self' data: blob: https://images.unsplash.com https://cdn.sanity.io https://i.pravatar.cc",
               "font-src 'self'",
               "connect-src 'self' https://api.stripe.com https://api.brevo.com",
-              "frame-src 'self' https://js.stripe.com",
+              "frame-src 'self' https://js.stripe.com https://www.google.com https://maps.google.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
