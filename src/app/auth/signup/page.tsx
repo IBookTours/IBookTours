@@ -1,16 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Lock, Compass, AlertCircle, ArrowLeft, CheckCircle, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, User, Compass, AlertCircle, ArrowLeft, CheckCircle, Eye, EyeOff } from 'lucide-react';
 import styles from '../forgot-password/forgot-password.module.scss';
 
-export default function ResetPasswordPage() {
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+export default function SignUpPage() {
+  const router = useRouter();
 
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -36,6 +37,7 @@ export default function ResetPasswordPage() {
     hasLowercase: false,
     hasNumber: false,
     passwordsMatch: false,
+    validEmail: false,
   });
 
   // Update validations as user types
@@ -46,16 +48,23 @@ export default function ResetPasswordPage() {
       hasLowercase: /[a-z]/.test(password),
       hasNumber: /[0-9]/.test(password),
       passwordsMatch: password === confirmPassword && password.length > 0,
+      validEmail: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
     });
-  }, [password, confirmPassword]);
+  }, [password, confirmPassword, email]);
 
-  const isFormValid = Object.values(validations).every(Boolean);
+  const isFormValid =
+    validations.minLength &&
+    validations.hasUppercase &&
+    validations.hasLowercase &&
+    validations.hasNumber &&
+    validations.passwordsMatch &&
+    validations.validEmail;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isFormValid) {
-      setError('Please meet all password requirements.');
+      setError('Please fill in all fields correctly.');
       return;
     }
 
@@ -72,53 +81,44 @@ export default function ResetPasswordPage() {
         setCsrfToken(csrf);
       }
 
-      const response = await fetch('/api/auth/reset-password', {
+      const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, password, csrf }),
+        body: JSON.stringify({
+          email,
+          password,
+          name: name.trim() || undefined,
+          csrf,
+        }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'Failed to reset password.');
+        if (response.status === 429) {
+          setError('Too many requests. Please try again later.');
+        } else if (data.details) {
+          // Validation errors from zod
+          const messages = Object.values(data.details).flat().join('. ');
+          setError(messages || data.error);
+        } else {
+          setError(data.error || 'Failed to create account.');
+        }
         return;
       }
 
       setIsSuccess(true);
+
+      // Redirect to signin after 2 seconds
+      setTimeout(() => {
+        router.push('/auth/signin');
+      }, 2000);
     } catch {
       setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
-
-  // No token provided
-  if (!token) {
-    return (
-      <div className={styles.page}>
-        <div className={styles.formSection}>
-          <div className={styles.formContainer}>
-            <Link href="/" className={styles.logo}>
-              <span className={styles.logoIcon}>
-                <Compass />
-              </span>
-              IBookTours
-            </Link>
-
-            <div className={styles.errorAlert}>
-              <AlertCircle />
-              <span>Invalid password reset link. Please request a new one.</span>
-            </div>
-
-            <Link href="/auth/forgot-password" className={styles.returnButton}>
-              Request New Link
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.page}>
@@ -136,9 +136,9 @@ export default function ResetPasswordPage() {
 
         <div className={styles.quoteCard}>
           <blockquote className={styles.quote}>
-            &ldquo;A fresh start is just a step away.&rdquo;
+            &ldquo;The world is a book, and those who do not travel read only one page.&rdquo;
           </blockquote>
-          <cite className={styles.author}>- IBookTours Team</cite>
+          <cite className={styles.author}>- Saint Augustine</cite>
         </div>
       </div>
 
@@ -165,13 +165,13 @@ export default function ResetPasswordPage() {
               <div className={styles.successIcon}>
                 <CheckCircle />
               </div>
-              <h1>Password Reset!</h1>
+              <h1>Account Created!</h1>
               <p>
-                Your password has been successfully reset.
-                You can now sign in with your new password.
+                Your account has been successfully created.
+                Redirecting you to sign in...
               </p>
               <Link href="/auth/signin" className={styles.returnButton}>
-                Sign In
+                Sign In Now
               </Link>
             </div>
           ) : (
@@ -179,9 +179,9 @@ export default function ResetPasswordPage() {
             <>
               {/* Header */}
               <div className={styles.header}>
-                <h1>Set New Password</h1>
+                <h1>Create Account</h1>
                 <p>
-                  Enter your new password below. Make sure it&apos;s secure!
+                  Join IBookTours to discover and book amazing travel experiences.
                 </p>
               </div>
 
@@ -196,13 +196,46 @@ export default function ResetPasswordPage() {
               {/* Form */}
               <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.inputGroup}>
-                  <label htmlFor="password">New Password</label>
+                  <label htmlFor="name">Name (optional)</label>
+                  <div className={styles.inputWrapper}>
+                    <User className={styles.inputIcon} />
+                    <input
+                      id="name"
+                      type="text"
+                      placeholder="Your name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      autoComplete="name"
+                      disabled={isLoading}
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label htmlFor="email">Email Address</label>
+                  <div className={styles.inputWrapper}>
+                    <Mail className={styles.inputIcon} />
+                    <input
+                      id="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      autoComplete="email"
+                      disabled={isLoading}
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label htmlFor="password">Password</label>
                   <div className={styles.inputWrapper}>
                     <Lock className={styles.inputIcon} />
                     <input
                       id="password"
                       type={showPassword ? 'text' : 'password'}
-                      placeholder="Enter new password"
+                      placeholder="Create a password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
@@ -227,7 +260,7 @@ export default function ResetPasswordPage() {
                     <input
                       id="confirmPassword"
                       type={showPassword ? 'text' : 'password'}
-                      placeholder="Confirm new password"
+                      placeholder="Confirm your password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
@@ -267,10 +300,18 @@ export default function ResetPasswordPage() {
                   {isLoading ? (
                     <span className={styles.spinner} />
                   ) : (
-                    'Reset Password'
+                    'Create Account'
                   )}
                 </button>
               </form>
+
+              {/* Sign In Link */}
+              <p style={{ textAlign: 'center', marginTop: '1.5rem', color: '#6b7280', fontSize: '0.875rem' }}>
+                Already have an account?{' '}
+                <Link href="/auth/signin" style={{ color: '#0d9488', fontWeight: 500 }}>
+                  Sign in
+                </Link>
+              </p>
             </>
           )}
         </div>

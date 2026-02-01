@@ -11,6 +11,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { timingSafeEqual } from 'crypto';
 import { authLogger } from '@/lib/logger';
 import { checkAccountLockout, recordFailedAttempt, clearFailedAttempts } from '@/lib/accountLockout';
+import { auditAuth } from '@/lib/auditLog';
 
 /**
  * SECURITY: Constant-time string comparison to prevent timing attacks
@@ -119,6 +120,7 @@ const credentialsProvider = CredentialsProvider({
       if (demoUserPassword && safeCompare(email, demoUserEmail.toLowerCase()) && safeCompare(password, demoUserPassword)) {
         authLogger.info('Demo user login successful', { email });
         await clearFailedAttempts(email); // Clear lockout on success
+        auditAuth.loginSuccess('demo-user-id', demoUserEmail);
         return {
           id: 'demo-user-id',
           name: 'Demo User',
@@ -133,6 +135,7 @@ const credentialsProvider = CredentialsProvider({
       if (adminUserPassword && safeCompare(email, adminUserEmail.toLowerCase()) && safeCompare(password, adminUserPassword)) {
         authLogger.info('Admin user login successful', { email });
         await clearFailedAttempts(email); // Clear lockout on success
+        auditAuth.loginSuccess('admin-user-id', adminUserEmail);
         return {
           id: 'admin-user-id',
           name: 'Admin User',
@@ -151,8 +154,10 @@ const credentialsProvider = CredentialsProvider({
 
     // SECURITY: Record failed attempt
     const failedStatus = await recordFailedAttempt(email);
+    auditAuth.loginFailed(email, undefined, 'Invalid credentials');
     if (failedStatus.isLocked) {
       authLogger.warn('Account locked after failed attempts', { email });
+      auditAuth.accountLocked(email);
     }
 
     // User not found or invalid credentials

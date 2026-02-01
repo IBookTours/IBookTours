@@ -10,6 +10,7 @@ import { getUserService } from '@/lib/services/user';
 import { checkRateLimit, getClientIP, rateLimitExceededResponse, RATE_LIMITS } from '@/lib/rateLimit';
 import { authLogger } from '@/lib/logger';
 import { validateCsrfToken, csrfErrorResponse } from '@/lib/csrf';
+import { auditAuth } from '@/lib/auditLog';
 
 // Input validation schema
 const resetPasswordSchema = z.object({
@@ -76,6 +77,10 @@ export async function POST(request: NextRequest) {
     await userService.updatePassword(tokenResult.userId, password);
 
     authLogger.info('Password reset completed successfully', { userId: tokenResult.userId });
+
+    // Get user email for audit log
+    const user = await userService.findById(tokenResult.userId);
+    auditAuth.passwordResetComplete(tokenResult.userId, user?.email || 'unknown');
 
     return NextResponse.json({
       message: 'Password has been reset successfully. You can now sign in with your new password.',

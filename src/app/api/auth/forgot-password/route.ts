@@ -13,6 +13,7 @@ import { checkRateLimit, getClientIP, rateLimitExceededResponse, RATE_LIMITS } f
 import { authLogger } from '@/lib/logger';
 import { validateCsrfToken, csrfErrorResponse } from '@/lib/csrf';
 import { escapeHtml } from '@/lib/services/email/templates/base';
+import { auditAuth } from '@/lib/auditLog';
 
 // Input validation schema
 const forgotPasswordSchema = z.object({
@@ -98,6 +99,7 @@ export async function POST(request: NextRequest) {
       });
 
       authLogger.info('Password reset email sent', { userId: user.id });
+      auditAuth.passwordResetRequest(user.email, clientIP);
     } catch (emailError) {
       authLogger.error('Failed to send password reset email', emailError);
       // Still return success - don't leak whether email failed

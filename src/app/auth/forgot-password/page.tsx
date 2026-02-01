@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Mail, Compass, AlertCircle, ArrowLeft, CheckCircle } from 'lucide-react';
@@ -11,6 +11,17 @@ export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [csrfToken, setCsrfToken] = useState<string | null>(null);
+
+  // Fetch CSRF token on mount
+  useEffect(() => {
+    fetch('/api/csrf')
+      .then((res) => res.json())
+      .then((data) => setCsrfToken(data.csrf))
+      .catch(() => {
+        // CSRF fetch failed - will retry on submit
+      });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,10 +29,19 @@ export default function ForgotPasswordPage() {
     setError(null);
 
     try {
+      // Get fresh CSRF token if we don't have one
+      let token = csrfToken;
+      if (!token) {
+        const csrfRes = await fetch('/api/csrf');
+        const csrfData = await csrfRes.json();
+        token = csrfData.csrf;
+        setCsrfToken(token);
+      }
+
       const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, csrf: token }),
       });
 
       if (response.status === 429) {
@@ -89,7 +109,7 @@ export default function ForgotPasswordPage() {
                 a password reset link. Please check your inbox and spam folder.
               </p>
               <p className={styles.note}>
-                The link will expire in 24 hours.
+                The link will expire in 1 hour for security.
               </p>
               <Link href="/auth/signin" className={styles.returnButton}>
                 Return to Sign In
