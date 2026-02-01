@@ -29,6 +29,7 @@ interface StripeEvent {
         bookingId?: string;
         userId?: string;
         tourId?: string;
+        paymentType?: 'full' | 'deposit' | 'balance';
       };
     };
   };
@@ -97,11 +98,13 @@ export async function POST(request: NextRequest) {
       case 'payment_intent.succeeded': {
         const paymentIntent = event.data.object;
         const metadata = paymentIntent.metadata;
+        const paymentType = metadata.paymentType || 'full';
 
         paymentLogger.info('Payment succeeded', {
           paymentId: paymentIntent.id,
           amount: paymentIntent.amount,
           bookingId: metadata.bookingId,
+          paymentType,
         });
 
         // SECURITY: Fetch booking from database to get details and verify amount
@@ -124,38 +127,115 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        // SECURITY: Verify payment amount matches booking amount
-        if (paymentIntent.amount !== booking.totalAmount) {
+        // SECURITY: Verify payment amount based on payment type
+        let expectedAmount: number;
+        if (paymentType === 'deposit') {
+          expectedAmount = booking.depositAmount || 0;
+        } else if (paymentType === 'balance') {
+          expectedAmount = booking.balanceAmount || 0;
+        } else {
+          expectedAmount = booking.totalAmount;
+        }
+
+        if (paymentIntent.amount !== expectedAmount) {
           paymentLogger.error('Payment amount mismatch - possible manipulation', {
             paymentId: paymentIntent.id,
             bookingId: metadata.bookingId,
             paidAmount: paymentIntent.amount,
-            expectedAmount: booking.totalAmount,
+            expectedAmount,
+            paymentType,
           });
           // Don't confirm booking if amounts don't match
           break;
         }
 
-        // Update booking status to confirmed
+        // Update booking based on payment type
         try {
-          await bookingService.updatePaymentStatus(paymentIntent.id, 'succeeded');
-          paymentLogger.info('Booking confirmed', { bookingId: booking.id });
+          if (paymentType === 'deposit') {
+            // Deposit payment: update deposit status, keep booking pending if approval required
+            await bookingService.updateBooking(booking.id, {
+              paymentIntentId: paymentIntent.id,
+              paymentStatus: 'deposit_paid',
+              depositPaidAt: new Date(),
+              // Only auto-confirm if no approval required (day tours)
+              status: booking.approvalStatus === 'not_required' ? 'confirmed' : 'pending',
+            });
+            paymentLogger.info('Deposit payment recorded', {
+              bookingId: booking.id,
+              requiresApproval: booking.approvalStatus !== 'not_required',
+            });
+          } else if (paymentType === 'balance') {
+            // Balance payment: only succeed if booking was already approved
+            if (booking.approvalStatus === 'approved' || booking.approvalStatus === 'not_required') {
+              await bookingService.updateBooking(booking.id, {
+                balancePaymentIntentId: paymentIntent.id,
+                paymentStatus: 'succeeded',
+                status: 'confirmed',
+              });
+              paymentLogger.info('Balance payment confirmed booking', { bookingId: booking.id });
+            } else {
+              paymentLogger.error('Balance payment for unapproved booking', {
+                bookingId: booking.id,
+                approvalStatus: booking.approvalStatus,
+              });
+              break;
+            }
+          } else {
+            // Full payment: auto-confirm only if no approval required
+            const shouldConfirm = booking.approvalStatus === 'not_required';
+            await bookingService.updateBooking(booking.id, {
+              paymentIntentId: paymentIntent.id,
+              paymentStatus: 'succeeded',
+              status: shouldConfirm ? 'confirmed' : 'pending',
+            });
+            paymentLogger.info('Full payment recorded', {
+              bookingId: booking.id,
+              confirmed: shouldConfirm,
+            });
+          }
         } catch (updateError) {
           paymentLogger.error('Failed to update booking status', updateError);
         }
 
-        // Send confirmation email using data from booking record (not metadata)
+        // Send appropriate email based on payment type and status
         if (booking.bookerEmail && booking.tourName) {
           try {
-            await emailService.sendBookingConfirmation({
-              customerEmail: booking.bookerEmail,
-              customerName: booking.bookerName || 'Guest',
-              bookingId: booking.id,
-              tourName: booking.tourName,
-              tourDate: booking.selectedDate?.toISOString() || 'TBD',
-              totalAmount: `€${(booking.totalAmount / 100).toFixed(2)}`,
-            });
-            paymentLogger.info('Confirmation email sent', { email: booking.bookerEmail });
+            const isConfirmed = booking.approvalStatus === 'not_required';
+
+            if (paymentType === 'deposit' && !isConfirmed) {
+              // Deposit paid, awaiting approval
+              await emailService.sendBookingConfirmation({
+                customerEmail: booking.bookerEmail,
+                customerName: booking.bookerName || 'Guest',
+                bookingId: booking.id,
+                tourName: booking.tourName,
+                tourDate: booking.selectedDate?.toISOString() || 'TBD',
+                totalAmount: `€${(booking.depositAmount! / 100).toFixed(2)} deposit paid - Awaiting confirmation`,
+              });
+              paymentLogger.info('Deposit confirmation email sent', { email: booking.bookerEmail });
+            } else if (paymentType === 'balance' || (paymentType === 'full' && isConfirmed)) {
+              // Full payment or balance payment - booking confirmed
+              await emailService.sendBookingConfirmation({
+                customerEmail: booking.bookerEmail,
+                customerName: booking.bookerName || 'Guest',
+                bookingId: booking.id,
+                tourName: booking.tourName,
+                tourDate: booking.selectedDate?.toISOString() || 'TBD',
+                totalAmount: `€${(booking.totalAmount / 100).toFixed(2)}`,
+              });
+              paymentLogger.info('Confirmation email sent', { email: booking.bookerEmail });
+            } else if (paymentType === 'deposit' && isConfirmed) {
+              // Day tour with deposit - confirmed immediately
+              await emailService.sendBookingConfirmation({
+                customerEmail: booking.bookerEmail,
+                customerName: booking.bookerName || 'Guest',
+                bookingId: booking.id,
+                tourName: booking.tourName,
+                tourDate: booking.selectedDate?.toISOString() || 'TBD',
+                totalAmount: `€${(booking.depositAmount! / 100).toFixed(2)} deposit paid - Balance €${((booking.balanceAmount || 0) / 100).toFixed(2)} due on arrival`,
+              });
+              paymentLogger.info('Deposit confirmation email sent (instant)', { email: booking.bookerEmail });
+            }
           } catch (emailError: unknown) {
             paymentLogger.error('Failed to send confirmation email', emailError);
             // Don't fail the webhook if email fails

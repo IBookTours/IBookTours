@@ -45,6 +45,11 @@ export const users = pgTable(
 // ============================================
 // BOOKINGS TABLE
 // ============================================
+// Status values: 'pending', 'confirmed', 'cancelled', 'completed', 'refunded'
+// Payment status: 'pending', 'deposit_paid', 'succeeded', 'failed', 'refunded'
+// Approval status: 'not_required', 'pending', 'approved', 'rejected'
+// Product types: 'day-tour', 'vacation-package', 'car-rental', 'hotel'
+// Payment methods: 'full', 'deposit', 'cash_on_arrival'
 export const bookings = pgTable(
   'bookings',
   {
@@ -53,26 +58,42 @@ export const bookings = pgTable(
     tourId: varchar('tour_id', { length: 100 }).notNull(),
     tourName: varchar('tour_name', { length: 255 }).notNull(),
     status: varchar('status', { length: 20 }).default('pending').notNull(),
-    // Status values: 'pending', 'confirmed', 'cancelled', 'completed', 'refunded'
     totalAmount: integer('total_amount').notNull(), // in cents
     currency: varchar('currency', { length: 3 }).default('eur').notNull(),
     travelers: integer('travelers').default(1).notNull(),
     selectedDate: timestamp('selected_date'),
     paymentIntentId: varchar('payment_intent_id', { length: 255 }),
     paymentStatus: varchar('payment_status', { length: 20 }).default('pending'),
-    // Payment status: 'pending', 'succeeded', 'failed', 'refunded'
     bookerName: varchar('booker_name', { length: 255 }).notNull(),
     bookerEmail: varchar('booker_email', { length: 255 }).notNull(),
     bookerPhone: varchar('booker_phone', { length: 50 }),
     specialRequests: text('special_requests'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
+
+    // === NEW: Product & Payment Type ===
+    productType: varchar('product_type', { length: 30 }).default('day-tour'),
+    paymentMethod: varchar('payment_method', { length: 20 }).default('full'),
+
+    // === NEW: Deposit/Balance Tracking ===
+    depositAmount: integer('deposit_amount'), // in cents, null = full payment
+    depositPaidAt: timestamp('deposit_paid_at'),
+    balanceAmount: integer('balance_amount'), // remaining after deposit
+    balancePaymentIntentId: varchar('balance_payment_intent_id', { length: 255 }),
+
+    // === NEW: Approval Workflow ===
+    approvalStatus: varchar('approval_status', { length: 20 }).default('not_required'),
+    approvedBy: uuid('approved_by').references(() => users.id),
+    approvedAt: timestamp('approved_at'),
+    rejectionReason: text('rejection_reason'),
+    adminNotes: text('admin_notes'),
   },
   (table) => ({
     userIdIdx: index('bookings_user_id_idx').on(table.userId),
     statusIdx: index('bookings_status_idx').on(table.status),
     tourIdIdx: index('bookings_tour_id_idx').on(table.tourId),
     paymentIntentIdx: index('bookings_payment_intent_idx').on(table.paymentIntentId),
+    approvalIdx: index('bookings_approval_idx').on(table.approvalStatus),
   })
 );
 
@@ -162,7 +183,8 @@ export const contactSubmissions = pgTable(
 // RELATIONS
 // ============================================
 export const usersRelations = relations(users, ({ many }) => ({
-  bookings: many(bookings),
+  bookings: many(bookings, { relationName: 'booker' }),
+  approvedBookings: many(bookings, { relationName: 'approver' }),
   passwordResetTokens: many(passwordResetTokens),
   emailVerificationTokens: many(emailVerificationTokens),
 }));
@@ -171,6 +193,12 @@ export const bookingsRelations = relations(bookings, ({ one }) => ({
   user: one(users, {
     fields: [bookings.userId],
     references: [users.id],
+    relationName: 'booker',
+  }),
+  approver: one(users, {
+    fields: [bookings.approvedBy],
+    references: [users.id],
+    relationName: 'approver',
   }),
 }));
 

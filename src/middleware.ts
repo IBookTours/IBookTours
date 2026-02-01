@@ -24,8 +24,11 @@ const protectedRoutes = ['/profile'];
 // API routes that require authentication (returns 401 instead of redirect)
 const protectedApiRoutes = ['/api/create-payment-intent', '/api/bookings'];
 
+// API routes that require admin role (returns 401/403 instead of redirect)
+const adminApiRoutes = ['/api/admin'];
+
 // Routes that require admin role
-const adminRoutes = ['/studio'];
+const adminRoutes = ['/studio', '/admin'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -80,6 +83,30 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Handle admin API routes - require admin role, return 401/403 instead of redirect
+  const isAdminApiRoute = adminApiRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
+
+  if (isAdminApiRoute) {
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    if (token.role !== 'admin') {
+      return NextResponse.json(
+        { error: 'Admin access required' },
+        { status: 403 }
+      );
+    }
+
+    // Admin user - allow access
+    return NextResponse.next();
+  }
+
   // Handle protected API routes - return 401 instead of redirect
   const isProtectedApiRoute = protectedApiRoutes.some((route) =>
     pathname.startsWith(route)
@@ -109,8 +136,10 @@ export const config = {
     '/profile/:path*',
     // Admin routes (requires admin role)
     '/studio/:path*',
+    '/admin/:path*',
     // Protected API routes (returns 401 if not authenticated)
     '/api/create-payment-intent',
     '/api/bookings/:path*',
+    '/api/admin/:path*',
   ],
 };

@@ -14,6 +14,8 @@ import type {
   UpdateBookingParams,
   BookingStatus,
   PaymentStatus,
+  ApprovalStatus,
+  ProductType,
 } from './BookingService';
 
 // In-memory storage for demo mode
@@ -53,6 +55,18 @@ export class MockBookingProvider extends BaseService implements IBookingService 
       paymentIntentId: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      // New fields for approval/deposit workflow
+      productType: params.productType ?? 'day-tour',
+      paymentMethod: params.paymentMethod ?? 'full',
+      depositAmount: params.depositAmount ?? null,
+      depositPaidAt: null,
+      balanceAmount: params.balanceAmount ?? null,
+      balancePaymentIntentId: null,
+      approvalStatus: params.approvalStatus ?? 'not_required',
+      approvedBy: null,
+      approvedAt: null,
+      rejectionReason: null,
+      adminNotes: null,
     };
 
     mockBookings.set(booking.id, booking);
@@ -133,5 +147,99 @@ export class MockBookingProvider extends BaseService implements IBookingService 
 
   async cancelBooking(bookingId: string): Promise<Booking> {
     return this.updateBooking(bookingId, { status: 'cancelled' });
+  }
+
+  async approveBooking(
+    bookingId: string,
+    approvedBy: string,
+    adminNotes?: string
+  ): Promise<Booking> {
+    this.logInfo('Approving booking (mock)', { bookingId, approvedBy });
+
+    const booking = mockBookings.get(bookingId);
+    if (!booking) {
+      throw new Error(`Booking with ID ${bookingId} not found`);
+    }
+
+    if (booking.approvalStatus !== 'pending') {
+      throw new Error(`Booking ${bookingId} is not pending approval`);
+    }
+
+    return this.updateBooking(bookingId, {
+      approvalStatus: 'approved',
+      approvedBy,
+      approvedAt: new Date(),
+      adminNotes: adminNotes ?? booking.adminNotes ?? undefined,
+    });
+  }
+
+  async rejectBooking(
+    bookingId: string,
+    rejectedBy: string,
+    reason: string
+  ): Promise<Booking> {
+    this.logInfo('Rejecting booking (mock)', { bookingId, rejectedBy, reason });
+
+    const booking = mockBookings.get(bookingId);
+    if (!booking) {
+      throw new Error(`Booking with ID ${bookingId} not found`);
+    }
+
+    if (booking.approvalStatus !== 'pending') {
+      throw new Error(`Booking ${bookingId} is not pending approval`);
+    }
+
+    return this.updateBooking(bookingId, {
+      approvalStatus: 'rejected',
+      status: 'cancelled',
+      rejectionReason: reason,
+      adminNotes: `Rejected by ${rejectedBy}: ${reason}`,
+    });
+  }
+
+  async findPendingApproval(): Promise<Booking[]> {
+    this.logDebug('Finding pending approval bookings (mock)');
+
+    const allBookings = Array.from(mockBookings.values());
+    return allBookings
+      .filter(booking => booking.approvalStatus === 'pending')
+      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+  }
+
+  async findAll(filters?: {
+    status?: BookingStatus;
+    paymentStatus?: PaymentStatus;
+    approvalStatus?: ApprovalStatus;
+    productType?: ProductType;
+    limit?: number;
+    offset?: number;
+  }): Promise<Booking[]> {
+    this.logDebug('Finding all bookings (mock)', { filters });
+
+    let bookings = Array.from(mockBookings.values());
+
+    // Apply filters
+    if (filters?.status) {
+      bookings = bookings.filter(b => b.status === filters.status);
+    }
+    if (filters?.paymentStatus) {
+      bookings = bookings.filter(b => b.paymentStatus === filters.paymentStatus);
+    }
+    if (filters?.approvalStatus) {
+      bookings = bookings.filter(b => b.approvalStatus === filters.approvalStatus);
+    }
+    if (filters?.productType) {
+      bookings = bookings.filter(b => b.productType === filters.productType);
+    }
+
+    // Sort by creation date (newest first)
+    bookings.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+    // Apply pagination
+    const offset = filters?.offset || 0;
+    const limit = filters?.limit || bookings.length;
+    bookings = bookings.slice(offset, offset + limit);
+
+    return bookings;
   }
 }

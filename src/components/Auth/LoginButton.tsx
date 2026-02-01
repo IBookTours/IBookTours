@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -23,6 +24,7 @@ export default function LoginButton({
   onAction,
 }: LoginButtonProps) {
   const { data: session, status } = useSession();
+  const t = useTranslations('auth');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -91,7 +93,7 @@ export default function LoginButton({
         className={`${styles.signInButton} ${styles[variant]}`}
         onClick={handleSignIn}
       >
-        Sign In
+        {t('signIn')}
       </button>
     );
   }
@@ -150,7 +152,7 @@ export default function LoginButton({
             role="menuitem"
           >
             <User className={styles.itemIcon} />
-            <span>Profile</span>
+            <span>{t('profile')}</span>
           </Link>
 
           {isAdmin && (
@@ -161,7 +163,7 @@ export default function LoginButton({
               role="menuitem"
             >
               <Settings className={styles.itemIcon} />
-              <span>Admin Studio</span>
+              <span>{t('adminStudio')}</span>
             </Link>
           )}
 
@@ -173,7 +175,7 @@ export default function LoginButton({
             role="menuitem"
           >
             <LogOut className={styles.itemIcon} />
-            <span>Sign Out</span>
+            <span>{t('signOut')}</span>
           </button>
         </div>
       )}

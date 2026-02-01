@@ -8,9 +8,12 @@
  */
 
 import type { Booking, NewBooking } from '@/lib/db/schema';
+import type { ProductType, PaymentMethod, ApprovalStatus } from '@/lib/config/products';
+
+export type { ProductType, PaymentMethod, ApprovalStatus };
 
 export type BookingStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed' | 'refunded';
-export type PaymentStatus = 'pending' | 'succeeded' | 'failed' | 'refunded';
+export type PaymentStatus = 'pending' | 'deposit_paid' | 'succeeded' | 'failed' | 'refunded';
 
 export interface CreateBookingParams {
   userId?: string;
@@ -24,12 +27,26 @@ export interface CreateBookingParams {
   bookerEmail: string;
   bookerPhone?: string;
   specialRequests?: string;
+  // New fields for approval/deposit workflow
+  productType?: ProductType;
+  paymentMethod?: PaymentMethod;
+  depositAmount?: number; // in cents
+  balanceAmount?: number; // in cents
+  approvalStatus?: ApprovalStatus;
 }
 
 export interface UpdateBookingParams {
   status?: BookingStatus;
   paymentStatus?: PaymentStatus;
   paymentIntentId?: string;
+  // New update fields
+  depositPaidAt?: Date;
+  balancePaymentIntentId?: string;
+  approvalStatus?: ApprovalStatus;
+  approvedBy?: string;
+  approvedAt?: Date;
+  rejectionReason?: string;
+  adminNotes?: string;
 }
 
 export interface IBookingService {
@@ -75,6 +92,41 @@ export interface IBookingService {
    * Cancel a booking
    */
   cancelBooking(bookingId: string): Promise<Booking>;
+
+  /**
+   * Approve a booking (admin action)
+   */
+  approveBooking(
+    bookingId: string,
+    approvedBy: string,
+    adminNotes?: string
+  ): Promise<Booking>;
+
+  /**
+   * Reject a booking (admin action)
+   */
+  rejectBooking(
+    bookingId: string,
+    rejectedBy: string,
+    reason: string
+  ): Promise<Booking>;
+
+  /**
+   * Find bookings pending approval
+   */
+  findPendingApproval(): Promise<Booking[]>;
+
+  /**
+   * Find all bookings with optional filters
+   */
+  findAll(filters?: {
+    status?: BookingStatus;
+    paymentStatus?: PaymentStatus;
+    approvalStatus?: ApprovalStatus;
+    productType?: ProductType;
+    limit?: number;
+    offset?: number;
+  }): Promise<Booking[]>;
 
   /**
    * Get the provider name

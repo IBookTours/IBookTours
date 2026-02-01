@@ -11,6 +11,14 @@ import { paymentLogger, createRequestLogger } from '@/lib/logger';
 import { verifyPaymentAmount } from '@/lib/priceVerification';
 import { validateCsrfToken, csrfErrorResponse } from '@/lib/csrf';
 import { escapeHtml } from '@/lib/services/email/templates/base';
+import {
+  getProductConfig,
+  calculateDeposit,
+  calculateBalance,
+  isPaymentMethodAllowed,
+  type ProductType,
+  type PaymentMethod,
+} from '@/lib/config/products';
 
 // Payment limits
 const MAX_AMOUNT = 1000000; // €10,000 in cents
@@ -72,6 +80,16 @@ const createPaymentIntentSchema = z.object({
     .string()
     .max(1000, 'Special requests must be less than 1000 characters')
     .optional(),
+
+  // Product type determines approval workflow
+  productType: z
+    .enum(['day-tour', 'vacation-package', 'car-rental', 'hotel'])
+    .default('day-tour'),
+
+  // Payment method (validated against product config)
+  paymentMethod: z
+    .enum(['full', 'deposit', 'cash_on_arrival'])
+    .default('full'),
 });
 
 export async function POST(request: NextRequest) {
@@ -133,7 +151,21 @@ export async function POST(request: NextRequest) {
       travelers,
       selectedDate,
       specialRequests,
+      productType,
+      paymentMethod,
     } = validation.data;
+
+    // Validate payment method is allowed for this product type
+    if (!isPaymentMethodAllowed(productType as ProductType, paymentMethod as PaymentMethod)) {
+      logger.warn('Invalid payment method for product type', { productType, paymentMethod });
+      return NextResponse.json(
+        { error: `Payment method "${paymentMethod}" is not allowed for ${productType}` },
+        { status: 400 }
+      );
+    }
+
+    // Get product configuration
+    const productConfig = getProductConfig(productType as ProductType);
 
     // SECURITY: Verify the email matches the authenticated user
     if (bookerEmail.toLowerCase() !== token.email.toLowerCase()) {
@@ -189,6 +221,25 @@ export async function POST(request: NextRequest) {
 
     logger.info('User resolved', { userId: user.id });
 
+    // Calculate payment amounts based on payment method
+    let chargeAmount = amount; // Amount to charge now
+    let depositAmount: number | undefined;
+    let balanceAmount: number | undefined;
+
+    if (paymentMethod === 'deposit') {
+      depositAmount = calculateDeposit(productType as ProductType, amount);
+      balanceAmount = calculateBalance(productType as ProductType, amount);
+      chargeAmount = depositAmount;
+      logger.info('Deposit payment', { depositAmount, balanceAmount, total: amount });
+    } else if (paymentMethod === 'cash_on_arrival') {
+      // No charge now, just create booking
+      chargeAmount = 0;
+      logger.info('Cash on arrival payment', { total: amount });
+    }
+
+    // Determine approval status based on product config
+    const approvalStatus = productConfig.requiresApproval ? 'pending' : 'not_required';
+
     // Step 2: Create booking record
     const booking = await bookingService.createBooking({
       userId: user.id,
@@ -202,57 +253,109 @@ export async function POST(request: NextRequest) {
       bookerEmail,
       bookerPhone,
       specialRequests,
+      productType: productType as ProductType,
+      paymentMethod: paymentMethod as PaymentMethod,
+      depositAmount,
+      balanceAmount,
+      approvalStatus,
     });
 
-    logger.info('Booking created', { bookingId: booking.id });
-
-    // Step 3: Create payment intent with minimal metadata (no PII)
-    // SECURITY: Only store IDs in Stripe metadata, retrieve PII from database
-    // SECURITY: Use idempotency key to prevent duplicate charges on network retries
-    const paymentIntent = await paymentService.createPaymentIntent({
-      amount,
-      currency,
-      metadata: {
-        bookingId: booking.id,
-        userId: user.id,
-        tourId,
-        // No PII stored in Stripe - retrieve from booking record if needed
-      },
-      description: `IBookTours Booking: ${booking.id}`,
-      idempotencyKey: `payment-${booking.id}`,
+    logger.info('Booking created', {
+      bookingId: booking.id,
+      productType,
+      paymentMethod,
+      approvalStatus,
     });
 
-    logger.info('Payment intent created', { paymentIntentId: paymentIntent.id });
+    // Step 3: Create payment intent (skip if cash on arrival)
+    let paymentIntent: { id: string; clientSecret: string | null } | null = null;
 
-    // Step 4: Update booking with payment intent ID
-    await bookingService.updateBooking(booking.id, {
-      paymentIntentId: paymentIntent.id,
-    });
+    if (paymentMethod !== 'cash_on_arrival' && chargeAmount > 0) {
+      // SECURITY: Only store IDs in Stripe metadata, retrieve PII from database
+      // SECURITY: Use idempotency key to prevent duplicate charges on network retries
+      paymentIntent = await paymentService.createPaymentIntent({
+        amount: chargeAmount,
+        currency,
+        metadata: {
+          bookingId: booking.id,
+          userId: user.id,
+          tourId,
+          paymentType: paymentMethod === 'deposit' ? 'deposit' : 'full',
+          // No PII stored in Stripe - retrieve from booking record if needed
+        },
+        description: `IBookTours ${paymentMethod === 'deposit' ? 'Deposit' : 'Booking'}: ${booking.id}`,
+        idempotencyKey: `payment-${booking.id}-${paymentMethod}`,
+      });
+
+      logger.info('Payment intent created', { paymentIntentId: paymentIntent.id });
+
+      // Step 4: Update booking with payment intent ID
+      await bookingService.updateBooking(booking.id, {
+        paymentIntentId: paymentIntent.id,
+      });
+    }
 
     // Step 5: Send booking confirmation email (async, don't block response)
     // SECURITY: Escape user input to prevent XSS in emails
     const safeBookerName = escapeHtml(bookerName);
     const safeTourName = escapeHtml(tourName);
 
+    // Email content varies based on payment method and approval status
+    let emailSubject = `IBookTours - Booking Initiated: ${safeTourName}`;
+    let emailBody = `
+      <h1>Booking Initiated</h1>
+      <p>Hi ${safeBookerName},</p>
+      <p>Your booking for <strong>${safeTourName}</strong> has been initiated.</p>
+    `;
+
+    if (paymentMethod === 'cash_on_arrival') {
+      emailBody += `
+        <p>You have selected to pay on arrival.</p>
+        ${approvalStatus === 'pending' ? '<p>We will confirm availability and send you a confirmation email within 24 hours.</p>' : ''}
+      `;
+    } else if (paymentMethod === 'deposit') {
+      const depositEur = (depositAmount || 0) / 100;
+      const balanceEur = (balanceAmount || 0) / 100;
+      emailBody += `
+        <p>Please complete your deposit payment of <strong>€${depositEur.toFixed(2)}</strong> to secure your booking.</p>
+        <p>Remaining balance: €${balanceEur.toFixed(2)} (due after confirmation)</p>
+      `;
+    } else {
+      emailBody += `<p>Please complete your payment to confirm the booking.</p>`;
+    }
+
+    emailBody += `
+      <p>Booking Reference: ${booking.id}</p>
+      <p>Thank you for choosing IBookTours!</p>
+    `;
+
     emailService.sendEmail({
       to: { email: bookerEmail, name: bookerName },
-      subject: `IBookTours - Booking Initiated: ${safeTourName}`,
-      htmlContent: `
-        <h1>Booking Initiated</h1>
-        <p>Hi ${safeBookerName},</p>
-        <p>Your booking for <strong>${safeTourName}</strong> has been initiated.</p>
-        <p>Please complete your payment to confirm the booking.</p>
-        <p>Booking Reference: ${booking.id}</p>
-        <p>Thank you for choosing IBookTours!</p>
-      `,
+      subject: emailSubject,
+      htmlContent: emailBody,
     }).catch((error) => {
       logger.error('Failed to send booking email', error);
     });
 
+    // Response varies based on payment method
+    if (paymentMethod === 'cash_on_arrival') {
+      return NextResponse.json({
+        bookingId: booking.id,
+        paymentMethod: 'cash_on_arrival',
+        approvalStatus,
+        message: approvalStatus === 'pending'
+          ? 'Booking received. We will confirm availability within 24 hours.'
+          : 'Booking confirmed. Pay on arrival.',
+      });
+    }
+
     return NextResponse.json({
-      clientSecret: paymentIntent.clientSecret,
-      paymentIntentId: paymentIntent.id,
+      clientSecret: paymentIntent?.clientSecret,
+      paymentIntentId: paymentIntent?.id,
       bookingId: booking.id,
+      paymentMethod,
+      chargeAmount,
+      ...(paymentMethod === 'deposit' && { depositAmount, balanceAmount }),
     });
   } catch (error: unknown) {
     logger.error('Create payment intent error', error);

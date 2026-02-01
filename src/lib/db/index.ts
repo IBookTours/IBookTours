@@ -62,4 +62,4 @@ export function requireDb() {
 export * from './schema';
 
 // Re-export commonly used Drizzle operators
-export { eq, ne, gt, gte, lt, lte, and, or, like, ilike, inArray, isNull, isNotNull } from 'drizzle-orm';
+export { eq, ne, gt, gte, lt, lte, and, or, like, ilike, inArray, isNull, isNotNull, desc, asc } from 'drizzle-orm';
