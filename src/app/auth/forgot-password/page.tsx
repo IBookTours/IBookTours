@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Mail, Compass, AlertCircle, ArrowLeft, CheckCircle } from 'lucide-react';
-import { TIMING } from '@/lib/constants';
 import styles from './forgot-password.module.scss';
 
 export default function ForgotPasswordPage() {
@@ -19,10 +18,18 @@ export default function ForgotPasswordPage() {
     setError(null);
 
     try {
-      // Simulate API call - in production, this would call a real endpoint
-      await new Promise((resolve) => setTimeout(resolve, TIMING.PAYMENT_SIMULATION_DELAY));
+      const response = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
 
-      // In demo mode, just show success message
+      if (response.status === 429) {
+        setError('Too many requests. Please try again later.');
+        return;
+      }
+
+      // Always show success to prevent email enumeration
       setIsSubmitted(true);
     } catch {
       setError('An error occurred. Please try again.');
@@ -78,16 +85,12 @@ export default function ForgotPasswordPage() {
               </div>
               <h1>Check Your Email</h1>
               <p>
-                We&apos;ve sent a password reset link to <strong>{email}</strong>.
-                Please check your inbox and follow the instructions to reset your password.
+                If an account exists for <strong>{email}</strong>, you will receive
+                a password reset link. Please check your inbox and spam folder.
               </p>
-              <div className={styles.demoNote}>
-                <p><strong>Demo Mode:</strong></p>
-                <p>
-                  Since this is a demo, no email was actually sent. In production,
-                  you would receive an email with a link to reset your password.
-                </p>
-              </div>
+              <p className={styles.note}>
+                The link will expire in 24 hours.
+              </p>
               <Link href="/auth/signin" className={styles.returnButton}>
                 Return to Sign In
               </Link>
@@ -144,11 +147,6 @@ export default function ForgotPasswordPage() {
                 </button>
               </form>
 
-              {/* Demo Note */}
-              <div className={styles.demoCredentials}>
-                <p>Demo Mode Active</p>
-                <span>Password reset is simulated for demonstration purposes.</span>
-              </div>
             </>
           )}
         </div>
