@@ -33,7 +33,7 @@ const BlogSection = dynamic(() => import('@/components/BlogSection'), {
 const CTASection = dynamic(() => import('@/components/CTASection'), {
   ssr: true,
 });
-const EventsSection = dynamic(() => import('@/components/EventsSection'), {
+const TravelServicesSection = dynamic(() => import('@/components/TravelServicesSection'), {
   ssr: true,
 });
 
@@ -78,8 +78,8 @@ export default async function Home() {
       {/* CTA - Final conversion */}
       <CTASection content={siteData.cta} />
 
-      {/* Events - Upcoming events (lower priority) */}
-      <EventsSection content={siteData.events} />
+      {/* Travel Services - Events, Transfers, Guides */}
+      <TravelServicesSection />
 
       {/* Footer */}
       <Footer content={siteData.footer} siteName={siteData.siteName} />

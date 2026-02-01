@@ -1,0 +1,193 @@
+@use '@/styles/variables' as *;
+
+// ============================================
+// TRAVEL SERVICES SECTION
+// ============================================
+
+.section {
+  padding: $spacing-16 0;
+  background: var(--bg-primary);
+
+  @include respond-to(md) {
+    padding: $spacing-20 0;
+  }
+}
+
+.container {
+  max-width: $container-xl;
+  margin: 0 auto;
+  padding: 0 $spacing-4;
+
+  @include respond-to(md) {
+    padding: 0 $spacing-6;
+  }
+}
+
+// ============================================
+// HEADER
+// ============================================
+
+.header {
+  text-align: center;
+  margin-bottom: $spacing-10;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionLabel {
+  display: inline-block;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: var(--color-primary-600);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: $spacing-2;
+}
+
+.title {
+  font-size: $font-3xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  margin: 0 0 $spacing-3;
+
+  @include respond-to(md) {
+    font-size: $font-4xl;
+  }
+}
+
+.subtitle {
+  font-size: $font-lg;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+// ============================================
+// SERVICES GRID
+// ============================================
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out 0.1s;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// ============================================
+// SERVICE CARD
+// ============================================
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: $spacing-8 $spacing-6;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-2xl;
+  text-decoration: none;
+  transition: all $transition-base;
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+    border-color: var(--color-primary-200);
+
+    .iconWrapper {
+      background: var(--color-primary-600);
+      transform: scale(1.05);
+
+      .icon {
+        color: $text-light;
+      }
+    }
+
+    .cardLink {
+      color: var(--color-primary-700);
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: var(--color-primary-100);
+  border-radius: $radius-xl;
+  margin-bottom: $spacing-5;
+  transition: all $transition-base;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  color: var(--color-primary-600);
+  transition: color $transition-base;
+}
+
+.cardTitle {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  margin: 0 0 $spacing-2;
+}
+
+.cardDescription {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  line-height: $leading-relaxed;
+  margin: 0 0 $spacing-4;
+  flex: 1;
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: var(--color-primary-600);
+  transition: color $transition-fast;
+
+  svg {
+    transition: transform $transition-fast;
+  }
+
+  &:hover svg {
+    transform: translateX(4px);
+  }
+}

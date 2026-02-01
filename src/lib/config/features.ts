@@ -23,6 +23,9 @@ export type FeatureKey =
   | 'vacationPackages'
   | 'dayTours'
   | 'events'
+  | 'airportTransfers'
+  | 'localGuides'
+  | 'travelServices'
   | 'blog';
 
 /**
@@ -62,6 +65,24 @@ export const FEATURE_CONFIG: Record<FeatureKey, {
     envVar: 'NEXT_PUBLIC_FEATURE_EVENTS',
     routes: ['/events'],
     navIds: ['events'],
+    defaultEnabled: true,
+  },
+  airportTransfers: {
+    envVar: 'NEXT_PUBLIC_FEATURE_AIRPORT_TRANSFERS',
+    routes: [],
+    navIds: [],
+    defaultEnabled: true,
+  },
+  localGuides: {
+    envVar: 'NEXT_PUBLIC_FEATURE_LOCAL_GUIDES',
+    routes: [],
+    navIds: [],
+    defaultEnabled: true,
+  },
+  travelServices: {
+    envVar: 'NEXT_PUBLIC_FEATURE_TRAVEL_SERVICES',
+    routes: [],
+    navIds: [],
     defaultEnabled: true,
   },
   blog: {

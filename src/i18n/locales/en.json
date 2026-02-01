@@ -608,5 +608,25 @@
       "double": "Double Room",
       "twin": "Twin Room"
     }
+  },
+  "travelServices": {
+    "sectionLabel": "Travel Services",
+    "title": "Enhance Your Journey",
+    "subtitle": "Complete your travel experience with our additional services",
+    "learnMore": "Learn More",
+    "services": {
+      "events": {
+        "title": "Events & Festivals",
+        "description": "Experience local culture through festivals, concerts, and seasonal celebrations across the region."
+      },
+      "airportTransfers": {
+        "title": "Airport Transfers",
+        "description": "Comfortable private or shared transfers between airports and your accommodation."
+      },
+      "localGuides": {
+        "title": "Local Guides",
+        "description": "Expert local guides and translators to enrich your travel experience with insider knowledge."
+      }
+    }
   }
 }
