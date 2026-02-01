@@ -25,6 +25,21 @@ import { createLogger } from '@/lib/logger';
 const BREVO_API_URL = 'https://api.brevo.com/v3';
 const logger = createLogger('BrevoProvider');
 
+/**
+ * SECURITY: Sanitize names for email headers to prevent header injection attacks.
+ * Removes newlines, carriage returns, and other control characters that could
+ * be used to inject additional email headers (e.g., Bcc, Cc).
+ */
+function sanitizeEmailName(name: string | undefined): string | undefined {
+  if (!name) return undefined;
+  // Remove newlines, carriage returns, and other control characters
+  // Also trim and limit length to prevent abuse
+  return name
+    .replace(/[\r\n\x00-\x1f\x7f]/g, '')
+    .trim()
+    .slice(0, 255);
+}
+
 export class BrevoProvider implements IEmailService {
   private readonly apiKey: string;
   private readonly senderEmail: string;
@@ -68,13 +83,14 @@ export class BrevoProvider implements IEmailService {
 
     const recipients = Array.isArray(to) ? to : [to];
 
+    // SECURITY: Sanitize all names to prevent email header injection
     const body: Record<string, unknown> = {
       sender: {
         email: this.senderEmail,
         name: this.senderName,
       },
-      to: recipients.map((r) => ({ email: r.email, name: r.name })),
-      subject,
+      to: recipients.map((r) => ({ email: r.email, name: sanitizeEmailName(r.name) })),
+      subject: subject.replace(/[\r\n]/g, '').slice(0, 998), // RFC 5322 line length limit
     };
 
     if (templateId) {
@@ -88,7 +104,8 @@ export class BrevoProvider implements IEmailService {
     }
 
     if (replyTo) {
-      body.replyTo = { email: replyTo.email, name: replyTo.name };
+      // SECURITY: Sanitize replyTo name as well
+      body.replyTo = { email: replyTo.email, name: sanitizeEmailName(replyTo.name) };
     }
 
     try {

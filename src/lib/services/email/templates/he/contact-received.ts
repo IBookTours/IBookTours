@@ -1,8 +1,14 @@
-import { baseTemplate, htmlToText } from '../base';
+import { baseTemplate, htmlToText, escapeHtml, escapeHtmlWithLineBreaks } from '../base';
 import { ContactReceivedData, RenderedEmail } from '../types';
 
 export function contactReceivedTemplate(data: ContactReceivedData): RenderedEmail {
   const { name, email, subject, message } = data;
+
+  // SECURITY: Escape all user-provided content to prevent XSS
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeSubject = escapeHtml(subject);
+  const safeMessage = escapeHtmlWithLineBreaks(message);
 
   const content = `
     <h1>הודעה חדשה מטופס יצירת קשר</h1>
@@ -11,32 +17,32 @@ export function contactReceivedTemplate(data: ContactReceivedData): RenderedEmai
     <div class="info-box">
       <p>
         <span class="info-label">מאת</span><br>
-        <span class="info-value">${name}</span>
+        <span class="info-value">${safeName}</span>
       </p>
       <p>
         <span class="info-label">אימייל</span><br>
-        <span class="info-value"><a href="mailto:${email}">${email}</a></span>
+        <span class="info-value"><a href="mailto:${safeEmail}">${safeEmail}</a></span>
       </p>
       <p>
         <span class="info-label">נושא</span><br>
-        <span class="info-value">${subject}</span>
+        <span class="info-value">${safeSubject}</span>
       </p>
       <div class="divider"></div>
       <p>
         <span class="info-label">הודעה</span><br>
-        <span class="info-value">${message.replace(/\n/g, '<br>')}</span>
+        <span class="info-value">${safeMessage}</span>
       </p>
     </div>
 
     <p style="text-align: center;">
-      <a href="mailto:${email}?subject=Re: ${encodeURIComponent(subject)}" class="button">השב ל-${name}</a>
+      <a href="mailto:${safeEmail}?subject=Re: ${encodeURIComponent(subject)}" class="button">השב ל-${safeName}</a>
     </p>
   `;
 
   const html = baseTemplate({
     language: 'he',
     content,
-    previewText: `הודעה חדשה מ-${name}: ${subject}`,
+    previewText: `הודעה חדשה מ-${safeName}: ${safeSubject}`,
   });
 
   return {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { getToken } from 'next-auth/jwt';
 import { paymentService } from '@/lib/services/payment';
 import { getUserService } from '@/lib/services/user';
 import { getBookingService } from '@/lib/services/booking';
@@ -7,6 +8,9 @@ import { getEmailService } from '@/lib/services/email';
 import { checkRateLimit, getClientIP, rateLimitExceededResponse, RATE_LIMITS } from '@/lib/rateLimit';
 import { createValidationErrorResponse } from '@/lib/schemas';
 import { paymentLogger, createRequestLogger } from '@/lib/logger';
+import { verifyPaymentAmount } from '@/lib/priceVerification';
+import { validateCsrfToken, csrfErrorResponse } from '@/lib/csrf';
+import { escapeHtml } from '@/lib/services/email/templates/base';
 
 // Payment limits
 const MAX_AMOUNT = 1000000; // €10,000 in cents
@@ -74,6 +78,28 @@ export async function POST(request: NextRequest) {
   const logger = createRequestLogger(paymentLogger, request);
 
   try {
+    // SECURITY: Verify authentication (middleware should have already checked, but double-check)
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET || 'dev-only-insecure-secret-do-not-use-in-production',
+    });
+
+    if (!token || !token.email) {
+      logger.warn('Unauthenticated payment attempt');
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    // SECURITY: Validate CSRF token
+    const body = await request.json();
+    const csrfValid = await validateCsrfToken(request, body);
+    if (!csrfValid) {
+      logger.warn('Invalid CSRF token on payment request');
+      return csrfErrorResponse();
+    }
+
     // Rate limiting
     const clientIP = getClientIP(request.headers);
     const rateLimitResult = checkRateLimit(clientIP, '/api/create-payment-intent', RATE_LIMITS.payment);
@@ -83,7 +109,7 @@ export async function POST(request: NextRequest) {
       return rateLimitExceededResponse(rateLimitResult, RATE_LIMITS.payment);
     }
 
-    const body = await request.json();
+    // Note: body was already parsed above for CSRF validation
 
     // Validate input with Zod schema
     const validation = createPaymentIntentSchema.safeParse(body);
@@ -109,11 +135,40 @@ export async function POST(request: NextRequest) {
       specialRequests,
     } = validation.data;
 
-    logger.info('Creating payment intent with guest checkout', {
+    // SECURITY: Verify the email matches the authenticated user
+    if (bookerEmail.toLowerCase() !== token.email.toLowerCase()) {
+      logger.warn('Email mismatch in payment request', {
+        tokenEmail: token.email,
+        bookerEmail,
+      });
+      return NextResponse.json(
+        { error: 'Booker email must match authenticated user' },
+        { status: 403 }
+      );
+    }
+
+    // SECURITY: Verify payment amount against tour database
+    const priceVerification = await verifyPaymentAmount(tourId, amount, travelers);
+
+    if (!priceVerification.valid) {
+      logger.warn('Price manipulation detected', {
+        tourId,
+        submittedAmount: amount,
+        expectedAmount: priceVerification.expectedAmountCents,
+        reason: priceVerification.reason,
+      });
+      return NextResponse.json(
+        { error: 'Invalid payment amount' },
+        { status: 400 }
+      );
+    }
+
+    logger.info('Creating payment intent', {
       amount,
       currency,
       tourId,
-      bookerEmail,
+      userId: token.sub,
+      verifiedPrice: priceVerification.expectedAmountCents,
     });
 
     // Get services
@@ -121,14 +176,18 @@ export async function POST(request: NextRequest) {
     const bookingService = getBookingService();
     const emailService = getEmailService();
 
-    // Step 1: Find or create user (auto-create with temp password for guest checkout)
-    const { user, isNew, tempPassword } = await userService.findOrCreateUser({
-      email: bookerEmail,
-      name: bookerName,
-      autoCreateWithTempPassword: true,
-    });
+    // Step 1: Get the authenticated user (no auto-creation)
+    const user = await userService.findByEmail(token.email);
 
-    logger.info('User resolved', { userId: user.id, isNewUser: isNew });
+    if (!user) {
+      logger.error('Authenticated user not found in database', { email: token.email });
+      return NextResponse.json(
+        { error: 'User account not found' },
+        { status: 404 }
+      );
+    }
+
+    logger.info('User resolved', { userId: user.id });
 
     // Step 2: Create booking record
     const booking = await bookingService.createBooking({
@@ -147,7 +206,9 @@ export async function POST(request: NextRequest) {
 
     logger.info('Booking created', { bookingId: booking.id });
 
-    // Step 3: Create payment intent with booking and user metadata
+    // Step 3: Create payment intent with minimal metadata (no PII)
+    // SECURITY: Only store IDs in Stripe metadata, retrieve PII from database
+    // SECURITY: Use idempotency key to prevent duplicate charges on network retries
     const paymentIntent = await paymentService.createPaymentIntent({
       amount,
       currency,
@@ -155,14 +216,10 @@ export async function POST(request: NextRequest) {
         bookingId: booking.id,
         userId: user.id,
         tourId,
-        tourName,
-        bookerEmail,
-        bookerName,
-        bookerPhone: bookerPhone ?? '',
-        travelers: String(travelers),
-        selectedDate: selectedDate?.toISOString() ?? '',
+        // No PII stored in Stripe - retrieve from booking record if needed
       },
-      description: `IBookTours - ${tourName}`,
+      description: `IBookTours Booking: ${booking.id}`,
+      idempotencyKey: `payment-${booking.id}`,
     });
 
     logger.info('Payment intent created', { paymentIntentId: paymentIntent.id });
@@ -172,36 +229,30 @@ export async function POST(request: NextRequest) {
       paymentIntentId: paymentIntent.id,
     });
 
-    // Step 5: Send welcome email for new users (async, don't block response)
-    if (isNew && tempPassword) {
-      // Generate password reset token for the new user
-      const resetResult = await userService.generatePasswordResetToken(user.id);
+    // Step 5: Send booking confirmation email (async, don't block response)
+    // SECURITY: Escape user input to prevent XSS in emails
+    const safeBookerName = escapeHtml(bookerName);
+    const safeTourName = escapeHtml(tourName);
 
-      // Send welcome email in background (don't await)
-      emailService.sendEmail({
-        to: { email: bookerEmail, name: bookerName },
-        subject: 'Welcome to IBookTours - Set Your Password',
-        htmlContent: `
-          <h1>Welcome to IBookTours!</h1>
-          <p>Hi ${bookerName},</p>
-          <p>An account has been created for you to manage your bookings.</p>
-          <p>Please set your password to access your account:</p>
-          <p><a href="${process.env.NEXT_PUBLIC_SITE_URL}/auth/reset-password?token=${resetResult.token}">Set Your Password</a></p>
-          <p>This link will expire in 24 hours.</p>
-          <p>Thank you for choosing IBookTours!</p>
-        `,
-      }).catch((error) => {
-        logger.error('Failed to send welcome email', error);
-      });
-
-      logger.info('Welcome email queued for new user', { userId: user.id });
-    }
+    emailService.sendEmail({
+      to: { email: bookerEmail, name: bookerName },
+      subject: `IBookTours - Booking Initiated: ${safeTourName}`,
+      htmlContent: `
+        <h1>Booking Initiated</h1>
+        <p>Hi ${safeBookerName},</p>
+        <p>Your booking for <strong>${safeTourName}</strong> has been initiated.</p>
+        <p>Please complete your payment to confirm the booking.</p>
+        <p>Booking Reference: ${booking.id}</p>
+        <p>Thank you for choosing IBookTours!</p>
+      `,
+    }).catch((error) => {
+      logger.error('Failed to send booking email', error);
+    });
 
     return NextResponse.json({
       clientSecret: paymentIntent.clientSecret,
       paymentIntentId: paymentIntent.id,
       bookingId: booking.id,
-      isNewUser: isNew,
     });
   } catch (error: unknown) {
     logger.error('Create payment intent error', error);

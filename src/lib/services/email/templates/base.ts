@@ -297,6 +297,29 @@ export function baseTemplate({ language, content, previewText }: BaseTemplateOpt
   `.trim();
 }
 
+/**
+ * SECURITY: Escape HTML special characters to prevent XSS attacks
+ * This MUST be used for any user-provided content in email templates
+ */
+export function escapeHtml(str: string): string {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
+ * SECURITY: Escape HTML and convert newlines to <br> for message display
+ * Use this for multi-line user content like messages and special requests
+ */
+export function escapeHtmlWithLineBreaks(str: string): string {
+  if (!str) return '';
+  return escapeHtml(str).replace(/\n/g, '<br>');
+}
+
 // Helper to convert HTML to plain text
 export function htmlToText(html: string): string {
   return html

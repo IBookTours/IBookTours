@@ -21,6 +21,9 @@ const getSecret = () => {
 // Routes that require authentication
 const protectedRoutes = ['/profile'];
 
+// API routes that require authentication (returns 401 instead of redirect)
+const protectedApiRoutes = ['/api/create-payment-intent', '/api/bookings'];
+
 // Routes that require admin role
 const adminRoutes = ['/studio'];
 
@@ -77,18 +80,37 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Handle protected API routes - return 401 instead of redirect
+  const isProtectedApiRoute = protectedApiRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
+
+  if (isProtectedApiRoute) {
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    // Authenticated user - allow access
+    return NextResponse.next();
+  }
+
   // Public route - allow access
   return NextResponse.next();
 }
 
 // Configure which routes the middleware should run on
+// SECURITY: Explicit route matching for protected endpoints
 export const config = {
   matcher: [
-    // Match protected routes
+    // Protected user routes (requires authentication)
     '/profile/:path*',
-    // Match admin routes (Sanity Studio)
+    // Admin routes (requires admin role)
     '/studio/:path*',
-    // Exclude static files and API routes (except auth)
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)',
+    // Protected API routes (returns 401 if not authenticated)
+    '/api/create-payment-intent',
+    '/api/bookings/:path*',
   ],
 };

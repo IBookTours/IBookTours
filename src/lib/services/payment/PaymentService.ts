@@ -18,6 +18,11 @@ export interface CreatePaymentIntentParams {
   currency: string;
   metadata?: Record<string, string>;
   description?: string;
+  /**
+   * SECURITY: Idempotency key to prevent duplicate charges on network retries.
+   * Should be unique per logical payment attempt (e.g., `booking-${bookingId}`).
+   */
+  idempotencyKey?: string;
 }
 
 export interface IPaymentService {

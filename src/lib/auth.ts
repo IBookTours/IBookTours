@@ -8,7 +8,22 @@ import { NextAuthOptions, User, Account, Profile, Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { timingSafeEqual } from 'crypto';
 import { authLogger } from '@/lib/logger';
+
+/**
+ * SECURITY: Constant-time string comparison to prevent timing attacks
+ * This ensures password comparison always takes the same amount of time
+ */
+function safeCompare(a: string, b: string): boolean {
+  if (typeof a !== 'string' || typeof b !== 'string') {
+    return false;
+  }
+  // Pad shorter string to match length (prevents length-based timing attacks)
+  const aBuffer = Buffer.from(a.padEnd(256, '\0'));
+  const bBuffer = Buffer.from(b.padEnd(256, '\0'));
+  return timingSafeEqual(aBuffer, bBuffer) && a.length === b.length;
+}
 
 // Check if we're in demo mode (enables demo accounts)
 // SECURITY: Demo mode is disabled in production regardless of DEMO_MODE env var
@@ -86,27 +101,35 @@ const credentialsProvider = CredentialsProvider({
     authLogger.debug('Attempting login', { email, demoMode: DEMO_MODE });
 
     // Demo accounts - only available when DEMO_MODE=true is explicitly set
+    // SECURITY: Demo credentials from environment variables (not hardcoded)
     // For production, configure DATABASE_URL and real user auth
     if (DEMO_MODE) {
-      // Demo user
-      if (email === 'demo@ibooktours.com' && password === 'demo123') {
+      const demoUserEmail = process.env.DEMO_USER_EMAIL || 'demo@ibooktours.com';
+      const demoUserPassword = process.env.DEMO_USER_PASSWORD;
+      const adminUserEmail = process.env.DEMO_ADMIN_EMAIL || 'admin@ibooktours.com';
+      const adminUserPassword = process.env.DEMO_ADMIN_PASSWORD;
+
+      // Demo user - requires DEMO_USER_PASSWORD to be set
+      // SECURITY: Using timing-safe comparison to prevent timing attacks
+      if (demoUserPassword && safeCompare(email, demoUserEmail.toLowerCase()) && safeCompare(password, demoUserPassword)) {
         authLogger.info('Demo user login successful', { email });
         return {
           id: 'demo-user-id',
           name: 'Demo User',
-          email: 'demo@ibooktours.com',
+          email: demoUserEmail,
           image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&q=80',
           role: 'user' as UserRole,
         };
       }
 
-      // Admin demo user
-      if (email === 'admin@ibooktours.com' && password === 'admin123') {
+      // Admin demo user - requires DEMO_ADMIN_PASSWORD to be set
+      // SECURITY: Using timing-safe comparison to prevent timing attacks
+      if (adminUserPassword && safeCompare(email, adminUserEmail.toLowerCase()) && safeCompare(password, adminUserPassword)) {
         authLogger.info('Admin user login successful', { email });
         return {
           id: 'admin-user-id',
           name: 'Admin User',
-          email: 'admin@ibooktours.com',
+          email: adminUserEmail,
           image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&q=80',
           role: 'admin' as UserRole,
         };
@@ -150,14 +173,52 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET || 'dev-only-insecure-secret-do-not-use-in-production',
 
   // Configure session handling
+  // SECURITY: Reduced session duration to 4 hours to limit exposure from stolen tokens
   session: {
     strategy: 'jwt',
-    maxAge: 24 * 60 * 60, // 24 hours (reduced from 30 days for security)
+    maxAge: 4 * 60 * 60, // 4 hours (reduced from 24 hours for better security)
   },
 
   // JWT configuration
   jwt: {
-    maxAge: 24 * 60 * 60, // 24 hours (reduced from 30 days for security)
+    maxAge: 4 * 60 * 60, // 4 hours (reduced from 24 hours for better security)
+  },
+
+  // SECURITY: Explicit cookie configuration
+  cookies: {
+    sessionToken: {
+      name: process.env.NODE_ENV === 'production'
+        ? '__Secure-next-auth.session-token'
+        : 'next-auth.session-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+    callbackUrl: {
+      name: process.env.NODE_ENV === 'production'
+        ? '__Secure-next-auth.callback-url'
+        : 'next-auth.callback-url',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+    csrfToken: {
+      name: process.env.NODE_ENV === 'production'
+        ? '__Host-next-auth.csrf-token'
+        : 'next-auth.csrf-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
   },
 
   // Custom pages (optional - uncomment to use)

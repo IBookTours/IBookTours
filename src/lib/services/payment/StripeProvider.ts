@@ -82,15 +82,23 @@ export class StripeProvider implements IPaymentService {
    * Create a real payment intent via Stripe API
    */
   private async createRealPaymentIntent(params: CreatePaymentIntentParams): Promise<PaymentIntent> {
-    const { amount, currency, metadata, description } = params;
+    const { amount, currency, metadata, description, idempotencyKey } = params;
 
     try {
+      // SECURITY: Build headers with optional idempotency key
+      const headers: Record<string, string> = {
+        'Authorization': `Bearer ${this.secretKey}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      };
+
+      // SECURITY: Idempotency key prevents duplicate charges on network retries
+      if (idempotencyKey) {
+        headers['Idempotency-Key'] = idempotencyKey;
+      }
+
       const response = await fetch('https://api.stripe.com/v1/payment_intents', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.secretKey}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+        headers,
         body: new URLSearchParams({
           amount: amount.toString(),
           currency,

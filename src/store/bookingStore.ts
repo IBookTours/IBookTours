@@ -193,7 +193,10 @@ export const useBookingStore = create<BookingState>()(
     }),
     {
       name: 'ibooktours-booking',
-      // Only persist essential booking data, not pricing rules
+      // SECURITY: Only persist NON-PII booking data
+      // Contact info (bookerName, bookerEmail, bookerPhone) is excluded
+      // to prevent PII exposure via localStorage/XSS attacks
+      // and to comply with GDPR data minimization principles
       partialize: (state) => ({
         tourId: state.tourId,
         tourName: state.tourName,
@@ -201,12 +204,10 @@ export const useBookingStore = create<BookingState>()(
         tourDuration: state.tourDuration,
         selectedDate: state.selectedDate,
         travelers: state.travelers,
-        passengerDetails: state.passengerDetails,
+        // SECURITY: passengerDetails excluded - may contain names/special requests
         singleSupplement: state.singleSupplement,
         basePricePerAdult: state.basePricePerAdult,
-        bookerName: state.bookerName,
-        bookerEmail: state.bookerEmail,
-        bookerPhone: state.bookerPhone,
+        // SECURITY: bookerName, bookerEmail, bookerPhone EXCLUDED from persistence
       }),
     }
   )

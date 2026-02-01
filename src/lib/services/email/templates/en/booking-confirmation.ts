@@ -1,4 +1,4 @@
-import { baseTemplate, htmlToText } from '../base';
+import { baseTemplate, htmlToText, escapeHtml } from '../base';
 import { BookingConfirmationData, RenderedEmail } from '../types';
 
 export function bookingConfirmationTemplate(data: BookingConfirmationData): RenderedEmail {
@@ -13,24 +13,35 @@ export function bookingConfirmationTemplate(data: BookingConfirmationData): Rend
     contactPhone,
   } = data;
 
+  // SECURITY: Escape user-provided content to prevent XSS
+  // Handle both totalAmount and totalPrice for backward compatibility
+  const displayAmount = totalAmount || data.totalPrice || '';
+  const safeCustomerName = escapeHtml(customerName);
+  const safeBookingId = escapeHtml(bookingId);
+  const safeTourName = escapeHtml(tourName);
+  const safeTourDate = escapeHtml(tourDate);
+  const safeTotalAmount = escapeHtml(displayAmount);
+  const safeMeetingPoint = meetingPoint ? escapeHtml(meetingPoint) : '';
+  const safeContactPhone = contactPhone ? escapeHtml(contactPhone) : '';
+
   const content = `
     <h1>Booking Confirmed!</h1>
-    <p>Dear ${customerName},</p>
+    <p>Dear ${safeCustomerName},</p>
     <p>Great news! Your booking has been confirmed. We can't wait to show you the beauty of Albania!</p>
 
     <div class="info-box">
       <h2 style="margin-top: 0;">Booking Details</h2>
       <p>
         <span class="info-label">Booking ID</span><br>
-        <span class="info-value">${bookingId}</span>
+        <span class="info-value">${safeBookingId}</span>
       </p>
       <p>
         <span class="info-label">Tour</span><br>
-        <span class="info-value">${tourName}</span>
+        <span class="info-value">${safeTourName}</span>
       </p>
       <p>
         <span class="info-label">Date</span><br>
-        <span class="info-value">${tourDate}</span>
+        <span class="info-value">${safeTourDate}</span>
       </p>
       <p>
         <span class="info-label">Number of Travelers</span><br>
@@ -38,13 +49,13 @@ export function bookingConfirmationTemplate(data: BookingConfirmationData): Rend
       </p>
       <p>
         <span class="info-label">Total Amount</span><br>
-        <span class="info-value" style="font-size: 20px; color: #e63946;">${totalAmount}</span>
+        <span class="info-value" style="font-size: 20px; color: #e63946;">${safeTotalAmount}</span>
       </p>
-      ${meetingPoint ? `
+      ${safeMeetingPoint ? `
       <div class="divider"></div>
       <p>
         <span class="info-label">Meeting Point</span><br>
-        <span class="info-value">${meetingPoint}</span>
+        <span class="info-value">${safeMeetingPoint}</span>
       </p>
       ` : ''}
     </div>
@@ -58,8 +69,8 @@ export function bookingConfirmationTemplate(data: BookingConfirmationData): Rend
       <li>This confirmation email (printed or on your phone)</li>
     </ul>
 
-    ${contactPhone ? `
-    <p>Need to reach us on the day of your tour? Call us at <strong>${contactPhone}</strong></p>
+    ${safeContactPhone ? `
+    <p>Need to reach us on the day of your tour? Call us at <strong>${safeContactPhone}</strong></p>
     ` : ''}
 
     <p style="text-align: center;">
@@ -73,7 +84,7 @@ export function bookingConfirmationTemplate(data: BookingConfirmationData): Rend
   const html = baseTemplate({
     language: 'en',
     content,
-    previewText: `Your booking for ${tourName} on ${tourDate} is confirmed!`,
+    previewText: `Your booking for ${safeTourName} on ${safeTourDate} is confirmed!`,
   });
 
   return {
