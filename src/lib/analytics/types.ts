@@ -158,8 +158,7 @@ export interface ConsentModeParams {
 // GTAG TYPE DECLARATIONS
 // ============================================
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type GtagFunction = (...args: any[]) => void;
+export type GtagFunction = (...args: unknown[]) => void;
 
 declare global {
   interface Window {
