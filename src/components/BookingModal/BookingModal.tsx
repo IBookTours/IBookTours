@@ -88,7 +88,7 @@ export default function BookingModal({ isOpen, onClose, destination }: BookingMo
   }
 
   return (
-    <div className={styles.overlay} onClick={handleBackdropClick} role="dialog" aria-modal="true">
+    <div className={styles.overlay} onClick={handleBackdropClick} role="dialog" aria-modal="true" aria-labelledby="booking-modal-title">
       <div ref={modalRef} className={styles.modal} tabIndex={-1}>
         <button
           className={styles.closeBtn}
@@ -109,7 +109,7 @@ export default function BookingModal({ isOpen, onClose, destination }: BookingMo
               />
             </div>
             <div className={styles.tourInfo}>
-              <h2>{destination.name}</h2>
+              <h2 id="booking-modal-title">{destination.name}</h2>
               <p>{destination.location}</p>
               <span className={styles.duration}>{destination.duration}</span>
             </div>

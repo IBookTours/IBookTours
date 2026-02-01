@@ -54,10 +54,12 @@ export default function LanguageSwitcher({ variant = 'desktop', onAction }: Lang
           className={styles.mobileButton}
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          aria-label={`Select language, current: ${currentLanguage.name}`}
         >
-          <Globe size={20} />
+          <Globe size={20} aria-hidden="true" />
           <span>{currentLanguage.nativeName}</span>
-          <ChevronDown size={14} className={`${styles.chevron} ${isOpen ? styles.open : ''}`} />
+          <ChevronDown size={14} className={`${styles.chevron} ${isOpen ? styles.open : ''}`} aria-hidden="true" />
         </button>
         {isOpen && (
           <div className={styles.mobileDropdown} role="listbox">
@@ -86,10 +88,11 @@ export default function LanguageSwitcher({ variant = 'desktop', onAction }: Lang
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
+        aria-label={`Select language, current: ${currentLanguage.name}`}
       >
-        <Globe size={18} />
+        <Globe size={18} aria-hidden="true" />
         <span className={styles.langCode}>{locale.toUpperCase()}</span>
-        <ChevronDown size={14} className={`${styles.chevron} ${isOpen ? styles.open : ''}`} />
+        <ChevronDown size={14} className={`${styles.chevron} ${isOpen ? styles.open : ''}`} aria-hidden="true" />
       </button>
 
       {isOpen && (
