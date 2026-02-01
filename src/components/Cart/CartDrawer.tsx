@@ -49,6 +49,7 @@ export default function CartDrawer() {
         className={`${styles.overlay} ${isOpen ? styles.visible : ''}`}
         onClick={handleOverlayClick}
         aria-hidden={!isOpen}
+        {...(isOpen ? { inert: undefined } : {})}
       />
 
       {/* Drawer */}

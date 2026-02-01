@@ -58,8 +58,8 @@ export default function DestinationCard({
 
         <div className={styles.footer}>
           {destination.rating && (
-            <div className={styles.rating}>
-              <Star />
+            <div className={styles.rating} aria-label={`Rating: ${destination.rating} out of 5 stars${destination.reviewCount ? `, ${destination.reviewCount.toLocaleString()} reviews` : ''}`}>
+              <Star aria-hidden="true" />
               <span>{destination.rating}</span>
               {destination.reviewCount && (
                 <span className={styles.reviews}>

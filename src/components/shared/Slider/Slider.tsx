@@ -70,6 +70,18 @@ export default function Slider<T>({
 
   return (
     <div className={styles.slider} aria-label={ariaLabel}>
+      {/* Live region for position announcements */}
+      {canShowSlider && (
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+          style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)' }}
+        >
+          Showing items {currentIndex + 1} to {Math.min(currentIndex + maxVisible, totalItems)} of {totalItems}
+        </div>
+      )}
       <div className={styles.sliderWrapper}>
         {/* Previous Button */}
         {canShowSlider && showNavigation && (

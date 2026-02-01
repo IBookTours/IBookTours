@@ -272,9 +272,9 @@ export default function BookingModal({ isOpen, onClose, destination }: BookingMo
 
         {step === 'confirmation' && (
           <div className={styles.content}>
-            <div className={styles.confirmation}>
+            <div className={styles.confirmation} role="alert" aria-live="polite">
               <div className={styles.successIcon}>
-                <Check size={40} />
+                <Check size={40} aria-hidden="true" />
               </div>
               <h3>Booking Confirmed!</h3>
               <p>Thank you for booking with IBookTours.</p>

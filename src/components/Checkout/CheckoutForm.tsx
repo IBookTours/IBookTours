@@ -93,9 +93,9 @@ export default function CheckoutForm({
 
   if (isSuccess) {
     return (
-      <div className={styles.success}>
+      <div className={styles.success} role="alert" aria-live="polite">
         <div className={styles.successIcon}>
-          <CheckCircle size={48} />
+          <CheckCircle size={48} aria-hidden="true" />
         </div>
         <h2>Booking Confirmed!</h2>
         <p>Thank you for booking with IBookTours.</p>
@@ -121,7 +121,9 @@ export default function CheckoutForm({
         <span>Demo Mode - No real charges will be made</span>
       </div>
 
-      {error && <div className={styles.error}>{error}</div>}
+      <p className={styles.requiredNote}>Fields marked with <span aria-hidden="true">*</span><span className="sr-only">asterisk</span> are required</p>
+
+      {error && <div className={styles.error} role="alert">{error}</div>}
 
       {/* Personal Details */}
       <div className={styles.section}>
@@ -194,10 +196,10 @@ export default function CheckoutForm({
       </div>
 
       {/* Card Details */}
-      <div className={styles.section}>
-        <h3>Card Information</h3>
+      <fieldset className={styles.section}>
+        <legend className={styles.fieldsetLegend}>Card Information</legend>
         <div className={styles.field}>
-          <label htmlFor="cardNumber">Card Number</label>
+          <label htmlFor="cardNumber">Card Number <span aria-hidden="true">*</span></label>
           <input
             type="text"
             id="cardNumber"
@@ -208,13 +210,15 @@ export default function CheckoutForm({
               setFormData((prev) => ({ ...prev, cardNumber: formatted }));
             }}
             required
+            aria-required="true"
             placeholder="4242 4242 4242 4242"
             maxLength={19}
+            autoComplete="cc-number"
           />
         </div>
         <div className={styles.row}>
           <div className={styles.field}>
-            <label htmlFor="expiry">Expiry Date</label>
+            <label htmlFor="expiry">Expiry Date <span aria-hidden="true">*</span></label>
             <input
               type="text"
               id="expiry"
@@ -225,12 +229,14 @@ export default function CheckoutForm({
                 setFormData((prev) => ({ ...prev, expiry: formatted }));
               }}
               required
+              aria-required="true"
               placeholder="MM/YY"
               maxLength={5}
+              autoComplete="cc-exp"
             />
           </div>
           <div className={styles.field}>
-            <label htmlFor="cvc">CVC</label>
+            <label htmlFor="cvc">CVC <span aria-hidden="true">*</span></label>
             <input
               type="text"
               id="cvc"
@@ -238,12 +244,14 @@ export default function CheckoutForm({
               value={formData.cvc}
               onChange={handleInputChange}
               required
+              aria-required="true"
               placeholder="123"
               maxLength={4}
+              autoComplete="cc-csc"
             />
           </div>
         </div>
-      </div>
+      </fieldset>
 
       <button
         type="submit"

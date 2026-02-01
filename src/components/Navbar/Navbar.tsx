@@ -66,9 +66,9 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
     <>
       <header className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`} role="banner">
         <div className={styles.container}>
-          <Link href="/" className={styles.logo}>
+          <Link href="/" className={styles.logo} aria-label="IBookTours Home - Book Tours to Albania">
             <span className={styles.logoIcon}>
-              <Image src="/logo.svg" alt="IBookTours" width={32} height={32} />
+              <Image src="/logo.svg" alt="" width={32} height={32} aria-hidden="true" />
             </span>
             {siteName}
           </Link>
@@ -116,9 +116,9 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
       {/* Mobile Menu */}
       <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.open : ''}`}>
         <div className={styles.mobileMenuHeader}>
-          <Link href="/" className={styles.logo} onClick={closeMobileMenu}>
+          <Link href="/" className={styles.logo} onClick={closeMobileMenu} aria-label="IBookTours Home - Book Tours to Albania">
             <span className={styles.logoIcon}>
-              <Image src="/logo.svg" alt="IBookTours" width={32} height={32} />
+              <Image src="/logo.svg" alt="" width={32} height={32} aria-hidden="true" />
             </span>
             {siteName}
           </Link>
@@ -131,13 +131,14 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
           </button>
         </div>
 
-        <nav className={styles.mobileNav}>
+        <nav className={styles.mobileNav} aria-label="Mobile navigation">
           {navigation.map((item) => (
             <Link
               key={item.id}
               href={item.href}
               className={`${styles.mobileNavLink} ${item.isActive ? styles.active : ''}`}
               onClick={closeMobileMenu}
+              aria-current={item.isActive ? 'page' : undefined}
             >
               {t(item.id)}
             </Link>

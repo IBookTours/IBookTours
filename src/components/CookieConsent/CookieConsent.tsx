@@ -134,12 +134,12 @@ export default function CookieConsent() {
           <div
             className={styles.modal}
             role="dialog"
-            aria-label="Cookie preferences"
+            aria-labelledby="cookie-modal-title"
             aria-modal="true"
             onClick={(e) => e.stopPropagation()}
           >
             <div className={styles.modalHeader}>
-              <h2 className={styles.modalTitle}>Cookie Preferences</h2>
+              <h2 id="cookie-modal-title" className={styles.modalTitle}>Cookie Preferences</h2>
               <button
                 onClick={handleCloseModal}
                 className={styles.closeButton}

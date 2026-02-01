@@ -56,7 +56,7 @@ export default function Footer({ content, siteName }: FooterProps) {
         {/* FAQ Section */}
         <div ref={faqRef} className={`${styles.faqSection} ${isFaqInView ? styles.visible : ''}`}>
           <div className={styles.faqHeader}>
-            <h3 className={styles.faqTitle}>{t('faqTitle')}</h3>
+            <h2 className={styles.faqTitle}>{t('faqTitle')}</h2>
             <p className={styles.faqSubtitle}>
               {t('faqSubtitle')}
             </p>

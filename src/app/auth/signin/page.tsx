@@ -17,6 +17,8 @@ function SignInLoading() {
         justifyContent: 'center',
         background: '#f8fafc',
       }}
+      role="status"
+      aria-label="Loading sign in page"
     >
       <div
         style={{
@@ -27,6 +29,7 @@ function SignInLoading() {
           borderRadius: '50%',
           animation: 'spin 0.8s linear infinite',
         }}
+        aria-hidden="true"
       />
       <style>{`
         @keyframes spin {

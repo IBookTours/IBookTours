@@ -48,7 +48,7 @@ export default function HeroSection({ content }: HeroSectionProps) {
         <div className={styles.background}>
           <Image
             src={content.backgroundImage}
-            alt="Travel destination"
+            alt="Scenic Albanian landscape with mountains and coastline - discover tours to Albania"
             fill
             priority
             quality={90}
