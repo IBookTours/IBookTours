@@ -23,6 +23,12 @@
   height: 100%;
   text-decoration: none;
   color: inherit;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+    border-radius: $radius-2xl;
+  }
 }
 
 .imageWrapper {
@@ -76,14 +82,16 @@
   position: absolute;
   top: $spacing-3;
   right: $spacing-3;
-  width: 36px;
-  height: 36px;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+  width: 44px;
+  height: 44px;
   border-radius: $radius-full;
   background: var(--bg-secondary);
   border: 1px solid var(--border-light);
   cursor: pointer;
   @include flex-center;
-  transition: all $transition-fast;
+  transition: background-color $transition-fast, transform $transition-fast, box-shadow $transition-fast;
   z-index: 2;
   box-shadow: $shadow-sm;
 
@@ -91,6 +99,11 @@
     background: var(--bg-tertiary);
     transform: scale(1.1);
     box-shadow: $shadow-md;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 
   svg {

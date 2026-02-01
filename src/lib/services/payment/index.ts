@@ -8,6 +8,7 @@
 import { getServiceConfig, type PaymentConfig } from '../ServiceRegistry';
 import { createLogger } from '@/lib/logger';
 import { StripeProvider } from './StripeProvider';
+import { TranzillaProvider } from './TranzillaProvider';
 import type { IPaymentService } from './PaymentService';
 
 // Types
@@ -19,6 +20,7 @@ export type {
 
 // Providers (for direct use if needed)
 export { StripeProvider } from './StripeProvider';
+export { TranzillaProvider } from './TranzillaProvider';
 
 const logger = createLogger('PaymentServiceFactory');
 
@@ -36,9 +38,8 @@ function createPaymentService(config: PaymentConfig): IPaymentService {
   switch (config.provider) {
     case 'stripe':
       return new StripeProvider(config);
-    // Add other providers here:
-    // case 'paypal':
-    //   return new PayPalProvider(config);
+    case 'tranzilla':
+      return new TranzillaProvider(config);
     case 'mock':
     default:
       // Use Stripe in demo mode (it handles demo mode internally)

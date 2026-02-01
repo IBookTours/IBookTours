@@ -45,6 +45,9 @@ export default function HotelCard({ hotel, variant = 'default' }: HotelCardProps
             alt={hotel.name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'cover' }}
+            priority={variant === 'featured'}
+            unoptimized={hotel.image.includes('unsplash.com')}
           />
           {hotel.featured && (
             <span className={styles.badge}>{t('featured')}</span>

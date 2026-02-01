@@ -81,9 +81,20 @@ const VehicleCard = memo(function VehicleCard({ vehicle, index, t }: VehicleCard
   return (
     <div className={styles.card} style={{ animationDelay: `${index * 100}ms` }}>
       <div className={styles.cardImage}>
-        <div className={styles.imagePlaceholder}>
-          <Car size={48} />
-        </div>
+        {vehicle.image ? (
+          <Image
+            src={vehicle.image}
+            alt={vehicle.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            style={{ objectFit: 'cover' }}
+            unoptimized={vehicle.image.includes('unsplash.com')}
+          />
+        ) : (
+          <div className={styles.imagePlaceholder}>
+            <Car size={48} />
+          </div>
+        )}
         <span className={styles.category}>{t(`categories.${vehicle.category}`)}</span>
       </div>
 

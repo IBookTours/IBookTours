@@ -317,6 +317,9 @@ $spacing-20: 5rem;      // 80px
 $spacing-24: 6rem;      // 96px
 $spacing-32: 8rem;      // 128px
 
+// WCAG 2.2 AA Touch Target Minimum
+$touch-target-min: 44px;
+
 // ============================================
 // LAYOUT
 // ============================================
@@ -440,6 +443,7 @@ $breakpoint-2xl: 1536px; // Large desktops
   align-items: center;
   justify-content: center;
   gap: $spacing-2;
+  min-height: $touch-target-min;
   padding: $spacing-3 $spacing-6;
   background: $primary-600;
   color: $text-light;
@@ -448,11 +452,16 @@ $breakpoint-2xl: 1536px; // Large desktops
   border-radius: $radius-full;
   border: none;
   cursor: pointer;
-  transition: all $transition-base;
+  transition: background-color $transition-base, transform $transition-base;
 
   &:hover {
     background: $primary-700;
     transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 }
 
@@ -461,6 +470,7 @@ $breakpoint-2xl: 1536px; // Large desktops
   align-items: center;
   justify-content: center;
   gap: $spacing-2;
+  min-height: $touch-target-min;
   padding: $spacing-3 $spacing-6;
   background: transparent;
   color: $text-primary;
@@ -469,11 +479,16 @@ $breakpoint-2xl: 1536px; // Large desktops
   border-radius: $radius-full;
   border: 1px solid $border-medium;
   cursor: pointer;
-  transition: all $transition-base;
+  transition: background-color $transition-base, border-color $transition-base;
 
   &:hover {
     background: $neutral-100;
     border-color: $neutral-400;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 }
 

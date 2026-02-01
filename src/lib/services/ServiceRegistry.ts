@@ -27,7 +27,7 @@ export interface EmailConfig {
  * Payment provider configuration
  */
 export interface PaymentConfig {
-  provider: 'stripe' | 'mock';
+  provider: 'stripe' | 'tranzilla' | 'mock';
   secretKey?: string;
   publishableKey?: string;
   webhookSecret?: string;
@@ -96,17 +96,21 @@ function getEmailConfig(): EmailConfig {
  * Get payment configuration from environment
  */
 function getPaymentConfig(): PaymentConfig {
-  const secretKey = process.env.STRIPE_SECRET_KEY;
+  const stripeKey = process.env.STRIPE_SECRET_KEY;
+  const tranzillaId = process.env.TRANZILLA_TERMINAL_ID;
 
   // Determine provider based on available credentials
+  // Tranzilla takes priority if configured (for Israeli market)
   let provider: PaymentConfig['provider'] = 'mock';
-  if (secretKey && !secretKey.includes('placeholder') && !isDemoMode()) {
+  if (tranzillaId && !isDemoMode()) {
+    provider = 'tranzilla';
+  } else if (stripeKey && !stripeKey.includes('placeholder') && !isDemoMode()) {
     provider = 'stripe';
   }
 
   return {
     provider,
-    secretKey,
+    secretKey: stripeKey,
     publishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
     webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
   };

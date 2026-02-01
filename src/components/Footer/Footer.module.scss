@@ -72,6 +72,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 44px; // WCAG touch target
   padding: $spacing-3 $spacing-4;
   background: transparent;
   border: none;
@@ -80,7 +81,7 @@
   font-size: $font-sm;
   font-weight: $font-semibold;
   color: var(--text-primary);
-  transition: background $transition-fast;
+  transition: background-color $transition-fast;
 
   @include respond-to(md) {
     padding: $spacing-5;
@@ -89,6 +90,12 @@
 
   &:hover {
     background: var(--bg-tertiary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: -2px;
+    border-radius: $radius-lg;
   }
 
   svg {
@@ -118,8 +125,12 @@
 
 // Main Footer Content
 .main {
-  padding: $spacing-12 0;
+  padding: $spacing-8 0; // Comfortable mobile padding
   border-top: 1px solid var(--border-light);
+
+  @include respond-to(md) {
+    padding: $spacing-12 0;
+  }
 }
 
 .grid {
@@ -164,6 +175,12 @@
   display: inline-block;
   text-decoration: none;
   margin-bottom: $spacing-4;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 4px;
+    border-radius: $radius-sm;
+  }
 }
 
 .logoImage {
@@ -197,19 +214,16 @@
 }
 
 .socialLink {
-  width: 36px;
-  height: 36px;
-
-  @include respond-to(md) {
-    width: 40px;
-    height: 40px;
-  }
+  min-width: 44px; // WCAG touch target
+  min-height: 44px; // WCAG touch target
+  width: 44px;
+  height: 44px;
   border-radius: $radius-lg;
   background: var(--bg-tertiary);
   border: 1px solid var(--border-light);
   @include flex-center;
   color: var(--text-primary);
-  transition: all $transition-fast;
+  transition: background-color $transition-fast, border-color $transition-fast, color $transition-fast;
 
   &:hover {
     background: var(--color-primary-600);
@@ -217,9 +231,14 @@
     color: $text-light;
   }
 
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
   svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -243,7 +262,7 @@
 .links {
   display: flex;
   flex-direction: column;
-  gap: $spacing-3;
+  gap: $spacing-4; // 16px for touch-friendly spacing
 }
 
 .link {
@@ -251,22 +270,34 @@
   color: var(--text-secondary);
   text-decoration: none;
   transition: color $transition-fast;
+  padding: $spacing-1 0; // Increase touch area
+  display: inline-block;
 
   &:hover {
     color: var(--color-primary-500);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+    border-radius: $radius-sm;
   }
 }
 
 // Bottom Bar
 .bottom {
-  padding: $spacing-6 0;
+  padding: $spacing-8 0; // Increased padding for mobile
   border-top: 1px solid var(--border-light);
+
+  @include respond-to(md) {
+    padding: $spacing-6 0;
+  }
 }
 
 .bottomContent {
   display: flex;
   flex-direction: column;
-  gap: $spacing-3;
+  gap: $spacing-4; // Increased gap for touch targets
   align-items: center;
   text-align: center;
 
@@ -274,6 +305,7 @@
     flex-direction: row;
     justify-content: space-between;
     text-align: left;
+    gap: $spacing-3;
   }
 }
 
@@ -290,7 +322,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: $spacing-3 $spacing-6;
+  gap: $spacing-4 $spacing-6; // Increased row gap for touch targets
 
   @include respond-to(md) {
     flex-wrap: nowrap;
@@ -303,9 +335,17 @@
   color: var(--text-tertiary);
   text-decoration: none;
   transition: color $transition-fast;
+  padding: $spacing-1 $spacing-2; // Increase touch area
+  margin: (-$spacing-1) (-$spacing-2); // Compensate for padding
 
   &:hover {
     color: var(--color-primary-500);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+    border-radius: $radius-sm;
   }
 }
 

@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { siteData } from '@/data/siteData';
+import { hotels } from '@/data/hotelsData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ibooktours.al';
@@ -9,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',
     '/about',
     '/tours',
+    '/hotels',
+    '/car-rental',
     '/blog',
     '/contact',
     '/help',
@@ -24,6 +27,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Tour/destination pages
   const destinations = siteData.destinations.map((dest) => ({
     url: `${baseUrl}/tours/${dest.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  // Hotel pages
+  const hotelPages = hotels.map((hotel) => ({
+    url: `${baseUrl}/hotels/${hotel.slug}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
@@ -47,6 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     // Dynamic pages
     ...destinations,
+    ...hotelPages,
     ...blogPosts,
   ];
 }

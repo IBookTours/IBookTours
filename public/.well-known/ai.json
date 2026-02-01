@@ -1,29 +1,130 @@
 {
+  "$schema": "https://schema.org/",
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
   "name": "IBookTours",
-  "description": "Tour booking platform for Albania and the Balkans. Book day tours, vacation packages, and custom travel experiences.",
+  "alternateName": "IBook Tours",
+  "description": "Premier travel booking platform for Albania and the Balkans. Book authentic day tours, vacation packages, hotel stays, car rentals, and custom travel experiences. Discover hidden gems with local expertise.",
   "url": "https://ibooktours.com",
-  "logo": "https://ibooktours.com/images/logo.png",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://ibooktours.com/icon.svg",
+    "width": 512,
+    "height": 512
+  },
+  "image": "https://ibooktours.com/og-image.jpg",
+  "sameAs": [
+    "https://www.facebook.com/ibooktours",
+    "https://www.instagram.com/ibooktours",
+    "https://twitter.com/ibooktours"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "AL",
+    "addressLocality": "Tirana",
+    "addressRegion": "Tirana County"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "41.3275",
+    "longitude": "19.8187"
+  },
   "contact": {
     "email": "support@ibooktours.com",
-    "website": "https://ibooktours.com/contact"
+    "website": "https://ibooktours.com/contact",
+    "partnerships": "partnerships@ibooktours.com"
   },
-  "services": [
-    "Day Tours",
-    "Vacation Packages",
-    "Custom Tours",
-    "Car Rental"
-  ],
-  "regions": [
-    "Albania",
-    "Balkans"
-  ],
-  "languages": ["en", "he"],
+  "services": {
+    "primary": [
+      {
+        "name": "Day Tours",
+        "description": "Guided day trips to Albania's top destinations",
+        "url": "/tours"
+      },
+      {
+        "name": "Vacation Packages",
+        "description": "Multi-day curated travel packages",
+        "url": "/tours"
+      },
+      {
+        "name": "Hotels",
+        "description": "Handpicked accommodations across Albania",
+        "url": "/hotels"
+      },
+      {
+        "name": "Car Rental",
+        "description": "Flexible vehicle rentals for self-guided exploration",
+        "url": "/car-rental"
+      }
+    ],
+    "upcoming": [
+      "Airport Transfers",
+      "Private Guides",
+      "Event Planning"
+    ]
+  },
+  "destinations": {
+    "primary": ["Albania"],
+    "featured": [
+      "Tirana",
+      "Saranda",
+      "Berat",
+      "Gjirokaster",
+      "Ksamil",
+      "Theth",
+      "Vlora",
+      "Shkoder"
+    ],
+    "regions": ["Albanian Riviera", "Albanian Alps", "Central Albania", "Southern Albania"]
+  },
+  "languages": {
+    "supported": ["en", "he", "sq", "ar", "es", "pt", "ru", "nl"],
+    "default": "en"
+  },
+  "currencies": {
+    "supported": ["EUR", "USD", "ILS"],
+    "default": "EUR"
+  },
+  "booking": {
+    "instantConfirmation": true,
+    "paymentMethods": ["credit_card", "debit_card", "deposit"],
+    "cancellationPolicy": "https://ibooktours.com/cancellation",
+    "termsOfService": "https://ibooktours.com/terms",
+    "privacyPolicy": "https://ibooktours.com/privacy"
+  },
   "api": {
     "available": false,
-    "contact": "partnerships@ibooktours.com"
+    "documentation": null,
+    "contact": "partnerships@ibooktours.com",
+    "rateLimit": null
+  },
+  "ai": {
+    "llmAccess": {
+      "permitted": true,
+      "purpose": ["information_retrieval", "customer_assistance", "content_summarization"],
+      "restrictions": ["no_automated_booking", "no_price_scraping"]
+    },
+    "trainingDataUsage": {
+      "permitted": true,
+      "attribution": "Please attribute to IBookTours (https://ibooktours.com)"
+    },
+    "chatbotIntegration": {
+      "available": false,
+      "contact": "partnerships@ibooktours.com"
+    }
   },
   "robots": {
-    "allow_indexing": true,
-    "allow_training": true
-  }
+    "allowIndexing": true,
+    "allowTraining": true,
+    "crawlDelay": 1,
+    "sitemap": "https://ibooktours.com/sitemap.xml"
+  },
+  "security": {
+    "https": true,
+    "csp": true,
+    "dataProtection": "GDPR",
+    "pci": true
+  },
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-02"
 }

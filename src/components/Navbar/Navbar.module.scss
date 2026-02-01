@@ -7,20 +7,33 @@
   right: 0;
   z-index: $z-sticky;
   padding: $spacing-4 0;
-  transition: all $transition-base;
+  transition: background-color $transition-base, padding $transition-base, border-color $transition-base, box-shadow $transition-base;
+  will-change: background-color, padding;
 
-  // Always apply subtle glass background for visibility on all pages
+  // Glass background with reduced blur on mobile for performance
   background: var(--glass-bg-light);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+
+  // Reduced blur on mobile for better performance
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  @include respond-to(md) {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
 
   &.scrolled {
     // Enhanced glassmorphism when scrolled
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
     padding: $spacing-3 0;
+
+    @include respond-to(md) {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
   }
 }
 
@@ -110,18 +123,25 @@
 
 .themeToggle {
   display: flex;
-  width: 40px;
-  height: 40px;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+  width: 44px;
+  height: 44px;
   border-radius: $radius-full;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
   @include flex-center;
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: background-color $transition-fast, border-color $transition-fast;
 
   &:hover {
     background: var(--bg-tertiary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 }
 
@@ -135,14 +155,16 @@
 
 .searchBtn {
   display: none;
-  width: 40px;
-  height: 40px;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+  width: 44px;
+  height: 44px;
   border-radius: $radius-full;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: background-color $transition-fast, border-color $transition-fast;
   @include flex-center;
 
   @include respond-to(md) {
@@ -151,6 +173,11 @@
 
   &:hover {
     background: var(--bg-tertiary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 
   svg {
@@ -169,15 +196,17 @@
 
 .mobileMenuBtn {
   display: flex;
-  width: 40px;
-  height: 40px;
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
+  width: 44px;
+  height: 44px;
   border-radius: $radius-lg;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
   cursor: pointer;
   @include flex-center;
-  transition: all $transition-fast;
+  transition: background-color $transition-fast, border-color $transition-fast;
 
   @include respond-to(md) {
     display: none;
@@ -185,6 +214,11 @@
 
   &:hover {
     background: var(--bg-tertiary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 
   svg {
@@ -247,18 +281,24 @@
 
 .mobileNavLink {
   display: block;
+  min-height: $touch-target-min;
   padding: $spacing-4;
   font-size: $font-lg;
   font-weight: $font-medium;
   color: var(--text-primary);
   text-decoration: none;
   border-radius: $radius-lg;
-  transition: all $transition-fast;
+  transition: background-color $transition-fast, color $transition-fast;
 
   &:hover,
   &.active {
     background: var(--bg-accent);
     color: var(--color-primary-600);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: -2px;
   }
 }
 
@@ -274,12 +314,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: $touch-target-min;
   padding: $spacing-4;
   background: var(--bg-tertiary);
   border-radius: $radius-lg;
   border: none;
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: background-color $transition-fast;
 
   span {
     font-size: $font-base;
@@ -295,6 +336,11 @@
 
   &:hover {
     background: var(--glass-bg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 }
 
