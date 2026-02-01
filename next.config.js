@@ -7,6 +7,13 @@ const nextConfig = {
   // SECURITY: Disable source maps in production to prevent code exposure
   productionBrowserSourceMaps: false,
 
+  // SECURITY: Limit request body size to prevent DoS
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '1mb',
+    },
+  },
+
   sassOptions: {
     includePaths: ['./src/styles'],
   },
@@ -36,6 +43,25 @@ const nextConfig = {
   // Security headers
   async headers() {
     return [
+      // API-specific security headers (no caching for sensitive data)
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          },
+          {
+            key: 'Pragma',
+            value: 'no-cache',
+          },
+          {
+            key: 'Expires',
+            value: '0',
+          },
+        ],
+      },
+      // Global security headers
       {
         source: '/:path*',
         headers: [

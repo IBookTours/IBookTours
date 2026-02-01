@@ -4,6 +4,7 @@ import { checkRateLimit, getClientIP, rateLimitExceededResponse, RATE_LIMITS } f
 import { contactSchema, createValidationErrorResponse } from '@/lib/schemas';
 import { apiLogger, createRequestLogger } from '@/lib/logger';
 import { validateCsrfToken, csrfErrorResponse } from '@/lib/csrf';
+import { checkHoneypot } from '@/lib/honeypot';
 
 export async function POST(request: NextRequest) {
   const logger = createRequestLogger(apiLogger, request);
@@ -19,6 +20,10 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
+
+    // SECURITY: Honeypot check for bot detection
+    const botResponse = checkHoneypot(body);
+    if (botResponse) return botResponse;
 
     // CSRF validation
     const isValidCsrf = await validateCsrfToken(request, body);
