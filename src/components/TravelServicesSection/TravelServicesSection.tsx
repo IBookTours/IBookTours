@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Calendar, Car, Users, ArrowRight } from 'lucide-react';
@@ -43,13 +44,22 @@ export default function TravelServicesSection() {
     triggerOnce: true,
   });
 
-  // Filter services based on feature flags
-  const enabledServices = services.filter((service) =>
-    isFeatureEnabled(service.featureKey)
-  );
+  // Use state to avoid hydration mismatch with feature flags
+  const [mounted, setMounted] = useState(false);
 
-  // Don't render section if no services are enabled or travelServices is disabled
-  if (!isFeatureEnabled('travelServices') || enabledServices.length === 0) {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Always show all services on server, filter on client after mount
+  const enabledServices = mounted
+    ? services.filter((service) => isFeatureEnabled(service.featureKey))
+    : services;
+
+  // Check travelServices flag only after mount to avoid hydration mismatch
+  const showSection = mounted ? isFeatureEnabled('travelServices') : true;
+
+  if (!showSection || enabledServices.length === 0) {
     return null;
   }
 
