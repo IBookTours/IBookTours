@@ -16,6 +16,10 @@ import { siteData } from '@/data/siteData';
 const CarRentalSection = dynamic(() => import('@/components/CarRentalSection'), {
   ssr: true,
 });
+const HotelsSection = dynamic(
+  () => import('@/components/Hotels').then((mod) => mod.HotelsSection),
+  { ssr: true }
+);
 const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'), {
   ssr: true,
 });
@@ -49,6 +53,9 @@ export default async function Home() {
 
       {/* Car Rental - Self-drive exploration */}
       <CarRentalSection />
+
+      {/* Hotels - Partner accommodations */}
+      <HotelsSection />
 
       {/* Stats - Trust indicators */}
       <StatsSection stats={stats} />

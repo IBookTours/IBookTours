@@ -527,7 +527,9 @@
     "sectionLabel": "Hotels",
     "title": "Handpicked Hotels",
     "subtitle": "Stay in comfort at our carefully selected partner hotels across the region",
-    "perNight": "per night",
+    "pageTitle": "Discover Our Hotels",
+    "pageSubtitle": "From boutique guesthouses to luxury resorts, find your perfect stay in Albania",
+    "perNight": "night",
     "stars": "stars",
     "amenities": "Amenities",
     "checkIn": "Check-in",
@@ -541,12 +543,28 @@
     "available": "Available",
     "unavailable": "Sold Out",
     "reviews": "reviews",
-    "filters": {
-      "all": "All Hotels",
-      "starRating": "Star Rating",
-      "priceRange": "Price Range",
-      "amenities": "Amenities",
-      "location": "Location"
+    "from": "From",
+    "save": "Save",
+    "about": "About This Hotel",
+    "highlights": "Highlights",
+    "maxGuests": "Max guests",
+    "backToHotels": "Back to Hotels",
+    "searchPlaceholder": "Search hotels by name or location...",
+    "filterByCity": "Filter by City",
+    "allCities": "All Cities",
+    "clearFilters": "Clear Filters",
+    "hotelFound": "hotel found",
+    "hotelsFound": "hotels found",
+    "noResults": "No hotels found matching your criteria",
+    "resetFilters": "Reset Filters",
+    "filters": "Filters",
+    "categories": {
+      "all": "All",
+      "boutique": "Boutique",
+      "resort": "Resort",
+      "guesthouse": "Guesthouse",
+      "luxury": "Luxury",
+      "budget": "Budget"
     },
     "amenityLabels": {
       "wifi": "Free WiFi",
@@ -554,11 +572,16 @@
       "spa": "Spa & Wellness",
       "restaurant": "Restaurant",
       "parking": "Free Parking",
-      "ac": "Air Conditioning",
+      "airConditioning": "Air Conditioning",
       "beachAccess": "Beach Access",
       "gym": "Fitness Center",
       "bar": "Bar",
-      "roomService": "Room Service"
+      "roomService": "Room Service",
+      "breakfast": "Breakfast Included",
+      "concierge": "Concierge",
+      "laundry": "Laundry Service",
+      "shuttle": "Airport Shuttle",
+      "petFriendly": "Pet Friendly"
     },
     "booking": {
       "title": "Book Your Stay",
@@ -569,13 +592,21 @@
       "totalNights": "Total Nights",
       "totalPrice": "Total Price",
       "confirmBooking": "Confirm Booking",
-      "selectDates": "Please select dates"
+      "selectDates": "Please select dates",
+      "contactToBook": "Contact us to book this hotel",
+      "callUs": "Call Us",
+      "emailUs": "Email Us",
+      "note": "Our team will confirm availability and send you a booking confirmation within 24 hours."
     },
     "roomTypes": {
+      "title": "Available Rooms",
       "standard": "Standard Room",
       "deluxe": "Deluxe Room",
       "suite": "Suite",
-      "family": "Family Room"
+      "family": "Family Room",
+      "single": "Single Room",
+      "double": "Double Room",
+      "twin": "Twin Room"
     }
   }
 }

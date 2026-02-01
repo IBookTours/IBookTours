@@ -1,0 +1,338 @@
+@use '@/styles/variables' as *;
+
+// ============================================
+// HOTELS LISTING PAGE
+// ============================================
+
+.page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+// ============================================
+// HERO SECTION
+// ============================================
+
+.hero {
+  position: relative;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  @include respond-to(md) {
+    height: 350px;
+  }
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-800) 100%);
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&h=600&fit=crop&q=80') center/cover;
+  opacity: 0.2;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 $spacing-4;
+}
+
+.heroTitle {
+  font-size: $font-3xl;
+  font-weight: $font-bold;
+  color: $text-light;
+  margin: 0 0 $spacing-3;
+
+  @include respond-to(md) {
+    font-size: $font-4xl;
+  }
+}
+
+.heroSubtitle {
+  font-size: $font-lg;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// ============================================
+// CONTAINER
+// ============================================
+
+.container {
+  max-width: $container-xl;
+  margin: 0 auto;
+  padding: $spacing-8 $spacing-4;
+
+  @include respond-to(md) {
+    padding: $spacing-10 $spacing-6;
+  }
+}
+
+// ============================================
+// FILTER BAR
+// ============================================
+
+.filterBar {
+  display: flex;
+  gap: $spacing-3;
+  margin-bottom: $spacing-4;
+}
+
+.searchBox {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: $spacing-3;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--text-tertiary);
+}
+
+.searchInput {
+  width: 100%;
+  padding: $spacing-3 $spacing-4 $spacing-3 $spacing-10;
+  font-size: $font-sm;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-lg;
+  transition: all $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-500);
+    box-shadow: 0 0 0 3px var(--color-primary-100);
+  }
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+}
+
+.clearSearch {
+  position: absolute;
+  right: $spacing-3;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: $spacing-1;
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
+
+.filterToggle {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover,
+  &.active {
+    color: var(--color-primary-600);
+    border-color: var(--color-primary-500);
+  }
+}
+
+// ============================================
+// FILTERS PANEL
+// ============================================
+
+.filtersPanel {
+  padding: $spacing-4;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-4;
+}
+
+.filterGroup {
+  margin-bottom: $spacing-4;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.filterLabel {
+  display: block;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-2;
+}
+
+.filterOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+}
+
+.filterChip {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-2 $spacing-3;
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-full;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: var(--color-primary-500);
+    color: var(--color-primary-600);
+  }
+
+  &.active {
+    background: var(--color-primary-600);
+    color: $text-light;
+    border-color: var(--color-primary-600);
+  }
+}
+
+.clearFilters {
+  padding: $spacing-2 $spacing-4;
+  font-size: $font-sm;
+  color: var(--text-tertiary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--color-primary-600);
+  }
+}
+
+// ============================================
+// CATEGORY TABS
+// ============================================
+
+.categoryTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  margin-bottom: $spacing-6;
+  padding-bottom: $spacing-4;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.categoryTab {
+  padding: $spacing-2 $spacing-4;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+
+  &.active {
+    background: var(--color-primary-600);
+    color: $text-light;
+  }
+}
+
+// ============================================
+// RESULTS INFO
+// ============================================
+
+.resultsInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-6;
+  font-size: $font-sm;
+  color: var(--text-secondary);
+}
+
+// ============================================
+// HOTELS GRID
+// ============================================
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to(xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// ============================================
+// NO RESULTS
+// ============================================
+
+.noResults {
+  text-align: center;
+  padding: $spacing-16 $spacing-4;
+  color: var(--text-secondary);
+
+  p {
+    font-size: $font-lg;
+    margin-bottom: $spacing-4;
+  }
+}
+
+.resetBtn {
+  padding: $spacing-3 $spacing-6;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: var(--color-primary-600);
+  background: transparent;
+  border: 2px solid var(--color-primary-600);
+  border-radius: $radius-lg;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-600);
+    color: $text-light;
+  }
+}

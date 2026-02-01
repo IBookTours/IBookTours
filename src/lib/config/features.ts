@@ -44,7 +44,7 @@ export const FEATURE_CONFIG: Record<FeatureKey, {
     envVar: 'NEXT_PUBLIC_FEATURE_HOTELS',
     routes: ['/hotels'],
     navIds: ['hotels'],
-    defaultEnabled: false, // Not yet implemented
+    defaultEnabled: true, // Enabled with placeholder data
   },
   vacationPackages: {
     envVar: 'NEXT_PUBLIC_FEATURE_VACATION_PACKAGES',
