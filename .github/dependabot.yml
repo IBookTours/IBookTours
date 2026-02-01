@@ -1,0 +1,40 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    groups:
+      # Security-critical packages - prioritize these
+      security-critical:
+        patterns:
+          - "next"
+          - "next-auth"
+          - "stripe"
+          - "bcryptjs"
+        update-types:
+          - "patch"
+          - "minor"
+      # Development dependencies
+      development:
+        patterns:
+          - "eslint*"
+          - "typescript"
+          - "@types/*"
+          - "drizzle-kit"
+        update-types:
+          - "minor"
+          - "patch"
+      # React ecosystem
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+        update-types:
+          - "patch"
+    # Ignore esbuild in drizzle-kit (known issue, dev-only)
+    ignore:
+      - dependency-name: "esbuild"
+        update-types: ["version-update:semver-major"]

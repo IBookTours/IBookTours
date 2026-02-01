@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Compass,
   Headphones,
@@ -254,9 +255,9 @@ export default async function AboutPage() {
           <div className={styles.ctaContent}>
             <h2>Ready to Start Your Adventure?</h2>
             <p>Join thousands of travelers who trust IBookTours for their journeys.</p>
-            <a href="/tours" className={styles.ctaButton}>
+            <Link href="/tours" className={styles.ctaButton}>
               Explore Our Tours
-            </a>
+            </Link>
           </div>
         </div>
       </section>
