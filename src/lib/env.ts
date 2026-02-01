@@ -61,7 +61,19 @@ const serverEnvSchema = z.object({
  */
 const clientEnvSchema = z.object({
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
-  NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
+  NEXT_PUBLIC_SITE_URL: z
+    .string()
+    .url()
+    .optional()
+    .refine(
+      (val) => {
+        // In production, NEXT_PUBLIC_SITE_URL must be set and not localhost
+        if (process.env.NODE_ENV !== 'production') return true;
+        if (!val) return false;
+        return !val.includes('localhost') && !val.includes('127.0.0.1');
+      },
+      'NEXT_PUBLIC_SITE_URL must be set to production domain (not localhost) in production'
+    ),
   NEXT_PUBLIC_APP_NAME: z.string().default('IBookTours'),
 });
 

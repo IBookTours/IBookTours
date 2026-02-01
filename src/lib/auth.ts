@@ -170,6 +170,10 @@ export const authOptions: NextAuthOptions = {
         GoogleProvider({
           clientId: process.env.GOOGLE_CLIENT_ID!,
           clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+          // Allow automatic account linking when user signs up with email
+          // then later signs in with Google using the same email.
+          // Safe for tour bookings as Google verifies email ownership.
+          allowDangerousEmailAccountLinking: true,
           authorization: {
             params: {
               prompt: 'consent',

@@ -10,8 +10,12 @@ export const patterns = {
   // Email: standard email format
   email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
 
-  // Phone: international format, 10+ digits with optional formatting
+  // Phone: flexible format allowing formatting characters
   phone: /^\+?[\d\s\-()]{10,}$/,
+
+  // Phone E.164: international standard format (cleaned digits only)
+  // Allows 10-15 digits, must not start with 0
+  phoneE164: /^\+?[1-9]\d{9,14}$/,
 
   // Name: 2-50 characters, letters, spaces, hyphens, apostrophes
   name: /^[a-zA-Z\s'-]{2,50}$/,
@@ -38,10 +42,26 @@ export function validateEmail(email: string): boolean {
 
 /**
  * Validate phone number format
+ * Supports international (E.164) and local formats
+ * Requires 10-15 digits for valid phone numbers
  */
 export function validatePhone(phone: string): boolean {
+  // Remove all formatting characters except +
   const cleaned = phone.replace(/[\s\-()]/g, '');
-  return cleaned.length >= 10 && patterns.phone.test(phone);
+
+  // Must have + or start with digit
+  if (!/^[+\d]/.test(cleaned)) return false;
+
+  // Extract digits only (remove +)
+  const digitsOnly = cleaned.replace(/\D/g, '');
+
+  // Must have 10-15 digits (E.164 standard)
+  if (digitsOnly.length < 10 || digitsOnly.length > 15) return false;
+
+  // Must not start with 0 (invalid for international format)
+  if (digitsOnly.startsWith('0')) return false;
+
+  return true;
 }
 
 /**
@@ -142,6 +162,21 @@ export function formatExpiry(value: string): string {
   }
 
   return cleaned;
+}
+
+/**
+ * Normalize phone number to E.164 format for storage/SMS
+ * Returns null if invalid
+ */
+export function normalizePhoneE164(phone: string): string | null {
+  const cleaned = phone.replace(/[\s\-()]/g, '');
+  const digitsOnly = cleaned.replace(/\D/g, '');
+
+  if (digitsOnly.length < 10 || digitsOnly.length > 15) return null;
+  if (digitsOnly.startsWith('0')) return null;
+
+  // Add + prefix if not present
+  return cleaned.startsWith('+') ? cleaned : `+${digitsOnly}`;
 }
 
 /**
