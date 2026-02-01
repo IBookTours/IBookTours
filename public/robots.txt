@@ -1,0 +1,17 @@
+# Robots.txt for IBookTours
+# https://www.robotstxt.org/
+
+User-agent: *
+
+# Allow public pages
+Allow: /
+
+# Disallow sensitive paths
+Disallow: /api/
+Disallow: /studio/
+Disallow: /profile/
+Disallow: /auth/
+Disallow: /_next/
+
+# Sitemap (uncomment when available)
+# Sitemap: https://ibooktours.com/sitemap.xml

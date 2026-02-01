@@ -1,0 +1,23 @@
+# Security Policy for IBookTours
+# https://securitytxt.org/
+
+# Contact for security vulnerabilities
+Contact: mailto:security@ibooktours.com
+
+# Preferred languages
+Preferred-Languages: en
+
+# Policy expiration (update annually)
+Expires: 2027-02-01T00:00:00.000Z
+
+# Encryption (add PGP key URL when available)
+# Encryption: https://ibooktours.com/.well-known/pgp-key.txt
+
+# Acknowledgments page (create when you have one)
+# Acknowledgments: https://ibooktours.com/security/thanks
+
+# Hiring security researchers
+# Hiring: https://ibooktours.com/careers
+
+# Canonical location
+Canonical: https://ibooktours.com/.well-known/security.txt
