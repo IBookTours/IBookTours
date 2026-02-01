@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from 'next';
+import { Suspense } from 'react';
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import AuthProvider from '@/components/providers/AuthProvider';
 import I18nProvider from '@/components/providers/I18nProvider';
+import AnalyticsProvider from '@/components/providers/AnalyticsProvider';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import AccessibilityWidget from '@/components/AccessibilityWidget';
 import WhatsAppButton from '@/components/WhatsAppButton';
@@ -149,6 +151,9 @@ export default function RootLayout({
       </head>
       <body>
         <AuthProvider>
+          <Suspense fallback={null}>
+            <AnalyticsProvider />
+          </Suspense>
           <I18nProvider>
             <ThemeProvider defaultTheme="system">
               <ColorBlindFilters />

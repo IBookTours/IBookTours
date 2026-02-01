@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Trash2, Users, MapPin, Minus, Plus } from 'lucide-react';
 import { CartItem as CartItemType, useCartStore, formatCartPrice } from '@/store/cartStore';
+import { trackTourRemoveFromCart } from '@/lib/analytics';
 import DatePicker from '@/components/shared/DatePicker';
 import styles from './Cart.module.scss';
 
@@ -33,6 +34,19 @@ export default function CartItem({ item }: CartItemProps) {
 
   const handleIncreaseChildren = () => {
     updateTravelers(item.cartItemId, item.travelers.adults, item.travelers.children + 1);
+  };
+
+  const handleRemoveItem = () => {
+    // Track remove_from_cart event before removing
+    trackTourRemoveFromCart({
+      id: item.id,
+      name: item.name,
+      type: item.type,
+      location: item.location,
+      basePrice: item.basePrice,
+      travelers: item.travelers,
+    });
+    removeItem(item.cartItemId);
   };
 
   return (
@@ -118,7 +132,7 @@ export default function CartItem({ item }: CartItemProps) {
           <span className={styles.itemPrice}>{formatCartPrice(itemPrice)}</span>
           <button
             className={styles.removeBtn}
-            onClick={() => removeItem(item.cartItemId)}
+            onClick={handleRemoveItem}
             aria-label="Remove item"
           >
             <Trash2 size={16} />

@@ -39,6 +39,14 @@ import {
 import { siteData } from '@/data/siteData';
 import { validateEmail, validatePhone, validateName, getFieldError } from '@/utils/validation';
 import { TIMING } from '@/lib/constants';
+import {
+  trackBeginCheckout,
+  trackAddShippingInfo,
+  trackAddPaymentInfo,
+  trackPurchase,
+  toGA4Items,
+  calculateValue,
+} from '@/lib/analytics';
 import styles from './checkout.module.scss';
 
 type Step = 1 | 2 | 3 | 4;
@@ -149,6 +157,14 @@ function CheckoutContent() {
       }));
       setCartPassengers(initialPassengers);
       setIsInitialized(true);
+
+      // Track begin_checkout
+      const ga4Items = toGA4Items(cartItems);
+      trackBeginCheckout({
+        currency: 'EUR',
+        value: calculateValue(ga4Items),
+        items: ga4Items,
+      });
     } else {
       // No items, redirect to tours
       router.push('/tours');
@@ -220,7 +236,33 @@ function CheckoutContent() {
 
   const nextStep = () => {
     if (currentStep < 4 && canProceed()) {
-      setCurrentStep((prev) => (prev + 1) as Step);
+      const nextStepNum = (currentStep + 1) as Step;
+
+      // Track checkout funnel events
+      if (checkoutMode === 'cart' && cartItems.length > 0) {
+        const ga4Items = toGA4Items(cartItems);
+        const value = calculateValue(ga4Items);
+
+        if (currentStep === 2) {
+          // Completed traveler details, moving to review
+          trackAddShippingInfo({
+            currency: 'EUR',
+            value,
+            items: ga4Items,
+            shipping_tier: 'tour_booking',
+          });
+        } else if (currentStep === 3) {
+          // Moving to payment step
+          trackAddPaymentInfo({
+            currency: 'EUR',
+            value,
+            items: ga4Items,
+            payment_type: 'card',
+          });
+        }
+      }
+
+      setCurrentStep(nextStepNum);
     }
   };
 
@@ -339,6 +381,17 @@ function CheckoutContent() {
       // Use the confirmation number from the saved booking
       setBookingIds([savedBooking.confirmationNumber]);
       setIsSuccess(true);
+
+      // Track purchase event
+      if (checkoutMode === 'cart' && cartItems.length > 0) {
+        const ga4Items = toGA4Items(cartItems);
+        trackPurchase({
+          transaction_id: savedBooking.confirmationNumber,
+          value: displayTotal / 100, // Convert cents to EUR
+          currency: 'EUR',
+          items: ga4Items,
+        });
+      }
 
       // Clear cart and booking store
       if (checkoutMode === 'cart') {

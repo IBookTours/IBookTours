@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { X, ShoppingBag, ArrowRight, Trash2 } from 'lucide-react';
 import { useCartStore, formatCartPrice } from '@/store/cartStore';
+import { trackViewCart, toGA4Items, calculateValue } from '@/lib/analytics';
 import CartItem from './CartItem';
 import styles from './Cart.module.scss';
 
@@ -14,6 +15,16 @@ export default function CartDrawer() {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+
+      // Track view_cart event when drawer opens with items
+      if (items.length > 0) {
+        const ga4Items = toGA4Items(items);
+        trackViewCart({
+          currency: 'EUR',
+          value: calculateValue(ga4Items),
+          items: ga4Items,
+        });
+      }
     } else {
       document.body.style.overflow = '';
     }
@@ -21,7 +32,7 @@ export default function CartDrawer() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen]);
+  }, [isOpen, items]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {

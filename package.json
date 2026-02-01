@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
+    "@next/third-parties": "^16.1.6",
     "@upstash/redis": "^1.36.1",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.3",

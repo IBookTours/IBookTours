@@ -32,6 +32,13 @@ import { VacationPackage } from '@/components/VacationPackagesSection/VacationPa
 import { DayTour } from '@/components/DayToursSection/DayToursSection';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
+import {
+  trackViewItemList,
+  trackSearch,
+  trackTourAddToCart,
+  trackFilterApplied,
+  type GA4Item,
+} from '@/lib/analytics';
 import styles from './tours.module.scss';
 
 type TabType = 'all' | 'packages' | 'day-tours' | 'night-tours' | 'cruises' | 'events';
@@ -249,6 +256,7 @@ export default function ToursClient({
   const hasActiveFilters = searchQuery || selectedPrice !== 'all' || selectedDuration !== 'all' || selectedCategory !== 'all' || selectedLocation !== 'all';
 
   const handleAddPackageToCart = (pkg: VacationPackage) => {
+    const priceInCents = priceStringToCents(pkg.pricePerPerson);
     addItem({
       id: pkg.id,
       type: 'vacation-package',
@@ -256,7 +264,7 @@ export default function ToursClient({
       image: pkg.image,
       duration: pkg.duration,
       location: pkg.location,
-      basePrice: priceStringToCents(pkg.pricePerPerson),
+      basePrice: priceInCents,
       quantity: 1,
       date: '',
       travelers: { adults: 1, children: 0 },
@@ -266,9 +274,19 @@ export default function ToursClient({
         includesFlights: pkg.includesFlights,
       },
     });
+
+    // Track add_to_cart event
+    trackTourAddToCart({
+      id: pkg.id,
+      name: `${pkg.destination} - ${pkg.hotelName}`,
+      type: 'vacation-package',
+      location: pkg.location,
+      basePrice: priceInCents,
+    });
   };
 
   const handleAddTourToCart = (tour: DayTour) => {
+    const priceInCents = priceStringToCents(tour.pricePerPerson);
     addItem({
       id: tour.id,
       type: 'day-tour',
@@ -276,13 +294,90 @@ export default function ToursClient({
       image: tour.image,
       duration: tour.duration,
       location: tour.location,
-      basePrice: priceStringToCents(tour.pricePerPerson),
+      basePrice: priceInCents,
       quantity: 1,
       date: '',
       travelers: { adults: 1, children: 0 },
       childDiscountPercent: 50,
     });
+
+    // Track add_to_cart event
+    trackTourAddToCart({
+      id: tour.id,
+      name: tour.name,
+      type: 'day-tour',
+      location: tour.location,
+      basePrice: priceInCents,
+    });
   };
+
+  // Track search queries (debounced)
+  useEffect(() => {
+    if (!searchQuery || searchQuery.length < 2) return;
+    const timeoutId = setTimeout(() => {
+      trackSearch({ search_term: searchQuery });
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
+
+  // Track view_item_list when tours are displayed
+  useEffect(() => {
+    const items: GA4Item[] = [];
+
+    // Add packages to tracking
+    filteredPackages.slice(0, 20).forEach((pkg, index) => {
+      items.push({
+        item_id: pkg.id,
+        item_name: `${pkg.destination} - ${pkg.hotelName}`,
+        item_category: 'vacation-package',
+        item_category2: pkg.location,
+        price: extractPrice(pkg.pricePerPerson),
+        quantity: 1,
+        index,
+      });
+    });
+
+    // Add day tours to tracking
+    filteredDayTours.slice(0, 20).forEach((tour, index) => {
+      items.push({
+        item_id: tour.id,
+        item_name: tour.name,
+        item_category: 'day-tour',
+        item_category2: tour.location,
+        item_category3: tour.category,
+        price: extractPrice(tour.pricePerPerson),
+        quantity: 1,
+        index: filteredPackages.length + index,
+      });
+    });
+
+    if (items.length > 0) {
+      trackViewItemList({
+        item_list_id: `tours_${activeTab}`,
+        item_list_name: `Tours - ${activeTab}`,
+        items,
+      });
+    }
+  }, [activeTab, filteredPackages, filteredDayTours]);
+
+  // Track filter changes
+  useEffect(() => {
+    if (selectedPrice !== 'all') {
+      trackFilterApplied({ filter_type: 'price', filter_value: selectedPrice });
+    }
+  }, [selectedPrice]);
+
+  useEffect(() => {
+    if (selectedCategory !== 'all') {
+      trackFilterApplied({ filter_type: 'category', filter_value: selectedCategory });
+    }
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (selectedLocation !== 'all') {
+      trackFilterApplied({ filter_type: 'location', filter_value: selectedLocation });
+    }
+  }, [selectedLocation]);
 
   return (
     <div className={styles.page}>

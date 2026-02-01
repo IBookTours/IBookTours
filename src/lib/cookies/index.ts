@@ -176,19 +176,18 @@ export function initializeConditionalScripts(): void {
 /**
  * Initialize Google Analytics
  * Only called when analytics consent is given
+ *
+ * Note: The actual GA4 initialization is handled by AnalyticsProvider.
+ * This function is called for logging/debugging purposes.
  */
 function initializeAnalytics(): void {
-  // Google Analytics initialization
-  // This is a placeholder - implement actual GA initialization
-  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-  if (!gaId) return;
-
-  // GA4 initialization would go here
-  // Example:
-  // window.gtag?.('config', gaId, { anonymize_ip: true });
+  // GA4 is initialized by AnalyticsProvider component which:
+  // 1. Sets up Consent Mode v2
+  // 2. Loads GoogleAnalytics from @next/third-parties
+  // 3. Listens for consent changes via cookieConsentChanged event
 
   if (process.env.NODE_ENV === 'development') {
-    console.debug('[Cookies] Analytics initialized');
+    console.debug('[Cookies] Analytics consent granted - GA4 will be loaded by AnalyticsProvider');
   }
 }
 
