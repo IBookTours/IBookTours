@@ -106,8 +106,8 @@ export default function ResetPasswordPage() {
               IBookTours
             </Link>
 
-            <div className={styles.errorAlert}>
-              <AlertCircle />
+            <div className={styles.errorAlert} role="alert" aria-live="assertive">
+              <AlertCircle aria-hidden="true" />
               <span>Invalid password reset link. Please request a new one.</span>
             </div>
 
@@ -161,9 +161,9 @@ export default function ResetPasswordPage() {
 
           {isSuccess ? (
             // Success State
-            <div className={styles.successState}>
+            <div className={styles.successState} role="alert" aria-live="polite">
               <div className={styles.successIcon}>
-                <CheckCircle />
+                <CheckCircle aria-hidden="true" />
               </div>
               <h1>Password Reset!</h1>
               <p>
@@ -187,8 +187,8 @@ export default function ResetPasswordPage() {
 
               {/* Error Alert */}
               {error && (
-                <div className={styles.errorAlert}>
-                  <AlertCircle />
+                <div className={styles.errorAlert} role="alert" aria-live="assertive">
+                  <AlertCircle aria-hidden="true" />
                   <span>{error}</span>
                 </div>
               )}
@@ -206,6 +206,8 @@ export default function ResetPasswordPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
+                      aria-required="true"
+                      aria-describedby="password-requirements"
                       autoComplete="new-password"
                       disabled={isLoading}
                     />
@@ -213,9 +215,10 @@ export default function ResetPasswordPage() {
                       type="button"
                       className={styles.togglePassword}
                       onClick={() => setShowPassword(!showPassword)}
-                      tabIndex={-1}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      aria-pressed={showPassword}
                     >
-                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
                     </button>
                   </div>
                 </div>
@@ -231,6 +234,8 @@ export default function ResetPasswordPage() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
+                      aria-required="true"
+                      aria-describedby="password-requirements"
                       autoComplete="new-password"
                       disabled={isLoading}
                     />
@@ -238,7 +243,7 @@ export default function ResetPasswordPage() {
                 </div>
 
                 {/* Password Requirements */}
-                <div className={styles.requirements}>
+                <div className={styles.requirements} id="password-requirements">
                   <p>Password must:</p>
                   <ul>
                     <li className={validations.minLength ? styles.valid : ''}>
@@ -263,9 +268,10 @@ export default function ResetPasswordPage() {
                   type="submit"
                   className={styles.submitButton}
                   disabled={isLoading || !isFormValid}
+                  aria-busy={isLoading}
                 >
                   {isLoading ? (
-                    <span className={styles.spinner} />
+                    <span className={styles.spinner} aria-label="Resetting password" />
                   ) : (
                     'Reset Password'
                   )}

@@ -51,7 +51,7 @@ export default function Footer({ content, siteName }: FooterProps) {
   };
 
   return (
-    <footer className={styles.footer} id="contact">
+    <footer className={styles.footer} id="contact" role="contentinfo">
       <div className={styles.container}>
         {/* FAQ Section */}
         <div ref={faqRef} className={`${styles.faqSection} ${isFaqInView ? styles.visible : ''}`}>
@@ -69,11 +69,15 @@ export default function Footer({ content, siteName }: FooterProps) {
                   className={`${styles.faqQuestion} ${openFaq === faq.id ? styles.open : ''}`}
                   onClick={() => toggleFaq(faq.id)}
                   aria-expanded={openFaq === faq.id}
+                  aria-controls={`faq-answer-${faq.id}`}
                 >
                   {faq.question}
-                  <ChevronDown />
+                  <ChevronDown aria-hidden="true" />
                 </button>
-                <div className={`${styles.faqAnswer} ${openFaq === faq.id ? styles.open : ''}`}>
+                <div
+                  id={`faq-answer-${faq.id}`}
+                  className={`${styles.faqAnswer} ${openFaq === faq.id ? styles.open : ''}`}
+                >
                   {faq.answer}
                 </div>
               </div>

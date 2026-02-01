@@ -161,9 +161,9 @@ export default function SignUpPage() {
 
           {isSuccess ? (
             // Success State
-            <div className={styles.successState}>
+            <div className={styles.successState} role="alert" aria-live="polite">
               <div className={styles.successIcon}>
-                <CheckCircle />
+                <CheckCircle aria-hidden="true" />
               </div>
               <h1>Account Created!</h1>
               <p>
@@ -187,8 +187,8 @@ export default function SignUpPage() {
 
               {/* Error Alert */}
               {error && (
-                <div className={styles.errorAlert}>
-                  <AlertCircle />
+                <div className={styles.errorAlert} role="alert" aria-live="assertive">
+                  <AlertCircle aria-hidden="true" />
                   <span>{error}</span>
                 </div>
               )}
@@ -222,6 +222,7 @@ export default function SignUpPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
+                      aria-required="true"
                       autoComplete="email"
                       disabled={isLoading}
                     />
@@ -239,6 +240,8 @@ export default function SignUpPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
+                      aria-required="true"
+                      aria-describedby="password-requirements"
                       autoComplete="new-password"
                       disabled={isLoading}
                     />
@@ -246,9 +249,10 @@ export default function SignUpPage() {
                       type="button"
                       className={styles.togglePassword}
                       onClick={() => setShowPassword(!showPassword)}
-                      tabIndex={-1}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      aria-pressed={showPassword}
                     >
-                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
                     </button>
                   </div>
                 </div>
@@ -264,6 +268,8 @@ export default function SignUpPage() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
+                      aria-required="true"
+                      aria-describedby="password-requirements"
                       autoComplete="new-password"
                       disabled={isLoading}
                     />
@@ -271,7 +277,7 @@ export default function SignUpPage() {
                 </div>
 
                 {/* Password Requirements */}
-                <div className={styles.requirements}>
+                <div className={styles.requirements} id="password-requirements">
                   <p>Password must:</p>
                   <ul>
                     <li className={validations.minLength ? styles.valid : ''}>
@@ -296,9 +302,10 @@ export default function SignUpPage() {
                   type="submit"
                   className={styles.submitButton}
                   disabled={isLoading || !isFormValid}
+                  aria-busy={isLoading}
                 >
                   {isLoading ? (
-                    <span className={styles.spinner} />
+                    <span className={styles.spinner} aria-label="Creating account" />
                   ) : (
                     'Create Account'
                   )}
@@ -306,9 +313,9 @@ export default function SignUpPage() {
               </form>
 
               {/* Sign In Link */}
-              <p style={{ textAlign: 'center', marginTop: '1.5rem', color: '#6b7280', fontSize: '0.875rem' }}>
+              <p className={styles.note} style={{ textAlign: 'center', marginTop: '1.5rem' }}>
                 Already have an account?{' '}
-                <Link href="/auth/signin" style={{ color: '#0d9488', fontWeight: 500 }}>
+                <Link href="/auth/signin">
                   Sign in
                 </Link>
               </p>

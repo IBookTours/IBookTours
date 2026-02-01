@@ -99,9 +99,9 @@ export default function ForgotPasswordPage() {
 
           {isSubmitted ? (
             // Success State
-            <div className={styles.successState}>
+            <div className={styles.successState} role="alert" aria-live="polite">
               <div className={styles.successIcon}>
-                <CheckCircle />
+                <CheckCircle aria-hidden="true" />
               </div>
               <h1>Check Your Email</h1>
               <p>
@@ -129,8 +129,8 @@ export default function ForgotPasswordPage() {
 
               {/* Error Alert */}
               {error && (
-                <div className={styles.errorAlert}>
-                  <AlertCircle />
+                <div className={styles.errorAlert} role="alert" aria-live="assertive">
+                  <AlertCircle aria-hidden="true" />
                   <span>{error}</span>
                 </div>
               )}
@@ -148,6 +148,7 @@ export default function ForgotPasswordPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
+                      aria-required="true"
                       autoComplete="email"
                       disabled={isLoading}
                     />
@@ -158,9 +159,10 @@ export default function ForgotPasswordPage() {
                   type="submit"
                   className={styles.submitButton}
                   disabled={isLoading}
+                  aria-busy={isLoading}
                 >
                   {isLoading ? (
-                    <span className={styles.spinner} />
+                    <span className={styles.spinner} aria-label="Sending reset link" />
                   ) : (
                     'Send Reset Link'
                   )}

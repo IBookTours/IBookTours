@@ -117,8 +117,8 @@ export default function SignInContent() {
 
           {/* Error Alert */}
           {errorMessage && (
-            <div className={styles.errorAlert}>
-              <AlertCircle />
+            <div className={styles.errorAlert} role="alert" aria-live="assertive">
+              <AlertCircle aria-hidden="true" />
               <span>{errorMessage}</span>
             </div>
           )}
@@ -136,6 +136,7 @@ export default function SignInContent() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  aria-required="true"
                   autoComplete="email"
                 />
               </div>
@@ -157,6 +158,7 @@ export default function SignInContent() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  aria-required="true"
                   autoComplete="current-password"
                 />
                 <button
@@ -164,8 +166,9 @@ export default function SignInContent() {
                   className={styles.togglePassword}
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  aria-pressed={showPassword}
                 >
-                  {showPassword ? <EyeOff /> : <Eye />}
+                  {showPassword ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />}
                 </button>
               </div>
             </div>
@@ -174,13 +177,14 @@ export default function SignInContent() {
               type="submit"
               className={styles.submitButton}
               disabled={isLoading}
+              aria-busy={isLoading}
             >
               {isLoading ? (
-                <span className={styles.spinner} />
+                <span className={styles.spinner} aria-label="Signing in" />
               ) : (
                 <>
                   Sign In
-                  <ArrowRight />
+                  <ArrowRight aria-hidden="true" />
                 </>
               )}
             </button>

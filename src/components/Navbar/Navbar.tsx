@@ -64,7 +64,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
 
   return (
     <>
-      <header className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
+      <header className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`} role="banner">
         <div className={styles.container}>
           <Link href="/" className={styles.logo}>
             <span className={styles.logoIcon}>
@@ -73,12 +73,13 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
             {siteName}
           </Link>
 
-          <nav className={styles.nav}>
+          <nav className={styles.nav} aria-label="Main navigation">
             {navigation.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}
                 className={`${styles.navLink} ${item.isActive ? styles.active : ''}`}
+                aria-current={item.isActive ? 'page' : undefined}
               >
                 {t(item.id)}
               </Link>
