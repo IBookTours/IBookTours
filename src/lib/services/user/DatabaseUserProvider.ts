@@ -4,7 +4,7 @@
  * Implements IUserService using Drizzle ORM with Neon Postgres.
  */
 
-import { randomBytes } from 'crypto';
+import { randomBytes, createHash } from 'crypto';
 import bcrypt from 'bcryptjs';
 import {
   requireDb,
@@ -24,8 +24,16 @@ import type {
 
 // Password hashing configuration
 const SALT_ROUNDS = 12;
-const PASSWORD_RESET_EXPIRY_HOURS = 24;
+const PASSWORD_RESET_EXPIRY_HOURS = 1; // SECURITY: Reduced from 24 to 1 hour
 const TEMP_PASSWORD_LENGTH = 16;
+
+/**
+ * SECURITY: Hash tokens before storage using SHA-256
+ * This prevents token theft if database is compromised
+ */
+function hashToken(token: string): string {
+  return createHash('sha256').update(token).digest('hex');
+}
 
 export class DatabaseUserProvider extends BaseService implements IUserService {
   constructor() {
@@ -175,23 +183,26 @@ export class DatabaseUserProvider extends BaseService implements IUserService {
     const token = randomBytes(32).toString('hex');
     const expiresAt = new Date(Date.now() + PASSWORD_RESET_EXPIRY_HOURS * 60 * 60 * 1000);
 
+    // SECURITY: Hash token before storing (we return the plain token to user)
+    const tokenHash = hashToken(token);
+
     // Invalidate any existing tokens for this user
     await db
       .update(passwordResetTokens)
       .set({ used: true })
       .where(eq(passwordResetTokens.userId, userId));
 
-    // Create new token
+    // Create new token (store hash, not plain token)
     await db.insert(passwordResetTokens).values({
       userId,
-      token,
+      token: tokenHash,
       expiresAt,
     });
 
     this.logInfo('Password reset token created', { userId, expiresAt });
 
     return {
-      token,
+      token, // Return plain token to send to user
       expiresAt,
     };
   }
@@ -201,8 +212,11 @@ export class DatabaseUserProvider extends BaseService implements IUserService {
 
     this.logDebug('Verifying password reset token');
 
+    // SECURITY: Hash the submitted token to compare with stored hash
+    const tokenHash = hashToken(token);
+
     const tokenRecord = await db.query.passwordResetTokens.findFirst({
-      where: eq(passwordResetTokens.token, token),
+      where: eq(passwordResetTokens.token, tokenHash),
     });
 
     if (!tokenRecord) {

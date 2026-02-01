@@ -10,6 +10,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { timingSafeEqual } from 'crypto';
 import { authLogger } from '@/lib/logger';
+import { checkAccountLockout, recordFailedAttempt, clearFailedAttempts } from '@/lib/accountLockout';
 
 /**
  * SECURITY: Constant-time string comparison to prevent timing attacks
@@ -82,12 +83,8 @@ const credentialsProvider = CredentialsProvider({
   },
   async authorize(credentials: Partial<Record<string, unknown>> | undefined) {
     // ============================================
-    // DEMO MODE AUTH - REPLACE WITH REAL AUTH
+    // CREDENTIALS AUTH WITH LOCKOUT PROTECTION
     // ============================================
-    // In production, you should:
-    // 1. Query your database for the user
-    // 2. Verify the password hash
-    // 3. Return the user object or null
 
     if (!credentials?.email || !credentials?.password) {
       authLogger.debug('Missing credentials');
@@ -97,6 +94,14 @@ const credentialsProvider = CredentialsProvider({
     // Ensure credentials are strings
     const email = String(credentials.email).toLowerCase().trim();
     const password = String(credentials.password);
+
+    // SECURITY: Check if account is locked
+    const lockoutStatus = await checkAccountLockout(email);
+    if (lockoutStatus.isLocked) {
+      authLogger.warn('Login attempt on locked account', { email });
+      // Don't reveal that account is locked - just return null
+      return null;
+    }
 
     authLogger.debug('Attempting login', { email, demoMode: DEMO_MODE });
 
@@ -113,6 +118,7 @@ const credentialsProvider = CredentialsProvider({
       // SECURITY: Using timing-safe comparison to prevent timing attacks
       if (demoUserPassword && safeCompare(email, demoUserEmail.toLowerCase()) && safeCompare(password, demoUserPassword)) {
         authLogger.info('Demo user login successful', { email });
+        await clearFailedAttempts(email); // Clear lockout on success
         return {
           id: 'demo-user-id',
           name: 'Demo User',
@@ -126,6 +132,7 @@ const credentialsProvider = CredentialsProvider({
       // SECURITY: Using timing-safe comparison to prevent timing attacks
       if (adminUserPassword && safeCompare(email, adminUserEmail.toLowerCase()) && safeCompare(password, adminUserPassword)) {
         authLogger.info('Admin user login successful', { email });
+        await clearFailedAttempts(email); // Clear lockout on success
         return {
           id: 'admin-user-id',
           name: 'Admin User',
@@ -140,6 +147,12 @@ const credentialsProvider = CredentialsProvider({
       // Production mode - implement database auth here
       // Query your database for the user and verify password hash
       authLogger.debug('Demo mode disabled, database auth required');
+    }
+
+    // SECURITY: Record failed attempt
+    const failedStatus = await recordFailedAttempt(email);
+    if (failedStatus.isLocked) {
+      authLogger.warn('Account locked after failed attempts', { email });
     }
 
     // User not found or invalid credentials

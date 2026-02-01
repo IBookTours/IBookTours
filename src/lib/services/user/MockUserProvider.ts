@@ -20,15 +20,26 @@ import type {
 // In-memory storage for demo mode
 const mockUsers: Map<string, User> = new Map();
 const mockPasswordResetTokens: Map<string, { userId: string; expiresAt: Date; used: boolean }> = new Map();
+let demoUsersInitialized = false;
 
-// Pre-populate with demo users
-function initDemoUsers() {
-  if (mockUsers.size === 0) {
+// SECURITY: Get demo credentials from environment variables (no hardcoded hashes)
+const DEMO_USER_EMAIL = (process.env.DEMO_USER_EMAIL || 'demo@ibooktours.com').toLowerCase();
+const DEMO_USER_PASSWORD = process.env.DEMO_USER_PASSWORD;
+const DEMO_ADMIN_EMAIL = (process.env.DEMO_ADMIN_EMAIL || 'admin@ibooktours.com').toLowerCase();
+const DEMO_ADMIN_PASSWORD = process.env.DEMO_ADMIN_PASSWORD;
+
+// Pre-populate with demo users (passwords hashed at runtime from env vars)
+async function initDemoUsers(): Promise<void> {
+  if (demoUsersInitialized) return;
+  demoUsersInitialized = true;
+
+  // Demo user - only created if DEMO_USER_PASSWORD is set
+  if (DEMO_USER_PASSWORD) {
     const demoUser: User = {
       id: 'demo-user-id',
-      email: 'demo@ibooktours.com',
+      email: DEMO_USER_EMAIL,
       name: 'Demo User',
-      passwordHash: '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/X.r3o.qR3Q6Z5VzKi', // demo123
+      passwordHash: await bcrypt.hash(DEMO_USER_PASSWORD, 12),
       role: 'user',
       emailVerified: true,
       image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&h=150&fit=crop&q=80',
@@ -37,12 +48,16 @@ function initDemoUsers() {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
+    mockUsers.set(demoUser.email, demoUser);
+  }
 
+  // Admin user - only created if DEMO_ADMIN_PASSWORD is set
+  if (DEMO_ADMIN_PASSWORD) {
     const adminUser: User = {
       id: 'admin-user-id',
-      email: 'admin@ibooktours.com',
+      email: DEMO_ADMIN_EMAIL,
       name: 'Admin User',
-      passwordHash: '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/X.r3o.qR3Q6Z5VzKi', // admin123
+      passwordHash: await bcrypt.hash(DEMO_ADMIN_PASSWORD, 12),
       role: 'admin',
       emailVerified: true,
       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&q=80',
@@ -51,17 +66,24 @@ function initDemoUsers() {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-
-    mockUsers.set(demoUser.email, demoUser);
     mockUsers.set(adminUser.email, adminUser);
   }
 }
 
 export class MockUserProvider extends BaseService implements IUserService {
+  private initPromise: Promise<void> | null = null;
+
   constructor() {
     super('UserService');
-    initDemoUsers();
     this.logWarn('Using MockUserProvider - data is not persisted! Configure DATABASE_URL for production.');
+    // Start async initialization
+    this.initPromise = initDemoUsers();
+  }
+
+  private async ensureInitialized(): Promise<void> {
+    if (this.initPromise) {
+      await this.initPromise;
+    }
   }
 
   getProviderName(): string {
@@ -69,12 +91,14 @@ export class MockUserProvider extends BaseService implements IUserService {
   }
 
   async findByEmail(email: string): Promise<User | null> {
+    await this.ensureInitialized();
     const normalizedEmail = email.toLowerCase().trim();
     this.logDebug('Finding user by email (mock)', { email: normalizedEmail });
     return mockUsers.get(normalizedEmail) ?? null;
   }
 
   async findById(id: string): Promise<User | null> {
+    await this.ensureInitialized();
     this.logDebug('Finding user by ID (mock)', { id });
     const users = Array.from(mockUsers.values());
     for (const user of users) {
