@@ -442,10 +442,36 @@
   },
   "carRental": {
     "sectionLabel": "Autoverhuur",
-    "title": "Verken Albanië op Je Eigen Tempo",
-    "description": "Huur een auto en ontdek Albanië met volledige vrijheid. Ons gevarieerde wagenpark past bij elke reisstijl.",
+    "title": "Huur een Auto in Albanië",
+    "subtitle": "Verken Albanië op je eigen tempo met onze premium autoverhuurservice",
+    "perDay": "per dag",
+    "seats": "zitplaatsen",
+    "doors": "deuren",
+    "luggage": "koffers",
+    "transmission": "Transmissie",
+    "automatic": "Automaat",
+    "manual": "Handgeschakeld",
+    "fuelType": "Brandstoftype",
+    "petrol": "Benzine",
+    "diesel": "Diesel",
+    "hybrid": "Hybride",
+    "electric": "Elektrisch",
+    "bookNow": "Nu Boeken",
+    "viewDetails": "Details Bekijken",
+    "viewAll": "Alle Auto's Bekijken",
+    "featured": "Uitgelicht",
+    "available": "Beschikbaar",
+    "unavailable": "Niet Beschikbaar",
     "filters": {
-      "all": "Alles",
+      "all": "Alle",
+      "category": "Categorie",
+      "seats": "Zitplaatsen",
+      "transmission": "Transmissie",
+      "priceRange": "Prijsklasse",
+      "clearAll": "Filters Wissen"
+    },
+    "categories": {
+      "all": "Alle Auto's",
       "economy": "Economy",
       "compact": "Compact",
       "midsize": "Middenklasse",
@@ -453,23 +479,44 @@
       "luxury": "Luxe",
       "van": "Busje"
     },
-    "specs": {
-      "seats": "zitplaatsen",
-      "transmission": "Transmissie",
-      "fuel": "Brandstof"
+    "booking": {
+      "title": "Boek Je Auto",
+      "pickupDate": "Ophaaldatum",
+      "returnDate": "Inleverdatum",
+      "pickupTime": "Ophaaltijd",
+      "returnTime": "Inlevertijd",
+      "pickupLocation": "Ophaallocatie",
+      "returnLocation": "Inleverlocatie",
+      "sameLocation": "Inleveren op dezelfde locatie",
+      "driverAge": "Leeftijd Bestuurder",
+      "extras": "Extra's en Toevoegingen",
+      "totalDays": "Totaal Dagen",
+      "totalPrice": "Totaalprijs",
+      "priceBreakdown": "Prijsoverzicht",
+      "vehiclePrice": "Voertuig",
+      "extrasPrice": "Extra's",
+      "confirmBooking": "Boeking Bevestigen",
+      "selectDates": "Selecteer a.u.b. de data"
     },
-    "transmission": {
-      "automatic": "Automaat",
-      "manual": "Handgeschakeld"
+    "extras": {
+      "gps": "GPS Navigatie",
+      "childSeat": "Kinderzitje",
+      "boosterSeat": "Zittingverhoger",
+      "wifi": "Wifi Hotspot",
+      "additionalDriver": "Extra Bestuurder",
+      "fullInsurance": "Volledige Verzekering",
+      "roadsideAssistance": "Pechhulp"
     },
-    "fuel": {
-      "petrol": "Benzine",
-      "diesel": "Diesel",
-      "hybrid": "Hybride",
-      "electric": "Elektrisch"
+    "details": {
+      "specifications": "Specificaties",
+      "features": "Kenmerken",
+      "included": "Inbegrepen",
+      "requirements": "Vereisten",
+      "minAge": "Minimumleeftijd bestuurder: 21 jaar",
+      "license": "Geldig rijbewijs vereist",
+      "deposit": "Borg vereist"
     },
-    "perDay": "/dag",
-    "bookNow": "Boeken",
-    "viewAll": "Bekijk Alle Voertuigen"
+    "reviews": "beoordelingen",
+    "discount": "KORTING"
   }
 }

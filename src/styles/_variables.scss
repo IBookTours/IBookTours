@@ -379,6 +379,7 @@ $breakpoint-2xl: 1536px; // Large desktops
 // ============================================
 
 @mixin respond-to($breakpoint) {
+  // Min-width breakpoints (mobile-first)
   @if $breakpoint == xs {
     @media (max-width: $breakpoint-xs) { @content; }
   } @else if $breakpoint == sm {
@@ -391,6 +392,18 @@ $breakpoint-2xl: 1536px; // Large desktops
     @media (min-width: $breakpoint-xl) { @content; }
   } @else if $breakpoint == 2xl {
     @media (min-width: $breakpoint-2xl) { @content; }
+  }
+  // Max-width breakpoints (desktop-first)
+  @else if $breakpoint == max-xs {
+    @media (max-width: #{$breakpoint-sm - 1px}) { @content; }
+  } @else if $breakpoint == max-sm {
+    @media (max-width: #{$breakpoint-md - 1px}) { @content; }
+  } @else if $breakpoint == max-md {
+    @media (max-width: #{$breakpoint-lg - 1px}) { @content; }
+  } @else if $breakpoint == max-lg {
+    @media (max-width: #{$breakpoint-xl - 1px}) { @content; }
+  } @else if $breakpoint == max-xl {
+    @media (max-width: #{$breakpoint-2xl - 1px}) { @content; }
   }
 }
 

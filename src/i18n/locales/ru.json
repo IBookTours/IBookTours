@@ -442,10 +442,36 @@
   },
   "carRental": {
     "sectionLabel": "Аренда Автомобилей",
-    "title": "Исследуйте Албанию в Своём Темпе",
-    "description": "Арендуйте автомобиль и откройте Албанию с полной свободой. Наш разнообразный автопарк подойдёт для любого стиля путешествия.",
+    "title": "Арендуйте Автомобиль в Албании",
+    "subtitle": "Исследуйте Албанию в своём темпе с нашим премиальным сервисом аренды автомобилей",
+    "perDay": "в день",
+    "seats": "мест",
+    "doors": "дверей",
+    "luggage": "чемоданов",
+    "transmission": "Коробка передач",
+    "automatic": "Автомат",
+    "manual": "Механика",
+    "fuelType": "Тип топлива",
+    "petrol": "Бензин",
+    "diesel": "Дизель",
+    "hybrid": "Гибрид",
+    "electric": "Электро",
+    "bookNow": "Забронировать",
+    "viewDetails": "Подробнее",
+    "viewAll": "Все Автомобили",
+    "featured": "Рекомендуем",
+    "available": "Доступен",
+    "unavailable": "Недоступен",
     "filters": {
       "all": "Все",
+      "category": "Категория",
+      "seats": "Мест",
+      "transmission": "Коробка передач",
+      "priceRange": "Диапазон цен",
+      "clearAll": "Сбросить Фильтры"
+    },
+    "categories": {
+      "all": "Все Автомобили",
       "economy": "Эконом",
       "compact": "Компакт",
       "midsize": "Средний",
@@ -453,23 +479,44 @@
       "luxury": "Люкс",
       "van": "Минивэн"
     },
-    "specs": {
-      "seats": "мест",
-      "transmission": "Коробка передач",
-      "fuel": "Топливо"
+    "booking": {
+      "title": "Забронировать Автомобиль",
+      "pickupDate": "Дата Получения",
+      "returnDate": "Дата Возврата",
+      "pickupTime": "Время Получения",
+      "returnTime": "Время Возврата",
+      "pickupLocation": "Место Получения",
+      "returnLocation": "Место Возврата",
+      "sameLocation": "Вернуть в том же месте",
+      "driverAge": "Возраст Водителя",
+      "extras": "Дополнительные Опции",
+      "totalDays": "Всего Дней",
+      "totalPrice": "Итого",
+      "priceBreakdown": "Расчёт Стоимости",
+      "vehiclePrice": "Автомобиль",
+      "extrasPrice": "Дополнительно",
+      "confirmBooking": "Подтвердить Бронь",
+      "selectDates": "Пожалуйста, выберите даты"
     },
-    "transmission": {
-      "automatic": "Автомат",
-      "manual": "Механика"
+    "extras": {
+      "gps": "GPS Навигатор",
+      "childSeat": "Детское Кресло",
+      "boosterSeat": "Бустер",
+      "wifi": "WiFi Роутер",
+      "additionalDriver": "Дополнительный Водитель",
+      "fullInsurance": "Полная Страховка",
+      "roadsideAssistance": "Помощь на Дороге"
     },
-    "fuel": {
-      "petrol": "Бензин",
-      "diesel": "Дизель",
-      "hybrid": "Гибрид",
-      "electric": "Электро"
+    "details": {
+      "specifications": "Характеристики",
+      "features": "Особенности",
+      "included": "Включено",
+      "requirements": "Требования",
+      "minAge": "Минимальный возраст водителя: 21 год",
+      "license": "Требуются действительные водительские права",
+      "deposit": "Требуется залог"
     },
-    "perDay": "/день",
-    "bookNow": "Забронировать",
-    "viewAll": "Смотреть Все Автомобили"
+    "reviews": "отзывов",
+    "discount": "СКИДКА"
   }
 }

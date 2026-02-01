@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Globe, ChevronDown } from 'lucide-react';
 import { useLocale } from '@/components/providers/I18nProvider';
 import { localeNames, type Locale } from '@/i18n/config';
@@ -27,22 +27,23 @@ export default function LanguageSwitcher({ variant = 'desktop', onAction }: Lang
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+  // Memoize click outside handler
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
   }, []);
 
-  const handleLanguageChange = (langCode: Locale) => {
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [handleClickOutside]);
+
+  const handleLanguageChange = useCallback((langCode: Locale) => {
     setLocale(langCode);
     setIsOpen(false);
     onAction?.();
-  };
+  }, [setLocale, onAction]);
 
   const currentLanguage = languages.find((l) => l.code === locale) || languages[0];
 

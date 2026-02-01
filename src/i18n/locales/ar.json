@@ -442,10 +442,36 @@
   },
   "carRental": {
     "sectionLabel": "تأجير السيارات",
-    "title": "استكشف ألبانيا بحريتك",
-    "description": "استأجر سيارة واكتشف ألبانيا بحرية تامة. أسطولنا المتنوع يناسب جميع أنماط السفر.",
+    "title": "استأجر سيارة في ألبانيا",
+    "subtitle": "استكشف ألبانيا بحريتك مع خدمة تأجير السيارات المميزة لدينا",
+    "perDay": "في اليوم",
+    "seats": "مقاعد",
+    "doors": "أبواب",
+    "luggage": "حقائب",
+    "transmission": "ناقل الحركة",
+    "automatic": "أوتوماتيك",
+    "manual": "يدوي",
+    "fuelType": "نوع الوقود",
+    "petrol": "بنزين",
+    "diesel": "ديزل",
+    "hybrid": "هجين",
+    "electric": "كهربائي",
+    "bookNow": "احجز الآن",
+    "viewDetails": "عرض التفاصيل",
+    "viewAll": "عرض جميع السيارات",
+    "featured": "مميز",
+    "available": "متاح",
+    "unavailable": "غير متاح",
     "filters": {
       "all": "الكل",
+      "category": "الفئة",
+      "seats": "المقاعد",
+      "transmission": "ناقل الحركة",
+      "priceRange": "نطاق السعر",
+      "clearAll": "مسح الفلاتر"
+    },
+    "categories": {
+      "all": "جميع السيارات",
       "economy": "اقتصادية",
       "compact": "مدمجة",
       "midsize": "متوسطة",
@@ -453,23 +479,44 @@
       "luxury": "فاخرة",
       "van": "فان"
     },
-    "specs": {
-      "seats": "مقاعد",
-      "transmission": "ناقل الحركة",
-      "fuel": "الوقود"
+    "booking": {
+      "title": "احجز سيارتك",
+      "pickupDate": "تاريخ الاستلام",
+      "returnDate": "تاريخ الإرجاع",
+      "pickupTime": "وقت الاستلام",
+      "returnTime": "وقت الإرجاع",
+      "pickupLocation": "موقع الاستلام",
+      "returnLocation": "موقع الإرجاع",
+      "sameLocation": "الإرجاع في نفس الموقع",
+      "driverAge": "عمر السائق",
+      "extras": "إضافات وملحقات",
+      "totalDays": "إجمالي الأيام",
+      "totalPrice": "السعر الإجمالي",
+      "priceBreakdown": "تفصيل السعر",
+      "vehiclePrice": "المركبة",
+      "extrasPrice": "الإضافات",
+      "confirmBooking": "تأكيد الحجز",
+      "selectDates": "يرجى اختيار التواريخ"
     },
-    "transmission": {
-      "automatic": "أوتوماتيك",
-      "manual": "يدوي"
+    "extras": {
+      "gps": "ملاحة GPS",
+      "childSeat": "مقعد أطفال",
+      "boosterSeat": "مقعد رافع",
+      "wifi": "واي فاي متنقل",
+      "additionalDriver": "سائق إضافي",
+      "fullInsurance": "تأمين شامل",
+      "roadsideAssistance": "مساعدة على الطريق"
     },
-    "fuel": {
-      "petrol": "بنزين",
-      "diesel": "ديزل",
-      "hybrid": "هجين",
-      "electric": "كهربائي"
+    "details": {
+      "specifications": "المواصفات",
+      "features": "الميزات",
+      "included": "مشمول",
+      "requirements": "المتطلبات",
+      "minAge": "الحد الأدنى لعمر السائق: 21 سنة",
+      "license": "رخصة قيادة سارية مطلوبة",
+      "deposit": "مطلوب وديعة تأمين"
     },
-    "perDay": "/يوم",
-    "bookNow": "احجز",
-    "viewAll": "عرض جميع المركبات"
+    "reviews": "تقييمات",
+    "discount": "خصم"
   }
 }

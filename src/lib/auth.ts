@@ -11,7 +11,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { authLogger } from '@/lib/logger';
 
 // Check if we're in demo mode (enables demo accounts)
-const DEMO_MODE = process.env.DEMO_MODE === 'true';
+// SECURITY: Demo mode is disabled in production regardless of DEMO_MODE env var
+const DEMO_MODE = process.env.DEMO_MODE === 'true' && process.env.NODE_ENV !== 'production';
 
 // Validate NEXTAUTH_SECRET is set in production
 if (!process.env.NEXTAUTH_SECRET) {

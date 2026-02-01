@@ -442,10 +442,36 @@
   },
   "carRental": {
     "sectionLabel": "Alquiler de Coches",
-    "title": "Explora Albania a Tu Ritmo",
-    "description": "Alquila un coche y descubre Albania con total libertad. Nuestra variada flota se adapta a todos los estilos de viaje.",
+    "title": "Alquila un Coche en Albania",
+    "subtitle": "Explora Albania a tu ritmo con nuestro servicio premium de alquiler de coches",
+    "perDay": "por día",
+    "seats": "plazas",
+    "doors": "puertas",
+    "luggage": "maletas",
+    "transmission": "Transmisión",
+    "automatic": "Automático",
+    "manual": "Manual",
+    "fuelType": "Tipo de Combustible",
+    "petrol": "Gasolina",
+    "diesel": "Diésel",
+    "hybrid": "Híbrido",
+    "electric": "Eléctrico",
+    "bookNow": "Reservar Ahora",
+    "viewDetails": "Ver Detalles",
+    "viewAll": "Ver Todos los Coches",
+    "featured": "Destacado",
+    "available": "Disponible",
+    "unavailable": "No Disponible",
     "filters": {
       "all": "Todos",
+      "category": "Categoría",
+      "seats": "Plazas",
+      "transmission": "Transmisión",
+      "priceRange": "Rango de Precio",
+      "clearAll": "Limpiar Filtros"
+    },
+    "categories": {
+      "all": "Todos los Coches",
       "economy": "Económico",
       "compact": "Compacto",
       "midsize": "Mediano",
@@ -453,23 +479,44 @@
       "luxury": "Lujo",
       "van": "Furgoneta"
     },
-    "specs": {
-      "seats": "plazas",
-      "transmission": "Transmisión",
-      "fuel": "Combustible"
+    "booking": {
+      "title": "Reserva Tu Coche",
+      "pickupDate": "Fecha de Recogida",
+      "returnDate": "Fecha de Devolución",
+      "pickupTime": "Hora de Recogida",
+      "returnTime": "Hora de Devolución",
+      "pickupLocation": "Lugar de Recogida",
+      "returnLocation": "Lugar de Devolución",
+      "sameLocation": "Devolver en el mismo lugar",
+      "driverAge": "Edad del Conductor",
+      "extras": "Extras y Adicionales",
+      "totalDays": "Total de Días",
+      "totalPrice": "Precio Total",
+      "priceBreakdown": "Desglose del Precio",
+      "vehiclePrice": "Vehículo",
+      "extrasPrice": "Extras",
+      "confirmBooking": "Confirmar Reserva",
+      "selectDates": "Por favor, selecciona las fechas"
     },
-    "transmission": {
-      "automatic": "Automático",
-      "manual": "Manual"
+    "extras": {
+      "gps": "Navegación GPS",
+      "childSeat": "Silla Infantil",
+      "boosterSeat": "Asiento Elevador",
+      "wifi": "WiFi Portátil",
+      "additionalDriver": "Conductor Adicional",
+      "fullInsurance": "Seguro Completo",
+      "roadsideAssistance": "Asistencia en Carretera"
     },
-    "fuel": {
-      "petrol": "Gasolina",
-      "diesel": "Diésel",
-      "hybrid": "Híbrido",
-      "electric": "Eléctrico"
+    "details": {
+      "specifications": "Especificaciones",
+      "features": "Características",
+      "included": "Incluido",
+      "requirements": "Requisitos",
+      "minAge": "Edad mínima del conductor: 21 años",
+      "license": "Permiso de conducir válido requerido",
+      "deposit": "Depósito de seguridad requerido"
     },
-    "perDay": "/día",
-    "bookNow": "Reservar",
-    "viewAll": "Ver Todos los Vehículos"
+    "reviews": "reseñas",
+    "discount": "OFF"
   }
 }

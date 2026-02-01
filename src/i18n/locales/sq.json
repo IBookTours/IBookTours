@@ -442,10 +442,36 @@
   },
   "carRental": {
     "sectionLabel": "Marrje me Qira Makinash",
-    "title": "Eksploroni Shqipërinë me Ritmin Tuaj",
-    "description": "Merrni me qira një makinë dhe zbuloni Shqipërinë me liri të plotë. Flota jonë e larmishme i përshtatet çdo stili udhëtimi.",
+    "title": "Merrni me Qira një Makinë në Shqipëri",
+    "subtitle": "Eksploroni Shqipërinë me ritmin tuaj me shërbimin tonë premium të marrjes me qira të makinave",
+    "perDay": "në ditë",
+    "seats": "vende",
+    "doors": "dyer",
+    "luggage": "valixhe",
+    "transmission": "Transmisioni",
+    "automatic": "Automatik",
+    "manual": "Manual",
+    "fuelType": "Lloji i Karburantit",
+    "petrol": "Benzinë",
+    "diesel": "Naftë",
+    "hybrid": "Hibrid",
+    "electric": "Elektrik",
+    "bookNow": "Rezervo Tani",
+    "viewDetails": "Shiko Detajet",
+    "viewAll": "Shiko të Gjitha Makinat",
+    "featured": "Të Veçanta",
+    "available": "Në dispozicion",
+    "unavailable": "Jo në dispozicion",
     "filters": {
       "all": "Të Gjitha",
+      "category": "Kategoria",
+      "seats": "Vendet",
+      "transmission": "Transmisioni",
+      "priceRange": "Diapazoni i Çmimeve",
+      "clearAll": "Pastro Filtrat"
+    },
+    "categories": {
+      "all": "Të Gjitha Makinat",
       "economy": "Ekonomike",
       "compact": "Kompakte",
       "midsize": "Mesatare",
@@ -453,23 +479,44 @@
       "luxury": "Luksoze",
       "van": "Furgon"
     },
-    "specs": {
-      "seats": "vende",
-      "transmission": "Transmisioni",
-      "fuel": "Karburanti"
+    "booking": {
+      "title": "Rezervoni Makinën Tuaj",
+      "pickupDate": "Data e Marrjes",
+      "returnDate": "Data e Kthimit",
+      "pickupTime": "Ora e Marrjes",
+      "returnTime": "Ora e Kthimit",
+      "pickupLocation": "Vendi i Marrjes",
+      "returnLocation": "Vendi i Kthimit",
+      "sameLocation": "Ktheje në të njëjtin vend",
+      "driverAge": "Mosha e Shoferit",
+      "extras": "Ekstra dhe Shtesa",
+      "totalDays": "Ditë Gjithsej",
+      "totalPrice": "Çmimi Total",
+      "priceBreakdown": "Ndarja e Çmimit",
+      "vehiclePrice": "Automjeti",
+      "extrasPrice": "Ekstra",
+      "confirmBooking": "Konfirmo Rezervimin",
+      "selectDates": "Ju lutemi zgjidhni datat"
     },
-    "transmission": {
-      "automatic": "Automatik",
-      "manual": "Manual"
+    "extras": {
+      "gps": "Navigacion GPS",
+      "childSeat": "Karrike Fëmijësh",
+      "boosterSeat": "Karrike Ngritëse",
+      "wifi": "WiFi Portativ",
+      "additionalDriver": "Shofer Shtesë",
+      "fullInsurance": "Sigurim i Plotë",
+      "roadsideAssistance": "Ndihmë Rrugore"
     },
-    "fuel": {
-      "petrol": "Benzinë",
-      "diesel": "Naftë",
-      "hybrid": "Hibrid",
-      "electric": "Elektrik"
+    "details": {
+      "specifications": "Specifikimet",
+      "features": "Veçoritë",
+      "included": "Përfshirë",
+      "requirements": "Kërkesat",
+      "minAge": "Mosha minimale e shoferit: 21 vjeç",
+      "license": "Kërkohet patentë e vlefshme",
+      "deposit": "Kërkohet depozitë sigurie"
     },
-    "perDay": "/ditë",
-    "bookNow": "Rezervo",
-    "viewAll": "Shiko të Gjitha Automjetet"
+    "reviews": "vlerësime",
+    "discount": "ZBRITJE"
   }
 }

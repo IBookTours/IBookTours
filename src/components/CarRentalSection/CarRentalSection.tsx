@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Car, Users, Fuel, Settings, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { carRentalVehicles } from '@/data/carRentalData';
 import { CarRentalVehicle, VehicleCategory, VEHICLE_CATEGORIES } from '@/types/carRental';
@@ -11,6 +12,7 @@ import { ANIMATION } from '@/lib/constants';
 import styles from './CarRentalSection.module.scss';
 
 export default function CarRentalSection() {
+  const t = useTranslations('carRental');
   const [selectedCategory, setSelectedCategory] = useState<VehicleCategory | 'all'>('all');
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: ANIMATION.THRESHOLD_LIGHT,
@@ -25,12 +27,9 @@ export default function CarRentalSection() {
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-          <span className={styles.sectionLabel}>Explore Albania</span>
-          <h2 className={styles.title}>Car Rental</h2>
-          <p className={styles.description}>
-            Rent a car and explore Albania at your own pace. From compact city cars
-            to spacious SUVs for mountain adventures.
-          </p>
+          <span className={styles.sectionLabel}>{t('sectionLabel')}</span>
+          <h2 className={styles.title}>{t('title')}</h2>
+          <p className={styles.description}>{t('subtitle')}</p>
         </div>
 
         {/* Category Filter */}
@@ -39,7 +38,7 @@ export default function CarRentalSection() {
             className={`${styles.filterBtn} ${selectedCategory === 'all' ? styles.active : ''}`}
             onClick={() => setSelectedCategory('all')}
           >
-            All
+            {t('filters.all')}
           </button>
           {VEHICLE_CATEGORIES.map(cat => (
             <button
@@ -47,7 +46,7 @@ export default function CarRentalSection() {
               className={`${styles.filterBtn} ${selectedCategory === cat.value ? styles.active : ''}`}
               onClick={() => setSelectedCategory(cat.value)}
             >
-              {cat.label}
+              {t(`categories.${cat.value}`)}
             </button>
           ))}
         </div>
@@ -55,14 +54,14 @@ export default function CarRentalSection() {
         {/* Vehicle Grid */}
         <div className={`${styles.grid} ${isInView ? styles.visible : ''}`}>
           {filteredVehicles.slice(0, 4).map((vehicle, index) => (
-            <VehicleCard key={vehicle.id} vehicle={vehicle} index={index} />
+            <VehicleCard key={vehicle.id} vehicle={vehicle} index={index} t={t} />
           ))}
         </div>
 
         {/* View All CTA */}
         <div className={`${styles.cta} ${isInView ? styles.visible : ''}`}>
           <Link href="/car-rental" className={styles.ctaBtn}>
-            View All Vehicles
+            {t('viewAll')}
             <ArrowRight size={18} />
           </Link>
         </div>
@@ -74,16 +73,18 @@ export default function CarRentalSection() {
 interface VehicleCardProps {
   vehicle: CarRentalVehicle;
   index: number;
+  t: ReturnType<typeof useTranslations<'carRental'>>;
 }
 
-function VehicleCard({ vehicle, index }: VehicleCardProps) {
+// Memoized to prevent re-renders when filter changes don't affect this card
+const VehicleCard = memo(function VehicleCard({ vehicle, index, t }: VehicleCardProps) {
   return (
     <div className={styles.card} style={{ animationDelay: `${index * 100}ms` }}>
       <div className={styles.cardImage}>
         <div className={styles.imagePlaceholder}>
           <Car size={48} />
         </div>
-        <span className={styles.category}>{vehicle.category}</span>
+        <span className={styles.category}>{t(`categories.${vehicle.category}`)}</span>
       </div>
 
       <div className={styles.cardContent}>
@@ -92,15 +93,15 @@ function VehicleCard({ vehicle, index }: VehicleCardProps) {
         <div className={styles.specs}>
           <div className={styles.spec}>
             <Users size={16} />
-            <span>{vehicle.seats} seats</span>
+            <span>{vehicle.seats} {t('seats')}</span>
           </div>
           <div className={styles.spec}>
             <Settings size={16} />
-            <span>{vehicle.transmission}</span>
+            <span>{t(vehicle.transmission)}</span>
           </div>
           <div className={styles.spec}>
             <Fuel size={16} />
-            <span>{vehicle.fuelType}</span>
+            <span>{t(vehicle.fuelType)}</span>
           </div>
         </div>
 
@@ -113,13 +114,13 @@ function VehicleCard({ vehicle, index }: VehicleCardProps) {
         <div className={styles.cardFooter}>
           <div className={styles.price}>
             <span className={styles.priceAmount}>€{vehicle.pricePerDay}</span>
-            <span className={styles.priceUnit}>/day</span>
+            <span className={styles.priceUnit}>/{t('perDay')}</span>
           </div>
           <Link href={`/car-rental/${vehicle.id}`} className={styles.bookBtn}>
-            Book Now
+            {t('bookNow')}
           </Link>
         </div>
       </div>
     </div>
   );
-}
+});

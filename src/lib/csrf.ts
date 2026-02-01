@@ -16,8 +16,21 @@ import { NextRequest } from 'next/server';
 
 // CSRF token cookie name
 const CSRF_COOKIE_NAME = 'csrf_token';
-const CSRF_SECRET = process.env.NEXTAUTH_SECRET || 'dev-csrf-secret';
 const CSRF_TOKEN_EXPIRY = 60 * 60 * 1000; // 1 hour in milliseconds
+
+// SECURITY: Get CSRF secret lazily to avoid build-time errors
+function getCsrfSecret(): string {
+  const secret = process.env.NEXTAUTH_SECRET;
+  if (secret) return secret;
+
+  // In production, NEXTAUTH_SECRET must be set
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('NEXTAUTH_SECRET required for CSRF protection in production');
+  }
+
+  // Development fallback only
+  return 'dev-csrf-secret';
+}
 
 /**
  * Generate a CSRF token
@@ -27,7 +40,7 @@ export function generateCsrfToken(): string {
   const timestamp = Date.now().toString();
   const random = randomBytes(16).toString('hex');
   const data = `${timestamp}.${random}`;
-  const signature = createHmac('sha256', CSRF_SECRET).update(data).digest('hex');
+  const signature = createHmac('sha256', getCsrfSecret()).update(data).digest('hex');
   return `${data}.${signature}`;
 }
 
@@ -45,7 +58,7 @@ export function isValidCsrfToken(token: string): boolean {
 
   // Verify signature
   const data = `${timestamp}.${random}`;
-  const expectedSignature = createHmac('sha256', CSRF_SECRET).update(data).digest('hex');
+  const expectedSignature = createHmac('sha256', getCsrfSecret()).update(data).digest('hex');
 
   if (signature !== expectedSignature) {
     return false;

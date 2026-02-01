@@ -21,6 +21,7 @@ import {
   Zap,
 } from 'lucide-react';
 import Dropdown from '@/components/shared/Dropdown';
+import VideoBackground from '@/components/VideoBackground';
 import { VehicleCategory } from '@/types/carRental';
 import { carRentalVehicles } from '@/data/carRentalData';
 import {
@@ -29,6 +30,14 @@ import {
   formatCarPrice,
 } from '@/store/carRentalStore';
 import styles from './car-rental.module.scss';
+
+// Hero video configuration - add video files to public/videos/ when available
+const HERO_VIDEO = {
+  mp4: '/videos/car-rental-hero.mp4',
+  webm: '/videos/car-rental-hero.webm',
+  poster: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1920&h=600&fit=crop&q=90',
+};
+const HERO_FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1920&h=600&fit=crop&q=90';
 
 const categoryIds: Array<VehicleCategory | 'all'> = [
   'all',
@@ -174,15 +183,10 @@ export default function CarRentalClient() {
     <div className={styles.page}>
       {/* Hero Section */}
       <section className={styles.hero}>
-        <Image
-          src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1920&h=600&fit=crop&q=90"
-          alt="Car rental in Albania"
-          fill
-          priority
-          quality={90}
-          className={styles.heroImage}
+        <VideoBackground
+          video={HERO_VIDEO}
+          fallbackImage={HERO_FALLBACK_IMAGE}
         />
-        <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <h1>{t('title')}</h1>
           <p>{t('subtitle')}</p>
