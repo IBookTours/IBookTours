@@ -522,5 +522,111 @@
     },
     "reviews": "beoordelingen",
     "discount": "KORTING"
+  },
+  "hotels": {
+    "sectionLabel": "Hotels",
+    "title": "Uitgelezen Hotels",
+    "subtitle": "Verblijf comfortabel in onze zorgvuldig geselecteerde partnerhotels in de regio",
+    "pageTitle": "Ontdek Onze Hotels",
+    "pageSubtitle": "Van boutique pensions tot luxe resorts, vind uw perfecte verblijf in Albanië",
+    "perNight": "nacht",
+    "stars": "sterren",
+    "amenities": "Voorzieningen",
+    "checkIn": "Inchecken",
+    "checkOut": "Uitchecken",
+    "rooms": "Kamers",
+    "guests": "Gasten",
+    "bookNow": "Nu Boeken",
+    "viewDetails": "Details Bekijken",
+    "viewAll": "Alle Hotels Bekijken",
+    "featured": "Uitgelicht",
+    "available": "Beschikbaar",
+    "unavailable": "Uitverkocht",
+    "reviews": "beoordelingen",
+    "from": "Vanaf",
+    "save": "Opslaan",
+    "about": "Over Dit Hotel",
+    "highlights": "Hoogtepunten",
+    "maxGuests": "Max gasten",
+    "backToHotels": "Terug naar Hotels",
+    "searchPlaceholder": "Zoek hotels op naam of locatie...",
+    "filterByCity": "Filter op Stad",
+    "allCities": "Alle Steden",
+    "clearFilters": "Filters Wissen",
+    "hotelFound": "hotel gevonden",
+    "hotelsFound": "hotels gevonden",
+    "noResults": "Geen hotels gevonden die aan uw criteria voldoen",
+    "resetFilters": "Filters Resetten",
+    "filters": "Filters",
+    "categories": {
+      "all": "Alle",
+      "boutique": "Boutique",
+      "resort": "Resort",
+      "guesthouse": "Pension",
+      "luxury": "Luxe",
+      "budget": "Budget"
+    },
+    "amenityLabels": {
+      "wifi": "Gratis WiFi",
+      "pool": "Zwembad",
+      "spa": "Spa & Wellness",
+      "restaurant": "Restaurant",
+      "parking": "Gratis Parkeren",
+      "airConditioning": "Airconditioning",
+      "beachAccess": "Strandtoegang",
+      "gym": "Fitnesscentrum",
+      "bar": "Bar",
+      "roomService": "Roomservice",
+      "breakfast": "Ontbijt Inbegrepen",
+      "concierge": "Conciërge",
+      "laundry": "Wasservice",
+      "shuttle": "Luchthaventransfer",
+      "petFriendly": "Huisdiervriendelijk"
+    },
+    "booking": {
+      "title": "Boek Uw Verblijf",
+      "checkInDate": "Incheckdatum",
+      "checkOutDate": "Uitcheckdatum",
+      "roomType": "Kamertype",
+      "numberOfRooms": "Aantal Kamers",
+      "totalNights": "Totaal Nachten",
+      "totalPrice": "Totaalprijs",
+      "confirmBooking": "Boeking Bevestigen",
+      "selectDates": "Selecteer alstublieft datums",
+      "contactToBook": "Neem contact met ons op om dit hotel te boeken",
+      "callUs": "Bel Ons",
+      "emailUs": "E-mail Ons",
+      "note": "Ons team bevestigt de beschikbaarheid en stuurt u binnen 24 uur een boekingsbevestiging."
+    },
+    "roomTypes": {
+      "title": "Beschikbare Kamers",
+      "standard": "Standaard Kamer",
+      "deluxe": "Deluxe Kamer",
+      "suite": "Suite",
+      "family": "Familiekamer",
+      "single": "Eenpersoonskamer",
+      "double": "Tweepersoonskamer",
+      "twin": "Twinroom"
+    }
+  },
+  "travelServices": {
+    "sectionLabel": "Reisdiensten",
+    "title": "Verrijk Uw Reis",
+    "subtitle": "Maak uw reiservaring compleet met onze aanvullende diensten",
+    "learnMore": "Meer Info",
+    "services": {
+      "events": {
+        "title": "Evenementen & Festivals",
+        "description": "Beleef de lokale cultuur door festivals, concerten en seizoensgebonden vieringen in de hele regio."
+      },
+      "airportTransfers": {
+        "title": "Luchthaventransfers",
+        "description": "Comfortabele privé of gedeelde transfers tussen luchthavens en uw accommodatie."
+      },
+      "localGuides": {
+        "title": "Lokale Gidsen",
+        "description": "Deskundige lokale gidsen en vertalers om uw reiservaring te verrijken met lokale kennis."
+      }
+    }
   }
 }

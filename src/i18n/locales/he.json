@@ -522,5 +522,111 @@
     },
     "reviews": "ביקורות",
     "discount": "הנחה"
+  },
+  "hotels": {
+    "sectionLabel": "מלונות",
+    "title": "מלונות נבחרים",
+    "subtitle": "התארחו בנוחות במלונות השותפים שלנו ברחבי האזור",
+    "pageTitle": "גלו את המלונות שלנו",
+    "pageSubtitle": "מבתי הארחה בוטיק ועד אתרי נופש יוקרתיים, מצאו את השהייה המושלמת באלבניה",
+    "perNight": "ללילה",
+    "stars": "כוכבים",
+    "amenities": "שירותים",
+    "checkIn": "צ'ק-אין",
+    "checkOut": "צ'ק-אאוט",
+    "rooms": "חדרים",
+    "guests": "אורחים",
+    "bookNow": "הזמינו עכשיו",
+    "viewDetails": "לפרטים נוספים",
+    "viewAll": "לכל המלונות",
+    "featured": "מומלץ",
+    "available": "זמין",
+    "unavailable": "אזל",
+    "reviews": "ביקורות",
+    "from": "החל מ",
+    "save": "שמור",
+    "about": "אודות המלון",
+    "highlights": "דגשים",
+    "maxGuests": "מקסימום אורחים",
+    "backToHotels": "חזרה למלונות",
+    "searchPlaceholder": "חיפוש מלונות לפי שם או מיקום...",
+    "filterByCity": "סינון לפי עיר",
+    "allCities": "כל הערים",
+    "clearFilters": "נקה סינון",
+    "hotelFound": "מלון נמצא",
+    "hotelsFound": "מלונות נמצאו",
+    "noResults": "לא נמצאו מלונות התואמים לחיפוש",
+    "resetFilters": "איפוס סינון",
+    "filters": "סינון",
+    "categories": {
+      "all": "הכל",
+      "boutique": "בוטיק",
+      "resort": "אתר נופש",
+      "guesthouse": "בית הארחה",
+      "luxury": "יוקרה",
+      "budget": "תקציבי"
+    },
+    "amenityLabels": {
+      "wifi": "WiFi חינם",
+      "pool": "בריכת שחייה",
+      "spa": "ספא ובריאות",
+      "restaurant": "מסעדה",
+      "parking": "חניה חינם",
+      "airConditioning": "מיזוג אוויר",
+      "beachAccess": "גישה לחוף",
+      "gym": "חדר כושר",
+      "bar": "בר",
+      "roomService": "שירות חדרים",
+      "breakfast": "ארוחת בוקר כלולה",
+      "concierge": "קונסיירז'",
+      "laundry": "שירות כביסה",
+      "shuttle": "הסעות משדה התעופה",
+      "petFriendly": "ידידותי לחיות מחמד"
+    },
+    "booking": {
+      "title": "הזמינו את השהייה",
+      "checkInDate": "תאריך כניסה",
+      "checkOutDate": "תאריך יציאה",
+      "roomType": "סוג חדר",
+      "numberOfRooms": "מספר חדרים",
+      "totalNights": "סך הכל לילות",
+      "totalPrice": "מחיר כולל",
+      "confirmBooking": "אישור הזמנה",
+      "selectDates": "אנא בחרו תאריכים",
+      "contactToBook": "צרו קשר להזמנת מלון זה",
+      "callUs": "התקשרו אלינו",
+      "emailUs": "שלחו אימייל",
+      "note": "הצוות שלנו יאשר זמינות וישלח אישור הזמנה תוך 24 שעות."
+    },
+    "roomTypes": {
+      "title": "חדרים זמינים",
+      "standard": "חדר רגיל",
+      "deluxe": "חדר דלוקס",
+      "suite": "סוויטה",
+      "family": "חדר משפחתי",
+      "single": "חדר יחיד",
+      "double": "חדר זוגי",
+      "twin": "חדר טווין"
+    }
+  },
+  "travelServices": {
+    "sectionLabel": "שירותי נסיעות",
+    "title": "העשירו את המסע שלכם",
+    "subtitle": "השלימו את חווית הנסיעה עם השירותים הנוספים שלנו",
+    "learnMore": "למידע נוסף",
+    "services": {
+      "events": {
+        "title": "אירועים ופסטיבלים",
+        "description": "חוו את התרבות המקומית דרך פסטיבלים, הופעות וחגיגות עונתיות ברחבי האזור."
+      },
+      "airportTransfers": {
+        "title": "הסעות משדה התעופה",
+        "description": "הסעות פרטיות או משותפות נוחות בין שדות התעופה למקום האירוח שלכם."
+      },
+      "localGuides": {
+        "title": "מדריכים מקומיים",
+        "description": "מדריכים מקומיים מומחים ומתורגמנים להעשרת חווית הנסיעה שלכם בידע מקומי."
+      }
+    }
   }
 }

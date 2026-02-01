@@ -522,5 +522,111 @@
     },
     "reviews": "reseñas",
     "discount": "OFF"
+  },
+  "hotels": {
+    "sectionLabel": "Hoteles",
+    "title": "Hoteles Seleccionados",
+    "subtitle": "Alójate con comodidad en nuestros hoteles asociados cuidadosamente seleccionados",
+    "pageTitle": "Descubre Nuestros Hoteles",
+    "pageSubtitle": "Desde casas de huéspedes boutique hasta resorts de lujo, encuentra tu estancia perfecta en Albania",
+    "perNight": "noche",
+    "stars": "estrellas",
+    "amenities": "Servicios",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "rooms": "Habitaciones",
+    "guests": "Huéspedes",
+    "bookNow": "Reservar Ahora",
+    "viewDetails": "Ver Detalles",
+    "viewAll": "Ver Todos los Hoteles",
+    "featured": "Destacado",
+    "available": "Disponible",
+    "unavailable": "Agotado",
+    "reviews": "reseñas",
+    "from": "Desde",
+    "save": "Guardar",
+    "about": "Sobre Este Hotel",
+    "highlights": "Destacados",
+    "maxGuests": "Máximo de huéspedes",
+    "backToHotels": "Volver a Hoteles",
+    "searchPlaceholder": "Buscar hoteles por nombre o ubicación...",
+    "filterByCity": "Filtrar por Ciudad",
+    "allCities": "Todas las Ciudades",
+    "clearFilters": "Limpiar Filtros",
+    "hotelFound": "hotel encontrado",
+    "hotelsFound": "hoteles encontrados",
+    "noResults": "No se encontraron hoteles con los criterios seleccionados",
+    "resetFilters": "Restablecer Filtros",
+    "filters": "Filtros",
+    "categories": {
+      "all": "Todos",
+      "boutique": "Boutique",
+      "resort": "Resort",
+      "guesthouse": "Casa de Huéspedes",
+      "luxury": "Lujo",
+      "budget": "Económico"
+    },
+    "amenityLabels": {
+      "wifi": "WiFi Gratis",
+      "pool": "Piscina",
+      "spa": "Spa y Bienestar",
+      "restaurant": "Restaurante",
+      "parking": "Aparcamiento Gratis",
+      "airConditioning": "Aire Acondicionado",
+      "beachAccess": "Acceso a la Playa",
+      "gym": "Gimnasio",
+      "bar": "Bar",
+      "roomService": "Servicio de Habitaciones",
+      "breakfast": "Desayuno Incluido",
+      "concierge": "Conserjería",
+      "laundry": "Lavandería",
+      "shuttle": "Traslado al Aeropuerto",
+      "petFriendly": "Admite Mascotas"
+    },
+    "booking": {
+      "title": "Reserva Tu Estancia",
+      "checkInDate": "Fecha de Check-in",
+      "checkOutDate": "Fecha de Check-out",
+      "roomType": "Tipo de Habitación",
+      "numberOfRooms": "Número de Habitaciones",
+      "totalNights": "Total de Noches",
+      "totalPrice": "Precio Total",
+      "confirmBooking": "Confirmar Reserva",
+      "selectDates": "Por favor, selecciona las fechas",
+      "contactToBook": "Contáctanos para reservar este hotel",
+      "callUs": "Llámanos",
+      "emailUs": "Envíanos un Email",
+      "note": "Nuestro equipo confirmará la disponibilidad y te enviará una confirmación de reserva en 24 horas."
+    },
+    "roomTypes": {
+      "title": "Habitaciones Disponibles",
+      "standard": "Habitación Estándar",
+      "deluxe": "Habitación Deluxe",
+      "suite": "Suite",
+      "family": "Habitación Familiar",
+      "single": "Habitación Individual",
+      "double": "Habitación Doble",
+      "twin": "Habitación Twin"
+    }
+  },
+  "travelServices": {
+    "sectionLabel": "Servicios de Viaje",
+    "title": "Mejora Tu Viaje",
+    "subtitle": "Completa tu experiencia de viaje con nuestros servicios adicionales",
+    "learnMore": "Más Información",
+    "services": {
+      "events": {
+        "title": "Eventos y Festivales",
+        "description": "Experimenta la cultura local a través de festivales, conciertos y celebraciones estacionales en toda la región."
+      },
+      "airportTransfers": {
+        "title": "Traslados al Aeropuerto",
+        "description": "Traslados privados o compartidos cómodos entre aeropuertos y tu alojamiento."
+      },
+      "localGuides": {
+        "title": "Guías Locales",
+        "description": "Guías locales expertos y traductores para enriquecer tu experiencia de viaje con conocimiento local."
+      }
+    }
   }
 }

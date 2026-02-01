@@ -522,5 +522,111 @@
     },
     "reviews": "vlerësime",
     "discount": "ZBRITJE"
+  },
+  "hotels": {
+    "sectionLabel": "Hotele",
+    "title": "Hotele të Zgjedhura",
+    "subtitle": "Qëndroni me rehati në hotelet tona partnere të zgjedhura me kujdes",
+    "pageTitle": "Zbuloni Hotelet Tona",
+    "pageSubtitle": "Nga bujtina butike deri te resortet luksoze, gjeni qëndrimin tuaj perfekt në Shqipëri",
+    "perNight": "natë",
+    "stars": "yje",
+    "amenities": "Shërbime",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "rooms": "Dhoma",
+    "guests": "Mysafirë",
+    "bookNow": "Rezervo Tani",
+    "viewDetails": "Shiko Detajet",
+    "viewAll": "Shiko të Gjitha Hotelet",
+    "featured": "Të Dalluara",
+    "available": "E disponueshme",
+    "unavailable": "E shitur",
+    "reviews": "vlerësime",
+    "from": "Nga",
+    "save": "Ruaj",
+    "about": "Rreth Këtij Hoteli",
+    "highlights": "Pikat Kryesore",
+    "maxGuests": "Maksimumi i mysafirëve",
+    "backToHotels": "Kthehu te Hotelet",
+    "searchPlaceholder": "Kërko hotele sipas emrit ose vendndodhjes...",
+    "filterByCity": "Filtro sipas Qytetit",
+    "allCities": "Të Gjitha Qytetet",
+    "clearFilters": "Pastro Filtrat",
+    "hotelFound": "hotel u gjet",
+    "hotelsFound": "hotele u gjetën",
+    "noResults": "Nuk u gjetën hotele që përputhen me kriteret tuaja",
+    "resetFilters": "Rivendos Filtrat",
+    "filters": "Filtrat",
+    "categories": {
+      "all": "Të gjitha",
+      "boutique": "Butike",
+      "resort": "Resort",
+      "guesthouse": "Bujtinë",
+      "luxury": "Luksoz",
+      "budget": "Ekonomik"
+    },
+    "amenityLabels": {
+      "wifi": "WiFi Falas",
+      "pool": "Pishinë",
+      "spa": "Spa dhe Wellness",
+      "restaurant": "Restorant",
+      "parking": "Parkim Falas",
+      "airConditioning": "Kondicionim",
+      "beachAccess": "Akses në Plazh",
+      "gym": "Palestër",
+      "bar": "Bar",
+      "roomService": "Shërbim Dhome",
+      "breakfast": "Mëngjes i Përfshirë",
+      "concierge": "Koncierxh",
+      "laundry": "Shërbim Lavanteri",
+      "shuttle": "Transport nga Aeroporti",
+      "petFriendly": "Miqësor me Kafshët"
+    },
+    "booking": {
+      "title": "Rezervo Qëndrimin Tënd",
+      "checkInDate": "Data e Check-in",
+      "checkOutDate": "Data e Check-out",
+      "roomType": "Lloji i Dhomës",
+      "numberOfRooms": "Numri i Dhomave",
+      "totalNights": "Gjithsej Netë",
+      "totalPrice": "Çmimi Total",
+      "confirmBooking": "Konfirmo Rezervimin",
+      "selectDates": "Ju lutemi zgjidhni datat",
+      "contactToBook": "Na kontaktoni për të rezervuar këtë hotel",
+      "callUs": "Na Telefononi",
+      "emailUs": "Na Dërgoni Email",
+      "note": "Ekipi ynë do të konfirmojë disponueshmërinë dhe do t'ju dërgojë një konfirmim rezervimi brenda 24 orëve."
+    },
+    "roomTypes": {
+      "title": "Dhomat e Disponueshme",
+      "standard": "Dhomë Standarde",
+      "deluxe": "Dhomë Deluxe",
+      "suite": "Suite",
+      "family": "Dhomë Familjare",
+      "single": "Dhomë Teke",
+      "double": "Dhomë Dyshe",
+      "twin": "Dhomë Twin"
+    }
+  },
+  "travelServices": {
+    "sectionLabel": "Shërbime Udhëtimi",
+    "title": "Pasurojeni Udhëtimin Tuaj",
+    "subtitle": "Plotësoni përvojën tuaj të udhëtimit me shërbimet tona shtesë",
+    "learnMore": "Mësoni Më Shumë",
+    "services": {
+      "events": {
+        "title": "Evente dhe Festivale",
+        "description": "Përjetoni kulturën lokale përmes festivaleve, koncerteve dhe kremtimeve sezonale në të gjithë rajonin."
+      },
+      "airportTransfers": {
+        "title": "Transferta nga Aeroporti",
+        "description": "Transferta private ose të përbashkëta komode mes aeroporteve dhe akomodimit tuaj."
+      },
+      "localGuides": {
+        "title": "Guida Lokale",
+        "description": "Guida lokale eksperte dhe përkthyes për të pasuruar përvojën tuaj të udhëtimit me njohuri lokale."
+      }
+    }
   }
 }

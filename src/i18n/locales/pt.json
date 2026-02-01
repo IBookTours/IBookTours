@@ -522,5 +522,111 @@
     },
     "reviews": "avaliações",
     "discount": "OFF"
+  },
+  "hotels": {
+    "sectionLabel": "Hotéis",
+    "title": "Hotéis Selecionados",
+    "subtitle": "Hospede-se com conforto em nossos hotéis parceiros cuidadosamente selecionados",
+    "pageTitle": "Descubra Nossos Hotéis",
+    "pageSubtitle": "De pousadas boutique a resorts de luxo, encontre sua estadia perfeita na Albânia",
+    "perNight": "noite",
+    "stars": "estrelas",
+    "amenities": "Comodidades",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "rooms": "Quartos",
+    "guests": "Hóspedes",
+    "bookNow": "Reserve Agora",
+    "viewDetails": "Ver Detalhes",
+    "viewAll": "Ver Todos os Hotéis",
+    "featured": "Destaque",
+    "available": "Disponível",
+    "unavailable": "Esgotado",
+    "reviews": "avaliações",
+    "from": "A partir de",
+    "save": "Salvar",
+    "about": "Sobre Este Hotel",
+    "highlights": "Destaques",
+    "maxGuests": "Máximo de hóspedes",
+    "backToHotels": "Voltar aos Hotéis",
+    "searchPlaceholder": "Buscar hotéis por nome ou localização...",
+    "filterByCity": "Filtrar por Cidade",
+    "allCities": "Todas as Cidades",
+    "clearFilters": "Limpar Filtros",
+    "hotelFound": "hotel encontrado",
+    "hotelsFound": "hotéis encontrados",
+    "noResults": "Nenhum hotel encontrado com os critérios selecionados",
+    "resetFilters": "Redefinir Filtros",
+    "filters": "Filtros",
+    "categories": {
+      "all": "Todos",
+      "boutique": "Boutique",
+      "resort": "Resort",
+      "guesthouse": "Pousada",
+      "luxury": "Luxo",
+      "budget": "Econômico"
+    },
+    "amenityLabels": {
+      "wifi": "WiFi Grátis",
+      "pool": "Piscina",
+      "spa": "Spa e Bem-estar",
+      "restaurant": "Restaurante",
+      "parking": "Estacionamento Grátis",
+      "airConditioning": "Ar Condicionado",
+      "beachAccess": "Acesso à Praia",
+      "gym": "Academia",
+      "bar": "Bar",
+      "roomService": "Serviço de Quarto",
+      "breakfast": "Café da Manhã Incluído",
+      "concierge": "Concierge",
+      "laundry": "Lavanderia",
+      "shuttle": "Transfer do Aeroporto",
+      "petFriendly": "Aceita Pets"
+    },
+    "booking": {
+      "title": "Reserve Sua Estadia",
+      "checkInDate": "Data de Check-in",
+      "checkOutDate": "Data de Check-out",
+      "roomType": "Tipo de Quarto",
+      "numberOfRooms": "Número de Quartos",
+      "totalNights": "Total de Noites",
+      "totalPrice": "Preço Total",
+      "confirmBooking": "Confirmar Reserva",
+      "selectDates": "Por favor, selecione as datas",
+      "contactToBook": "Entre em contato para reservar este hotel",
+      "callUs": "Ligue para Nós",
+      "emailUs": "Envie um E-mail",
+      "note": "Nossa equipe confirmará a disponibilidade e enviará uma confirmação de reserva em até 24 horas."
+    },
+    "roomTypes": {
+      "title": "Quartos Disponíveis",
+      "standard": "Quarto Standard",
+      "deluxe": "Quarto Deluxe",
+      "suite": "Suíte",
+      "family": "Quarto Família",
+      "single": "Quarto Individual",
+      "double": "Quarto Duplo",
+      "twin": "Quarto Twin"
+    }
+  },
+  "travelServices": {
+    "sectionLabel": "Serviços de Viagem",
+    "title": "Complete Sua Jornada",
+    "subtitle": "Complemente sua experiência de viagem com nossos serviços adicionais",
+    "learnMore": "Saiba Mais",
+    "services": {
+      "events": {
+        "title": "Eventos e Festivais",
+        "description": "Experimente a cultura local através de festivais, shows e celebrações sazonais pela região."
+      },
+      "airportTransfers": {
+        "title": "Transfers do Aeroporto",
+        "description": "Transfers privativos ou compartilhados confortáveis entre aeroportos e sua hospedagem."
+      },
+      "localGuides": {
+        "title": "Guias Locais",
+        "description": "Guias locais especializados e tradutores para enriquecer sua experiência com conhecimento local."
+      }
+    }
   }
 }
