@@ -8,6 +8,7 @@
     "home": "Home",
     "about": "Over Ons",
     "discover": "Ontdek",
+    "hotels": "Hotels",
     "carRental": "Autoverhuur",
     "blog": "Blog",
     "contact": "Contact",
@@ -331,8 +332,11 @@
     "login": "Inloggen",
     "logout": "Uitloggen",
     "signup": "Registreren",
+    "signIn": "Inloggen",
+    "signOut": "Uitloggen",
     "myAccount": "Mijn Account",
     "profile": "Profiel",
+    "adminStudio": "Beheerpaneel",
     "signInWith": "Inloggen met {provider}"
   },
   "cart": {

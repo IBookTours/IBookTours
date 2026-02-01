@@ -8,6 +8,7 @@
     "home": "Kryefaqja",
     "about": "Rreth Nesh",
     "discover": "Zbulo",
+    "hotels": "Hotele",
     "carRental": "Marrje me Qira Makinash",
     "blog": "Blog",
     "contact": "Kontakt",
@@ -331,8 +332,11 @@
     "login": "Hyr",
     "logout": "Dil",
     "signup": "Regjistrohu",
+    "signIn": "Hyr",
+    "signOut": "Dil",
     "myAccount": "Llogaria Ime",
     "profile": "Profili",
+    "adminStudio": "Paneli Admin",
     "signInWith": "Hyr me {provider}"
   },
   "cart": {

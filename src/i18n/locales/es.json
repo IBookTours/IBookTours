@@ -8,6 +8,7 @@
     "home": "Inicio",
     "about": "Nosotros",
     "discover": "Descubrir",
+    "hotels": "Hoteles",
     "carRental": "Alquiler de Coches",
     "blog": "Blog",
     "contact": "Contacto",
@@ -331,8 +332,11 @@
     "login": "Iniciar Sesión",
     "logout": "Cerrar Sesión",
     "signup": "Registrarse",
+    "signIn": "Iniciar Sesión",
+    "signOut": "Cerrar Sesión",
     "myAccount": "Mi Cuenta",
     "profile": "Perfil",
+    "adminStudio": "Panel Admin",
     "signInWith": "Iniciar sesión con {provider}"
   },
   "cart": {

@@ -8,6 +8,7 @@
     "home": "Início",
     "about": "Sobre",
     "discover": "Descobrir",
+    "hotels": "Hotéis",
     "carRental": "Aluguel de Carros",
     "blog": "Blog",
     "contact": "Contato",
@@ -331,8 +332,11 @@
     "login": "Entrar",
     "logout": "Sair",
     "signup": "Cadastrar",
+    "signIn": "Entrar",
+    "signOut": "Sair",
     "myAccount": "Minha Conta",
     "profile": "Perfil",
+    "adminStudio": "Painel Admin",
     "signInWith": "Entrar com {provider}"
   },
   "cart": {

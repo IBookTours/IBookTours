@@ -8,6 +8,7 @@
     "home": "الرئيسية",
     "about": "من نحن",
     "discover": "اكتشف",
+    "hotels": "الفنادق",
     "carRental": "تأجير السيارات",
     "blog": "المدونة",
     "contact": "اتصل بنا",
@@ -331,8 +332,11 @@
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج",
     "signup": "إنشاء حساب",
+    "signIn": "تسجيل الدخول",
+    "signOut": "تسجيل الخروج",
     "myAccount": "حسابي",
     "profile": "الملف الشخصي",
+    "adminStudio": "لوحة الإدارة",
     "signInWith": "تسجيل الدخول عبر {provider}"
   },
   "cart": {

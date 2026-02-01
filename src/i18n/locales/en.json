@@ -8,6 +8,7 @@
     "home": "Home",
     "about": "About",
     "discover": "Discover",
+    "hotels": "Hotels",
     "carRental": "Car Rental",
     "blog": "Blog",
     "contact": "Contact",
@@ -18,10 +19,10 @@
     "close": "Close"
   },
   "hero": {
-    "title": "Discover the Beauty of Albania!",
-    "subtitle": "Your Gateway to the Hidden Gem of Europe",
-    "searchPlaceholder": "Search Albanian destinations...",
-    "overlayText": "Albania",
+    "title": "Discover Albania & Beyond",
+    "subtitle": "Your Gateway to the Balkans' Best-Kept Secrets",
+    "searchPlaceholder": "Search destinations...",
+    "overlayText": "Explore",
     "popular": "Popular:",
     "scrollDown": "Scroll Down"
   },
@@ -37,11 +38,11 @@
     "featured": "Featured"
   },
   "adventure": {
-    "sectionLabel": "Explore Albania",
-    "title": "Choose Your Albanian Adventure",
-    "description": "From pristine beaches to majestic mountains, ancient UNESCO sites to authentic culinary experiences — Albania offers adventures for every traveler. Let us guide you through this hidden gem of the Balkans.",
+    "sectionLabel": "Explore With Us",
+    "title": "Choose Your Adventure",
+    "description": "From pristine beaches to majestic mountains, ancient UNESCO sites to authentic culinary experiences — the Balkans offer adventures for every traveler. Let us guide you through the hidden gems of Albania and beyond.",
     "tours": "tours",
-    "ratingLabel": "Reviews from travelers who discovered the magic of Albania with us",
+    "ratingLabel": "Reviews from travelers who discovered the magic of the Balkans with us",
     "cta": "Browse All Tours",
     "stats": {
       "tours": "Unique Tours",
@@ -51,7 +52,7 @@
   },
   "events": {
     "sectionLabel": "Upcoming Events",
-    "title": "Top Albanian Events",
+    "title": "Top Events",
     "year": "2026",
     "learnMore": "Learn More",
     "getTickets": "Get Tickets",
@@ -91,8 +92,8 @@
   },
   "dayTours": {
     "sectionLabel": "Day Tours",
-    "title": "Explore Albania in a Day",
-    "subtitle": "Join our guided day tours and discover the best of Albania with expert local guides.",
+    "title": "Explore in a Day",
+    "subtitle": "Join our guided day tours and discover the best destinations with expert local guides.",
     "from": "From",
     "groupSize": "Group",
     "people": "people",
@@ -112,7 +113,7 @@
   },
   "stats": {
     "travelers": "Happy Travelers",
-    "destinations": "Albanian destinations",
+    "destinations": "Curated Destinations",
     "rating": "Average Rating",
     "satisfaction": "Positive feedback"
   },
@@ -131,21 +132,21 @@
   "about": {
     "badge": "5K+ Happy Travelers",
     "heroTitle": "About IBookTours",
-    "heroSubtitle": "Your trusted partner for unforgettable Albanian adventures since 2020",
-    "title": "Your Albania Experts",
-    "description": "We are passionate about sharing the beauty of Albania with the world. As locals, we know the hidden gems, the best beaches, and the authentic experiences that make Albania truly special.",
+    "heroSubtitle": "Your trusted partner for unforgettable Balkans adventures since 2020",
+    "title": "Your Balkans Experts",
+    "description": "We are passionate about sharing the beauty of Albania and the Balkans with the world. As regional experts, we know the hidden gems, the best beaches, and the authentic experiences that make this region truly special.",
     "missionTitle": "Our Mission",
     "valuesTitle": "Our Values",
     "teamTitle": "Meet the Dreamweavers",
-    "teamSubtitle": "The passionate team behind your unforgettable Albanian adventures",
+    "teamSubtitle": "The passionate team behind your unforgettable adventures",
     "features": {
       "expertise": {
-        "title": "Local Expertise",
-        "description": "Albanian guides who know every hidden corner"
+        "title": "Regional Expertise",
+        "description": "Local guides who know every hidden corner"
       },
       "support": {
         "title": "24/7 Support",
-        "description": "Always available in English, Albanian & Italian"
+        "description": "Always available in English, Albanian, Hebrew & Italian"
       },
       "value": {
         "title": "Great Value",
@@ -331,8 +332,11 @@
     "login": "Login",
     "logout": "Logout",
     "signup": "Sign Up",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
     "myAccount": "My Account",
     "profile": "Profile",
+    "adminStudio": "Admin Studio",
     "signInWith": "Sign in with {provider}"
   },
   "cart": {
@@ -442,8 +446,8 @@
   },
   "carRental": {
     "sectionLabel": "Car Rental",
-    "title": "Rent a Car in Albania",
-    "subtitle": "Explore Albania at your own pace with our premium car rental service",
+    "title": "Rent a Car",
+    "subtitle": "Explore at your own pace with our premium car rental service",
     "perDay": "per day",
     "seats": "seats",
     "doors": "doors",
@@ -518,5 +522,60 @@
     },
     "reviews": "reviews",
     "discount": "OFF"
+  },
+  "hotels": {
+    "sectionLabel": "Hotels",
+    "title": "Handpicked Hotels",
+    "subtitle": "Stay in comfort at our carefully selected partner hotels across the region",
+    "perNight": "per night",
+    "stars": "stars",
+    "amenities": "Amenities",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "rooms": "Rooms",
+    "guests": "Guests",
+    "bookNow": "Book Now",
+    "viewDetails": "View Details",
+    "viewAll": "View All Hotels",
+    "featured": "Featured",
+    "available": "Available",
+    "unavailable": "Sold Out",
+    "reviews": "reviews",
+    "filters": {
+      "all": "All Hotels",
+      "starRating": "Star Rating",
+      "priceRange": "Price Range",
+      "amenities": "Amenities",
+      "location": "Location"
+    },
+    "amenityLabels": {
+      "wifi": "Free WiFi",
+      "pool": "Swimming Pool",
+      "spa": "Spa & Wellness",
+      "restaurant": "Restaurant",
+      "parking": "Free Parking",
+      "ac": "Air Conditioning",
+      "beachAccess": "Beach Access",
+      "gym": "Fitness Center",
+      "bar": "Bar",
+      "roomService": "Room Service"
+    },
+    "booking": {
+      "title": "Book Your Stay",
+      "checkInDate": "Check-in Date",
+      "checkOutDate": "Check-out Date",
+      "roomType": "Room Type",
+      "numberOfRooms": "Number of Rooms",
+      "totalNights": "Total Nights",
+      "totalPrice": "Total Price",
+      "confirmBooking": "Confirm Booking",
+      "selectDates": "Please select dates"
+    },
+    "roomTypes": {
+      "standard": "Standard Room",
+      "deluxe": "Deluxe Room",
+      "suite": "Suite",
+      "family": "Family Room"
+    }
   }
 }

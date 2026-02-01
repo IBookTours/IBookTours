@@ -22,6 +22,7 @@ export interface HeroContent {
     poster: string;
   };
   overlayText: string;
+  popularTags?: string[];
 }
 
 export interface Destination {
@@ -284,3 +285,6 @@ export interface SiteContent {
 
 // Re-export car rental types
 export * from './carRental';
+
+// Re-export hotel types
+export * from './hotel';

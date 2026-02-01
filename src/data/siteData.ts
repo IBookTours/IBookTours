@@ -17,22 +17,24 @@ export const siteData: SiteContent = {
     { id: 'home', label: 'Home', href: '/' },
     { id: 'about', label: 'About', href: '/about' },
     { id: 'discover', label: 'Discover', href: '/tours' },
+    { id: 'hotels', label: 'Hotels', href: '/hotels' },
     { id: 'carRental', label: 'Car Rental', href: '/car-rental' },
     { id: 'blog', label: 'Blog', href: '/blog' },
     { id: 'contact', label: 'Contact', href: '/contact' },
   ],
 
   hero: {
-    title: 'Discover the Beauty of Albania!',
-    subtitle: 'Your Gateway to the Hidden Gem of Europe',
-    searchPlaceholder: 'Search Albanian destinations...',
+    title: 'Discover Albania & Beyond',
+    subtitle: "Your Gateway to the Balkans' Best-Kept Secrets",
+    searchPlaceholder: 'Search destinations...',
     backgroundImage: '/media/hero-fallback.jpg',
     backgroundVideo: {
       mp4: '/media/hero-video.mp4',
       webm: '/media/hero-video.mp4',
       poster: '/media/hero-fallback.jpg',
     },
-    overlayText: 'Albania',
+    overlayText: 'Explore',
+    popularTags: ['Saranda', 'Tirana', 'Berat', 'Ksamil', 'Hotels'],
   },
 
   destinations: [
@@ -185,7 +187,8 @@ export const siteData: SiteContent = {
     {
       id: 'destinations',
       value: '28',
-      label: 'Albanian destinations',
+      label: 'Curated Destinations',
+      suffix: '+',
     },
     {
       id: 'satisfaction',
@@ -203,20 +206,20 @@ export const siteData: SiteContent = {
 
   about: {
     badge: '5K+ Happy Travelers',
-    title: 'Your Albania Experts',
-    description: 'We are passionate about sharing the beauty of Albania with the world. As locals, we know the hidden gems, the best beaches, and the authentic experiences that make Albania truly special.',
+    title: 'Your Balkans Experts',
+    description: 'We are passionate about sharing the beauty of Albania and the Balkans with the world. As regional experts, we know the hidden gems, the best beaches, and the authentic experiences that make this region truly special.',
     features: [
       {
         id: 'expert',
         icon: 'compass',
-        title: 'Local Expertise',
-        description: 'Albanian guides who know every hidden corner',
+        title: 'Regional Expertise',
+        description: 'Local guides who know every hidden corner',
       },
       {
         id: 'support',
         icon: 'headphones',
         title: '24/7 Support',
-        description: 'Always available in English, Albanian & Italian',
+        description: 'Always available in English, Albanian, Hebrew & Italian',
       },
       {
         id: 'value',
@@ -265,13 +268,13 @@ export const siteData: SiteContent = {
   },
 
   adventure: {
-    sectionLabel: 'Explore Albania',
-    title: 'Choose Your Albanian Adventure',
+    sectionLabel: 'Explore With Us',
+    title: 'Choose Your Adventure',
     description:
-      'From pristine beaches to majestic mountains, ancient UNESCO sites to authentic culinary experiences — Albania offers adventures for every traveler. Let us guide you through this hidden gem of the Balkans.',
+      'From pristine beaches to majestic mountains, ancient UNESCO sites to authentic culinary experiences — the Balkans offer adventures for every traveler. Let us guide you through the hidden gems of Albania and beyond.',
     rating: {
       value: '2.8K',
-      label: 'Reviews from travelers who discovered the magic of Albania with us',
+      label: 'Reviews from travelers who discovered the magic of the Balkans with us',
     },
     stats: [
       { value: '125+', label: 'Unique Tours' },
@@ -326,7 +329,7 @@ export const siteData: SiteContent = {
 
   events: {
     year: '2026',
-    title: 'Top Albanian Events',
+    title: 'Top Events',
     events: [
       {
         id: 'summer-day',

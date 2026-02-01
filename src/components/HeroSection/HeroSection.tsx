@@ -13,10 +13,9 @@ interface HeroSectionProps {
   content: HeroContent;
 }
 
-// Albanian destinations as popular tags
-const popularTags = ['Saranda', 'Tirana', 'Berat', 'Ksamil', 'Theth'];
-
 export default function HeroSection({ content }: HeroSectionProps) {
+  // Use dynamic popular tags from content, with fallback
+  const popularTags = content.popularTags || ['Saranda', 'Tirana', 'Berat', 'Ksamil', 'Hotels'];
   const router = useRouter();
   const t = useTranslations('hero');
   const [searchQuery, setSearchQuery] = useState('');

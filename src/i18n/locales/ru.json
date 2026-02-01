@@ -8,6 +8,7 @@
     "home": "Главная",
     "about": "О нас",
     "discover": "Открыть",
+    "hotels": "Отели",
     "carRental": "Аренда Авто",
     "blog": "Блог",
     "contact": "Контакты",
@@ -331,8 +332,11 @@
     "login": "Войти",
     "logout": "Выйти",
     "signup": "Регистрация",
+    "signIn": "Войти",
+    "signOut": "Выйти",
     "myAccount": "Мой Аккаунт",
     "profile": "Профиль",
+    "adminStudio": "Панель Админа",
     "signInWith": "Войти через {provider}"
   },
   "cart": {
