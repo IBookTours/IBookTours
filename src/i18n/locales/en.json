@@ -11,6 +11,7 @@
     "hotels": "Hotels",
     "carRental": "Car Rental",
     "blog": "Blog",
+    "maps": "Maps",
     "contact": "Contact",
     "search": "Search",
     "darkMode": "Dark Mode",
@@ -22,7 +23,7 @@
     "title": "Discover Albania & Beyond",
     "subtitle": "Your Gateway to the Balkans' Best-Kept Secrets",
     "searchPlaceholder": "Search destinations...",
-    "overlayText": "Explore",
+    "overlayText": "Albania",
     "popular": "Popular:",
     "scrollDown": "Scroll Down"
   },
@@ -53,6 +54,7 @@
   "events": {
     "sectionLabel": "Upcoming Events",
     "title": "Top Events",
+    "subtitle": "Experience the best festivals, concerts, and cultural celebrations across the region",
     "year": "2026",
     "learnMore": "Learn More",
     "getTickets": "Get Tickets",
@@ -278,6 +280,91 @@
       "travelTips": "Travel Tips",
       "hiddenGems": "Hidden Gems"
     }
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Where do you want to go?",
+    "searchButton": "Search",
+    "popular": "Popular Destinations",
+    "showFilters": "Show Filters",
+    "hideFilters": "Hide Filters",
+    "dateRange": "Travel Dates",
+    "priceRange": "Budget",
+    "clearFilters": "Clear all filters",
+    "categories": {
+      "all": "All",
+      "tours": "Tours",
+      "packages": "Packages",
+      "hotels": "Hotels",
+      "cars": "Car Rental",
+      "maps": "Maps"
+    },
+    "prices": {
+      "any": "Any",
+      "budget": "€0-100",
+      "mid": "€100-500",
+      "premium": "€500-1000",
+      "luxury": "€1000+"
+    }
+  },
+  "interactiveMaps": {
+    "badge": "Digital Travel Guide",
+    "title": "Interactive Albania Maps",
+    "subtitle": "Your pocket guide to Albania. Over 500 curated locations including beaches, hiking trails, restaurants, and hidden gems — all on Google Maps.",
+    "categoriesTitle": "What's Included",
+    "categories": {
+      "beaches": "Beaches & Lakes",
+      "hiking": "Hiking Trails",
+      "viewpoints": "Scenic Viewpoints",
+      "restaurants": "Restaurants",
+      "historical": "Historical Sites",
+      "roads": "Road Conditions"
+    },
+    "productsTitle": "Choose Your Map",
+    "productsSubtitle": "Get instant access to curated locations on Google Maps",
+    "mostPopular": "Most Popular",
+    "previewComingSoon": "Preview Coming Soon",
+    "locations": "locations",
+    "access": "access",
+    "features": {
+      "beaches": "Beaches & Swimming",
+      "hiking": "Hiking Trails",
+      "viewpoints": "Scenic Viewpoints",
+      "restaurants": "Top Restaurants",
+      "historical": "Historical Sites",
+      "accommodation": "Accommodation",
+      "cafes": "Cafes & Bars",
+      "nightlife": "Nightlife",
+      "shopping": "Shopping",
+      "museums": "Museums",
+      "parks": "Parks & Gardens"
+    },
+    "addToCart": "Add to Cart",
+    "howItWorksTitle": "How It Works",
+    "step1Title": "Purchase",
+    "step1Desc": "Choose your map and complete the purchase through our secure checkout.",
+    "step2Title": "Receive Access",
+    "step2Desc": "Within 48 hours, we'll share the map with your Google account.",
+    "step3Title": "Explore",
+    "step3Desc": "Open Google Maps on your phone and start exploring Albania!",
+    "requirementsTitle": "Requirements",
+    "reqGoogleAccount": "Google Account",
+    "reqGoogleAccountDesc": "You need a Google account to access the shared map.",
+    "reqGoogleMaps": "Google Maps App",
+    "reqGoogleMapsDesc": "Install Google Maps on your device for the best experience.",
+    "reqDelivery": "Delivery Time",
+    "reqDeliveryDesc": "Map access is shared within 48 hours of purchase.",
+    "faqTitle": "Frequently Asked Questions",
+    "faq1Q": "How long do I have access to the map?",
+    "faq1A": "You have full access to the map for 4 months from the date of purchase.",
+    "faq2Q": "Can I share the map with others?",
+    "faq2A": "The map is licensed for single-user access. You can add one additional email address per purchase.",
+    "faq3Q": "Does it work offline?",
+    "faq3A": "The map requires an internet connection to access. Google Maps does support downloading areas for offline use.",
+    "faq4Q": "What if I have issues accessing the map?",
+    "faq4A": "Contact us via email and we'll help you resolve any access issues within 24 hours.",
+    "faq5Q": "Is this a subscription?",
+    "faq5A": "No, it's a one-time purchase with 4 months of access. No automatic renewals."
   },
   "footer": {
     "description": "Your trusted partner for unforgettable Albanian adventures. Discover the beauty of the Balkans with our expert-guided tours.",
@@ -628,5 +715,25 @@
         "description": "Expert local guides and translators to enrich your travel experience with insider knowledge."
       }
     }
+  },
+  "geolocation": {
+    "title": "Enable Location",
+    "description": "Allow location access to show tours and hotels near you",
+    "allow": "Allow",
+    "notNow": "Not Now",
+    "requesting": "Requesting...",
+    "close": "Close"
+  },
+  "map": {
+    "sectionLabel": "Explore Albania",
+    "title": "Discover Albania's Treasures",
+    "subtitle": "Click on a region to explore tours, hotels, and experiences in that area",
+    "selectRegion": "Select a Region",
+    "selectDescription": "Click on any destination marker on the map to see details",
+    "viewTours": "View Tours",
+    "viewHotels": "View Hotels",
+    "tours": "Tours",
+    "hotels": "Hotels",
+    "reviews": "reviews"
   }
 }

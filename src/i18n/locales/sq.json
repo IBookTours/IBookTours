@@ -11,6 +11,7 @@
     "hotels": "Hotele",
     "carRental": "Marrje me Qira Makinash",
     "blog": "Blog",
+    "maps": "Harta",
     "contact": "Kontakt",
     "search": "Kërko",
     "darkMode": "Modaliteti i Errët",
@@ -53,6 +54,7 @@
   "events": {
     "sectionLabel": "Ngjarjet e Ardhshme",
     "title": "Ngjarjet Kryesore në Shqipëri",
+    "subtitle": "Përjetoni festivalet, koncertet dhe kremtimet kulturore më të mira në rajon",
     "year": "2026",
     "learnMore": "Mëso Më Shumë",
     "getTickets": "Merr Bileta",
@@ -277,6 +279,32 @@
       "adventure": "Aventurë",
       "travelTips": "Këshilla Udhëtimi",
       "hiddenGems": "Xhevahirë të Fshehur"
+    }
+  },
+  "search": {
+    "title": "Kërko",
+    "placeholder": "Ku dëshironi të shkoni?",
+    "searchButton": "Kërko",
+    "popular": "Destinacione Popullore",
+    "showFilters": "Shfaq Filtrat",
+    "hideFilters": "Fshih Filtrat",
+    "dateRange": "Datat e Udhëtimit",
+    "priceRange": "Buxheti",
+    "clearFilters": "Pastro të gjithë filtrat",
+    "categories": {
+      "all": "Të gjitha",
+      "tours": "Turne",
+      "packages": "Paketa",
+      "hotels": "Hotele",
+      "cars": "Makinë me Qira",
+      "maps": "Harta"
+    },
+    "prices": {
+      "any": "Çdo",
+      "budget": "€0-100",
+      "mid": "€100-500",
+      "premium": "€500-1000",
+      "luxury": "€1000+"
     }
   },
   "footer": {
@@ -628,5 +656,25 @@
         "description": "Guida lokale eksperte dhe përkthyes për të pasuruar përvojën tuaj të udhëtimit me njohuri lokale."
       }
     }
+  },
+  "geolocation": {
+    "title": "Aktivizo Vendndodhjen",
+    "description": "Lejo aksesin në vendndodhje për të shfaqur turet dhe hotelet pranë jush",
+    "allow": "Lejo",
+    "notNow": "Jo Tani",
+    "requesting": "Duke Kërkuar...",
+    "close": "Mbyll"
+  },
+  "map": {
+    "sectionLabel": "Eksploroni Shqipërinë",
+    "title": "Zbuloni Thesaret e Shqipërisë",
+    "subtitle": "Klikoni në një rajon për të eksploruar turet, hotelet dhe përvojat në atë zonë",
+    "selectRegion": "Zgjidhni një Rajon",
+    "selectDescription": "Klikoni në çdo shenjë destinacioni në hartë për të parë detaje",
+    "viewTours": "Shiko Turet",
+    "viewHotels": "Shiko Hotelet",
+    "tours": "Ture",
+    "hotels": "Hotele",
+    "reviews": "komente"
   }
 }

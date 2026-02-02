@@ -11,6 +11,7 @@
     "hotels": "Hoteles",
     "carRental": "Alquiler de Coches",
     "blog": "Blog",
+    "maps": "Mapas",
     "contact": "Contacto",
     "search": "Buscar",
     "darkMode": "Modo Oscuro",
@@ -53,6 +54,7 @@
   "events": {
     "sectionLabel": "Próximos Eventos",
     "title": "Principales Eventos en Albania",
+    "subtitle": "Vive los mejores festivales, conciertos y celebraciones culturales de la región",
     "year": "2026",
     "learnMore": "Más Información",
     "getTickets": "Comprar Entradas",
@@ -277,6 +279,32 @@
       "adventure": "Aventura",
       "travelTips": "Consejos de Viaje",
       "hiddenGems": "Joyas Ocultas"
+    }
+  },
+  "search": {
+    "title": "Buscar",
+    "placeholder": "¿A dónde quieres ir?",
+    "searchButton": "Buscar",
+    "popular": "Destinos Populares",
+    "showFilters": "Mostrar Filtros",
+    "hideFilters": "Ocultar Filtros",
+    "dateRange": "Fechas de Viaje",
+    "priceRange": "Presupuesto",
+    "clearFilters": "Borrar todos los filtros",
+    "categories": {
+      "all": "Todo",
+      "tours": "Tours",
+      "packages": "Paquetes",
+      "hotels": "Hoteles",
+      "cars": "Alquiler de Coches",
+      "maps": "Mapas"
+    },
+    "prices": {
+      "any": "Cualquiera",
+      "budget": "€0-100",
+      "mid": "€100-500",
+      "premium": "€500-1000",
+      "luxury": "€1000+"
     }
   },
   "footer": {
@@ -628,5 +656,25 @@
         "description": "Guías locales expertos y traductores para enriquecer tu experiencia de viaje con conocimiento local."
       }
     }
+  },
+  "geolocation": {
+    "title": "Habilitar Ubicación",
+    "description": "Permite el acceso a la ubicación para mostrar tours y hoteles cerca de ti",
+    "allow": "Permitir",
+    "notNow": "Ahora No",
+    "requesting": "Solicitando...",
+    "close": "Cerrar"
+  },
+  "map": {
+    "sectionLabel": "Explora Albania",
+    "title": "Descubre los Tesoros de Albania",
+    "subtitle": "Haz clic en una región para explorar tours, hoteles y experiencias en esa área",
+    "selectRegion": "Selecciona una Región",
+    "selectDescription": "Haz clic en cualquier marcador de destino en el mapa para ver detalles",
+    "viewTours": "Ver Tours",
+    "viewHotels": "Ver Hoteles",
+    "tours": "Tours",
+    "hotels": "Hoteles",
+    "reviews": "reseñas"
   }
 }

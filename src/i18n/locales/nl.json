@@ -11,6 +11,7 @@
     "hotels": "Hotels",
     "carRental": "Autoverhuur",
     "blog": "Blog",
+    "maps": "Kaarten",
     "contact": "Contact",
     "search": "Zoeken",
     "darkMode": "Donkere Modus",
@@ -53,6 +54,7 @@
   "events": {
     "sectionLabel": "Aankomende Evenementen",
     "title": "Top Evenementen in Albanië",
+    "subtitle": "Beleef de beste festivals, concerten en culturele vieringen in de regio",
     "year": "2026",
     "learnMore": "Meer Info",
     "getTickets": "Tickets Kopen",
@@ -277,6 +279,32 @@
       "adventure": "Avontuur",
       "travelTips": "Reistips",
       "hiddenGems": "Verborgen Parels"
+    }
+  },
+  "search": {
+    "title": "Zoeken",
+    "placeholder": "Waar wil je naartoe?",
+    "searchButton": "Zoeken",
+    "popular": "Populaire Bestemmingen",
+    "showFilters": "Filters Tonen",
+    "hideFilters": "Filters Verbergen",
+    "dateRange": "Reisdata",
+    "priceRange": "Budget",
+    "clearFilters": "Alle filters wissen",
+    "categories": {
+      "all": "Alles",
+      "tours": "Tours",
+      "packages": "Pakketten",
+      "hotels": "Hotels",
+      "cars": "Autoverhuur",
+      "maps": "Kaarten"
+    },
+    "prices": {
+      "any": "Elke",
+      "budget": "€0-100",
+      "mid": "€100-500",
+      "premium": "€500-1000",
+      "luxury": "€1000+"
     }
   },
   "footer": {
@@ -628,5 +656,25 @@
         "description": "Deskundige lokale gidsen en vertalers om uw reiservaring te verrijken met lokale kennis."
       }
     }
+  },
+  "geolocation": {
+    "title": "Locatie Inschakelen",
+    "description": "Sta locatietoegang toe om tours en hotels in de buurt te tonen",
+    "allow": "Toestaan",
+    "notNow": "Nu Niet",
+    "requesting": "Aanvragen...",
+    "close": "Sluiten"
+  },
+  "map": {
+    "sectionLabel": "Ontdek Albanië",
+    "title": "Ontdek de Schatten van Albanië",
+    "subtitle": "Klik op een regio om tours, hotels en ervaringen in dat gebied te verkennen",
+    "selectRegion": "Selecteer een Regio",
+    "selectDescription": "Klik op een bestemmingsmarkering op de kaart om details te zien",
+    "viewTours": "Bekijk Tours",
+    "viewHotels": "Bekijk Hotels",
+    "tours": "Tours",
+    "hotels": "Hotels",
+    "reviews": "beoordelingen"
   }
 }
