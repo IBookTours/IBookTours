@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import {
   Mail,
@@ -14,6 +15,16 @@ import {
 import { validateEmail, validateName, getFieldError } from '@/utils/validation';
 import { TIMING } from '@/lib/constants';
 import styles from './contact.module.scss';
+
+// Map service param values to subject options
+const serviceToSubject: Record<string, string> = {
+  transfers: 'booking',
+  guides: 'booking',
+  booking: 'booking',
+  support: 'support',
+  partnership: 'partnership',
+  feedback: 'feedback',
+};
 
 const contactInfo = [
   {
@@ -54,15 +65,29 @@ const faqs = [
 ];
 
 export default function ContactPage() {
+  const searchParams = useSearchParams();
+
+  // Get service from URL and map to subject
+  const urlService = searchParams.get('service');
+  const initialSubject = urlService ? (serviceToSubject[urlService] || '') : '';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
+    subject: initialSubject,
     message: '',
   });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Sync subject from URL if it changes
+  useEffect(() => {
+    const service = searchParams.get('service');
+    if (service && serviceToSubject[service]) {
+      setFormData((prev) => ({ ...prev, subject: serviceToSubject[service] }));
+    }
+  }, [searchParams]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>

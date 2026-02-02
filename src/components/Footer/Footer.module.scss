@@ -52,6 +52,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: $spacing-4;
+  align-items: start; // Prevent items from stretching when adjacent FAQ opens
 
   // 2-column layout for FAQs on tablet and desktop
   @include respond-to(md) {

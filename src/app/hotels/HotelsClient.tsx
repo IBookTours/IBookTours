@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Search, SlidersHorizontal, X, MapPin } from 'lucide-react';
 import { HotelCard } from '@/components/Hotels';
@@ -14,10 +14,11 @@ const categoryIds: Array<HotelCategory | 'all'> = ['all', 'boutique', 'resort', 
 export default function HotelsClient() {
   const t = useTranslations('hotels');
   const searchParams = useSearchParams();
+  const router = useRouter();
 
-  // Get initial values from URL
+  // Get initial values from URL - support both 'city' and 'location' params
   const initialCategory = (searchParams.get('category') as HotelCategory | 'all') || 'all';
-  const initialCity = searchParams.get('city') || 'all';
+  const initialCity = searchParams.get('city') || searchParams.get('location') || 'all';
   const initialSearch = searchParams.get('search') || '';
 
   // Local state
@@ -25,6 +26,30 @@ export default function HotelsClient() {
   const [selectedCity, setSelectedCity] = useState(initialCity);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [showFilters, setShowFilters] = useState(false);
+
+  // Sync URL when filters change
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (activeCategory !== 'all') params.set('category', activeCategory);
+      if (selectedCity !== 'all') params.set('location', selectedCity);
+      if (searchQuery) params.set('search', searchQuery);
+      const newUrl = params.toString() ? `/hotels?${params.toString()}` : '/hotels';
+      router.replace(newUrl, { scroll: false });
+    }, 300);
+    return () => clearTimeout(timeoutId);
+  }, [activeCategory, selectedCity, searchQuery, router]);
+
+  // Sync from URL when it changes externally
+  useEffect(() => {
+    const urlCategory = (searchParams.get('category') as HotelCategory | 'all') || 'all';
+    const urlCity = searchParams.get('city') || searchParams.get('location') || 'all';
+    const urlSearch = searchParams.get('search') || '';
+
+    if (urlCategory !== activeCategory) setActiveCategory(urlCategory);
+    if (urlCity !== selectedCity) setSelectedCity(urlCity);
+    if (urlSearch !== searchQuery) setSearchQuery(urlSearch);
+  }, [searchParams]);
 
   const cities = useMemo(() => ['all', ...getHotelCities()], []);
 

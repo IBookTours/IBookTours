@@ -2,44 +2,62 @@
 
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: $spacing-3;
+  left: $spacing-3;
+  right: $spacing-3;
   z-index: $z-sticky;
-  padding: $spacing-4 0;
-  transition: background-color $transition-base, padding $transition-base, border-color $transition-base, box-shadow $transition-base;
-  will-change: background-color, padding;
+  padding: $spacing-3 $spacing-4;
+  border-radius: $radius-2xl;
+  border: 1px solid var(--glass-border);
+  transition: background-color $transition-base, backdrop-filter $transition-base, box-shadow $transition-base, padding $transition-base;
+  will-change: background-color, padding, box-shadow;
 
-  // Glass background with reduced blur on mobile for performance
-  background: var(--glass-bg-light);
-
-  // Reduced blur on mobile for better performance
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  // Higher opacity glass for better contrast over dark hero content
+  background: var(--glass-bg);
+  backdrop-filter: blur($blur-xl);
+  -webkit-backdrop-filter: blur($blur-xl);
+  box-shadow: 0 4px 24px $rgba-black-10;
 
   @include respond-to(md) {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    top: $spacing-4;
+    left: $spacing-6;
+    right: $spacing-6;
+    padding: $spacing-3 $spacing-6;
+    border-radius: $radius-3xl;
+  }
+
+  @include respond-to(lg) {
+    left: $spacing-8;
+    right: $spacing-8;
+    max-width: $container-xl;
+    margin: 0 auto;
+  }
+
+  @include respond-to(xl) {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: calc(100% - #{$spacing-16});
+    max-width: $container-xl;
   }
 
   &.scrolled {
     // Enhanced glassmorphism when scrolled
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    padding: $spacing-3 0;
+    background: var(--glass-bg-heavy);
+    backdrop-filter: blur($blur-xl);
+    -webkit-backdrop-filter: blur($blur-xl);
+    box-shadow: var(--glass-shadow), 0 8px 32px $rgba-black-10;
+    padding: $spacing-2 $spacing-4;
 
     @include respond-to(md) {
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      padding: $spacing-2 $spacing-6;
     }
   }
 }
 
 .container {
-  @include container;
   @include flex-between;
+  width: 100%;
 }
 
 .logo {
@@ -59,16 +77,18 @@
 }
 
 .logoIcon {
-  width: 36px;
-  height: 36px;
-  background: $primary-600;
+  width: 40px;
+  height: 40px;
+  background: transparent;
   border-radius: $radius-lg;
   @include flex-center;
-  color: $text-light;
+  overflow: hidden;
+  flex-shrink: 0;
 
-  svg {
-    width: 20px;
-    height: 20px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 }
 
@@ -122,26 +142,39 @@
 }
 
 .themeToggle {
-  display: flex;
+  // Hide on mobile - mobile menu has its own theme toggle
+  display: none;
   min-width: $touch-target-min;
   min-height: $touch-target-min;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: $radius-full;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  color: var(--text-primary);
+  color: var(--text-secondary);
   @include flex-center;
   cursor: pointer;
-  transition: background-color $transition-fast, border-color $transition-fast;
+  transition: all $transition-fast;
+
+  // Show on desktop (md and up)
+  @include respond-to(md) {
+    display: flex;
+  }
 
   &:hover {
     background: var(--bg-tertiary);
+    color: var(--text-primary);
+    transform: scale(1.05);
   }
 
   &:focus-visible {
     outline: 2px solid var(--color-primary-500);
     outline-offset: 2px;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -157,14 +190,14 @@
   display: none;
   min-width: $touch-target-min;
   min-height: $touch-target-min;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: $radius-full;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
+  background: var(--color-primary-600);
+  border: none;
+  color: $text-light;
   cursor: pointer;
-  transition: background-color $transition-fast, border-color $transition-fast;
+  transition: all $transition-fast;
   @include flex-center;
 
   @include respond-to(md) {
@@ -172,7 +205,8 @@
   }
 
   &:hover {
-    background: var(--bg-tertiary);
+    background: var(--color-primary-700);
+    transform: scale(1.05);
   }
 
   &:focus-visible {
@@ -189,7 +223,9 @@
 .loginWrapper {
   display: none;
 
-  @include respond-to(md) {
+  // Show login button at smaller breakpoint than other nav elements
+  // Login is critical functionality - should be visible on tablets
+  @include respond-to(sm) {
     display: block;
   }
 }
@@ -198,15 +234,15 @@
   display: flex;
   min-width: $touch-target-min;
   min-height: $touch-target-min;
-  width: 44px;
-  height: 44px;
-  border-radius: $radius-lg;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  color: var(--text-primary);
+  color: var(--text-secondary);
   cursor: pointer;
   @include flex-center;
-  transition: background-color $transition-fast, border-color $transition-fast;
+  transition: all $transition-fast;
 
   @include respond-to(md) {
     display: none;
@@ -214,6 +250,7 @@
 
   &:hover {
     background: var(--bg-tertiary);
+    color: var(--text-primary);
   }
 
   &:focus-visible {
@@ -227,20 +264,23 @@
   }
 }
 
-// Mobile Menu
+// Mobile Menu - Redesigned with glassmorphism
 .mobileMenu {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--bg-primary);
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: $z-modal;
   padding: $spacing-6;
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
-  transition: transform $transition-slow;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
 
   &.open {
     transform: translateX(0);
@@ -253,22 +293,36 @@
 
 .mobileMenuHeader {
   @include flex-between;
-  margin-bottom: $spacing-8;
+  margin-bottom: $spacing-6;
+  padding-bottom: $spacing-4;
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .mobileMenuClose {
+  min-width: $touch-target-min;
+  min-height: $touch-target-min;
   width: 40px;
   height: 40px;
-  border-radius: $radius-lg;
-  background: var(--bg-tertiary);
-  border: none;
+  border-radius: $radius-full;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   color: var(--text-primary);
   cursor: pointer;
   @include flex-center;
+  transition: background-color $transition-fast, transform $transition-fast;
 
   svg {
     width: 20px;
     height: 20px;
+  }
+
+  &:hover {
+    background: var(--bg-tertiary);
+    transform: rotate(90deg);
+  }
+
+  &:active {
+    transform: rotate(90deg) scale(0.95);
   }
 }
 
@@ -277,34 +331,51 @@
   flex-direction: column;
   gap: $spacing-2;
   flex: 1;
+  padding: $spacing-2 0;
 }
 
 .mobileNavLink {
-  display: block;
+  display: flex;
+  align-items: center;
   min-height: $touch-target-min;
-  padding: $spacing-4;
+  padding: $spacing-4 $spacing-5;
   font-size: $font-lg;
   font-weight: $font-medium;
   color: var(--text-primary);
   text-decoration: none;
-  border-radius: $radius-lg;
-  transition: background-color $transition-fast, color $transition-fast;
+  border-radius: $radius-xl;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all $transition-fast;
 
-  &:hover,
+  &:hover {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    transform: translateX(4px);
+  }
+
   &.active {
-    background: var(--bg-accent);
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-200);
     color: var(--color-primary-600);
+
+    [data-theme='dark'] & {
+      background: rgba(var(--color-primary-500-rgb), 0.15);
+      border-color: rgba(var(--color-primary-500-rgb), 0.3);
+      color: var(--color-primary-400);
+    }
   }
 
   &:focus-visible {
     outline: 2px solid var(--color-primary-500);
-    outline-offset: -2px;
+    outline-offset: 2px;
   }
 }
 
 .mobileActions {
   margin-top: auto;
-  padding-top: $spacing-4;
+  padding-top: $spacing-6;
+  border-top: 1px solid var(--glass-border);
   display: flex;
   flex-direction: column;
   gap: $spacing-3;
@@ -315,12 +386,12 @@
   align-items: center;
   justify-content: space-between;
   min-height: $touch-target-min;
-  padding: $spacing-4;
-  background: var(--bg-tertiary);
-  border-radius: $radius-lg;
-  border: none;
+  padding: $spacing-4 $spacing-5;
+  background: var(--glass-bg);
+  border-radius: $radius-xl;
+  border: 1px solid var(--glass-border);
   cursor: pointer;
-  transition: background-color $transition-fast;
+  transition: all $transition-fast;
 
   span {
     font-size: $font-base;
@@ -329,13 +400,19 @@
   }
 
   svg {
-    width: 24px;
-    height: 24px;
-    color: var(--text-secondary);
+    width: 22px;
+    height: 22px;
+    color: var(--color-primary-500);
+    transition: transform $transition-fast;
   }
 
   &:hover {
-    background: var(--glass-bg);
+    background: var(--bg-tertiary);
+    border-color: var(--color-primary-200);
+
+    svg {
+      transform: rotate(15deg);
+    }
   }
 
   &:focus-visible {

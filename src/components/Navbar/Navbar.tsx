@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { Menu, X, Search, Sun, Moon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { NavItem } from '@/types';
@@ -11,6 +10,7 @@ import { LoginButton } from '@/components/Auth';
 import { ThemeToggle, useTheme } from '@/components/ThemeProvider';
 import { CartIcon } from '@/components/Cart';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { SearchOverlay } from '@/components/SearchOverlay';
 import styles from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -19,11 +19,11 @@ interface NavbarProps {
 }
 
 export default function Navbar({ navigation, siteName }: NavbarProps) {
-  const router = useRouter();
   const { resolvedTheme, toggleTheme } = useTheme();
   const t = useTranslations('nav');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // Scroll handler with rAF throttling for performance
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
         <div className={styles.container}>
           <Link href="/" className={styles.logo} aria-label="IBookTours Home - Book Tours to Albania">
             <span className={styles.logoIcon}>
-              <Image src="/logo.svg" alt="" width={32} height={32} aria-hidden="true" />
+              <Image src="/logo.svg" alt="" width={40} height={40} priority aria-hidden="true" />
             </span>
             {siteName}
           </Link>
@@ -94,7 +94,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
             <button
               className={styles.searchBtn}
               aria-label="Search"
-              onClick={() => router.push('/tours')}
+              onClick={() => setIsSearchOpen(true)}
             >
               <Search />
             </button>
@@ -118,7 +118,7 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
         <div className={styles.mobileMenuHeader}>
           <Link href="/" className={styles.logo} onClick={closeMobileMenu} aria-label="IBookTours Home - Book Tours to Albania">
             <span className={styles.logoIcon}>
-              <Image src="/logo.svg" alt="" width={32} height={32} aria-hidden="true" />
+              <Image src="/logo.svg" alt="" width={40} height={40} aria-hidden="true" />
             </span>
             {siteName}
           </Link>
@@ -158,6 +158,12 @@ export default function Navbar({ navigation, siteName }: NavbarProps) {
           <LoginButton variant="mobile" onAction={closeMobileMenu} />
         </div>
       </div>
+
+      {/* Search Overlay */}
+      <SearchOverlay
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </>
   );
 }

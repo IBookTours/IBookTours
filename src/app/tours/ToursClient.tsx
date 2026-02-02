@@ -73,6 +73,37 @@ const tabIcons: Record<TabType, React.ReactNode> = {
 
 const categoryIds: CategoryType[] = ['all', 'cultural', 'adventure', 'food', 'nature'];
 
+// Map URL param values to valid tab types
+const normalizeTabType = (type: string | null): TabType => {
+  if (!type) return 'all';
+  // Handle singular 'package' -> plural 'packages'
+  if (type === 'package') return 'packages';
+  if (tabIds.includes(type as TabType)) return type as TabType;
+  return 'all';
+};
+
+// Map adventure section categories to search terms or categories
+const mapCategoryToFilter = (category: string | null): { search?: string; category?: CategoryType } => {
+  if (!category) return {};
+
+  // Map adventure section categories to appropriate filters
+  const categoryMappings: Record<string, { search?: string; category?: CategoryType }> = {
+    'riviera': { search: 'riviera' },
+    'unesco': { search: 'unesco' },
+    'alps': { search: 'alps' },
+    'food-wine': { category: 'food' },
+    'culture-history': { category: 'cultural' },
+    'events': { search: 'event' },
+    // Direct category mappings
+    'cultural': { category: 'cultural' },
+    'adventure': { category: 'adventure' },
+    'food': { category: 'food' },
+    'nature': { category: 'nature' },
+  };
+
+  return categoryMappings[category] || { search: category };
+};
+
 export default function ToursClient({
   destinations,
   vacationPackages,
@@ -83,16 +114,26 @@ export default function ToursClient({
   const router = useRouter();
   const { addItem } = useCartStore();
 
-  // Get type from URL or default to 'all'
-  const initialType = (searchParams.get('type') as TabType) || 'all';
-  const initialSearch = searchParams.get('search') || '';
+  // Parse URL parameters
+  const urlType = normalizeTabType(searchParams.get('type'));
+  const urlSearch = searchParams.get('search') || '';
+  const urlCategory = searchParams.get('category');
+  const urlDestination = searchParams.get('destination');
 
-  const [activeTab, setActiveTab] = useState<TabType>(initialType);
+  // Map category param to appropriate filter
+  const categoryFilter = mapCategoryToFilter(urlCategory);
+
+  // Combine URL search with category-based search
+  const initialSearch = urlSearch || categoryFilter.search || '';
+  const initialCategory = categoryFilter.category || 'all';
+  const initialLocation = urlDestination || 'all';
+
+  const [activeTab, setActiveTab] = useState<TabType>(urlType);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [selectedPrice, setSelectedPrice] = useState('all');
   const [selectedDuration, setSelectedDuration] = useState('all');
-  const [selectedCategory, setSelectedCategory] = useState<CategoryType>('all');
-  const [selectedLocation, setSelectedLocation] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState<CategoryType>(initialCategory);
+  const [selectedLocation, setSelectedLocation] = useState(initialLocation);
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const filterBarRef = useRef<HTMLDivElement>(null);
@@ -118,12 +159,21 @@ export default function ToursClient({
     }
   }, [showFilters]);
 
-  // Sync with URL params
+  // Sync with URL params on initial load and when URL changes externally
   useEffect(() => {
-    const urlType = (searchParams.get('type') as TabType) || 'all';
-    const urlSearch = searchParams.get('search') || '';
-    if (urlType !== activeTab) setActiveTab(urlType);
-    if (urlSearch !== searchQuery) setSearchQuery(urlSearch);
+    const newType = normalizeTabType(searchParams.get('type'));
+    const newSearch = searchParams.get('search') || '';
+    const newCategoryParam = searchParams.get('category');
+    const newDestination = searchParams.get('destination') || 'all';
+
+    const catFilter = mapCategoryToFilter(newCategoryParam);
+    const combinedSearch = newSearch || catFilter.search || '';
+    const mappedCategory = catFilter.category || 'all';
+
+    if (newType !== activeTab) setActiveTab(newType);
+    if (combinedSearch !== searchQuery) setSearchQuery(combinedSearch);
+    if (mappedCategory !== selectedCategory) setSelectedCategory(mappedCategory);
+    if (newDestination !== selectedLocation) setSelectedLocation(newDestination);
   }, [searchParams]);
 
   // Update URL when filters change
@@ -132,11 +182,13 @@ export default function ToursClient({
       const params = new URLSearchParams();
       if (activeTab !== 'all') params.set('type', activeTab);
       if (searchQuery) params.set('search', searchQuery);
+      if (selectedCategory !== 'all') params.set('category', selectedCategory);
+      if (selectedLocation !== 'all') params.set('destination', selectedLocation);
       const newUrl = params.toString() ? `/tours?${params.toString()}` : '/tours';
       router.replace(newUrl, { scroll: false });
     }, 300);
     return () => clearTimeout(timeoutId);
-  }, [activeTab, searchQuery, router]);
+  }, [activeTab, searchQuery, selectedCategory, selectedLocation, router]);
 
   // Helper to extract price number from string like "€299" or "From €1,299"
   const extractPrice = (priceStr: string): number => {

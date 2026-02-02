@@ -353,6 +353,29 @@ $transition-fast: 150ms ease;
 $transition-base: 200ms ease;
 $transition-slow: 300ms ease;
 $transition-slower: 500ms ease;
+$transition-entrance: 600ms ease-out;  // For scroll-triggered animations
+
+// ============================================
+// BLUR SCALE (for backdrop-filter)
+// ============================================
+
+$blur-sm: 4px;
+$blur-md: 8px;
+$blur-lg: 12px;
+$blur-xl: 16px;
+$blur-2xl: 20px;
+
+// ============================================
+// ICON SIZES
+// ============================================
+
+$icon-xs: 14px;
+$icon-sm: 16px;
+$icon-md: 20px;
+$icon-lg: 24px;
+$icon-xl: 32px;
+$icon-2xl: 48px;
+$icon-3xl: 64px;
 
 // ============================================
 // Z-INDEX
