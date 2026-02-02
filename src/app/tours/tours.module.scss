@@ -641,6 +641,25 @@
   &.carType {
     background: #ea580c; // Orange for cars
   }
+
+  &.serviceType {
+    background: #059669; // Emerald for services
+  }
+}
+
+// Service cards
+.serviceCard {
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  transition: all $transition-fast;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+    border-color: var(--color-primary-200);
+  }
 }
 
 .durationBadge {

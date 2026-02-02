@@ -35,6 +35,7 @@ import { VacationPackage } from '@/components/VacationPackagesSection/VacationPa
 import { DayTour } from '@/components/DayToursSection/DayToursSection';
 import { Hotel as HotelType } from '@/types/hotel';
 import { CarRentalVehicle } from '@/types/carRental';
+import { TravelService } from '@/data/servicesData';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
 import {
@@ -56,6 +57,7 @@ interface ToursClientProps {
   events: Event[];
   hotels: HotelType[];
   vehicles: CarRentalVehicle[];
+  services: TravelService[];
 }
 
 const priceRangeIds = ['all', 'budget', 'mid', 'premium', 'luxury'] as const;
@@ -124,6 +126,7 @@ export default function ToursClient({
   events,
   hotels,
   vehicles,
+  services,
 }: ToursClientProps) {
   const t = useTranslations('tours');
   const searchParams = useSearchParams();
@@ -364,15 +367,27 @@ export default function ToursClient({
     });
   }, [vehicles, searchQuery, selectedPrice]);
 
+  // Filter services
+  const filteredServices = useMemo(() => {
+    return services.filter((service) => {
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const matchesSearch = service.id.toLowerCase().includes(query);
+        if (!matchesSearch) return false;
+      }
+      return true;
+    });
+  }, [services, searchQuery]);
+
   // Get counts for tabs
   const counts: Record<TabType, number> = {
-    all: filteredPackages.length + filteredDayTours.length + filteredEvents.length + filteredHotels.length + filteredVehicles.length,
+    all: filteredPackages.length + filteredDayTours.length + filteredEvents.length + filteredHotels.length + filteredVehicles.length + filteredServices.length,
     packages: filteredPackages.length,
     tours: filteredDayTours.length,
     events: filteredEvents.length,
     hotels: filteredHotels.length,
     cars: filteredVehicles.length,
-    services: 0, // Coming soon
+    services: filteredServices.length,
   };
 
   const handleTabChange = (tab: TabType) => {
@@ -1010,10 +1025,38 @@ export default function ToursClient({
                   </div>
                 </article>
               ))}
+
+            {/* Services */}
+            {(activeTab === 'all' || activeTab === 'services') &&
+              filteredServices.map((service) => (
+                <article key={service.id} className={styles.serviceCard}>
+                  <div className={styles.cardImage}>
+                    <Image
+                      src={service.image}
+                      alt={t(`services.${service.id}.title`)}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <span className={`${styles.typeBadge} ${styles.serviceType}`}>{t('badges.service')}</span>
+                  </div>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>{t(`services.${service.id}.title`)}</h3>
+                    <p className={styles.cardDescription}>{t(`services.${service.id}.description`)}</p>
+                    <div className={styles.cardFooter}>
+                      <div className={styles.actions}>
+                        <Link href={service.href} className={styles.viewBtn}>
+                          {t('learnMore')}
+                          <ArrowRight size={14} />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
           </div>
         ) : (
           <div className={styles.noResults}>
-            {activeTab === 'services' ? (
+            {activeTab === 'services' && counts.services === 0 ? (
               <>
                 {tabIcons[activeTab]}
                 <h3>{t('comingSoon.title')}</h3>

@@ -223,7 +223,22 @@
       "package": "Package",
       "dayTour": "Day Tour",
       "event": "Event",
-      "car": "Car"
+      "car": "Car",
+      "service": "Service"
+    },
+    "services": {
+      "events": {
+        "title": "Events & Festivals",
+        "description": "Experience local culture through festivals, concerts, and seasonal celebrations across the region."
+      },
+      "airportTransfers": {
+        "title": "Airport Transfers",
+        "description": "Comfortable private or shared transfers between airports and your accommodation."
+      },
+      "localGuides": {
+        "title": "Local Guides",
+        "description": "Expert local guides and translators to enrich your travel experience with insider knowledge."
+      }
     },
     "priceRanges": {
       "all": "All Prices",

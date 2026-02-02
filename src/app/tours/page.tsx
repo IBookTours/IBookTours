@@ -4,6 +4,7 @@ import ToursClient from './ToursClient';
 import { siteData } from '@/data/siteData';
 import { hotels } from '@/data/hotelsData';
 import { carRentalVehicles } from '@/data/carRentalData';
+import { travelServices } from '@/data/servicesData';
 
 export const metadata: Metadata = {
   title: 'Tours & Packages | IBookTours',
@@ -48,6 +49,7 @@ export default async function ToursPage() {
         events={events}
         hotels={hotels}
         vehicles={carRentalVehicles}
+        services={travelServices}
       />
     </Suspense>
   );
