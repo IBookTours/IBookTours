@@ -50,6 +50,9 @@ export default async function Home() {
       {/* Vacation Packages - Flight + Hotel packages (Secondary) */}
       <VacationPackagesSection packages={siteData.vacationPackages} maxDisplay={4} />
 
+      {/* About - Company story and values ("Your Balkan Experts") */}
+      <AboutSection content={siteData.about} />
+
       {/* Car Rental - Self-drive exploration */}
       <CarRentalSection />
 
@@ -64,9 +67,6 @@ export default async function Home() {
 
       {/* Stats - Trust indicators */}
       <StatsSection stats={stats} />
-
-      {/* About - Company story and values */}
-      <AboutSection content={siteData.about} />
 
       {/* Testimonials - Customer reviews carousel */}
       <TestimonialsSection content={siteData.testimonials} />
