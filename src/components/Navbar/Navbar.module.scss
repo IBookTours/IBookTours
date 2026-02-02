@@ -69,6 +69,12 @@
   color: var(--text-primary);  // Theme-aware by default
   text-decoration: none;
   transition: color $transition-fast;
+  border-radius: $radius-lg;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 4px;
+  }
 
   svg {
     width: 32px;
@@ -113,16 +119,20 @@
   text-decoration: none;
   transition: color $transition-fast;
   position: relative;
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-md;
 
   &::after {
     content: '';
     position: absolute;
     bottom: -4px;
-    left: 0;
-    width: 0;
+    left: $spacing-2;
+    right: $spacing-2;
+    width: auto;
     height: 2px;
     background: currentColor;
-    transition: width $transition-fast;
+    transform: scaleX(0);
+    transition: transform $transition-fast;
   }
 
   &:hover,
@@ -130,8 +140,13 @@
     color: var(--color-primary-600);
 
     &::after {
-      width: 100%;
+      transform: scaleX(1);
     }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 }
 
@@ -323,6 +338,11 @@
 
   &:active {
     transform: rotate(90deg) scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
   }
 }
 
