@@ -129,7 +129,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               html { background-color: #f1faee; }
-              @media (prefers-color-scheme: dark) { html:not([data-theme="light"]) { background-color: #2b2d42; } }
               html[data-theme="dark"] { background-color: #2b2d42; }
             `,
           }}
