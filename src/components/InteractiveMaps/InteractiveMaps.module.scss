@@ -10,48 +10,68 @@
 
 // Hero
 .hero {
-  background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--bg-primary) 100%);
-  padding: $spacing-16 0;
+  position: relative;
+  min-height: 400px;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  gap: $spacing-8;
+  overflow: hidden;
 
   @include respond-to(md) {
-    flex-direction: row;
-    text-align: left;
-    padding: $spacing-20 $spacing-8;
+    min-height: 500px;
   }
 }
 
+.heroBackgroundImage {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 1;
+}
+
 .heroContent {
-  flex: 1;
-  max-width: 600px;
-  padding: 0 $spacing-4;
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: $spacing-8 $spacing-4;
 
   @include respond-to(md) {
-    padding: 0 $spacing-8;
+    padding: $spacing-12 $spacing-8;
   }
 }
 
 .badge {
   display: inline-block;
   padding: $spacing-2 $spacing-4;
-  background: var(--color-primary-100);
-  color: var(--color-primary-700);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  color: $text-light;
   font-size: $font-sm;
   font-weight: $font-semibold;
   border-radius: $radius-full;
   margin-bottom: $spacing-4;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .title {
   font-size: $font-4xl;
   font-weight: $font-bold;
-  color: var(--text-primary);
+  color: $text-light;
   margin: 0 0 $spacing-4 0;
   line-height: $leading-tight;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
   @include respond-to(md) {
     font-size: $font-5xl;
@@ -60,34 +80,10 @@
 
 .subtitle {
   font-size: $font-lg;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
   line-height: $leading-relaxed;
   margin: 0;
-}
-
-.heroImage {
-  @include flex-center;
-  width: 200px;
-  height: 200px;
-  background: var(--bg-primary);
-  border-radius: $radius-3xl;
-  box-shadow: $shadow-xl;
-
-  @include respond-to(md) {
-    width: 300px;
-    height: 300px;
-  }
-}
-
-.mapIcon {
-  width: 80px;
-  height: 80px;
-  color: var(--color-primary-500);
-
-  @include respond-to(md) {
-    width: 120px;
-    height: 120px;
-  }
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 // Sections Common

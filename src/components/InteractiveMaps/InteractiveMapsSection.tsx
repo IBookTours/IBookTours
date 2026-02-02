@@ -115,13 +115,19 @@ export default function InteractiveMapsSection() {
     <main className={styles.page}>
       {/* Hero Section */}
       <section className={styles.hero}>
+        <Image
+          src="https://images.unsplash.com/photo-1565876427310-0695a4ff03b8?w=1920&h=600&fit=crop&q=90"
+          alt="Aerial view of Albanian coastline"
+          fill
+          priority
+          quality={90}
+          className={styles.heroBackgroundImage}
+        />
+        <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <span className={styles.badge}>{t('badge')}</span>
           <h1 className={styles.title}>{t('title')}</h1>
           <p className={styles.subtitle}>{t('subtitle')}</p>
-        </div>
-        <div className={styles.heroImage}>
-          <Map className={styles.mapIcon} />
         </div>
       </section>
 
