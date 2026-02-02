@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { Shield } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useInView } from '@/hooks';
 import { ANIMATION } from '@/lib/constants';
@@ -25,58 +24,35 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
     triggerOnce: true,
   });
 
+  // Duplicate partners for seamless infinite scroll
+  const duplicatedPartners = [...partners, ...partners];
+
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
-        <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-          <span className={styles.badge}>
-            <Shield size={16} />
-            {t('sectionLabel')}
-          </span>
-          <h2 className={styles.title}>{t('title')}</h2>
-          <p className={styles.subtitle}>
-            {t('subtitle')}
-          </p>
-        </div>
+        <h2 className={`${styles.title} ${isInView ? styles.visible : ''}`}>
+          {t('title')}
+        </h2>
 
-        <div className={styles.grid}>
-          {partners.map((partner, index) => (
-            <div
-              key={partner.id}
-              className={`${styles.partnerCard} ${isInView ? styles.visible : ''}`}
-              style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
-            >
-              <div className={styles.logoWrapper}>
-                <Image
-                  src={partner.logo}
-                  alt={`${partner.name} logo`}
-                  width={160}
-                  height={60}
-                  className={styles.logo}
-                />
-              </div>
-              <h3 className={styles.partnerName}>{partner.name}</h3>
-              <p className={styles.partnerDescription}>{partner.description}</p>
+        {/* Auto-scrolling marquee of partner logos */}
+        <div className={styles.marqueeWrapper}>
+          <div className={`${styles.marquee} ${isInView ? styles.animate : ''}`}>
+            <div className={styles.marqueeTrack}>
+              {duplicatedPartners.map((partner, index) => (
+                <div
+                  key={`${partner.id}-${index}`}
+                  className={styles.partnerLogo}
+                >
+                  <Image
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    width={120}
+                    height={48}
+                    className={styles.logo}
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-
-        <div className={`${styles.trust} ${isInView ? styles.visible : ''}`}>
-          <div className={styles.trustItem}>
-            <span className={styles.trustNumber}>1M+</span>
-            <span className={styles.trustLabel}>{t('stats.bookings')}</span>
-          </div>
-          <div className={styles.trustItem}>
-            <span className={styles.trustNumber}>500+</span>
-            <span className={styles.trustLabel}>{t('stats.hotels')}</span>
-          </div>
-          <div className={styles.trustItem}>
-            <span className={styles.trustNumber}>100+</span>
-            <span className={styles.trustLabel}>{t('stats.airlines')}</span>
-          </div>
-          <div className={styles.trustItem}>
-            <span className={styles.trustNumber}>24/7</span>
-            <span className={styles.trustLabel}>{t('stats.support')}</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,9 @@
 @use '@/styles/variables' as *;
 
+// ============================================
+// ADVENTURE SECTION - Compact Grid Layout
+// ============================================
+
 .section {
   padding: $section-padding-y-mobile 0;
   background: var(--bg-primary);
@@ -15,25 +19,30 @@
   @include container;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: $spacing-8;
+// Two-column layout on desktop
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-10;
 
   @include respond-to(lg) {
-    grid-template-columns: 1fr 1fr;
+    flex-direction: row;
     gap: $spacing-12;
     align-items: start;
   }
 }
 
+// ============================================
+// HEADER (Left side on desktop)
+// ============================================
+
 .header {
-  position: relative;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 
   @include respond-to(lg) {
+    flex: 0 0 40%;
     position: sticky;
     top: calc(var(--navbar-height, 80px) + $spacing-4);
   }
@@ -135,41 +144,6 @@
   }
 }
 
-.ctaButton {
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-2;
-  padding: $spacing-3 $spacing-5;
-  background: var(--color-primary-600);
-  color: $text-light;
-  font-size: $font-sm;
-  font-weight: $font-semibold;
-  border-radius: $radius-xl;
-  text-decoration: none;
-  transition: all $transition-fast;
-  margin-top: $spacing-4;
-
-  @include respond-to(md) {
-    padding: $spacing-4 $spacing-6;
-    font-size: $font-base;
-  }
-
-  &:hover {
-    background: var(--color-primary-700);
-    color: $text-light;
-    transform: translateY(-2px);
-    box-shadow: $shadow-lg;
-  }
-
-  svg {
-    transition: transform $transition-fast;
-  }
-
-  &:hover svg {
-    transform: translateX(4px);
-  }
-}
-
 .ratingCard {
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
@@ -178,6 +152,7 @@
   padding: $spacing-5;
   border-radius: $radius-2xl;
   max-width: 320px;
+  margin-bottom: $spacing-6;
 }
 
 .ratingHeader {
@@ -206,106 +181,130 @@
   line-height: $leading-relaxed;
 }
 
-.categories {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: $spacing-4;
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-5;
+  background: var(--color-primary-600);
+  color: $text-light;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  border-radius: $radius-xl;
+  text-decoration: none;
+  transition: background-color $transition-fast, transform $transition-fast, box-shadow $transition-fast;
 
   @include respond-to(md) {
-    gap: $spacing-5;
-  }
-
-  @include respond-to(lg) {
-    gap: $spacing-6;
-  }
-
-  // Bento layout for xl screens (1280px+)
-  @include respond-to(xl) {
-    grid-template-columns: 1.2fr 1fr 1fr;  // Featured card slightly wider
-    grid-template-rows: 1fr 1fr;
-    min-height: 550px;
-    gap: $spacing-5;
-
-    // Featured card (first) - spans left column, both rows
-    .category:nth-child(1) {
-      grid-column: 1 / 2;
-      grid-row: 1 / 3;
-      aspect-ratio: auto;
-      height: 100%;
-      min-height: 100%;
-    }
-
-    // Cards 2-5 fill the 2x2 grid on the right
-    .category:nth-child(2) {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-      aspect-ratio: auto;
-      min-height: 240px;
-    }
-
-    .category:nth-child(3) {
-      grid-column: 3 / 4;
-      grid-row: 1 / 2;
-      aspect-ratio: auto;
-      min-height: 240px;
-    }
-
-    .category:nth-child(4) {
-      grid-column: 2 / 3;
-      grid-row: 2 / 3;
-      aspect-ratio: auto;
-      min-height: 240px;
-    }
-
-    .category:nth-child(5) {
-      grid-column: 3 / 4;
-      grid-row: 2 / 3;
-      aspect-ratio: auto;
-      min-height: 240px;
-    }
-  }
-
-  // Even larger screens
-  @include respond-to(2xl) {
-    min-height: 620px;
-    gap: $spacing-6;
-
-    .category:nth-child(n+2) {
-      min-height: 280px;
-    }
-  }
-}
-
-.category {
-  position: relative;
-  border-radius: $radius-2xl;
-  overflow: hidden;
-  aspect-ratio: 4/5;
-  cursor: pointer;
-  opacity: 0;
-  transform: scale(0.9) translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-
-  &.visible {
-    opacity: 1;
-    transform: scale(1) translateY(0);
+    padding: $spacing-4 $spacing-6;
+    font-size: $font-base;
   }
 
   &:hover {
-    transform: scale(1.02);
+    background: var(--color-primary-700);
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
 
-    img {
-      transform: scale(1.1);
-    }
+  svg {
+    transition: transform $transition-fast;
+  }
 
-    .categoryOverlay {
-      background: $overlay-md;
+  &:hover svg {
+    transform: translateX(4px);
+  }
+}
+
+// ============================================
+// CATEGORIES GRID (Right side on desktop)
+// ============================================
+
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-3;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition-delay: 0.2s;
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-4;
+  }
+
+  @include respond-to(lg) {
+    flex: 1;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-4;
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// COMPACT CATEGORY CARD
+// ============================================
+
+.categoryCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  padding: $spacing-3;
+  border-radius: $radius-xl;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out, background-color $transition-fast, border-color $transition-fast, box-shadow $transition-fast;
+
+  @include respond-to(md) {
+    padding: $spacing-4;
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--color-primary-200);
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+
+    .categoryImage {
+      transform: scale(1.05);
     }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+.categoryImage {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  margin-bottom: $spacing-2;
+  transition: transform $transition-fast;
+
+  @include respond-to(md) {
+    width: 72px;
+    height: 72px;
+    margin-bottom: $spacing-3;
   }
 
   img {
     object-fit: cover;
-    transition: transform $transition-slow;
   }
 }
 
@@ -313,275 +312,26 @@
   position: absolute;
   inset: 0;
   background: $gradient-category-overlay;
-  transition: background $transition-base;
-}
-
-.categoryContent {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: $spacing-4;
-  z-index: 1;
+  opacity: 0.3;
 }
 
 .categoryName {
-  font-size: $font-lg;
-  font-weight: $font-bold;
-  color: $text-light;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  line-height: $leading-tight;
   margin-bottom: $spacing-1;
 
   @include respond-to(md) {
-    font-size: $font-xl;
-  }
-}
-
-.categoryDescription {
-  font-size: $font-xs;
-  color: $rgba-white-80;
-  line-height: $leading-relaxed;
-  margin-top: $spacing-1;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-
-  @include respond-to(md) {
     font-size: $font-sm;
-    -webkit-line-clamp: 3;
   }
 }
 
 .categoryCount {
-  font-size: $font-sm;
-  color: $rgba-white-80;
-}
+  font-size: 10px;
+  color: var(--text-tertiary);
 
-.categoryBadge {
-  position: absolute;
-  top: $spacing-3;
-  right: $spacing-3;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  padding: $spacing-1 $spacing-3;
-  border-radius: $radius-full;
-  font-size: $font-xs;
-  font-weight: $font-semibold;
-  color: var(--text-primary);
-  z-index: 1;
-}
-
-// Featured category (larger) - only on desktop grid (lg)
-// On xl+ screens, Bento layout takes over via nth-child
-.categoryFeatured {
-  grid-column: 1 / -1;
-  aspect-ratio: 16/9;
-
-  @include respond-to(lg) {
-    aspect-ratio: 2.2/1;
-  }
-
-  // On xl screens, remove the full-width span - Bento layout handles positioning
-  @include respond-to(xl) {
-    grid-column: auto;
-    aspect-ratio: auto;
+  @include respond-to(md) {
+    font-size: $font-xs;
   }
 }
-
-// Mobile carousel styles
-.mobileWrapper {
-  width: 100%;
-}
-
-.mobileCarousel {
-  display: flex;
-  align-items: center;
-  gap: $spacing-2;
-  touch-action: pan-y;
-  margin-bottom: $spacing-4;
-}
-
-.mobileCard {
-  flex: 1;
-  min-width: 0;
-
-  .category {
-    aspect-ratio: 3/4;
-    width: 100%;
-  }
-}
-
-.mobileArrow {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: $radius-full;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
-  display: none; // Hidden on mobile - swipe is enough
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all $transition-base;
-  z-index: 2;
-
-  @include respond-to(sm) {
-    display: flex; // Show on 640px+ (tablets)
-  }
-
-  &:hover {
-    background: var(--color-primary-600);
-    color: $text-light;
-    border-color: var(--color-primary-600);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-}
-
-.mobilePrev {
-  // Positioned on left
-}
-
-.mobileNext {
-  // Positioned on right
-}
-
-.mobileDots {
-  display: flex;
-  justify-content: center;
-  gap: $spacing-2;
-  margin-top: $spacing-2;
-}
-
-.mobileDot {
-  width: 10px;
-  height: 10px;
-  border-radius: $radius-full;
-  border: none;
-  background: var(--border-medium);
-  cursor: pointer;
-  transition: all $transition-base;
-  padding: 0;
-
-  &:hover {
-    background: var(--color-primary-400);
-  }
-}
-
-.activeDot {
-  background: var(--color-primary-600);
-  transform: scale(1.2);
-}
-
-// ============================================
-// TABLET CAROUSEL STYLES
-// ============================================
-
-.tabletWrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-4;
-}
-
-.tabletFeatured {
-  width: 100%;
-
-  .category {
-    aspect-ratio: 16/7;  // Shorter aspect ratio for featured
-    width: 100%;
-  }
-}
-
-.tabletCarouselWrapper {
-  display: flex;
-  align-items: center;
-  gap: $spacing-3;
-  width: 100%;
-}
-
-.tabletCarousel {
-  display: flex;
-  gap: $spacing-4;
-  flex: 1;
-  min-width: 0;
-  touch-action: pan-y;
-}
-
-.tabletCard {
-  flex: 1;
-  min-width: 0;
-
-  .category {
-    aspect-ratio: 4/5;
-    width: 100%;
-  }
-}
-
-.tabletArrow {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: $radius-full;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all $transition-base;
-  z-index: 2;
-
-  &:hover:not(:disabled) {
-    background: var(--color-primary-600);
-    color: $text-light;
-    border-color: var(--color-primary-600);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.95);
-  }
-}
-
-.tabletPrev {
-  // Positioned on left
-}
-
-.tabletNext {
-  // Positioned on right
-}
-
-.tabletDots {
-  display: flex;
-  justify-content: center;
-  gap: $spacing-2;
-  margin-top: $spacing-2;
-}
-
-.tabletDot {
-  width: 10px;
-  height: 10px;
-  border-radius: $radius-full;
-  border: none;
-  background: var(--border-medium);
-  cursor: pointer;
-  transition: all $transition-base;
-  padding: 0;
-
-  &:hover {
-    background: var(--color-primary-400);
-  }
-}
-

@@ -115,19 +115,36 @@
   width: 32px;
 }
 
-.badge {
+.sectionLabel {
   display: inline-flex;
   align-items: center;
-  gap: $spacing-2;
-  padding: $spacing-2 $spacing-4;
-  background: var(--color-primary-100);
-  color: var(--color-primary-700);
-  font-size: $font-xs;
-  font-weight: $font-semibold;
-  border-radius: $radius-full;
+  justify-content: center;
+  gap: $spacing-3;
   margin-bottom: $spacing-4;
+}
+
+.labelIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--color-primary-100);
+  border-radius: $radius-lg;
+  color: var(--color-primary-600);
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.labelText {
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .title {
@@ -440,7 +457,65 @@
 }
 
 // ============================================
-// MOBILE CAROUSEL STYLES (single card - matching Day Tours)
+// NATIVE HORIZONTAL SCROLL (Mobile & Tablet)
+// ============================================
+
+.nativeScrollContainer {
+  display: flex;
+  gap: $spacing-4;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  padding: $spacing-2 $spacing-4;
+  padding-right: calc(15% + $spacing-4); // Space for peek effect
+  margin: 0 (-$spacing-4); // Negative margin to extend to edges
+
+  // Hide scrollbar
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari
+  }
+}
+
+.nativeScrollCard {
+  flex: 0 0 calc(85% - $spacing-2); // 85% width for 15% peek
+  scroll-snap-align: start;
+  min-width: 0;
+
+  // Ensure card takes full height
+  .card {
+    height: 100%;
+    opacity: 1;
+    transform: none;
+  }
+
+  @include respond-to(md) {
+    flex: 0 0 calc(48% - $spacing-2); // Show ~2 cards on tablet
+  }
+}
+
+// View All card in native scroll
+.nativeScrollViewAll {
+  flex: 0 0 calc(85% - $spacing-2);
+  scroll-snap-align: start;
+  min-width: 0;
+
+  @include respond-to(md) {
+    flex: 0 0 calc(48% - $spacing-2);
+  }
+
+  .viewAllCard {
+    height: 100%;
+    min-height: 350px;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// ============================================
+// MOBILE CAROUSEL STYLES (LEGACY - keeping for reference)
 // ============================================
 
 .mobileCarousel {
@@ -786,5 +861,132 @@
   svg {
     width: 20px;
     height: 20px;
+  }
+}
+
+// ============================================
+// SMALL SCREEN CAROUSEL (Mouse devices at narrow viewports)
+// ============================================
+
+.smallCarouselWrapper {
+  position: relative;
+  padding: 0 $spacing-12;
+  margin: 0 (-$spacing-4);
+
+  @include respond-to(md) {
+    padding: 0 $spacing-16;
+    margin: 0;
+  }
+}
+
+.smallCarouselTrack {
+  overflow: hidden;
+  border-radius: $radius-xl;
+}
+
+.smallCarouselSlides {
+  display: flex;
+  transition: transform 0.4s ease-out;
+}
+
+.smallCarouselSlide {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: 0 $spacing-2;
+
+  .card {
+    opacity: 1;
+    animation: none;
+    height: 100%;
+    transform: none;
+  }
+}
+
+.carouselArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: $touch-target-min;
+  height: $touch-target-min;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-full;
+  color: var(--text-primary);
+  cursor: pointer;
+  box-shadow: $shadow-md;
+  transition: background-color $transition-fast, box-shadow $transition-fast, color $transition-fast;
+  z-index: 10;
+
+  &:hover {
+    background: var(--bg-secondary);
+    box-shadow: $shadow-lg;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.prevArrow {
+  left: $spacing-2;
+
+  @include respond-to(md) {
+    left: $spacing-4;
+  }
+}
+
+.nextArrow {
+  right: $spacing-2;
+
+  @include respond-to(md) {
+    right: $spacing-4;
+  }
+}
+
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-top: $spacing-4;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: $radius-full;
+  background: var(--border-medium);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-400);
+    transform: scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+// ============================================
+// CSS FALLBACK: Force carousel on hover-capable devices
+// This ensures mouse users never see native scroll
+// ============================================
+
+@media (hover: hover) and (pointer: fine) {
+  .nativeScrollContainer {
+    display: none !important;
   }
 }

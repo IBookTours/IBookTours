@@ -62,30 +62,20 @@ export default function StatsSection({ stats }: StatsSectionProps) {
           })}
         </div>
 
-        {/* Decorative curved lines connecting stats */}
-        <svg
-          className={styles.curvedLines}
-          data-animate={isInView}
-          viewBox="0 0 1000 100"
-          preserveAspectRatio="xMidYMid meet"
-        >
-          {/* First curve: from stat 1 (16.67%) to stat 2 (50%) */}
-          <path
-            className={styles.curvePath}
-            pathLength="1"
-            d="M 167 50 Q 333 10, 500 50"
-          />
-          <circle className={styles.curveDot} cx="167" cy="50" r="6" />
-          <circle className={styles.curveDot} cx="500" cy="50" r="6" />
+        {/* Decorative dotted line connecting stats with animated traveling dots */}
+        <div className={`${styles.connectingLine} ${isInView ? styles.animate : ''}`}>
+          {/* Dotted line base */}
+          <div className={styles.dottedLine} />
 
-          {/* Second curve: from stat 2 (50%) to stat 3 (83.33%) */}
-          <path
-            className={styles.curvePath}
-            pathLength="1"
-            d="M 500 50 Q 667 90, 833 50"
-          />
-          <circle className={styles.curveDot} cx="833" cy="50" r="6" />
-        </svg>
+          {/* Static dots at connection points */}
+          <div className={`${styles.staticDot} ${styles.dot1}`} />
+          <div className={`${styles.staticDot} ${styles.dot2}`} />
+          <div className={`${styles.staticDot} ${styles.dot3}`} />
+
+          {/* Animated traveling dots */}
+          <div className={`${styles.travelingDot} ${styles.travel1}`} />
+          <div className={`${styles.travelingDot} ${styles.travel2}`} />
+        </div>
       </div>
     </section>
   );

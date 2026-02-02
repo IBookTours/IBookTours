@@ -23,7 +23,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
-import { useIsMobile, useIsTablet, useSwipe, useInView } from '@/hooks';
+import { useIsMobile, useIsTablet, useIsTouchDevice, useSwipe, useInView } from '@/hooks';
 import { ANIMATION } from '@/lib/constants';
 import styles from './VacationPackagesSection.module.scss';
 
@@ -69,10 +69,15 @@ export default function VacationPackagesSection({
   const sliderRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  const isTouchDevice = useIsTouchDevice();
   // Medium screen carousel index (for 2-column carousel on md-lg screens)
   const [mediumIndex, setMediumIndex] = useState(0);
   // Check if we're on a medium-sized screen (between md and xl breakpoints)
   const [isMediumScreen, setIsMediumScreen] = useState(false);
+
+  // Touch devices get native scroll, mouse devices get carousel with arrows
+  const showNativeScroll = isTouchDevice && (isMobile || isTablet);
+  const showSmallScreenCarousel = !isTouchDevice && (isMobile || isTablet);
 
   // Check for medium screen (between 1024px and 1280px) - uses 2-column carousel
   useEffect(() => {
@@ -318,105 +323,76 @@ export default function VacationPackagesSection({
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-          <span className={styles.badge}>
-            <Plane size={16} />
-            {t('sectionLabel')}
-          </span>
+          <div className={styles.sectionLabel}>
+            <span className={styles.labelIcon}>
+              <Plane size={20} />
+            </span>
+            <span className={styles.labelText}>{t('sectionLabel')}</span>
+          </div>
           <h2 className={styles.title}>{t('title')}</h2>
           <p className={styles.subtitle}>
             {t('subtitle')}
           </p>
         </div>
 
-        {/* Mobile: Single card carousel with swipe (matching Day Tours) */}
-        {isMobile && packages.length > 0 && (
-          <>
-            <div className={styles.mobileCarousel} {...swipeHandlers}>
-              <button
-                className={`${styles.mobileArrow} ${styles.mobilePrev}`}
-                onClick={handleMobilePrev}
-                aria-label="Previous package"
-              >
-                <ChevronLeft size={20} />
-              </button>
-
-              <div className={styles.mobileCard}>
-                {renderPackageCard(packages[mobileIndex])}
+        {/* Touch devices (mobile/tablet): Native horizontal scroll with 15% peek */}
+        {showNativeScroll && packages.length > 0 && (
+          <div className={styles.nativeScrollContainer}>
+            {packages.map((pkg, index) => (
+              <div key={pkg.id} className={styles.nativeScrollCard}>
+                {renderPackageCard(pkg, index)}
               </div>
+            ))}
+            {/* View All card at the end */}
+            <div className={styles.nativeScrollViewAll}>
+              {renderViewAllCard(packages.length)}
+            </div>
+          </div>
+        )}
 
-              <button
-                className={`${styles.mobileArrow} ${styles.mobileNext}`}
-                onClick={handleMobileNext}
-                aria-label="Next package"
+        {/* Mouse devices at small viewports: Carousel with arrows */}
+        {showSmallScreenCarousel && packages.length > 0 && (
+          <div className={styles.smallCarouselWrapper}>
+            <button
+              className={`${styles.carouselArrow} ${styles.prevArrow}`}
+              onClick={handleMobilePrev}
+              aria-label="Previous package"
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            <div className={styles.smallCarouselTrack} {...swipeHandlers}>
+              <div
+                className={styles.smallCarouselSlides}
+                style={{ transform: `translateX(-${mobileIndex * 100}%)` }}
               >
-                <ChevronRight size={20} />
-              </button>
+                {packages.map((pkg, index) => (
+                  <div key={pkg.id} className={styles.smallCarouselSlide}>
+                    {renderPackageCard(pkg, index)}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Mobile dots */}
-            <div className={styles.mobileDots}>
+            <button
+              className={`${styles.carouselArrow} ${styles.nextArrow}`}
+              onClick={handleMobileNext}
+              aria-label="Next package"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Carousel dots */}
+            <div className={styles.carouselDots}>
               {packages.map((_, i) => (
                 <button
                   key={i}
-                  className={`${styles.mobileDot} ${i === mobileIndex ? styles.activeDot : ''}`}
+                  className={`${styles.dot} ${i === mobileIndex ? styles.activeDot : ''}`}
                   onClick={() => setMobileIndex(i)}
                   aria-label={`Go to package ${i + 1}`}
                 />
               ))}
             </div>
-          </>
-        )}
-
-        {/* Tablet: 3-column grid (2 carousel cards + 1 fixed View All) */}
-        {!isMobile && isTablet && packages.length > 0 && (
-          <div className={styles.tabletGridWrapper}>
-            {/* 3-column layout: 2 carousel cards + View All */}
-            <div className={styles.tabletGrid} {...tabletSwipeHandlers}>
-              {/* Carousel cards (positions 1-2) */}
-              <div className={styles.tabletCarouselCard}>
-                {packages[tabletIndex * 2] && renderPackageCard(packages[tabletIndex * 2], 0)}
-              </div>
-              <div className={styles.tabletCarouselCard}>
-                {packages[tabletIndex * 2 + 1] && renderPackageCard(packages[tabletIndex * 2 + 1], 1)}
-              </div>
-              {/* Fixed View All card (position 3) */}
-              <div className={styles.tabletViewAllCard}>
-                {renderViewAllCard(2)}
-              </div>
-            </div>
-
-            {/* Navigation arrows */}
-            {packages.length > 2 && (
-              <div className={styles.tabletNavigation}>
-                <button
-                  className={`${styles.tabletArrow} ${styles.tabletPrev}`}
-                  onClick={handleTabletPrev}
-                  aria-label="Previous packages"
-                >
-                  <ChevronLeft size={20} />
-                </button>
-
-                {/* Tablet dots */}
-                <div className={styles.tabletDots}>
-                  {Array.from({ length: tabletMaxIndex + 1 }).map((_, i) => (
-                    <button
-                      key={i}
-                      className={`${styles.tabletDot} ${i === tabletIndex ? styles.activeDot : ''}`}
-                      onClick={() => setTabletIndex(i)}
-                      aria-label={`Go to page ${i + 1}`}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  className={`${styles.tabletArrow} ${styles.tabletNext}`}
-                  onClick={handleTabletNext}
-                  aria-label="Next packages"
-                >
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-            )}
           </div>
         )}
 

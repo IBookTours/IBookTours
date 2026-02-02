@@ -148,14 +148,14 @@ export default function BlogSection({ content }: BlogSectionProps) {
           </div>
         )}
 
-        {/* Tablet/Desktop: Grid layout */}
+        {/* Tablet/Desktop: Grid layout - 3 posts total (1 featured + 2 small) */}
         {!isMobile && (
           <div className={styles.grid}>
             {/* Featured Post */}
             {renderBlogCard(featuredPost, true)}
 
-            {/* Other Posts */}
-            {otherPosts.map((post, index) => renderBlogCard(post, false, index))}
+            {/* Other Posts - limit to 2 for 3 total */}
+            {otherPosts.slice(0, 2).map((post, index) => renderBlogCard(post, false, index))}
           </div>
         )}
       </div>

@@ -1,199 +1,159 @@
 @use '@/styles/variables' as *;
 
-.section {
-  padding: $section-padding-y-mobile 0;
-  background: var(--bg-secondary);
-  position: relative;
+// ============================================
+// EVENTS SECTION
+// ============================================
 
-  @include respond-to(lg) {
-    padding: $section-padding-y 0;
-  }
+.section {
+  padding: $spacing-16 0;
+  background: var(--bg-secondary);
 }
 
 .container {
   @include container;
 }
 
+// ============================================
+// HEADER
+// ============================================
+
 .header {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-4;
-  margin-bottom: $spacing-10;
+  text-align: center;
+  margin-bottom: $spacing-8;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(30px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
   }
-
-  @include respond-to(md) {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
 }
 
-.titleWrapper {
+.sectionLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-3;
+  margin-bottom: $spacing-4;
+}
+
+.labelIcon {
   display: flex;
-  align-items: baseline;
-  gap: $spacing-4;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--color-primary-100);
+  border-radius: $radius-lg;
+  color: var(--color-primary-600);
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
-.year {
-  font-size: $font-6xl;
-  font-weight: $font-extrabold;
-  color: var(--color-primary-200);
-  line-height: 1;
-  text-shadow: 0 2px 4px $rgba-black-05;
-
-  @include respond-to(lg) {
-    font-size: $font-7xl;
-  }
+.labelText {
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .title {
   font-size: $font-3xl;
   font-weight: $font-bold;
   color: var(--text-primary);
+  margin-bottom: $spacing-4;
 
-  @include respond-to(lg) {
+  @include respond-to(md) {
     font-size: $font-4xl;
   }
 }
 
-.viewAll {
-  display: inline-flex;
+.subtitle {
+  font-size: $font-lg;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: $leading-relaxed;
+}
+
+// ============================================
+// SLIDER WRAPPER
+// ============================================
+
+.sliderWrapper {
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: $spacing-2;
-  font-size: $font-sm;
-  font-weight: $font-medium;
-  color: var(--color-primary-600);
-  text-decoration: none;
-  transition: gap $transition-fast;
-
-  &:hover {
-    gap: $spacing-3;
-  }
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
+  gap: $spacing-4;
 }
 
-// Desktop Grid Layout
-.events {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: $spacing-6;
-  margin-bottom: $spacing-12;
-}
-
-// Mobile/Tablet Carousel Layout
-.carouselContainer {
-  position: relative;
-  margin-bottom: $spacing-12;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.carouselTrack {
-  position: relative;
-  display: flex;
-  gap: $spacing-3;
-  width: 100%;
-  padding: 0 $spacing-12; // Space for arrows
-
-  @include respond-to(sm) {
-    gap: $spacing-4;
-    padding: 0 $spacing-16;
-  }
-}
-
-.carouselSlide {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-
-  // Ensure card fills the slide properly and is always visible in carousel
-  .eventCard {
-    width: 100%;
-    height: auto;
-    min-height: 280px;
-    // Override the default hidden state - carousel container handles animation
-    opacity: 1;
-    transform: none;
-
-    @include respond-to(sm) {
-      min-height: 320px;
-    }
-  }
-}
-
-.carouselArrow {
+.navButton {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--bg-secondary);
+  width: 44px;
+  height: 44px;
+  background: var(--bg-primary);
   border: 1px solid var(--border-light);
-  color: var(--text-primary);
-  cursor: pointer;
+  border-radius: $radius-full;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary);
   z-index: 10;
   transition: all $transition-fast;
-  box-shadow: $shadow-sm;
+  box-shadow: $shadow-md;
 
-  &:hover {
-    background: var(--bg-tertiary);
-    border-color: var(--border-medium);
+  &:hover:not(:disabled) {
+    background: var(--color-primary-600);
+    color: $text-light;
+    border-color: var(--color-primary-600);
   }
 
-  svg {
-    width: 20px;
-    height: 20px;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
-}
 
-.prevArrow {
-  left: $spacing-1;
-
-  @include respond-to(sm) {
-    left: $spacing-2;
+  @include respond-to(lg) {
+    width: 48px;
+    height: 48px;
   }
 }
 
-.nextArrow {
-  right: $spacing-1;
+.prevButton {
+  left: -$spacing-4;
 
-  @include respond-to(sm) {
-    right: $spacing-2;
+  @include respond-to(lg) {
+    left: -$spacing-8;
   }
 }
 
-.carouselDots {
+.nextButton {
+  right: -$spacing-4;
+
+  @include respond-to(lg) {
+    right: -$spacing-8;
+  }
+}
+
+.indicators {
   display: flex;
   justify-content: center;
   gap: $spacing-2;
   margin-top: $spacing-6;
 }
 
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-full;
   background: var(--border-medium);
   border: none;
   cursor: pointer;
@@ -201,36 +161,73 @@
   padding: 0;
 
   &:hover {
-    background: var(--border-dark);
+    background: var(--color-primary-400);
   }
 }
 
-.activeDot {
-  background: var(--color-primary);
-  transform: scale(1.2);
+.activeIndicator {
+  background: var(--color-primary-600);
+  width: 24px;
 }
 
-.eventCard {
-  position: relative;
+// ============================================
+// GRID
+// ============================================
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  flex: 1;
+  transition: all 0.3s ease;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to(xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// ============================================
+// EVENT CARD (DayTours Style)
+// ============================================
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
   border-radius: $radius-2xl;
   overflow: hidden;
-  aspect-ratio: 4/5;
-  cursor: pointer;
-  @include card-style;
+  border: 1px solid var(--border-light);
+  box-shadow: $shadow-lg;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow $transition-base;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow $transition-base, border-color $transition-base;
+  height: 100%;
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  &:hover {
-    img {
-      transform: scale(1.1);
+  &.visible:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-xl;
+    border-color: var(--color-primary-200);
+
+    .imageWrapper img {
+      transform: scale(1.05);
     }
   }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
 
   img {
     object-fit: cover;
@@ -238,101 +235,418 @@
   }
 }
 
-.eventOverlay {
+.categoryBadge {
   position: absolute;
-  inset: 0;
-  background: $gradient-card-overlay;
-}
-
-.eventContent {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: $spacing-5;
-  z-index: 1;
-}
-
-.eventDate {
-  display: inline-block;
+  top: $spacing-3;
+  left: $spacing-3;
   padding: $spacing-1 $spacing-3;
-  background: $rgba-white-20;
-  backdrop-filter: blur(4px);
-  border-radius: $radius-full;
-  font-size: $font-xs;
-  font-weight: $font-medium;
+  background: var(--color-primary-600);
   color: $text-light;
-  margin-bottom: $spacing-2;
-}
-
-.eventTitle {
-  font-size: $font-xl;
+  font-size: 10px;
   font-weight: $font-bold;
-  color: $text-light;
-  margin-bottom: $spacing-2;
+  border-radius: $radius-full;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.eventLocation {
+.dateBadge {
+  position: absolute;
+  bottom: $spacing-3;
+  right: $spacing-3;
   display: flex;
   align-items: center;
   gap: $spacing-1;
-  font-size: $font-sm;
-  color: $rgba-white-80;
+  padding: $spacing-1 $spacing-3;
+  background: $rgba-black-60;
+  color: $text-light;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  border-radius: $radius-full;
+  backdrop-filter: blur(4px);
+}
+
+.content {
+  padding: $spacing-6;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-xs;
+  color: var(--text-tertiary);
+  margin-bottom: $spacing-2;
 
   svg {
-    width: 14px;
-    height: 14px;
+    color: var(--color-primary-500);
   }
 }
 
-// Partners Section
-.partners {
-  padding-top: $spacing-8;
+.name {
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+  min-height: 2.8em;
+}
+
+.description {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  line-height: $leading-relaxed;
+  margin-bottom: $spacing-4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: $spacing-4;
   border-top: 1px solid var(--border-light);
+  margin-top: auto;
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.viewBtn {
+  padding: $spacing-2 $spacing-4;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  border-radius: $radius-lg;
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-600);
+    color: $text-light;
+  }
+}
+
+.ticketBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-2 $spacing-4;
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  border: 1px solid var(--color-primary-200);
+  border-radius: $radius-lg;
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-600);
+    color: $text-light;
+    border-color: var(--color-primary-600);
+  }
+}
+
+// ============================================
+// VIEW ALL PROMOTIONAL CARD
+// ============================================
+
+.viewAllCard {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-radius: $radius-2xl;
+  border: 2px dashed var(--border-medium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $spacing-8;
+  min-height: 400px;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out 0.5s, transform 0.6s ease-out 0.5s;
+  transform: translateY(30px);
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.partnersTitle {
-  font-size: $font-sm;
-  font-weight: $font-medium;
-  color: var(--text-tertiary);
-  text-align: center;
-  margin-bottom: $spacing-6;
-}
-
-.partnersGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: $spacing-8;
-
-  @include respond-to(md) {
-    gap: $spacing-12;
-  }
-}
-
-.partner {
-  opacity: 0.5;
-  transition: opacity $transition-fast;
-  filter: grayscale(100%);
 
   &:hover {
-    opacity: 1;
-    filter: grayscale(0);
+    border-color: var(--color-primary-400);
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--color-primary-50) 100%);
+    transform: translateY(-4px);
+
+    .viewAllArrow {
+      transform: translateX(4px);
+    }
   }
 }
 
-.partnerName {
-  font-size: $font-lg;
-  font-weight: $font-semibold;
-  color: var(--text-secondary);
+.viewAllIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-full;
+  background: var(--color-secondary-100);
+  color: var(--color-secondary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-4;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
 }
 
+.viewAllCount {
+  font-size: $font-4xl;
+  font-weight: $font-bold;
+  color: var(--color-secondary-600);
+  margin-bottom: $spacing-2;
+}
+
+.viewAllText {
+  font-size: $font-xl;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-2;
+}
+
+.viewAllSubtext {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  margin-bottom: $spacing-6;
+  max-width: 200px;
+}
+
+.viewAllArrow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: var(--color-secondary-600);
+  transition: transform $transition-fast;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// ============================================
+// NATIVE HORIZONTAL SCROLL (Mobile & Tablet)
+// ============================================
+
+.nativeScrollContainer {
+  display: flex;
+  gap: $spacing-4;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  padding: $spacing-2 $spacing-4;
+  padding-right: calc(15% + $spacing-4);
+  margin: 0 (-$spacing-4);
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.nativeScrollCard {
+  flex: 0 0 calc(85% - $spacing-2);
+  scroll-snap-align: start;
+  min-width: 0;
+
+  .card {
+    height: 100%;
+    opacity: 1;
+    transform: none;
+  }
+
+  @include respond-to(md) {
+    flex: 0 0 calc(48% - $spacing-2);
+  }
+}
+
+.nativeScrollViewAll {
+  flex: 0 0 calc(85% - $spacing-2);
+  scroll-snap-align: start;
+  min-width: 0;
+
+  @include respond-to(md) {
+    flex: 0 0 calc(48% - $spacing-2);
+  }
+
+  .viewAllCard {
+    height: 100%;
+    min-height: 350px;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// ============================================
+// CAROUSEL STYLES (Mouse devices at narrow viewports)
+// ============================================
+
+.carouselWrapper {
+  position: relative;
+  padding: 0 $spacing-12;
+  margin: 0 (-$spacing-4);
+
+  @include respond-to(md) {
+    padding: 0 $spacing-16;
+    margin: 0;
+  }
+}
+
+.carouselTrack {
+  overflow: hidden;
+  border-radius: $radius-xl;
+}
+
+.carouselSlides {
+  display: flex;
+  transition: transform 0.4s ease-out;
+}
+
+.carouselSlide {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: 0 $spacing-2;
+
+  .card {
+    opacity: 1;
+    animation: none;
+    height: 100%;
+    transform: none;
+  }
+}
+
+.tabletGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-4;
+}
+
+.tabletCard {
+  .card {
+    height: 100%;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.carouselArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: $touch-target-min;
+  height: $touch-target-min;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-full;
+  color: var(--text-primary);
+  cursor: pointer;
+  box-shadow: $shadow-md;
+  transition: background-color $transition-fast, box-shadow $transition-fast, color $transition-fast;
+  z-index: 10;
+
+  &:hover {
+    background: var(--bg-secondary);
+    box-shadow: $shadow-lg;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.prevArrow {
+  left: $spacing-2;
+
+  @include respond-to(md) {
+    left: $spacing-4;
+  }
+}
+
+.nextArrow {
+  right: $spacing-2;
+
+  @include respond-to(md) {
+    right: $spacing-4;
+  }
+}
+
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-top: $spacing-4;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: $radius-full;
+  background: var(--border-medium);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-400);
+    transform: scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+.activeDot {
+  background: var(--color-primary-600);
+  width: 24px;
+}
+
+// ============================================
+// CSS FALLBACK: Force carousel on hover-capable devices
+// ============================================
+
+@media (hover: hover) and (pointer: fine) {
+  .nativeScrollContainer {
+    display: none !important;
+  }
+}

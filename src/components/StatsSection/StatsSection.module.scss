@@ -77,52 +77,156 @@
   font-weight: $font-medium;
 }
 
-// Decorative curved lines between stats
-.curvedLines {
+// ============================================
+// DOTTED CONNECTING LINE WITH ANIMATED DOTS
+// ============================================
+
+.connectingLine {
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
-  height: 120px;
+  left: 16.67%; // Center of first stat
+  right: 16.67%; // Center of last stat
+  height: 2px;
   transform: translateY(-50%);
   pointer-events: none;
   display: none;
-  z-index: 0; // Render behind the stats
+  z-index: 0;
 
   @include respond-to(md) {
     display: block;
   }
 }
 
-.curvePath {
-  fill: none;
-  stroke: var(--color-primary-500);
-  stroke-width: 2;
-  stroke-linecap: round;
-  // Using pathLength="1" in SVG, so we use 1 for dasharray/offset
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+// Dotted line base
+.dottedLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-primary-300) 0,
+    var(--color-primary-300) 6px,
+    transparent 6px,
+    transparent 12px
+  );
   opacity: 0;
-  transition: stroke-dashoffset 1.5s ease-out 0.3s, opacity 0.5s ease-out 0.3s;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: opacity 0.5s ease-out 0.3s, transform 1s ease-out 0.3s;
+
+  .animate & {
+    opacity: 1;
+    transform: scaleX(1);
+  }
 }
 
-// When data-animate="true", animate the paths
-.curvedLines[data-animate="true"] .curvePath {
-  stroke-dashoffset: 0;
-  opacity: 1;
-}
-
-.curveDot {
-  fill: var(--color-primary-500);
+// Static dots at connection points (stat positions)
+.staticDot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary-500);
+  border-radius: $radius-full;
   opacity: 0;
-  transform: scale(0);
-  transform-origin: center;
   transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  transition-delay: 1s;
+
+  .animate & {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.dot1 {
+  left: 0;
+  transition-delay: 0.8s;
+}
+
+.dot2 {
+  left: 50%;
+  transition-delay: 1s;
+}
+
+.dot3 {
+  left: 100%;
   transition-delay: 1.2s;
 }
 
-// When data-animate="true", animate the dots
-.curvedLines[data-animate="true"] .curveDot {
-  opacity: 1;
-  transform: scale(1);
+// Animated traveling dots
+.travelingDot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary-600);
+  border-radius: $radius-full;
+  opacity: 0;
+  box-shadow: 0 0 8px var(--color-primary-400);
+
+  .animate & {
+    opacity: 1;
+  }
+}
+
+.travel1 {
+  animation: none;
+
+  .animate & {
+    animation: travelDot1 3s ease-in-out 1.5s infinite;
+  }
+}
+
+.travel2 {
+  animation: none;
+
+  .animate & {
+    animation: travelDot2 3s ease-in-out 2s infinite;
+  }
+}
+
+@keyframes travelDot1 {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    left: 50%;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes travelDot2 {
+  0% {
+    left: 100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    left: 50%;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 0;
+    opacity: 0;
+  }
 }

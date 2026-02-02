@@ -21,7 +21,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCartStore } from '@/store/cartStore';
 import { priceStringToCents } from '@/store/bookingStore';
-import { useIsMobile, useIsTablet, useSwipe, useInView } from '@/hooks';
+import { useIsMobile, useIsTablet, useIsTouchDevice, useSwipe, useInView } from '@/hooks';
 import { ANIMATION } from '@/lib/constants';
 import styles from './DayToursSection.module.scss';
 
@@ -77,10 +77,15 @@ export default function DayToursSection({
   const { addItem } = useCartStore();
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
+  const isTouchDevice = useIsTouchDevice();
   const [sectionRef, isInView] = useInView<HTMLElement>({
     threshold: ANIMATION.THRESHOLD_LIGHT,
     triggerOnce: true,
   });
+
+  // Touch devices get native scroll, mouse devices get carousel with arrows
+  const showNativeScroll = isTouchDevice && (isMobile || isTablet);
+  const showSmallScreenCarousel = !isTouchDevice && (isMobile || isTablet);
 
   const filteredTours = tours.filter(
     (tour) => activeCategory === 'all' || tour.category === activeCategory
@@ -286,10 +291,12 @@ export default function DayToursSection({
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-          <span className={styles.badge}>
-            <Clock size={16} />
-            {t('sectionLabel')}
-          </span>
+          <div className={styles.sectionLabel}>
+            <span className={styles.labelIcon}>
+              <Clock size={20} />
+            </span>
+            <span className={styles.labelText}>{t('sectionLabel')}</span>
+          </div>
           <h2 className={styles.title}>{t('title')}</h2>
           <p className={styles.subtitle}>
             {t('subtitle')}
@@ -313,95 +320,64 @@ export default function DayToursSection({
           </div>
         )}
 
-        {/* Mobile: Single card carousel with swipe */}
-        {isMobile && filteredTours.length > 0 && (
-          <>
-            <div className={styles.mobileCarousel} {...swipeHandlers}>
-              <button
-                className={`${styles.mobileArrow} ${styles.mobilePrev}`}
-                onClick={handleMobilePrev}
-                aria-label="Previous tour"
-              >
-                <ChevronLeft size={20} />
-              </button>
-
-              <div className={styles.mobileCard}>
-                {renderTourCard(filteredTours[mobileIndex])}
+        {/* Touch devices (mobile/tablet): Native horizontal scroll with 15% peek */}
+        {showNativeScroll && filteredTours.length > 0 && (
+          <div className={styles.nativeScrollContainer}>
+            {filteredTours.map((tour, index) => (
+              <div key={tour.id} className={styles.nativeScrollCard}>
+                {renderTourCard(tour, index)}
               </div>
+            ))}
+            {/* View All card at the end */}
+            <div className={styles.nativeScrollViewAll}>
+              {renderViewAllCard(filteredTours.length)}
+            </div>
+          </div>
+        )}
 
-              <button
-                className={`${styles.mobileArrow} ${styles.mobileNext}`}
-                onClick={handleMobileNext}
-                aria-label="Next tour"
+        {/* Mouse devices at small viewports: Carousel with arrows */}
+        {showSmallScreenCarousel && filteredTours.length > 0 && (
+          <div className={styles.smallCarouselWrapper}>
+            <button
+              className={`${styles.carouselArrow} ${styles.prevArrow}`}
+              onClick={handleMobilePrev}
+              aria-label="Previous tour"
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            <div className={styles.smallCarouselTrack} {...swipeHandlers}>
+              <div
+                className={styles.smallCarouselSlides}
+                style={{ transform: `translateX(-${mobileIndex * 100}%)` }}
               >
-                <ChevronRight size={20} />
-              </button>
+                {filteredTours.map((tour, index) => (
+                  <div key={tour.id} className={styles.smallCarouselSlide}>
+                    {renderTourCard(tour, index)}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Mobile dots */}
-            <div className={styles.mobileDots}>
+            <button
+              className={`${styles.carouselArrow} ${styles.nextArrow}`}
+              onClick={handleMobileNext}
+              aria-label="Next tour"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Carousel dots */}
+            <div className={styles.carouselDots}>
               {filteredTours.map((_, i) => (
                 <button
                   key={i}
-                  className={`${styles.mobileDot} ${i === mobileIndex ? styles.activeDot : ''}`}
+                  className={`${styles.dot} ${i === mobileIndex ? styles.activeDot : ''}`}
                   onClick={() => setMobileIndex(i)}
                   aria-label={`Go to tour ${i + 1}`}
                 />
               ))}
             </div>
-          </>
-        )}
-
-        {/* Tablet: 3-column grid (2 carousel cards + 1 fixed View All) */}
-        {!isMobile && isTablet && filteredTours.length > 0 && (
-          <div className={styles.tabletGridWrapper}>
-            {/* 3-column layout: 2 carousel cards + View All */}
-            <div className={styles.tabletGrid} {...tabletSwipeHandlers}>
-              {/* Carousel cards (positions 1-2) */}
-              <div className={styles.tabletCarouselCard}>
-                {filteredTours[tabletIndex * 2] && renderTourCard(filteredTours[tabletIndex * 2], 0)}
-              </div>
-              <div className={styles.tabletCarouselCard}>
-                {filteredTours[tabletIndex * 2 + 1] && renderTourCard(filteredTours[tabletIndex * 2 + 1], 1)}
-              </div>
-              {/* Fixed View All card (position 3) */}
-              <div className={styles.tabletViewAllCard}>
-                {renderViewAllCard(2)}
-              </div>
-            </div>
-
-            {/* Navigation arrows */}
-            {filteredTours.length > 2 && (
-              <div className={styles.tabletNavigation}>
-                <button
-                  className={`${styles.tabletArrow} ${styles.tabletPrev}`}
-                  onClick={handleTabletPrev}
-                  aria-label="Previous tours"
-                >
-                  <ChevronLeft size={20} />
-                </button>
-
-                {/* Tablet dots */}
-                <div className={styles.tabletDots}>
-                  {Array.from({ length: tabletMaxIndex + 1 }).map((_, i) => (
-                    <button
-                      key={i}
-                      className={`${styles.tabletDot} ${i === tabletIndex ? styles.activeDot : ''}`}
-                      onClick={() => setTabletIndex(i)}
-                      aria-label={`Go to page ${i + 1}`}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  className={`${styles.tabletArrow} ${styles.tabletNext}`}
-                  onClick={handleTabletNext}
-                  aria-label="Next tours"
-                >
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-            )}
           </div>
         )}
 
