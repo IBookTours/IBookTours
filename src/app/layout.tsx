@@ -12,6 +12,7 @@ import CookieConsent from '@/components/CookieConsent';
 import StructuredData from '@/components/StructuredData';
 import ColorBlindFilters from '@/components/ColorBlindFilters';
 import { CartDrawer } from '@/components/Cart';
+import GeolocationPrompt from '@/components/GeolocationPrompt';
 import { siteData } from '@/data/siteData';
 import '@/styles/globals.scss';
 
@@ -141,7 +142,9 @@ export default function RootLayout({
                 try {
                   var theme = localStorage.getItem('theme-preference');
                   var resolved = theme;
-                  if (!theme || theme === 'system') {
+                  if (!theme) {
+                    resolved = 'light';
+                  } else if (theme === 'system') {
                     resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                   }
                   document.documentElement.setAttribute('data-theme', resolved);
@@ -158,7 +161,7 @@ export default function RootLayout({
             <AnalyticsProvider />
           </Suspense>
           <I18nProvider>
-            <ThemeProvider defaultTheme="system">
+            <ThemeProvider defaultTheme="light">
               <ColorBlindFilters />
               <a href="#main-content" className="skip-link">
                 Skip to main content
@@ -169,6 +172,7 @@ export default function RootLayout({
               <WhatsAppButton />
               <AccessibilityWidget />
               <CookieConsent />
+              <GeolocationPrompt />
             </ThemeProvider>
           </I18nProvider>
         </AuthProvider>

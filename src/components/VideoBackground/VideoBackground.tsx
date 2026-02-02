@@ -154,8 +154,6 @@ export default function VideoBackground({
           muted
           loop
           playsInline
-          webkit-playsinline="true" // iOS Safari
-          x5-playsinline="true" // WeChat browser
           preload="auto"
           poster={video.poster}
           onLoadedData={handleVideoLoaded}

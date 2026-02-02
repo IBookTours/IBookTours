@@ -38,7 +38,7 @@ export interface PassengerInfo {
 
 export interface BookingItem {
   id: string;
-  type: 'vacation-package' | 'day-tour';
+  type: 'vacation-package' | 'day-tour' | 'digital-product';
   name: string;
   image: string;
   duration: string;

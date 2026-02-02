@@ -4,11 +4,10 @@
 
 import dynamic from 'next/dynamic';
 import HeroSection from '@/components/HeroSection';
-import { VacationPackagesSection } from '@/components/VacationPackagesSection';
 import { DayToursSection } from '@/components/DayToursSection';
+import { VacationPackagesSection } from '@/components/VacationPackagesSection';
 import StatsSection from '@/components/StatsSection';
 import AboutSection from '@/components/AboutSection';
-import AdventureSection from '@/components/AdventureSection';
 import Footer from '@/components/Footer';
 import { siteData } from '@/data/siteData';
 
@@ -30,7 +29,7 @@ const PartnersSection = dynamic(
 const BlogSection = dynamic(() => import('@/components/BlogSection'), {
   ssr: true,
 });
-const CTASection = dynamic(() => import('@/components/CTASection'), {
+const EventsSection = dynamic(() => import('@/components/EventsSection'), {
   ssr: true,
 });
 const TravelServicesSection = dynamic(() => import('@/components/TravelServicesSection'), {
@@ -45,17 +44,23 @@ export default async function Home() {
       {/* Hero - Main landing visual */}
       <HeroSection content={siteData.hero} />
 
-      {/* Vacation Packages - Flight + Hotel packages (Primary focus) */}
-      <VacationPackagesSection packages={siteData.vacationPackages} maxDisplay={4} />
-
-      {/* Day Tours - Guided day trips and excursions */}
+      {/* Day Tours - Primary product (guided day trips and excursions) */}
       <DayToursSection tours={siteData.dayTours} maxDisplay={4} />
+
+      {/* Vacation Packages - Flight + Hotel packages (Secondary) */}
+      <VacationPackagesSection packages={siteData.vacationPackages} maxDisplay={4} />
 
       {/* Car Rental - Self-drive exploration */}
       <CarRentalSection />
 
       {/* Hotels - Partner accommodations */}
       <HotelsSection />
+
+      {/* Events - Upcoming local events */}
+      <EventsSection content={siteData.events} />
+
+      {/* Travel Services - Additional services */}
+      <TravelServicesSection />
 
       {/* Stats - Trust indicators */}
       <StatsSection stats={stats} />
@@ -66,20 +71,11 @@ export default async function Home() {
       {/* Testimonials - Customer reviews carousel */}
       <TestimonialsSection content={siteData.testimonials} />
 
-      {/* Adventure - Explore categories */}
-      <AdventureSection content={siteData.adventure} />
-
       {/* Partners - Technology providers */}
       <PartnersSection partners={siteData.partners} />
 
       {/* Blog - Travel content */}
       <BlogSection content={siteData.blog} />
-
-      {/* CTA - Final conversion */}
-      <CTASection content={siteData.cta} />
-
-      {/* Travel Services - Events, Transfers, Guides */}
-      <TravelServicesSection />
 
       {/* Footer */}
       <Footer content={siteData.footer} siteName={siteData.siteName} />

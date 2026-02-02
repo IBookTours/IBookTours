@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type CartItemType = 'vacation-package' | 'day-tour';
+export type CartItemType = 'vacation-package' | 'day-tour' | 'digital-product';
 
 export interface CartItem {
   id: string;

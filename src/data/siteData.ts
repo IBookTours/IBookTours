@@ -15,11 +15,8 @@ export const siteData: SiteContent = {
 
   navigation: [
     { id: 'home', label: 'Home', href: '/' },
-    { id: 'about', label: 'About', href: '/about' },
     { id: 'discover', label: 'Discover', href: '/tours' },
-    { id: 'hotels', label: 'Hotels', href: '/hotels' },
-    { id: 'carRental', label: 'Car Rental', href: '/car-rental' },
-    { id: 'blog', label: 'Blog', href: '/blog' },
+    { id: 'maps', label: 'Maps', href: '/interactive-maps' },
     { id: 'contact', label: 'Contact', href: '/contact' },
   ],
 
