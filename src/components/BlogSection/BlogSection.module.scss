@@ -58,18 +58,20 @@
   }
 }
 
-// Tablet/Desktop Grid Layout
+// Tablet/Desktop Grid Layout - Single row display
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: $spacing-6;
+  gap: $spacing-4;
 
+  // Tablet and up: 3 columns for single row display
   @include respond-to(md) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-5;
   }
 
   @include respond-to(lg) {
-    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-6;
   }
 }
 
