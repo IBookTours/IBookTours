@@ -106,14 +106,14 @@ export default function I18nProvider({ children }: I18nProviderProps) {
   // Prevent hydration mismatch by rendering with default locale on first render
   if (!mounted) {
     return (
-      <NextIntlClientProvider locale={defaultLocale} messages={enMessages}>
+      <NextIntlClientProvider locale={defaultLocale} messages={enMessages} timeZone="Europe/Tirane">
         {children}
       </NextIntlClientProvider>
     );
   }
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages} timeZone="Europe/Tirane">
       {children}
     </NextIntlClientProvider>
   );
