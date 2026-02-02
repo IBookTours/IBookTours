@@ -78,155 +78,92 @@
 }
 
 // ============================================
-// DOTTED CONNECTING LINE WITH ANIMATED DOTS
+// SVG CURVED PATH CONNECTING STATS
 // ============================================
 
-.connectingLine {
+.connectingSvg {
   position: absolute;
   top: 50%;
   left: 16.67%; // Center of first stat
-  right: 16.67%; // Center of last stat
-  height: 2px;
+  width: 66.66%; // From first to last stat center
+  height: 60px;
   transform: translateY(-50%);
   pointer-events: none;
   display: none;
   z-index: 0;
+  overflow: visible;
 
   @include respond-to(md) {
     display: block;
   }
 }
 
-// Dotted line base
-.dottedLine {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--color-primary-300) 0,
-    var(--color-primary-300) 6px,
-    transparent 6px,
-    transparent 12px
-  );
-  opacity: 0;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: opacity 0.5s ease-out 0.3s, transform 1s ease-out 0.3s;
+// Background dotted path (subtle guide)
+.pathBg {
+  stroke: var(--color-primary-200);
+  opacity: 0.5;
+}
+
+// Main animated drawing path
+.pathDraw {
+  stroke: var(--color-primary-400);
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset 1.5s ease-out 0.3s;
 
   .animate & {
-    opacity: 1;
-    transform: scaleX(1);
+    stroke-dashoffset: 0;
   }
 }
 
-// Static dots at connection points (stat positions)
-.staticDot {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  width: 12px;
-  height: 12px;
-  background: var(--color-primary-500);
-  border-radius: $radius-full;
+// Connection dots at stat positions
+.connectionDot {
+  fill: var(--color-primary-500);
   opacity: 0;
+  transform-origin: center;
   transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-  transition-delay: 1s;
 
   .animate & {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
   }
 }
 
 .dot1 {
-  left: 0;
   transition-delay: 0.8s;
 }
 
 .dot2 {
-  left: 50%;
-  transition-delay: 1s;
-}
-
-.dot3 {
-  left: 100%;
   transition-delay: 1.2s;
 }
 
-// Animated traveling dots
-.travelingDot {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 8px;
-  height: 8px;
-  background: var(--color-primary-600);
-  border-radius: $radius-full;
+.dot3 {
+  transition-delay: 1.6s;
+}
+
+// Animated traveling dot along path
+.travelDot {
+  fill: var(--color-primary-600);
   opacity: 0;
-  box-shadow: 0 0 8px var(--color-primary-400);
+  filter: drop-shadow(0 0 4px var(--color-primary-400));
 
   .animate & {
-    opacity: 1;
+    opacity: 0.8;
   }
 }
 
-.travel1 {
-  animation: none;
+// Reduced motion preference
+@media (prefers-reduced-motion: reduce) {
+  .pathDraw {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
 
-  .animate & {
-    animation: travelDot1 3s ease-in-out 1.5s infinite;
+  .connectionDot {
+    transition: none;
+    opacity: 1;
   }
-}
 
-.travel2 {
-  animation: none;
-
-  .animate & {
-    animation: travelDot2 3s ease-in-out 2s infinite;
-  }
-}
-
-@keyframes travelDot1 {
-  0% {
-    left: 0;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  50% {
-    left: 50%;
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
-@keyframes travelDot2 {
-  0% {
-    left: 100%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  50% {
-    left: 50%;
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 0;
-    opacity: 0;
+  .travelDot {
+    display: none;
   }
 }

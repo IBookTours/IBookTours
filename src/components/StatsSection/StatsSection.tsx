@@ -30,6 +30,56 @@ function AnimatedStat({ stat, isInView, translatedLabel }: { stat: Stat; isInVie
   );
 }
 
+// SVG curved path connecting the stats
+function ConnectingPath({ isInView }: { isInView: boolean }) {
+  // SVG viewBox: 0 0 100 20 - keeping it responsive
+  // Path goes from left stat (16.67%) through center (50%) to right stat (83.33%)
+  // With a gentle wave curve
+  const pathD = 'M 0,10 Q 25,-5 50,10 T 100,10';
+
+  return (
+    <svg
+      className={`${styles.connectingSvg} ${isInView ? styles.animate : ''}`}
+      viewBox="0 0 100 20"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      {/* Background dotted path (static) */}
+      <path
+        d={pathD}
+        className={styles.pathBg}
+        fill="none"
+        strokeWidth="0.5"
+        strokeDasharray="2 2"
+      />
+
+      {/* Animated drawing path */}
+      <path
+        d={pathD}
+        className={styles.pathDraw}
+        fill="none"
+        strokeWidth="0.8"
+        strokeLinecap="round"
+      />
+
+      {/* Connection dots at stat positions */}
+      <circle cx="0" cy="10" r="1.5" className={`${styles.connectionDot} ${styles.dot1}`} />
+      <circle cx="50" cy="10" r="1.5" className={`${styles.connectionDot} ${styles.dot2}`} />
+      <circle cx="100" cy="10" r="1.5" className={`${styles.connectionDot} ${styles.dot3}`} />
+
+      {/* Animated traveling dot along the path */}
+      <circle r="1" className={styles.travelDot}>
+        <animateMotion
+          dur="3s"
+          repeatCount="indefinite"
+          begin={isInView ? '1.5s' : 'indefinite'}
+          path={pathD}
+        />
+      </circle>
+    </svg>
+  );
+}
+
 export default function StatsSection({ stats }: StatsSectionProps) {
   const t = useTranslations('stats');
   const [sectionRef, isInView] = useInView<HTMLElement>({
@@ -62,20 +112,8 @@ export default function StatsSection({ stats }: StatsSectionProps) {
           })}
         </div>
 
-        {/* Decorative dotted line connecting stats with animated traveling dots */}
-        <div className={`${styles.connectingLine} ${isInView ? styles.animate : ''}`}>
-          {/* Dotted line base */}
-          <div className={styles.dottedLine} />
-
-          {/* Static dots at connection points */}
-          <div className={`${styles.staticDot} ${styles.dot1}`} />
-          <div className={`${styles.staticDot} ${styles.dot2}`} />
-          <div className={`${styles.staticDot} ${styles.dot3}`} />
-
-          {/* Animated traveling dots */}
-          <div className={`${styles.travelingDot} ${styles.travel1}`} />
-          <div className={`${styles.travelingDot} ${styles.travel2}`} />
-        </div>
+        {/* Decorative curved SVG path connecting stats */}
+        <ConnectingPath isInView={isInView} />
       </div>
     </section>
   );
