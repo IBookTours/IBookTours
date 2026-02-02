@@ -181,8 +181,8 @@ export default function UserProfileClient({ session }: UserProfileClientProps) {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Upcoming Trips</h2>
-            <Link href="/destinations" className={styles.sectionLink}>
-              Explore Destinations
+            <Link href="/tours" className={styles.sectionLink}>
+              Explore Tours
             </Link>
           </div>
 

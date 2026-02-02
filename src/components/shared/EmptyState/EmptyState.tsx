@@ -80,8 +80,8 @@ const presets: Record<
     icon: MapPin,
     title: 'No upcoming trips',
     description: 'Start planning your next adventure!',
-    actionLabel: 'Explore Destinations',
-    actionHref: '/destinations',
+    actionLabel: 'Explore Tours',
+    actionHref: '/tours',
   },
   'empty-wishlist': {
     icon: Heart,
