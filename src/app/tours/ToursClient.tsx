@@ -603,6 +603,13 @@ export default function ToursClient({
           })}
         </div>
 
+        {/* Filter Bar Backdrop (Mobile) */}
+        <div
+          className={`${styles.filterBackdrop} ${showFilters ? styles.open : ''}`}
+          onClick={() => setShowFilters(false)}
+          aria-hidden="true"
+        />
+
         {/* Filter Bar */}
         <div
           ref={filterBarRef}
@@ -611,6 +618,18 @@ export default function ToursClient({
           role="group"
           aria-label="Tour filters"
         >
+          {/* Mobile drawer header */}
+          <div className={styles.drawerHeader}>
+            <span className={styles.drawerTitle}>{t('filtersButton')}</span>
+            <button
+              className={styles.drawerClose}
+              onClick={() => setShowFilters(false)}
+              aria-label="Close filters"
+            >
+              <X />
+            </button>
+          </div>
+
           <div className={styles.filterGroup}>
             <label htmlFor="price-filter">{t('price')}</label>
             <Dropdown
