@@ -1,0 +1,405 @@
+@use '@/styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $z-modal;
+  background: $overlay-xl;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: $spacing-4;
+  padding-top: 10vh;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease-out;
+
+  @include respond-to(md) {
+    padding-top: 15vh;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 640px;
+  background: var(--bg-primary);
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-xl;
+  animation: slideUp 0.3s ease-out;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4 $spacing-5;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.title {
+  font-size: $font-lg;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-full;
+  background: var(--bg-tertiary);
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  @include flex-center;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-accent);
+    color: var(--text-primary);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.searchForm {
+  padding: $spacing-5;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.searchInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: $spacing-4;
+  width: 20px;
+  height: 20px;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: $spacing-4 $spacing-12 $spacing-4 $spacing-12;
+  font-size: $font-base;
+  font-weight: $font-medium;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-light);
+  border-radius: $radius-xl;
+  outline: none;
+  transition: all $transition-fast;
+
+  &:focus {
+    border-color: var(--color-primary-400);
+    background: var(--bg-primary);
+    box-shadow: 0 0 0 4px $primary-alpha-10;
+  }
+
+  &::placeholder {
+    color: var(--text-tertiary);
+    font-weight: $font-normal;
+  }
+}
+
+.clearInput {
+  position: absolute;
+  right: $spacing-3;
+  width: 28px;
+  height: 28px;
+  border-radius: $radius-full;
+  background: var(--bg-tertiary);
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  @include flex-center;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-accent);
+    color: var(--text-primary);
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+}
+
+.categoryPill {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-4;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-full;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: var(--border-medium);
+    color: var(--text-primary);
+  }
+
+  &.active {
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-200);
+    color: var(--color-primary-700);
+  }
+}
+
+.categoryIcon {
+  font-size: $font-base;
+}
+
+.filterToggle {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-4;
+  background: transparent;
+  border: none;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color $transition-fast;
+  align-self: flex-start;
+
+  &:hover {
+    color: var(--text-primary);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  padding: $spacing-4;
+  background: var(--bg-secondary);
+  border-radius: $radius-xl;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.filterLabel {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.dateInputs {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  flex-wrap: wrap;
+}
+
+.dateInput {
+  flex: 1;
+  min-width: 140px;
+  padding: $spacing-2 $spacing-3;
+  font-size: $font-sm;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-lg;
+  outline: none;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: var(--color-primary-400);
+  }
+}
+
+.dateSeparator {
+  color: var(--text-tertiary);
+  font-size: $font-sm;
+}
+
+.priceOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+}
+
+.priceOption {
+  padding: $spacing-2 $spacing-3;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-lg;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: var(--border-medium);
+    color: var(--text-primary);
+  }
+
+  &.active {
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-200);
+    color: var(--color-primary-700);
+  }
+}
+
+.clearFilters {
+  padding: $spacing-2 $spacing-4;
+  background: transparent;
+  border: none;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  text-decoration: underline;
+  align-self: flex-start;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--text-secondary);
+  }
+}
+
+.searchBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  width: 100%;
+  padding: $spacing-4;
+  background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-600) 100%);
+  border: none;
+  border-radius: $radius-xl;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: $text-light;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px $primary-alpha-30;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.quickLinks {
+  padding: $spacing-4 $spacing-5;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+}
+
+.quickLinksLabel {
+  display: block;
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: $tracking-wide;
+  margin-bottom: $spacing-3;
+}
+
+.quickLinksList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+}
+
+.quickLink {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-2 $spacing-3;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: $radius-full;
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: var(--color-primary-200);
+    color: var(--color-primary-600);
+    background: var(--color-primary-50);
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}

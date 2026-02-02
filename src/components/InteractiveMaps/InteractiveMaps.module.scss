@@ -1,0 +1,502 @@
+@use '@/styles/variables' as *;
+
+.page {
+  padding-top: 80px; // Account for fixed navbar
+}
+
+.container {
+  @include container;
+}
+
+// Hero
+.hero {
+  background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--bg-primary) 100%);
+  padding: $spacing-16 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $spacing-8;
+
+  @include respond-to(md) {
+    flex-direction: row;
+    text-align: left;
+    padding: $spacing-20 $spacing-8;
+  }
+}
+
+.heroContent {
+  flex: 1;
+  max-width: 600px;
+  padding: 0 $spacing-4;
+
+  @include respond-to(md) {
+    padding: 0 $spacing-8;
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: $spacing-2 $spacing-4;
+  background: var(--color-primary-100);
+  color: var(--color-primary-700);
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  border-radius: $radius-full;
+  margin-bottom: $spacing-4;
+}
+
+.title {
+  font-size: $font-4xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  margin: 0 0 $spacing-4 0;
+  line-height: $leading-tight;
+
+  @include respond-to(md) {
+    font-size: $font-5xl;
+  }
+}
+
+.subtitle {
+  font-size: $font-lg;
+  color: var(--text-secondary);
+  line-height: $leading-relaxed;
+  margin: 0;
+}
+
+.heroImage {
+  @include flex-center;
+  width: 200px;
+  height: 200px;
+  background: var(--bg-primary);
+  border-radius: $radius-3xl;
+  box-shadow: $shadow-xl;
+
+  @include respond-to(md) {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+.mapIcon {
+  width: 80px;
+  height: 80px;
+  color: var(--color-primary-500);
+
+  @include respond-to(md) {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+// Sections Common
+.sectionTitle {
+  font-size: $font-2xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0 0 $spacing-4 0;
+
+  @include respond-to(md) {
+    font-size: $font-3xl;
+  }
+}
+
+.sectionSubtitle {
+  font-size: $font-base;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto $spacing-8;
+}
+
+// Categories
+.categories {
+  padding: $spacing-12 0;
+  background: var(--bg-secondary);
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-4;
+
+  @include respond-to(sm) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.categoryCard {
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-2;
+  padding: $spacing-4;
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  border: 1px solid var(--border-light);
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: var(--color-primary-200);
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  span {
+    font-size: $font-xs;
+    font-weight: $font-medium;
+    color: var(--text-secondary);
+    text-align: center;
+
+    @include respond-to(md) {
+      font-size: $font-sm;
+    }
+  }
+}
+
+.categoryIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary-500);
+
+  @include respond-to(md) {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+// Products
+.products {
+  padding: $spacing-16 0;
+}
+
+.productGrid {
+  display: grid;
+  gap: $spacing-6;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-8;
+  }
+}
+
+.productCard {
+  position: relative;
+  background: var(--bg-primary);
+  border-radius: $radius-2xl;
+  border: 2px solid var(--border-light);
+  overflow: hidden;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: var(--border-medium);
+    box-shadow: $shadow-lg;
+  }
+
+  &.popular {
+    border-color: var(--color-primary-300);
+
+    &:hover {
+      border-color: var(--color-primary-400);
+    }
+  }
+}
+
+.popularBadge {
+  position: absolute;
+  top: $spacing-4;
+  right: $spacing-4;
+  padding: $spacing-1 $spacing-3;
+  background: var(--color-primary-500);
+  color: $text-light;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  border-radius: $radius-full;
+  z-index: 1;
+}
+
+.productImage {
+  aspect-ratio: 16/9;
+  background: var(--bg-secondary);
+  @include flex-center;
+}
+
+.imagePlaceholder {
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-2;
+  color: var(--text-tertiary);
+
+  svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  span {
+    font-size: $font-sm;
+    font-weight: $font-medium;
+  }
+}
+
+.productContent {
+  padding: $spacing-6;
+}
+
+.productName {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  margin: 0 0 $spacing-3 0;
+}
+
+.productMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+  margin-bottom: $spacing-4;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-sm;
+  color: var(--text-secondary);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    color: var(--color-primary-500);
+  }
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $spacing-6 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-2;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-sm;
+    color: var(--text-secondary);
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: $success;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.pricing {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-2;
+  margin-bottom: $spacing-4;
+}
+
+.price {
+  font-size: $font-3xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+}
+
+.originalPrice {
+  font-size: $font-lg;
+  color: var(--text-tertiary);
+  text-decoration: line-through;
+}
+
+.purchaseBtn {
+  width: 100%;
+  padding: $spacing-4;
+  background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-600) 100%);
+  border: none;
+  border-radius: $radius-xl;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: $text-light;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px $primary-alpha-30;
+  }
+}
+
+// How It Works
+.howItWorks {
+  padding: $spacing-16 0;
+  background: var(--bg-secondary);
+}
+
+.steps {
+  display: grid;
+  gap: $spacing-6;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-8;
+  }
+}
+
+.step {
+  text-align: center;
+  padding: $spacing-6;
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+
+  h3 {
+    font-size: $font-lg;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin: $spacing-4 0 $spacing-2 0;
+  }
+
+  p {
+    font-size: $font-sm;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: $leading-relaxed;
+  }
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--color-primary-100);
+  color: var(--color-primary-600);
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  border-radius: $radius-full;
+}
+
+// Requirements
+.requirements {
+  padding: $spacing-16 0;
+}
+
+.requirementsList {
+  display: grid;
+  gap: $spacing-4;
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.requirement {
+  display: flex;
+  gap: $spacing-4;
+  padding: $spacing-5;
+  background: var(--bg-secondary);
+  border-radius: $radius-xl;
+
+  > svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary-500);
+    flex-shrink: 0;
+  }
+
+  h4 {
+    font-size: $font-base;
+    font-weight: $font-semibold;
+    color: var(--text-primary);
+    margin: 0 0 $spacing-1 0;
+  }
+
+  p {
+    font-size: $font-sm;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+// FAQ
+.faq {
+  padding: $spacing-16 0;
+  background: var(--bg-secondary);
+}
+
+.faqList {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.faqItem {
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  overflow: hidden;
+}
+
+.faqQuestion {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4 $spacing-5;
+  background: transparent;
+  border: none;
+  font-size: $font-base;
+  font-weight: $font-medium;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+  }
+}
+
+.faqAnswer {
+  padding: 0 $spacing-5 $spacing-4;
+  animation: fadeIn 0.2s ease-out;
+
+  p {
+    font-size: $font-sm;
+    color: var(--text-secondary);
+    line-height: $leading-relaxed;
+    margin: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

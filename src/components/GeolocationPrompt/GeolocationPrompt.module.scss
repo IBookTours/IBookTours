@@ -1,0 +1,167 @@
+@use '@/styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: $overlay-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-modal;
+  padding: $spacing-4;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  position: relative;
+  background: var(--bg-primary);
+  border-radius: $radius-2xl;
+  padding: $spacing-8;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: $shadow-xl;
+  animation: slideUp 0.3s ease-out;
+
+  @include respond-to(md) {
+    padding: $spacing-10;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: $spacing-4;
+  right: $spacing-4;
+  width: $touch-target-min;
+  height: $touch-target-min;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-radius: $radius-full;
+  transition: background-color $transition-fast, color $transition-fast;
+
+  &:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+.iconWrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: $radius-full;
+  background: var(--color-primary-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto $spacing-5;
+}
+
+.icon {
+  color: var(--color-primary-600);
+}
+
+.title {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-2;
+
+  @include respond-to(md) {
+    font-size: $font-2xl;
+  }
+}
+
+.description {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  line-height: $leading-relaxed;
+  margin-bottom: $spacing-6;
+
+  @include respond-to(md) {
+    font-size: $font-base;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: $spacing-3;
+  justify-content: center;
+}
+
+.denyBtn,
+.allowBtn {
+  min-height: $touch-target-min;
+  padding: $spacing-3 $spacing-6;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: background-color $transition-fast, color $transition-fast, transform $transition-fast;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @include respond-to(md) {
+    padding: $spacing-3 $spacing-8;
+    font-size: $font-base;
+  }
+}
+
+.denyBtn {
+  background: transparent;
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+
+  &:hover:not(:disabled) {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+}
+
+.allowBtn {
+  background: var(--color-primary-600);
+  border: 1px solid var(--color-primary-600);
+  color: $text-light;
+
+  &:hover:not(:disabled) {
+    background: var(--color-primary-700);
+    transform: translateY(-1px);
+  }
+}

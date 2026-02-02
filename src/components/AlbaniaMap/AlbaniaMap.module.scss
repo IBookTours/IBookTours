@@ -1,0 +1,523 @@
+@use '@/styles/variables' as *;
+
+// ============================================
+// ALBANIA INTERACTIVE MAP SECTION
+// ============================================
+
+.section {
+  padding: $section-padding-y-mobile 0;
+  background: var(--bg-secondary);
+  overflow: hidden;
+
+  @include respond-to(lg) {
+    padding: $section-padding-y 0;
+  }
+}
+
+.container {
+  @include container;
+}
+
+// ============================================
+// HEADER
+// ============================================
+
+.header {
+  text-align: center;
+  margin-bottom: $spacing-8;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @include respond-to(lg) {
+    margin-bottom: $spacing-12;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-4;
+  background: var(--color-primary-100);
+  color: var(--color-primary-700);
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  border-radius: $radius-full;
+  margin-bottom: $spacing-4;
+}
+
+.title {
+  font-size: $font-2xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-3;
+
+  @include respond-to(md) {
+    font-size: $font-3xl;
+  }
+
+  @include respond-to(lg) {
+    font-size: $font-4xl;
+  }
+}
+
+.subtitle {
+  font-size: $font-base;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+
+  @include respond-to(md) {
+    font-size: $font-lg;
+  }
+}
+
+// ============================================
+// CONTENT LAYOUT
+// ============================================
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @include respond-to(lg) {
+    grid-template-columns: 1fr 380px;
+    gap: $spacing-8;
+    align-items: start;
+  }
+}
+
+// ============================================
+// MAP CONTAINER
+// ============================================
+
+.mapContainer {
+  display: flex;
+  background: var(--bg-primary);
+  border-radius: $radius-2xl;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  aspect-ratio: 1;
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include respond-to(lg) {
+    max-width: none;
+    aspect-ratio: 4/3;
+  }
+}
+
+.mapWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--bg-tertiary) 0%,
+    var(--bg-primary) 100%
+  );
+}
+
+// ============================================
+// SEA BACKGROUND
+// ============================================
+
+.seaBackground {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-primary-rgb), 0.08) 0%,
+    transparent 100%
+  );
+}
+
+.waveSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
+// ============================================
+// MAP SVG
+// ============================================
+
+.mapSvg {
+  position: absolute;
+  inset: 10%;
+  width: 80%;
+  height: 80%;
+}
+
+.countryOutline {
+  fill: var(--color-primary-50);
+  stroke: var(--color-primary-400);
+  stroke-width: 1;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
+  transition: fill $transition-fast;
+}
+
+.mountains {
+  opacity: 0.6;
+}
+
+// ============================================
+// REGION MARKERS
+// ============================================
+
+.regionMarker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform $transition-fast;
+
+  &:hover,
+  &.hovered {
+    transform: translate(-50%, -50%) scale(1.1);
+    z-index: 20;
+
+    .markerLabel {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .markerPulse {
+      animation: pulse 1.5s ease-out infinite;
+    }
+  }
+
+  &.selected {
+    z-index: 30;
+
+    .markerIcon {
+      background: var(--color-primary-600);
+      box-shadow: 0 0 0 4px var(--color-primary-200);
+    }
+
+    .markerLabel {
+      opacity: 1;
+      transform: translateY(0);
+      background: var(--color-primary-600);
+      color: $text-light;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 4px;
+    border-radius: $radius-full;
+  }
+}
+
+.markerIcon {
+  width: $touch-target-min;
+  height: $touch-target-min;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  border: 2px solid var(--color-primary-400);
+  border-radius: $radius-full;
+  font-size: $font-lg;
+  box-shadow: $shadow-md;
+  transition: background-color $transition-fast, box-shadow $transition-fast;
+}
+
+.markerLabel {
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity $transition-fast, transform $transition-fast, background-color $transition-fast, color $transition-fast;
+
+  @include respond-to(md) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.markerPulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $touch-target-min;
+  height: $touch-target-min;
+  border-radius: $radius-full;
+  background: var(--color-primary-400);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2);
+  }
+}
+
+// ============================================
+// DECORATIONS
+// ============================================
+
+.compass {
+  position: absolute;
+  bottom: $spacing-4;
+  right: $spacing-4;
+  opacity: 0.6;
+}
+
+.mapTitle {
+  position: absolute;
+  top: $spacing-4;
+  left: $spacing-4;
+  font-size: $font-sm;
+  font-weight: $font-bold;
+  color: var(--text-tertiary);
+  letter-spacing: $tracking-wider;
+  text-transform: uppercase;
+}
+
+// ============================================
+// INFO PANEL
+// ============================================
+
+.infoPanel {
+  background: var(--bg-primary);
+  border-radius: $radius-2xl;
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  min-height: 300px;
+
+  @include respond-to(lg) {
+    position: sticky;
+    top: calc($spacing-16 + $spacing-4);
+  }
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $spacing-8;
+  height: 100%;
+  min-height: 300px;
+}
+
+.placeholderIcon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-100);
+  color: var(--color-primary-600);
+  border-radius: $radius-full;
+  margin-bottom: $spacing-4;
+}
+
+.placeholder h3 {
+  font-size: $font-lg;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-2;
+}
+
+.placeholder p {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  max-width: 250px;
+}
+
+// ============================================
+// REGION INFO
+// ============================================
+
+.regionInfo {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.regionImage {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.regionBadge {
+  position: absolute;
+  bottom: $spacing-3;
+  left: $spacing-3;
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-1 $spacing-3;
+  background: rgba(0, 0, 0, 0.7);
+  color: $text-light;
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  border-radius: $radius-full;
+  backdrop-filter: blur(4px);
+}
+
+.regionContent {
+  padding: $spacing-5;
+}
+
+.regionHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  margin-bottom: $spacing-3;
+}
+
+.regionIcon {
+  font-size: $font-2xl;
+}
+
+.regionName {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  color: var(--text-primary);
+}
+
+.regionRating {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  color: var(--color-warning-500);
+  font-weight: $font-semibold;
+  margin-bottom: $spacing-4;
+}
+
+.reviewCount {
+  color: var(--text-tertiary);
+  font-weight: $font-normal;
+  font-size: $font-sm;
+}
+
+.regionStats {
+  display: flex;
+  gap: $spacing-6;
+  padding: $spacing-4 0;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: $spacing-5;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-sm;
+  color: var(--text-secondary);
+
+  svg {
+    color: var(--color-primary-500);
+  }
+}
+
+.regionActions {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-6;
+  background: var(--color-primary-600);
+  color: $text-light;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  border-radius: $radius-xl;
+  text-decoration: none;
+  transition: background-color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-700);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+.secondaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-6;
+  background: transparent;
+  color: var(--color-primary-600);
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  border: 1px solid var(--color-primary-300);
+  border-radius: $radius-xl;
+  text-decoration: none;
+  transition: background-color $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-400);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
