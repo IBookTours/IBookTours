@@ -533,7 +533,7 @@ export default function ToursClient({
       {/* Hero Section */}
       <section className={styles.hero}>
         <Image
-          src="https://images.unsplash.com/photo-1580746738099-78d6833b3a85?w=1920&h=600&fit=crop&q=90"
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=600&fit=crop&q=90"
           alt="Albanian landscape - Explore our tours"
           fill
           priority

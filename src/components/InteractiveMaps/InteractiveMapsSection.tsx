@@ -116,7 +116,7 @@ export default function InteractiveMapsSection() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <Image
-          src="https://images.unsplash.com/photo-1565876427310-0695a4ff03b8?w=1920&h=600&fit=crop&q=90"
+          src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1920&h=600&fit=crop&q=90"
           alt="Aerial view of Albanian coastline"
           fill
           priority
