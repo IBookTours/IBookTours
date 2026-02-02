@@ -114,6 +114,14 @@
   }
 }
 
+// Portal-rendered calendar uses fixed positioning
+.portalCalendar {
+  position: fixed;
+  top: auto;
+  left: auto;
+  z-index: 9999; // Above everything including modals
+}
+
 @keyframes calendarSlideIn {
   from {
     opacity: 0;

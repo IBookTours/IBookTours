@@ -667,6 +667,7 @@ function CheckoutContent() {
                               minDate={new Date().toISOString().split('T')[0]}
                               label="Travel Date"
                               placeholder="Select date"
+                              usePortal
                             />
                           </div>
 

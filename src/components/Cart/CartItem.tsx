@@ -81,6 +81,7 @@ export default function CartItem({ item }: CartItemProps) {
           label="Travel Date"
           placeholder="Select date"
           className={styles.dateField}
+          usePortal
         />
 
         <div className={styles.travelerControls}>
