@@ -2,11 +2,11 @@
 
 .footer {
   background: var(--bg-secondary);  // Theme-aware background
-  padding-top: $section-padding-y-mobile;
+  padding-top: $spacing-8;
   overflow-x: hidden;
 
   @include respond-to(lg) {
-    padding-top: $section-padding-y;
+    padding-top: $spacing-12;
   }
 }
 
@@ -16,7 +16,7 @@
 
 // FAQ Section
 .faqSection {
-  margin-bottom: $spacing-16;
+  margin-bottom: $spacing-8;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -29,7 +29,7 @@
 
 .faqHeader {
   text-align: center;
-  margin-bottom: $spacing-10;
+  margin-bottom: $spacing-6;
 }
 
 .faqTitle {
@@ -52,10 +52,14 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: $spacing-4;
-  max-width: 800px;
-  margin: 0 auto;
 
+  // 2-column layout for FAQs on tablet and desktop
   @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-5;
+  }
+
+  @include respond-to(lg) {
     gap: $spacing-6;
   }
 }
@@ -125,11 +129,11 @@
 
 // Main Footer Content
 .main {
-  padding: $spacing-8 0; // Comfortable mobile padding
+  padding: $spacing-6 0;
   border-top: 1px solid var(--border-light);
 
   @include respond-to(md) {
-    padding: $spacing-12 0;
+    padding: $spacing-8 0;
   }
 }
 
@@ -286,11 +290,11 @@
 
 // Bottom Bar
 .bottom {
-  padding: $spacing-8 0; // Increased padding for mobile
+  padding: $spacing-4 0;
   border-top: 1px solid var(--border-light);
 
   @include respond-to(md) {
-    padding: $spacing-6 0;
+    padding: $spacing-4 0;
   }
 }
 

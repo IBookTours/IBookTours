@@ -47,7 +47,7 @@ export default function Footer({ content, siteName }: FooterProps) {
   });
 
   const toggleFaq = (id: string) => {
-    setOpenFaq(openFaq === id ? null : id);
+    setOpenFaq((prev) => (prev === id ? null : id));
   };
 
   return (
@@ -63,7 +63,8 @@ export default function Footer({ content, siteName }: FooterProps) {
           </div>
 
           <div className={styles.faqs}>
-            {content.faqs.map((faq) => (
+            {/* Limit to 4 FAQs for compact 2-column layout */}
+            {content.faqs.slice(0, 4).map((faq) => (
               <div key={faq.id} className={styles.faqItem}>
                 <button
                   className={`${styles.faqQuestion} ${openFaq === faq.id ? styles.open : ''}`}

@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-4;
-  margin-bottom: $spacing-10;
+  margin-bottom: $spacing-6;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -70,7 +70,6 @@
 
   @include respond-to(lg) {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
   }
 }
 
@@ -162,9 +161,7 @@
 
 // Featured blog post (large)
 .featuredPost {
-  @include respond-to(lg) {
-    grid-row: span 2;
-  }
+  // Single row layout - no spanning
 }
 
 .blogCard {
@@ -211,7 +208,7 @@
 .imageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 16/10;
+  aspect-ratio: 16/9;
   overflow: hidden;
 
   img {
@@ -226,8 +223,7 @@
 
 .featuredPost .imageWrapper {
   @include respond-to(lg) {
-    aspect-ratio: 4/3;
-    flex: 1;
+    aspect-ratio: 16/9;
   }
 }
 
@@ -267,7 +263,7 @@
 }
 
 .cardContent {
-  padding: $spacing-5;
+  padding: $spacing-4;
   flex: 1;
   display: flex;
   flex-direction: column;

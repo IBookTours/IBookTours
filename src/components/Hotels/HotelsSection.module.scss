@@ -33,7 +33,7 @@
   margin-bottom: $spacing-8;
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.6s ease-out;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 
   &.visible {
     opacity: 1;
@@ -42,52 +42,88 @@
 }
 
 .sectionLabel {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-3;
+  margin-bottom: $spacing-4;
+}
+
+.labelIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--color-primary-100);
+  border-radius: $radius-lg;
+  color: var(--color-primary-600);
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.labelText {
   font-size: $font-sm;
   font-weight: $font-semibold;
-  color: var(--color-primary-600);
+  color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: $spacing-2;
+  letter-spacing: 0.08em;
 }
 
 .title {
   font-size: $font-3xl;
   font-weight: $font-bold;
   color: var(--text-primary);
-  margin: 0 0 $spacing-4;
+  margin-bottom: $spacing-4;
 
   @include respond-to(md) {
     font-size: $font-4xl;
   }
 }
 
-.description {
+.subtitle {
   font-size: $font-lg;
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: $leading-relaxed;
 }
 
 // ============================================
 // FILTERS
 // ============================================
 
-.filters {
+.filtersWrapper {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: $spacing-2;
-  margin-bottom: $spacing-8;
+  margin-bottom: $spacing-10;
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out 0.1s;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out 0.1s, transform 0.5s ease-out 0.1s;
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3;
+  background: var(--bg-primary);
+  border-radius: $radius-xl;
+  border: 1px solid var(--border-light);
+}
+
+.filterIcon {
+  color: var(--text-tertiary);
+  margin-right: $spacing-1;
 }
 
 .filterBtn {
@@ -171,6 +207,7 @@
   display: inline-flex;
   align-items: center;
   gap: $spacing-2;
+  min-height: $touch-target-min;
   padding: $spacing-3 $spacing-6;
   font-size: $font-base;
   font-weight: $font-semibold;
@@ -179,10 +216,353 @@
   border: 2px solid var(--color-primary-600);
   border-radius: $radius-lg;
   text-decoration: none;
-  transition: all $transition-fast;
+  transition: background-color $transition-fast, color $transition-fast;
 
   &:hover {
     background: var(--color-primary-600);
     color: $text-light;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+// ============================================
+// CAROUSEL (Mobile & Tablet)
+// ============================================
+
+.carouselWrapper {
+  position: relative;
+  padding: 0 $spacing-12;
+  margin: 0 (-$spacing-4);
+
+  @include respond-to(md) {
+    padding: 0 $spacing-16;
+    margin: 0;
+  }
+}
+
+.carouselTrack {
+  overflow: hidden;
+  border-radius: $radius-xl;
+}
+
+.carouselSlides {
+  display: flex;
+  transition: transform 0.4s ease-out;
+}
+
+.carouselSlide {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: 0 $spacing-2;
+}
+
+.carouselArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  color: var(--text-primary);
+  cursor: pointer;
+  box-shadow: $shadow-md;
+  transition: background-color $transition-fast, box-shadow $transition-fast;
+  z-index: 10;
+
+  &:hover {
+    background: var(--bg-secondary);
+    box-shadow: $shadow-lg;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.prevArrow {
+  left: $spacing-2;
+
+  @include respond-to(md) {
+    left: $spacing-4;
+  }
+}
+
+.nextArrow {
+  right: $spacing-2;
+
+  @include respond-to(md) {
+    right: $spacing-4;
+  }
+}
+
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-top: $spacing-4;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-medium);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-400);
+    transform: scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+.activeDot {
+  background: var(--color-primary-600);
+  transform: scale(1.2);
+}
+
+// ============================================
+// NATIVE SCROLL (Touch devices)
+// ============================================
+
+.nativeScrollContainer {
+  display: flex;
+  gap: $spacing-4;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: $spacing-2 $spacing-4;
+  margin: 0 (-$spacing-4);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.nativeScrollCard {
+  flex: 0 0 calc(85% - $spacing-4);
+  scroll-snap-align: start;
+
+  @include respond-to(md) {
+    flex: 0 0 calc(50% - $spacing-4);
+  }
+}
+
+// ============================================
+// DESKTOP SLIDER WRAPPER
+// ============================================
+
+.sliderWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.navButton {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  color: var(--text-primary);
+  cursor: pointer;
+  box-shadow: $shadow-md;
+  transition: background-color $transition-fast, box-shadow $transition-fast, opacity $transition-fast;
+  z-index: 10;
+
+  &:hover:not(:disabled) {
+    background: var(--bg-secondary);
+    box-shadow: $shadow-lg;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.prevButton {
+  // No additional styles needed
+}
+
+.nextButton {
+  // No additional styles needed
+}
+
+// ============================================
+// DESKTOP INDICATORS
+// ============================================
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-2;
+  margin-top: $spacing-6;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-medium);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    background: var(--color-primary-400);
+    transform: scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+.activeIndicator {
+  background: var(--color-primary-600);
+  transform: scale(1.2);
+}
+
+// ============================================
+// VIEW ALL PROMOTIONAL CARD
+// ============================================
+
+.viewAllCard {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
+  border-radius: $radius-2xl;
+  border: 2px dashed var(--border-medium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $spacing-8;
+  min-height: 400px;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(30px);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    border-color: var(--color-primary-400);
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--color-primary-50) 100%);
+    transform: translateY(-4px);
+
+    .viewAllArrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.viewAllIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-full;
+  background: var(--color-secondary-100);
+  color: var(--color-secondary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-4;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.viewAllCount {
+  font-size: $font-4xl;
+  font-weight: $font-bold;
+  color: var(--color-secondary-600);
+  margin-bottom: $spacing-2;
+}
+
+.viewAllText {
+  font-size: $font-xl;
+  font-weight: $font-semibold;
+  color: var(--text-primary);
+  margin-bottom: $spacing-2;
+}
+
+.viewAllSubtext {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  margin-bottom: $spacing-6;
+  max-width: 200px;
+}
+
+.viewAllArrow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-base;
+  font-weight: $font-semibold;
+  color: var(--color-secondary-600);
+  transition: transform $transition-fast;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// View All card in native scroll
+.nativeScrollViewAll {
+  flex: 0 0 calc(85% - $spacing-4);
+  scroll-snap-align: start;
+  min-width: 0;
+
+  @include respond-to(md) {
+    flex: 0 0 calc(50% - $spacing-4);
+  }
+
+  .viewAllCard {
+    height: 100%;
+    min-height: 350px;
+    opacity: 1;
+    transform: none;
   }
 }

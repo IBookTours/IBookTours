@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { TestimonialsContent } from '@/types';
-import { useInView, useSwipe } from '@/hooks';
+import { useInView, useSwipe, useIsTouchDevice } from '@/hooks';
 import { CarouselArrows } from '@/components/shared';
 import { ANIMATION } from '@/lib/constants';
 import styles from './TestimonialsSection.module.scss';
@@ -21,6 +21,10 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
     threshold: ANIMATION.THRESHOLD_STANDARD,
     triggerOnce: true,
   });
+  const isTouchDevice = useIsTouchDevice();
+
+  // Touch devices get swipe only, mouse devices get arrows
+  const showArrows = !isTouchDevice;
 
   const totalTestimonials = content.testimonials.length;
 
@@ -54,16 +58,18 @@ export default function TestimonialsSection({ content }: TestimonialsSectionProp
         </div>
 
         <div className={styles.carouselWrapper}>
-          <div className={styles.arrowsContainer}>
-            <CarouselArrows
-              onPrev={goToPrevious}
-              onNext={goToNext}
-              size="md"
-              variant="solid"
-              prevLabel="Previous testimonial"
-              nextLabel="Next testimonial"
-            />
-          </div>
+          {showArrows && (
+            <div className={styles.arrowsContainer}>
+              <CarouselArrows
+                onPrev={goToPrevious}
+                onNext={goToNext}
+                size="md"
+                variant="solid"
+                prevLabel="Previous testimonial"
+                nextLabel="Next testimonial"
+              />
+            </div>
+          )}
 
           <div
             className={`${styles.testimonials} ${isInView ? styles.visible : ''}`}
