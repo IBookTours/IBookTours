@@ -142,12 +142,17 @@ export default function RootLayout({
                   var theme = localStorage.getItem('theme-preference');
                   var resolved = theme;
                   if (!theme) {
+                    // No preference saved - default to light and save it
                     resolved = 'light';
+                    localStorage.setItem('theme-preference', 'light');
                   } else if (theme === 'system') {
                     resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                   }
                   document.documentElement.setAttribute('data-theme', resolved);
-                } catch (e) {}
+                } catch (e) {
+                  // Fallback to light mode on any error
+                  document.documentElement.setAttribute('data-theme', 'light');
+                }
               })();
             `,
           }}
