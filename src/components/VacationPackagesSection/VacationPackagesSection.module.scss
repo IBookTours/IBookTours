@@ -173,12 +173,16 @@
   flex: 1;
   transition: all 0.3s ease;
 
-  @include respond-to(md) {
+  @include respond-to(sm) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @include respond-to(xl) {
+  @include respond-to(lg) {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to(xl) {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 

@@ -170,6 +170,10 @@
   }
 
   @include respond-to(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to(xl) {
     grid-template-columns: repeat(4, 1fr);
   }
 
