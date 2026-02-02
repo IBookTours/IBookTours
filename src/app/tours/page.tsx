@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 import { Metadata } from 'next';
 import ToursClient from './ToursClient';
 import { siteData } from '@/data/siteData';
+import { hotels } from '@/data/hotelsData';
+import { carRentalVehicles } from '@/data/carRentalData';
 
 export const metadata: Metadata = {
   title: 'Tours & Packages | IBookTours',
@@ -35,6 +37,7 @@ function ToursLoading() {
 
 export default async function ToursPage() {
   const destinations = siteData.destinations;
+  const events = siteData.events?.events || [];
 
   return (
     <Suspense fallback={<ToursLoading />}>
@@ -42,6 +45,9 @@ export default async function ToursPage() {
         destinations={destinations}
         vacationPackages={siteData.vacationPackages}
         dayTours={siteData.dayTours}
+        events={events}
+        hotels={hotels}
+        vehicles={carRentalVehicles}
       />
     </Suspense>
   );

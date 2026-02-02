@@ -222,15 +222,6 @@ export default function SignInContent() {
             Continue with Google
           </button>
 
-          {/* Demo Credentials - Only shown in development */}
-          {process.env.NODE_ENV === 'development' && (
-            <div className={styles.demoCredentials}>
-              <p>Demo Credentials:</p>
-              <code>demo@ibooktours.com / demo123</code>
-              <code>admin@ibooktours.com / admin123</code>
-            </div>
-          )}
-
           {/* Sign Up Link */}
           <p className={styles.signupLink}>
             Don&apos;t have an account?{' '}

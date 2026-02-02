@@ -57,7 +57,7 @@ export default function PassengerForm({
   useEffect(() => {
     onDetailsChangeRef.current = onDetailsChange;
     onValidChangeRef.current = onValidChange;
-  });
+  }, [onDetailsChange, onValidChange]);
 
   // Sync with parent when travelers count changes
   useEffect(() => {

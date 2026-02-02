@@ -191,11 +191,12 @@
     },
     "tabs": {
       "all": "All",
-      "packages": "Vacation Packages",
-      "dayTours": "Day Tours",
-      "nightTours": "Night Tours",
-      "cruises": "Cruises",
+      "packages": "Packages",
+      "tours": "Tours",
       "events": "Events",
+      "hotels": "Hotels",
+      "cars": "Cars",
+      "services": "Services",
       "soon": "Soon"
     },
     "categories": {
@@ -212,7 +213,7 @@
     },
     "results": {
       "packages": "packages",
-      "dayTours": "day tours",
+      "tours": "tours",
       "items": "items",
       "found": "found"
     },
@@ -220,7 +221,9 @@
       "flights": "Flights",
       "hotel": "Hotel",
       "package": "Package",
-      "dayTour": "Day Tour"
+      "dayTour": "Day Tour",
+      "event": "Event",
+      "car": "Car"
     },
     "priceRanges": {
       "all": "All Prices",
@@ -258,6 +261,9 @@
     "viewDetails": "View Details",
     "view": "View",
     "perPerson": "per person",
+    "perNight": "per night",
+    "perDay": "per day",
+    "learnMore": "Learn More",
     "nights": "nights",
     "people": "people",
     "noResults": "No tours found matching your criteria",

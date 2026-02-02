@@ -160,12 +160,6 @@ export default function EventsSection({ content }: EventsSectionProps) {
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
         <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-          <div className={styles.sectionLabel}>
-            <span className={styles.labelIcon}>
-              <CalendarDays size={20} />
-            </span>
-            <span className={styles.labelText}>{t('sectionLabel')}</span>
-          </div>
           <h2 className={styles.title}>{t('title')}</h2>
           <p className={styles.subtitle}>{t('subtitle')}</p>
         </div>

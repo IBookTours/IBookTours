@@ -104,9 +104,13 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  padding: $spacing-8 $spacing-4;
-  background: $bg-primary;
+  padding: $spacing-6 $spacing-4;
+  background: var(--bg-primary);
   min-height: 100vh;
+
+  @include respond-to(sm) {
+    padding: $spacing-8 $spacing-6;
+  }
 
   @include respond-to(lg) {
     padding: $spacing-12 $spacing-16;

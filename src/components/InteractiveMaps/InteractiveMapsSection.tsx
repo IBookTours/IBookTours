@@ -37,8 +37,7 @@ const MAP_PRODUCTS: MapProduct[] = [
   {
     id: 'albania-full-map',
     name: 'Albania Complete Map',
-    price: 115,
-    originalPrice: 149,
+    price: 100,
     currency: 'ILS',
     duration: '4 months',
     locations: 500,
@@ -59,8 +58,7 @@ const MAP_PRODUCTS: MapProduct[] = [
   {
     id: 'tirana-city-map',
     name: 'Tirana City Map',
-    price: 29,
-    originalPrice: 39,
+    price: 25,
     currency: 'ILS',
     duration: '4 months',
     locations: 150,

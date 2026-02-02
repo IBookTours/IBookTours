@@ -58,7 +58,6 @@ export default function AdventureSection({ content }: AdventureSectionProps) {
         <div className={styles.layout}>
           {/* Left side: Header content */}
           <div className={`${styles.header} ${isInView ? styles.visible : ''}`}>
-            <span className={styles.sectionLabel}>{t('sectionLabel')}</span>
             <h2 className={styles.title}>{t('title')}</h2>
             <p className={styles.description}>{t('description')}</p>
 

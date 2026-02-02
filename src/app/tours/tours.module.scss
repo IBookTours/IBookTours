@@ -553,7 +553,10 @@
 // ============================================
 
 .packageCard,
-.tourCard {
+.tourCard,
+.eventCard,
+.hotelCard,
+.carCard {
   background: var(--bg-primary);
   border-radius: $radius-xl;
   overflow: hidden;
@@ -579,7 +582,10 @@
   }
 
   .packageCard:hover &,
-  .tourCard:hover & {
+  .tourCard:hover &,
+  .eventCard:hover &,
+  .hotelCard:hover &,
+  .carCard:hover & {
     img {
       transform: scale(1.05);
     }
@@ -623,6 +629,18 @@
   &.tourType {
     background: var(--color-primary-600);
   }
+
+  &.eventType {
+    background: #9333ea; // Purple for events
+  }
+
+  &.hotelType {
+    background: #0891b2; // Teal for hotels
+  }
+
+  &.carType {
+    background: #ea580c; // Orange for cars
+  }
 }
 
 .durationBadge {
@@ -639,6 +657,57 @@
   font-weight: $font-semibold;
   border-radius: $radius-full;
   backdrop-filter: blur(4px);
+}
+
+.starBadge {
+  position: absolute;
+  bottom: $spacing-3;
+  left: $spacing-3;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: $spacing-1 $spacing-3;
+  background: $overlay-xl;
+  color: $color-star;
+  border-radius: $radius-full;
+  backdrop-filter: blur(4px);
+}
+
+.seatsBadge {
+  position: absolute;
+  bottom: $spacing-3;
+  left: $spacing-3;
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-1 $spacing-3;
+  background: $overlay-xl;
+  color: $text-light;
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  border-radius: $radius-full;
+  backdrop-filter: blur(4px);
+}
+
+.carPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-accent) 100%);
+  color: var(--text-muted);
+}
+
+.cardDescription {
+  font-size: $font-sm;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: $spacing-3;
 }
 
 .cardContent {
