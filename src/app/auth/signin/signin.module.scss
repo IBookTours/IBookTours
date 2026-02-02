@@ -7,7 +7,12 @@
 .page {
   display: flex;
   min-height: 100vh;
-  background: $bg-primary;
+  background: var(--bg-primary);
+  // Full-screen overlay to cover the main navbar
+  position: fixed;
+  inset: 0;
+  z-index: $z-modal + 10;
+  overflow-y: auto;
 }
 
 // ============================================
