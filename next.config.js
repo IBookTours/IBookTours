@@ -32,6 +32,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'i.pravatar.cc',
       },
+      {
+        protocol: 'https',
+        hostname: 'logo.clearbit.com',
+      },
     ],
   },
   // Ignore Sanity Studio during build if not configured
@@ -102,7 +106,7 @@ const nextConfig = {
                 : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://cdn.jsdelivr.net",
               // Styles need unsafe-inline due to Next.js style injection
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https://images.unsplash.com https://cdn.sanity.io https://i.pravatar.cc",
+              "img-src 'self' data: blob: https://images.unsplash.com https://cdn.sanity.io https://i.pravatar.cc https://logo.clearbit.com",
               "font-src 'self'",
               "connect-src 'self' https://api.stripe.com https://api.brevo.com",
               "frame-src 'self' https://js.stripe.com https://www.google.com https://maps.google.com",
