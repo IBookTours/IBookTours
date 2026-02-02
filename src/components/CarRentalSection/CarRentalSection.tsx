@@ -259,7 +259,6 @@ const VehicleCard = memo(function VehicleCard({ vehicle, index, t }: VehicleCard
             alt={vehicle.name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-            unoptimized={vehicle.image.includes('unsplash.com')}
           />
         ) : (
           <div className={styles.imagePlaceholder}>

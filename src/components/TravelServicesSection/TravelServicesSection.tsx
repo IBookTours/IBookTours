@@ -164,7 +164,6 @@ export default function TravelServicesSection() {
             alt={t(`services.${service.id}.title`)}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-            unoptimized={service.image.includes('unsplash.com')}
           />
           <span className={styles.categoryBadge}>
             {t('sectionLabel')}

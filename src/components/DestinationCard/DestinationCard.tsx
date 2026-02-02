@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, memo, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, MapPin, Star, ArrowRight } from 'lucide-react';
@@ -13,12 +13,16 @@ interface DestinationCardProps {
   showCta?: boolean;
 }
 
-export default function DestinationCard({
+function DestinationCard({
   destination,
   variant = 'default',
   showCta = false,
 }: DestinationCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleFavoriteClick = useCallback(() => {
+    setIsFavorite(prev => !prev);
+  }, []);
 
   const cardClasses = [
     styles.card,
@@ -41,7 +45,7 @@ export default function DestinationCard({
         )}
         <button
           className={`${styles.favorite} ${isFavorite ? styles.active : ''}`}
-          onClick={() => setIsFavorite(!isFavorite)}
+          onClick={handleFavoriteClick}
           aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         >
           <Heart />
@@ -90,3 +94,12 @@ export default function DestinationCard({
     </article>
   );
 }
+
+// Memoize to prevent unnecessary re-renders when parent updates
+export default memo(DestinationCard, (prevProps, nextProps) => {
+  return (
+    prevProps.destination.id === nextProps.destination.id &&
+    prevProps.variant === nextProps.variant &&
+    prevProps.showCta === nextProps.showCta
+  );
+});

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import InteractiveMapsSection from '@/components/InteractiveMaps/InteractiveMapsSection';
+import GeolocationPrompt from '@/components/GeolocationPrompt';
 
 export const metadata: Metadata = {
   title: 'Interactive Maps | IBookTours',
@@ -13,5 +14,10 @@ export const metadata: Metadata = {
 };
 
 export default function InteractiveMapsPage() {
-  return <InteractiveMapsSection />;
+  return (
+    <>
+      <InteractiveMapsSection />
+      <GeolocationPrompt />
+    </>
+  );
 }

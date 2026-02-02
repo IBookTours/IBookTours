@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, memo, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Star, Heart, Percent } from 'lucide-react';
@@ -12,15 +12,15 @@ interface HotelCardProps {
   hotel: Hotel;
 }
 
-export default function HotelCard({ hotel }: HotelCardProps) {
+function HotelCard({ hotel }: HotelCardProps) {
   const t = useTranslations('hotels');
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const handleFavoriteClick = (e: React.MouseEvent) => {
+  const handleFavoriteClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsFavorite(!isFavorite);
-  };
+    setIsFavorite(prev => !prev);
+  }, []);
 
   return (
     <article className={styles.card}>
@@ -30,7 +30,6 @@ export default function HotelCard({ hotel }: HotelCardProps) {
           alt={hotel.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-          unoptimized={hotel.image.includes('unsplash.com')}
         />
         <span className={styles.categoryBadge}>
           {t(`categories.${hotel.category}`)}
@@ -102,3 +101,8 @@ export default function HotelCard({ hotel }: HotelCardProps) {
     </article>
   );
 }
+
+// Memoize to prevent unnecessary re-renders when parent updates
+export default memo(HotelCard, (prevProps, nextProps) => {
+  return prevProps.hotel.id === nextProps.hotel.id;
+});

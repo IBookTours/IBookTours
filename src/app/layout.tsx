@@ -12,7 +12,7 @@ import CookieConsent from '@/components/CookieConsent';
 import StructuredData from '@/components/StructuredData';
 import ColorBlindFilters from '@/components/ColorBlindFilters';
 import { CartDrawer } from '@/components/Cart';
-import GeolocationPrompt from '@/components/GeolocationPrompt';
+// GeolocationPrompt moved to interactive-maps page for performance
 import { siteData } from '@/data/siteData';
 import '@/styles/globals.scss';
 
@@ -172,7 +172,6 @@ export default function RootLayout({
               <WhatsAppButton />
               <AccessibilityWidget />
               <CookieConsent />
-              <GeolocationPrompt />
             </ThemeProvider>
           </I18nProvider>
         </AuthProvider>

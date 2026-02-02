@@ -18,17 +18,32 @@ interface MapProduct {
   image: string;
   features: string[];
   popular?: boolean;
+  // CMS-ready: Add Google Maps list URLs here after creating them
+  googleMapsUrl?: string;
+  description?: string;
 }
+
+// ============================================
+// MAP PRODUCTS - CMS-READY DATA STRUCTURE
+// ============================================
+// To add Google Maps links:
+// 1. Create a "Saved List" in Google Maps
+// 2. Add all your locations to the list
+// 3. Set list to shareable
+// 4. Copy the share URL and add to googleMapsUrl field below
+// ============================================
 
 const MAP_PRODUCTS: MapProduct[] = [
   {
     id: 'albania-full-map',
     name: 'Albania Complete Map',
     price: 115,
+    originalPrice: 149,
     currency: 'ILS',
     duration: '4 months',
     locations: 500,
     image: '/media/maps/albania-map-preview.jpg',
+    description: 'The ultimate guide to Albania - every beach, trail, viewpoint, and hidden gem curated by locals.',
     features: [
       'beaches',
       'hiking',
@@ -38,15 +53,19 @@ const MAP_PRODUCTS: MapProduct[] = [
       'accommodation',
     ],
     popular: true,
+    // TODO: Add Google Maps URL after creating the list
+    // googleMapsUrl: 'https://maps.app.goo.gl/YOUR_LIST_ID'
   },
   {
     id: 'tirana-city-map',
     name: 'Tirana City Map',
     price: 29,
+    originalPrice: 39,
     currency: 'ILS',
     duration: '4 months',
     locations: 150,
     image: '/media/maps/tirana-map-preview.jpg',
+    description: 'Navigate Tirana like a local - the best restaurants, cafes, nightlife, and cultural spots.',
     features: [
       'restaurants',
       'cafes',
@@ -55,6 +74,8 @@ const MAP_PRODUCTS: MapProduct[] = [
       'museums',
       'parks',
     ],
+    // TODO: Add Google Maps URL after creating the list
+    // googleMapsUrl: 'https://maps.app.goo.gl/YOUR_LIST_ID'
   },
 ];
 
@@ -135,14 +156,26 @@ export default function InteractiveMapsSection() {
                 )}
 
                 <div className={styles.productImage}>
-                  <div className={styles.imagePlaceholder}>
-                    <Map />
-                    <span>{t('previewComingSoon')}</span>
-                  </div>
+                  {product.image && !product.image.includes('preview') ? (
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 500px"
+                    />
+                  ) : (
+                    <div className={styles.imagePlaceholder}>
+                      <Map />
+                      <span>{product.locations}+ {t('locations')}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className={styles.productContent}>
                   <h3 className={styles.productName}>{product.name}</h3>
+                  {product.description && (
+                    <p className={styles.productDesc}>{product.description}</p>
+                  )}
 
                   <div className={styles.productMeta}>
                     <span className={styles.metaItem}>

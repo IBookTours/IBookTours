@@ -1,28 +1,27 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { NextIntlClientProvider, AbstractIntlMessages } from 'next-intl';
 import { defaultLocale, isRTL, type Locale } from '@/i18n/config';
 
-// Import messages statically for client-side
+// Only import English statically as fallback - other locales load dynamically
 import enMessages from '@/i18n/locales/en.json';
-import heMessages from '@/i18n/locales/he.json';
-import ptMessages from '@/i18n/locales/pt.json';
-import sqMessages from '@/i18n/locales/sq.json';
-import esMessages from '@/i18n/locales/es.json';
-import arMessages from '@/i18n/locales/ar.json';
-import ruMessages from '@/i18n/locales/ru.json';
-import nlMessages from '@/i18n/locales/nl.json';
 
-const messages: Record<Locale, AbstractIntlMessages> = {
+// Dynamic locale loaders - code-split by locale
+const localeLoaders: Record<Locale, () => Promise<{ default: AbstractIntlMessages }>> = {
+  en: () => Promise.resolve({ default: enMessages }),
+  he: () => import('@/i18n/locales/he.json'),
+  pt: () => import('@/i18n/locales/pt.json'),
+  sq: () => import('@/i18n/locales/sq.json'),
+  es: () => import('@/i18n/locales/es.json'),
+  ar: () => import('@/i18n/locales/ar.json'),
+  ru: () => import('@/i18n/locales/ru.json'),
+  nl: () => import('@/i18n/locales/nl.json'),
+};
+
+// Cache loaded messages to avoid re-fetching
+const messagesCache: Partial<Record<Locale, AbstractIntlMessages>> = {
   en: enMessages,
-  he: heMessages,
-  pt: ptMessages,
-  sq: sqMessages,
-  es: esMessages,
-  ar: arMessages,
-  ru: ruMessages,
-  nl: nlMessages,
 };
 
 interface I18nProviderProps {
@@ -31,8 +30,26 @@ interface I18nProviderProps {
 
 export default function I18nProvider({ children }: I18nProviderProps) {
   const [locale, setLocale] = useState<Locale>(defaultLocale);
+  const [messages, setMessages] = useState<AbstractIntlMessages>(enMessages);
   const [mounted, setMounted] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+
+  // Load messages for a locale (with caching)
+  const loadMessages = useCallback(async (targetLocale: Locale) => {
+    if (messagesCache[targetLocale]) {
+      setMessages(messagesCache[targetLocale]!);
+      return;
+    }
+
+    try {
+      const localeData = await localeLoaders[targetLocale]();
+      messagesCache[targetLocale] = localeData.default;
+      setMessages(localeData.default);
+    } catch (error) {
+      console.error(`Failed to load locale ${targetLocale}, falling back to English`);
+      setMessages(enMessages);
+    }
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -47,11 +64,12 @@ export default function I18nProvider({ children }: I18nProviderProps) {
     const initialLocale = cookieLocale || storedLocale || defaultLocale;
 
     setLocale(initialLocale);
+    loadMessages(initialLocale);
     updateDocumentDirection(initialLocale);
 
     // Mark as hydrated after locale is set to prevent flicker
     setIsHydrated(true);
-  }, []);
+  }, [loadMessages]);
 
   // Add i18n-ready class to body once hydration is complete
   useEffect(() => {
@@ -71,8 +89,9 @@ export default function I18nProvider({ children }: I18nProviderProps) {
   // Provide a function to change locale that can be used by LanguageSwitcher
   useEffect(() => {
     // Expose locale change function globally for LanguageSwitcher
-    (window as unknown as { __setLocale: (l: Locale) => void }).__setLocale = (newLocale: Locale) => {
+    (window as unknown as { __setLocale: (l: Locale) => void }).__setLocale = async (newLocale: Locale) => {
       setLocale(newLocale);
+      await loadMessages(newLocale);
       localStorage.setItem('locale', newLocale);
       // Set cookie for server-side detection
       document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000`;
@@ -82,19 +101,19 @@ export default function I18nProvider({ children }: I18nProviderProps) {
     return () => {
       delete (window as unknown as { __setLocale?: (l: Locale) => void }).__setLocale;
     };
-  }, []);
+  }, [loadMessages]);
 
   // Prevent hydration mismatch by rendering with default locale on first render
   if (!mounted) {
     return (
-      <NextIntlClientProvider locale={defaultLocale} messages={messages[defaultLocale]}>
+      <NextIntlClientProvider locale={defaultLocale} messages={enMessages}>
         {children}
       </NextIntlClientProvider>
     );
   }
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages[locale]}>
+    <NextIntlClientProvider locale={locale} messages={messages}>
       {children}
     </NextIntlClientProvider>
   );
