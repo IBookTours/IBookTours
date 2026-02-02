@@ -1,17 +1,55 @@
 @use '@/styles/variables' as *;
 
-.fab {
+.container {
   position: fixed;
-  // Align with accessibility button (same bottom value)
   bottom: $spacing-6;
   right: $spacing-6;
-  z-index: $z-popover;  // 600
+  z-index: $z-popover;
+
+  @include respond-to(md) {
+    bottom: $spacing-8;
+    right: $spacing-8;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transform: scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+.fab {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 56px;
   height: 56px;
-  background-color: $whatsapp-green;  // WhatsApp brand green
+  background-color: $whatsapp-green;
   border-radius: 50%;
   box-shadow: $whatsapp-shadow;
   color: $text-light;
@@ -21,13 +59,13 @@
   &:hover {
     transform: scale(1.1);
     box-shadow: $whatsapp-shadow-hover;
-    background-color: $whatsapp-green-hover;  // Darker green on hover
-    color: $text-light;  // Keep icon white - prevents global a:hover override
+    background-color: $whatsapp-green-hover;
+    color: $text-light;
 
     .tooltip {
       opacity: 1;
       visibility: visible;
-      transform: translateY(-50%);  // Only vertical centering needed
+      transform: translateY(-50%);
     }
   }
 
@@ -40,17 +78,12 @@
   &::before {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background-color: $whatsapp-green;
     animation: pulse 2s infinite;
     z-index: -1;
-  }
-
-  @include respond-to(md) {
-    bottom: $spacing-8;
-    right: $spacing-8;
   }
 }
 
@@ -66,9 +99,9 @@
 
 .tooltip {
   position: absolute;
-  right: calc(100% + $spacing-3);  // Position to left of button with gap
+  right: calc(100% + $spacing-3);
   top: 50%;
-  transform: translateY(-50%) translateX(8px);  // Start slightly right, animate left
+  transform: translateY(-50%) translateX(8px);
   background-color: var(--bg-elevated);
   color: var(--text-primary);
   padding: $spacing-2 $spacing-3;
@@ -81,7 +114,6 @@
   border: 1px solid var(--border-light);
   box-shadow: var(--glass-shadow);
 
-  // Arrow pointing to button
   &::after {
     content: '';
     position: absolute;
@@ -106,5 +138,12 @@
   100% {
     transform: scale(1);
     opacity: 0;
+  }
+}
+
+// Respect reduced motion preference
+@media (prefers-reduced-motion: reduce) {
+  .fab::before {
+    animation: none;
   }
 }

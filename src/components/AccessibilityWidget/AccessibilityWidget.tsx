@@ -11,6 +11,7 @@ import {
   BookOpen,
   Palette,
   Eye,
+  EyeOff,
   Type,
   AlignLeft,
   Space,
@@ -57,11 +58,29 @@ const colorBlindLabels: Record<AccessibilitySettings['colorBlindMode'], string> 
   tritanopia: 'Tritanopia',
 };
 
+const DISMISSED_KEY = 'accessibility-dismissed';
+
 export default function AccessibilityWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('visual');
   const [settings, setSettings] = useState<AccessibilitySettings>(defaultSettings);
   const { announce } = useAriaLive();
+
+  // Check if dismissed on mount
+  useEffect(() => {
+    setMounted(true);
+    const dismissed = sessionStorage.getItem(DISMISSED_KEY);
+    setIsDismissed(dismissed === 'true');
+  }, []);
+
+  const handleDismiss = () => {
+    sessionStorage.setItem(DISMISSED_KEY, 'true');
+    setIsDismissed(true);
+    setIsOpen(false);
+    announce('Accessibility widget hidden for this session');
+  };
 
   // Focus trap for the panel
   const panelRef = useFocusTrap<HTMLDivElement>({
@@ -260,6 +279,11 @@ export default function AccessibilityWidget() {
     { id: 'reading', label: 'Reading', icon: <BookOpen size={16} /> },
     { id: 'color', label: 'Color', icon: <Palette size={16} /> },
   ];
+
+  // Don't render until mounted or if dismissed for session
+  if (!mounted || isDismissed) {
+    return null;
+  }
 
   return (
     <div className={`${styles.widget} ${isOpen ? styles.isOpen : ''}`}>
@@ -515,14 +539,24 @@ export default function AccessibilityWidget() {
             )}
           </div>
 
-          <button
-            className={styles.reset}
-            onClick={resetSettings}
-            aria-label="Reset all accessibility settings to default"
-          >
-            <RotateCcw size={16} />
-            Reset to Defaults
-          </button>
+          <div className={styles.footerButtons}>
+            <button
+              className={styles.reset}
+              onClick={resetSettings}
+              aria-label="Reset all accessibility settings to default"
+            >
+              <RotateCcw size={16} />
+              Reset
+            </button>
+            <button
+              className={styles.dismiss}
+              onClick={handleDismiss}
+              aria-label="Hide accessibility widget for this session"
+            >
+              <EyeOff size={16} />
+              Hide
+            </button>
+          </div>
         </div>
       )}
     </div>
